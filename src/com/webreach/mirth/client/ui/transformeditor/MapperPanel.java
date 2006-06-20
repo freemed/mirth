@@ -39,7 +39,6 @@ public class MapperPanel extends StepPanel {
 		mappingScrollPane.setSize( new Dimension( 620, 460 ) );
 		
 		helpTree = new JTree();
-		helpTree.setBorder( BorderFactory.createTitledBorder( "Help" ) );
 		
 		hSplitPane = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, mappingScrollPane, helpTree );

@@ -17,8 +17,8 @@ import org.jdesktop.layout.LayoutStyle;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
-
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.model.Transformer;
 
 
 /**
@@ -29,7 +29,7 @@ public class TransformPane extends JPanel {
 
 	
     /** Creates new form transformPanel */
-    public TransformPane() {
+    public TransformPane(Transformer t) {
         initComponents();
         setSize( 600, 800 );
     }
@@ -178,8 +178,7 @@ public class TransformPane extends JPanel {
         
         // make some buttons!
         moveUpButton = new JButton(	new ImageIcon( 
-        		com.webreach.mirth.client.ui.Frame.class.getResource( "images/stop.png" ) ));
-        		//com.webreach.mirth.client.ui.Frame.class.getResource( "images/arrow_up.png" ) ));
+        		Frame.class.getResource( "images/arrow_up.png" ) ));
         moveUpButton.setToolTipText( "Move data up" );
         moveUpButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
@@ -188,7 +187,7 @@ public class TransformPane extends JPanel {
         }); 
         
         moveDownButton = new JButton( new ImageIcon(
-        		"C:\\Documents and Settings\\franciscos\\Desktop\\icons\\arrow_down.png" ));
+        		Frame.class.getResource( "images/arrow_down.png" ) ));
         moveDownButton.setToolTipText( "Move data down" );
         moveDownButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
@@ -197,7 +196,7 @@ public class TransformPane extends JPanel {
         });
         
         addNewStepButton = new JButton( new ImageIcon(
-        		"C:\\Documents and Settings\\franciscos\\Desktop\\icons\\add.png" ));
+        		Frame.class.getResource( "images/add.png" ) ));
         addNewStepButton.setToolTipText( "Add new data" );
         addNewStepButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
@@ -206,7 +205,7 @@ public class TransformPane extends JPanel {
         });
         
         deleteStepButton = new JButton( new ImageIcon(
-        		"C:\\Documents and Settings\\franciscos\\Desktop\\icons\\delete.png" ));
+        		Frame.class.getResource( "images/delete.png" ) ));
         deleteStepButton.setToolTipText( "Delete data" );
         deleteStepButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
@@ -215,7 +214,7 @@ public class TransformPane extends JPanel {
         });
         
         acceptButton = new JButton( new ImageIcon(
-        		"C:\\Documents and Settings\\franciscos\\Desktop\\icons\\accept.png" ));
+        		Frame.class.getResource( "images/accept.png" ) ));
         acceptButton.setToolTipText( "Accept" );
         acceptButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
@@ -383,7 +382,8 @@ public class TransformPane extends JPanel {
      *  returns a vector of vectors to the caller of this.
      */
     private void accept( MouseEvent evt ) {
-    	System.out.println(transformTableModel.getDataVector());    	
+    	System.out.println(transformTableModel.getDataVector()); 
+    	
     	   	
     }
     

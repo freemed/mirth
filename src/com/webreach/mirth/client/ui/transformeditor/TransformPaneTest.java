@@ -5,6 +5,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import com.webreach.mirth.model.Transformer;
 
 public class TransformPaneTest {
 
@@ -19,7 +20,7 @@ public class TransformPaneTest {
         } catch (Exception e) { }
         
         JFrame frame = new JFrame("mirth :: Transform Panel");
-        frame.add(new TransformPane());
+        frame.add(new TransformPane( new Transformer() ));
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
