@@ -109,7 +109,6 @@ public class ChannelSetup extends javax.swing.JPanel
             if(tableSize-1 == i && addNew)
             {
                 Transformer dt = new Transformer();
-                dt.setType(Transformer.Type.SCRIPT);
 
                 Connector c = new Connector();
                 c.setName(getNewDestinationName(tableSize));
@@ -316,7 +315,6 @@ public class ChannelSetup extends javax.swing.JPanel
             List<Connector> dc;
             dc = currentChannel.getDestinationConnectors();
             Transformer dt = new Transformer();
-            dt.setType(Transformer.Type.SCRIPT);
 
             Connector c = new Connector();
             c.setName("Destination");
@@ -381,12 +379,8 @@ public class ChannelSetup extends javax.swing.JPanel
         }
 
         Transformer sourceTransformer = new Transformer();
-	sourceTransformer.setType(Transformer.Type.MAP);
-	sourceTransformer.getVariables().put("firstName", "TestFirstName");
 
         Transformer destinationTransformer = new Transformer();
-	destinationTransformer.setType(Transformer.Type.SCRIPT);
-	destinationTransformer.getVariables().put("lastName", "TestLastName");
 
         Connector sourceConnector = new Connector();
 	sourceConnector.setName("sourceConnector");
@@ -729,18 +723,20 @@ public class ChannelSetup extends javax.swing.JPanel
         }
 
         Connector sourceConnector = currentChannel.getSourceConnector();
-        String dataType = sourceConnector.getProperties().getProperty("DataType");
-        if (dataType == null)
-            dataType = "";
-
-        if (sourceConnector.getProperties().size() == 0 || !dataType.equals((String)sourceSourceDropdown.getSelectedItem()))
+        if(sourceConnector != null)
         {
-            connectorClass1.setDefaults();
-            sourceConnector.setProperties(connectorClass1.getProperties());
+            String dataType = sourceConnector.getProperties().getProperty("DataType");
+            if (dataType == null)
+                dataType = "";
+
+            if (sourceConnector.getProperties().size() == 0 || !dataType.equals((String)sourceSourceDropdown.getSelectedItem()))
+            {
+                connectorClass1.setDefaults();
+                sourceConnector.setProperties(connectorClass1.getProperties());
+            }
+
+            connectorClass1.setProperties(currentChannel.getSourceConnector().getProperties());
         }
-        
-//        if (currentChannel.getSourceConnector() != null && currentChannel.getSourceConnector().getTransportName().equals(connectorClass1.getName()))
-        connectorClass1.setProperties(currentChannel.getSourceConnector().getProperties());
         
         source.removeAll();
 

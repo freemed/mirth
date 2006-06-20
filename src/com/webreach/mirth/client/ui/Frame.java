@@ -59,6 +59,9 @@ public class Frame extends JXFrame
         this.mirthClient = mirthClient;
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        Thread statusUpdater = new Thread(new StatusUpdater(this));
+        statusUpdater.start();
+        
         try
         {
             channels = this.mirthClient.getChannels();
