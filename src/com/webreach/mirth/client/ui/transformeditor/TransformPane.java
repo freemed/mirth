@@ -17,7 +17,6 @@ import org.jdesktop.layout.LayoutStyle;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
-import com.webreach.mirth.client.ui.Constants;
 
 
 /**
@@ -89,28 +88,28 @@ public class TransformPane extends JPanel {
                 				
         						String lastType = lastStep.getType();
                 				
-                				if ( lastType == Constants.MAPPER_TYPE )
+                				if ( lastType == MAPPER_TYPE )
                 					lastStep.setData( mapperPanel.getData() );
-                				else if ( lastType == Constants.JAVASCRIPT_TYPE )
+                				else if ( lastType == JAVASCRIPT_TYPE )
                 					lastStep.setData( jsPanel.getData() );
-                				else if ( lastType == Constants.SMTP_TYPE )
+                				else if ( lastType == SMTP_TYPE )
                 					lastStep.setData( smtpPanel.getData() );
-                				else if ( lastType == Constants.JDBC_TYPE )
+                				else if ( lastType == JDBC_TYPE )
                 					lastStep.setData( jdbcPanel.getData() );
-                				else if ( lastType == Constants.ALERT_TYPE )
+                				else if ( lastType == ALERT_TYPE )
                 					lastStep.setData( alertPanel.getData() );
         						        							        					
         					}
         					
-        					if ( currType == Constants.MAPPER_TYPE ) 
+        					if ( currType == MAPPER_TYPE ) 
 								mapperPanel.setData( (MapperData)currStep.getData() );
-        					else if ( currType == Constants.JAVASCRIPT_TYPE )
+        					else if ( currType == JAVASCRIPT_TYPE )
         						jsPanel.setData( (ScriptData)currStep.getData() );
-        					else if ( currType == Constants.SMTP_TYPE )
+        					else if ( currType == SMTP_TYPE )
         						smtpPanel.setData( (SMTPData)currStep.getData() );
-        					else if ( currType == Constants.JDBC_TYPE )
+        					else if ( currType == JDBC_TYPE )
         						jdbcPanel.setData( (JDBCData)currStep.getData() );
-        					else if ( currType == Constants.ALERT_TYPE )
+        					else if ( currType == ALERT_TYPE )
         						alertPanel.setData( (AlertData)currStep.getData() );
         					
 									
@@ -127,21 +126,21 @@ public class TransformPane extends JPanel {
         
         // establish the cards to use in the Transformer
         //stepPanel.addCard(blankPanel, blankPanel.getType());
-        stepPanel.addCard( mapperPanel, Constants.MAPPER_TYPE );
-        stepPanel.addCard( jsPanel, Constants.JAVASCRIPT_TYPE );
-        stepPanel.addCard( smtpPanel, Constants.SMTP_TYPE );
-        stepPanel.addCard( jdbcPanel, Constants.JDBC_TYPE );
-        stepPanel.addCard( alertPanel, Constants.ALERT_TYPE );
+        stepPanel.addCard( mapperPanel, MAPPER_TYPE );
+        stepPanel.addCard( jsPanel, JAVASCRIPT_TYPE );
+        stepPanel.addCard( smtpPanel, SMTP_TYPE );
+        stepPanel.addCard( jdbcPanel, JDBC_TYPE );
+        stepPanel.addCard( alertPanel, ALERT_TYPE );
         
         // the options for the comboBox in the table
-        String[] comboBoxValues = new String[] { Constants.MAPPER_TYPE, 
-        		Constants.JAVASCRIPT_TYPE, Constants.SMTP_TYPE,
-        		Constants.JDBC_TYPE, Constants.ALERT_TYPE };
+        String[] comboBoxValues = new String[] { MAPPER_TYPE, 
+        		JAVASCRIPT_TYPE, SMTP_TYPE,
+        		JDBC_TYPE, ALERT_TYPE };
                 
         // Set the combobox editor on the data type column, 
         // and add action listener
 	    TableColumn col = transformTable.getColumnModel().getColumn( 
-	    		Constants.STEP_TYPE_COL );
+	    		STEP_TYPE_COL );
 	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
             public void itemStateChanged( ItemEvent evt ) {
@@ -169,21 +168,20 @@ public class TransformPane extends JPanel {
 	    
 	    // format the data number column
 	    col = transformTable.getColumnModel().getColumn( 
-	    		Constants.STEP_NUMBER_COL );
+	    		STEP_NUMBER_COL );
 	    col.setMaxWidth( 30 );
 	    col.setResizable( false );
 	    	    
 	    transformTableScrollPane.setViewportView( transformTable );
         
         // make some buttons!
-        moveUpButton = new JButton(	new ImageIcon( 
-        		"C:\\Documents and Settings\\franciscos\\Desktop\\icons\\arrow_up.png" ));
+        moveUpButton = new JButton(	new ImageIcon( "images/arrow_up.png" ) );
         moveUpButton.setToolTipText( "Move data up" );
         moveUpButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
         		moveStepUp( evt );
         	}
-        });
+        }); 
         
         moveDownButton = new JButton( new ImageIcon(
         		"C:\\Documents and Settings\\franciscos\\Desktop\\icons\\arrow_down.png" ));
@@ -419,7 +417,18 @@ public class TransformPane extends JPanel {
     protected SMTPPanel smtpPanel;      	//           \/
     protected JDBCPanel jdbcPanel;			//           \/
     protected AlertPanel alertPanel;		//           \/
-    
     // End of variables declaration
+    
+    // for TranformSteps
+    public static final int STEP_NUMBER_COL  = 0;
+    public static final int STEP_NAME_COL  = 1;
+    public static final int STEP_TYPE_COL  = 2;  
+    public static final int NUMBER_OF_COLUMNS = 3;
+    public static final String BLANK_TYPE = "";
+    public static final String MAPPER_TYPE = "Mapper";
+    public static final String JAVASCRIPT_TYPE = "JavaScript";
+    public static final String SMTP_TYPE = "SMTP";
+    public static final String JDBC_TYPE = "JDBC";
+    public static final String ALERT_TYPE = "Alerts";
     
 }
