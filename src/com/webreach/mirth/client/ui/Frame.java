@@ -162,7 +162,7 @@ public class Frame extends JXFrame
         settingsTasks = new JXTaskPane();
         settingsTasks.setTitle("Settings Tasks");
         settingsTasks.setFocusable(false);
-        channelTasks.add(initActionCallback("doSaveSettings",ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
+        settingsTasks.add(initActionCallback("doSaveSettings",ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
         setNonFocusable(settingsTasks);
         taskPaneContainer.add(settingsTasks);
 
