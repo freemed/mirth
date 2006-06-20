@@ -62,7 +62,7 @@ public class Mirth
 
         frame.setSize(800,600);
         frame.setLocationRelativeTo(null);
-        frame.setExtendedState(frame.MAXIMIZED_BOTH);
+        //frame.setExtendedState(frame.MAXIMIZED_BOTH);
         frame.setVisible(true);
         frame.addComponentListener(new java.awt.event.ComponentAdapter() 
         {
