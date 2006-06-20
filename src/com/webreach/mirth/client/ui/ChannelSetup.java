@@ -396,10 +396,6 @@ public class ChannelSetup extends javax.swing.JPanel
         temp.setProperties(connectorClass2.getProperties());
 
         Filter filter = new Filter();
-        filter.setScript("return true;");
-
-        Validator validator = new Validator();
-	validator.getProfiles().put("profile1", "<XLST>");
 
         currentChannel.setName(summaryNameField.getText());
         currentChannel.setDescription(summaryDescriptionText.getText());
