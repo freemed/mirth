@@ -26,7 +26,7 @@ package com.webreach.mirth.client.ui.transformeditor;
 
 import java.util.Vector;
 import javax.swing.ImageIcon;
-
+import com.webreach.mirth.client.ui.Constants;
 
 /**
  * @author chrisl, franciscos
@@ -47,31 +47,31 @@ public class TransformStep extends Vector<Object> {
 	 *  within the sequence of steps this one belongs
 	 **/
 	public TransformStep( int n ) {
-		super( NUMBER_OF_COLUMNS );
+		super( Constants.NUMBER_OF_COLUMNS );
 		
 		name = "";
 		number = n;
-		type = MAPPER_TYPE;	// by default, per Gerald
+		type = Constants.MAPPER_TYPE;	// by default, per Gerald
 		icon = null;
 		javaScript = null;
 		data = new MapperData();
 		
-		insertElementAt( new Integer( number ), STEP_NUMBER_COL );
-		insertElementAt( "New Step", STEP_NAME_COL );
-		insertElementAt( type, STEP_TYPE_COL );
+		insertElementAt( new Integer( number ), Constants.STEP_NUMBER_COL );
+		insertElementAt( "New Step", Constants.STEP_NAME_COL );
+		insertElementAt( type, Constants.STEP_TYPE_COL );
 		
 	}
 	
 	public int getNumber() {
-		return ( (Integer)get(STEP_NUMBER_COL) ).intValue();
+		return ( (Integer)get( Constants.STEP_NUMBER_COL ) ).intValue();
 	}
 	
 	public String getName() {
-		return (String)get(STEP_NAME_COL);
+		return (String)get( Constants.STEP_NAME_COL );
 	}
 	
 	public String getType() {
-		return (String)get(STEP_TYPE_COL);
+		return (String)get( Constants.STEP_TYPE_COL );
 	}
 	
 	public ImageIcon getTypeIcon() {
@@ -83,15 +83,15 @@ public class TransformStep extends Vector<Object> {
 	}
 	
 	public void setNumber( int number ) {
-		set( STEP_NUMBER_COL, new Integer(number) );
+		set( Constants.STEP_NUMBER_COL, new Integer(number) );
 	}
 	
 	public void setName( String name ) {
-		set( STEP_NAME_COL, name );
+		set( Constants.STEP_NAME_COL, name );
 	}
 	
 	public void setType( String type ) {
-		set( STEP_TYPE_COL, type );
+		set( Constants.STEP_TYPE_COL, type );
 	}
 	
 	public Object getData() {
@@ -111,19 +111,5 @@ public class TransformStep extends Vector<Object> {
 	protected ImageIcon icon;
 	protected String javaScript;
 	protected Object data;
-	
-	
-	// some constants
-    protected static final int STEP_NUMBER_COL  = 0;
-    protected static final int STEP_NAME_COL  = 1;
-    protected static final int STEP_TYPE_COL  = 2;  
-	protected static final int NUMBER_OF_COLUMNS = 3;
-	
-	protected static final String BLANK_TYPE = "";
-	protected static final String MAPPER_TYPE = "Mapper";
-	protected static final String JAVASCRIPT_TYPE = "JavaScript";
-	protected static final String SMTP_TYPE = "SMTP";
-	protected static final String JDBC_TYPE = "JDBC";
-	protected static final String ALERT_TYPE = "Alerts";
 	
 }

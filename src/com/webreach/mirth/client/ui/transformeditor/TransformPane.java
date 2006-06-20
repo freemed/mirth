@@ -17,6 +17,7 @@ import org.jdesktop.layout.LayoutStyle;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
+import com.webreach.mirth.client.ui.Constants;
 
 
 /**
@@ -88,28 +89,28 @@ public class TransformPane extends JPanel {
                 				
         						String lastType = lastStep.getType();
                 				
-                				if ( lastType == TransformStep.MAPPER_TYPE )
+                				if ( lastType == Constants.MAPPER_TYPE )
                 					lastStep.setData( mapperPanel.getData() );
-                				else if ( lastType == TransformStep.JAVASCRIPT_TYPE )
+                				else if ( lastType == Constants.JAVASCRIPT_TYPE )
                 					lastStep.setData( jsPanel.getData() );
-                				else if ( lastType == TransformStep.SMTP_TYPE )
+                				else if ( lastType == Constants.SMTP_TYPE )
                 					lastStep.setData( smtpPanel.getData() );
-                				else if ( lastType == TransformStep.JDBC_TYPE )
+                				else if ( lastType == Constants.JDBC_TYPE )
                 					lastStep.setData( jdbcPanel.getData() );
-                				else if ( lastType == TransformStep.ALERT_TYPE )
+                				else if ( lastType == Constants.ALERT_TYPE )
                 					lastStep.setData( alertPanel.getData() );
         						        							        					
         					}
         					
-        					if ( currType == TransformStep.MAPPER_TYPE ) 
+        					if ( currType == Constants.MAPPER_TYPE ) 
 								mapperPanel.setData( (MapperData)currStep.getData() );
-        					else if ( currType == TransformStep.JAVASCRIPT_TYPE )
+        					else if ( currType == Constants.JAVASCRIPT_TYPE )
         						jsPanel.setData( (ScriptData)currStep.getData() );
-        					else if ( currType == TransformStep.SMTP_TYPE )
+        					else if ( currType == Constants.SMTP_TYPE )
         						smtpPanel.setData( (SMTPData)currStep.getData() );
-        					else if ( currType == TransformStep.JDBC_TYPE )
+        					else if ( currType == Constants.JDBC_TYPE )
         						jdbcPanel.setData( (JDBCData)currStep.getData() );
-        					else if ( currType == TransformStep.ALERT_TYPE )
+        					else if ( currType == Constants.ALERT_TYPE )
         						alertPanel.setData( (AlertData)currStep.getData() );
         					
 									
@@ -126,21 +127,21 @@ public class TransformPane extends JPanel {
         
         // establish the cards to use in the Transformer
         //stepPanel.addCard(blankPanel, blankPanel.getType());
-        stepPanel.addCard( mapperPanel, TransformStep.MAPPER_TYPE );
-        stepPanel.addCard( jsPanel, TransformStep.JAVASCRIPT_TYPE );
-        stepPanel.addCard( smtpPanel, TransformStep.SMTP_TYPE );
-        stepPanel.addCard( jdbcPanel, TransformStep.JDBC_TYPE );
-        stepPanel.addCard( alertPanel, TransformStep.ALERT_TYPE );
+        stepPanel.addCard( mapperPanel, Constants.MAPPER_TYPE );
+        stepPanel.addCard( jsPanel, Constants.JAVASCRIPT_TYPE );
+        stepPanel.addCard( smtpPanel, Constants.SMTP_TYPE );
+        stepPanel.addCard( jdbcPanel, Constants.JDBC_TYPE );
+        stepPanel.addCard( alertPanel, Constants.ALERT_TYPE );
         
         // the options for the comboBox in the table
-        String[] comboBoxValues = new String[] { TransformStep.MAPPER_TYPE, 
-        		TransformStep.JAVASCRIPT_TYPE, TransformStep.SMTP_TYPE,
-        		TransformStep.JDBC_TYPE, TransformStep.ALERT_TYPE };
+        String[] comboBoxValues = new String[] { Constants.MAPPER_TYPE, 
+        		Constants.JAVASCRIPT_TYPE, Constants.SMTP_TYPE,
+        		Constants.JDBC_TYPE, Constants.ALERT_TYPE };
                 
         // Set the combobox editor on the data type column, 
         // and add action listener
 	    TableColumn col = transformTable.getColumnModel().getColumn( 
-	    		TransformStep.STEP_TYPE_COL );
+	    		Constants.STEP_TYPE_COL );
 	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
             public void itemStateChanged( ItemEvent evt ) {
@@ -168,7 +169,7 @@ public class TransformPane extends JPanel {
 	    
 	    // format the data number column
 	    col = transformTable.getColumnModel().getColumn( 
-	    		TransformStep.STEP_NUMBER_COL );
+	    		Constants.STEP_NUMBER_COL );
 	    col.setMaxWidth( 30 );
 	    col.setResizable( false );
 	    	    
