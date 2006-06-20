@@ -342,6 +342,8 @@ public class Frame extends JXFrame
 
     public void doDeleteChannel()
     {
+        if(!alertUser("Are you sure you want to delete this channel?"))
+            return;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
@@ -479,6 +481,8 @@ public class Frame extends JXFrame
     
     public void doDeleteDestination()
     {
+        if(!alertUser("Are you sure you want to delete this destination?"))
+            return;
         channelEditPage.deleteDestination();
     }
     
@@ -548,6 +552,8 @@ public class Frame extends JXFrame
 
     public void doDeleteUser()
     {
+        if(!alertUser("Are you sure you want to delete this user?"))
+            return;
         int userToDelete = adminPanel.u.getUserIndex();
         String userName = (String) adminPanel.u.usersTable.getValueAt(adminPanel.u.getSelectedRow(), adminPanel.u.getColumnNumber("Username"));
         
@@ -742,6 +748,15 @@ public class Frame extends JXFrame
     public void doSaveSettings()
     {
         
+    }
+    
+    public boolean alertUser(String message)
+    {
+        int option = JOptionPane.showConfirmDialog(this, message);
+        if (option == JOptionPane.YES_OPTION)
+            return true;
+        else
+            return false;
     }
 }
 

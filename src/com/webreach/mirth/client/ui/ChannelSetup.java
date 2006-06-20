@@ -307,10 +307,20 @@ public class ChannelSetup extends javax.swing.JPanel
         lastIndex = "";
         currentChannel = channel;
         channelView.setSelectedComponent(summary);
-        loadChannelInfo();
-        if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
-            makeDestinationTable(true);
-        else
+        
+        Transformer sourceTransformer = new Transformer();
+
+        Transformer destinationTransformer = new Transformer();
+
+        Connector sourceConnector = new Connector();
+	sourceConnector.setName("sourceConnector");
+	sourceConnector.setTransformer(sourceTransformer);
+        sourceConnector.setTransportName((String)sourceSourceDropdown.getSelectedItem());
+        sourceConnector.setProperties(connectorClass1.getProperties());
+        
+        currentChannel.setSourceConnector(sourceConnector);
+        
+        if(currentChannel.getMode() == Channel.Mode.APPLICATION)
         {
             List<Connector> dc;
             dc = currentChannel.getDestinationConnectors();
@@ -321,8 +331,13 @@ public class ChannelSetup extends javax.swing.JPanel
             c.setTransportName((String)destinationSourceDropdown.getSelectedItem());
             c.setTransformer(dt);
             dc.add(c);
-            generateSingleDestinationPage();
         }
+        
+        loadChannelInfo();
+        if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
+            makeDestinationTable(true);
+        else
+            generateSingleDestinationPage();
         saveChanges();
     }
 
@@ -355,6 +370,7 @@ public class ChannelSetup extends javax.swing.JPanel
             sourceSourceDropdown.setSelectedItem(currentChannel.getSourceConnector().getTransportName());
         else
             sourceSourceDropdown.setSelectedIndex(0);
+        
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
 
     }
@@ -378,15 +394,7 @@ public class ChannelSetup extends javax.swing.JPanel
             }
         }
 
-        Transformer sourceTransformer = new Transformer();
 
-        Transformer destinationTransformer = new Transformer();
-
-        Connector sourceConnector = new Connector();
-	sourceConnector.setName("sourceConnector");
-	sourceConnector.setTransformer(sourceTransformer);
-        sourceConnector.setTransportName((String)sourceSourceDropdown.getSelectedItem());
-        sourceConnector.setProperties(connectorClass1.getProperties());
         
         Connector temp;
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
@@ -401,7 +409,7 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel.setDescription(summaryDescriptionText.getText());
         currentChannel.setEnabled(summaryEnabledCheckbox.isSelected());
         currentChannel.setModified(false);
-	currentChannel.setSourceConnector(sourceConnector);
+
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
@@ -436,9 +444,10 @@ public class ChannelSetup extends javax.swing.JPanel
         List<Connector> dc = currentChannel.getDestinationConnectors();
         if(dc.size() == 1)
         {
-            JOptionPane.showMessageDialog(this, "You must have at least one destination.");
+            JOptionPane.showMessageDialog(parent, "You must have at least one destination.");
             return;
         }
+        
         dc.remove(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))));
         makeDestinationTable(false);
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
@@ -731,7 +740,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 sourceConnector.setProperties(connectorClass1.getProperties());
             }
 
-            connectorClass1.setProperties(currentChannel.getSourceConnector().getProperties());
+            connectorClass1.setProperties(sourceConnector.getProperties());
         }
         
         source.removeAll();
@@ -850,10 +859,27 @@ public class ChannelSetup extends javax.swing.JPanel
             if(parent.destinationConnectors.get(i).getName().equalsIgnoreCase((String)destinationSourceDropdown.getSelectedItem()))
                 connectorClass2 = parent.destinationConnectors.get(i);
         }
-
+        /*
         if (currentChannel.getDestinationConnectors().size() == 1 && currentChannel.getDestinationConnectors().get(0).getTransportName().equals(connectorClass2.getName()))
             connectorClass2.setProperties(currentChannel.getDestinationConnectors().get(0).getProperties());
+        */
+        
+        Connector destinationConnector = currentChannel.getDestinationConnectors().get(0);
+        if(destinationConnector != null)
+        {
+            String dataType = destinationConnector.getProperties().getProperty("DataType");
+            if (dataType == null)
+                dataType = "";
 
+            if (destinationConnector.getProperties().size() == 0 || !dataType.equals((String)destinationSourceDropdown.getSelectedItem()))
+            {
+                connectorClass2.setDefaults();
+                destinationConnector.setProperties(connectorClass2.getProperties());
+            }
+
+            connectorClass2.setProperties(destinationConnector.getProperties());
+        }
+        
         destination.removeAll();
 
         org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
