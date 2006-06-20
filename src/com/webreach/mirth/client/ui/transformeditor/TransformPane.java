@@ -18,6 +18,8 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
+import com.webreach.mirth.client.ui.Frame;
+
 
 /**
  *
@@ -175,7 +177,9 @@ public class TransformPane extends JPanel {
 	    transformTableScrollPane.setViewportView( transformTable );
         
         // make some buttons!
-        moveUpButton = new JButton(	new ImageIcon( "images/arrow_up.png" ) );
+        moveUpButton = new JButton(	new ImageIcon( 
+        		com.webreach.mirth.client.ui.Frame.class.getResource( "images/stop.png" ) ));
+        		//com.webreach.mirth.client.ui.Frame.class.getResource( "images/arrow_up.png" ) ));
         moveUpButton.setToolTipText( "Move data up" );
         moveUpButton.addMouseListener( new MouseAdapter() {
         	public void mouseClicked( MouseEvent evt ) {
