@@ -57,7 +57,7 @@ public class TransformStep extends Vector<Object> {
 		data = new MapperData();
 		
 		insertElementAt( new Integer( number ), STEP_NUMBER_COL );
-		insertElementAt( "[ " + type + " step ]", STEP_NAME_COL );
+		insertElementAt( "New Step", STEP_NAME_COL );
 		insertElementAt( type, STEP_TYPE_COL );
 		
 	}

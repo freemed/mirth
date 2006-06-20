@@ -14,6 +14,9 @@ import javax.swing.table.*;
 import javax.swing.*;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
+import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
+import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
 
 /**
@@ -39,8 +42,12 @@ public class TransformPane extends JPanel {
         transformTableScrollPane = new JScrollPane();
         transformTableScrollPane.setAutoscrolls( true );
         transformTableModel = new DefaultTableModel();
-        transformTable = new JTable( transformTableModel );
+        transformTable = new JXTable( transformTableModel );
+        HighlighterPipeline highlighter = new HighlighterPipeline();
+        highlighter.addHighlighter( AlternateRowHighlighter.beige );
+        transformTable.setHighlighters( highlighter );
         transformTable.setGridColor( new Color(224,224,224) );
+        transformTable.setRowHeight( 20 );
 
         // the available panels
         stepPanel = new StepPanel();
@@ -394,7 +401,7 @@ public class TransformPane extends JPanel {
     private JButton addNewStepButton;
     private JButton deleteStepButton;
     private JButton acceptButton;
-    private JTable transformTable;
+    private JXTable transformTable;
     private DefaultTableModel transformTableModel;
     private JScrollPane transformTableScrollPane;
     

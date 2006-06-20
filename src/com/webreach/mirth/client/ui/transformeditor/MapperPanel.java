@@ -16,7 +16,7 @@ public class MapperPanel extends StepPanel {
 		super();
 		
 		setBorder( BorderFactory.createTitledBorder( "Mapper Step" ) );
-		variableNameLabel = new JLabel( "Variable Name" );
+		variableNameLabel = new JLabel( "Variable: " );
 		variableNameTextField = new JTextField( 20 );
 		variableNameTextField.setBorder( 
 				BorderFactory.createBevelBorder( BevelBorder.LOWERED ) );
