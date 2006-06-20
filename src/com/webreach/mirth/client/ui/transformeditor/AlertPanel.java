@@ -1,4 +1,4 @@
-package com.webreach.mirth.applets.stepeditor;
+package com.webreach.mirth.client.ui.transformeditor;
 
 public class AlertPanel extends StepPanel {
 	

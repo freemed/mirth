@@ -24,7 +24,7 @@
  * ***** END LICENSE BLOCK ***** *//**
  * 
  */
-package com.webreach.mirth.applets.stepeditor;
+package com.webreach.mirth.client.ui.transformeditor;
 
 /**
  * @author chrisl, franciscos

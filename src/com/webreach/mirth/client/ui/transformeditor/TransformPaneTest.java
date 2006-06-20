@@ -1,4 +1,4 @@
-package com.webreach.mirth.applets.stepeditor;
+package com.webreach.mirth.client.ui.transformeditor;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -22,6 +22,7 @@ public class TransformPaneTest {
         frame.add(new TransformPane());
         frame.pack();
         frame.setVisible(true);
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
 
 }

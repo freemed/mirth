@@ -4,7 +4,7 @@
  * Created on May 26, 2006, 5:08 PM
  */
 
-package com.webreach.mirth.applets.stepeditor;
+package com.webreach.mirth.client.ui.transformeditor;
 
 import java.awt.*;
 import java.awt.event.*;

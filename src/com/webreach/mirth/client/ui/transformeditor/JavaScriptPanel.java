@@ -22,7 +22,7 @@
  *   Chris Lang <chrisl@webreachinc.com>
  *
  * ***** END LICENSE BLOCK ***** */
-package com.webreach.mirth.applets.stepeditor;
+package com.webreach.mirth.client.ui.transformeditor;
 
 import java.awt.*;
 import javax.swing.*;
