@@ -184,9 +184,9 @@ public class Frame extends JXFrame
         channelEditTasks = new JXTaskPane();
         channelEditTasks.setTitle("Channel Tasks");
         channelEditTasks.setFocusable(false);
-//      channelEditTasks.add(initActionCallback("doShowChannel",ActionFactory.createBoundAction("doShowChannel","Back to Channels", "B"), new ImageIcon(com.webreach.mirth.client.Frame.class.getResource("images/deployall.png"))));
+        //channelEditTasks.add(initActionCallback("doShowChannel",ActionFactory.createBoundAction("doShowChannel","Back to Channels", "B"), new ImageIcon(com.webreach.mirth.client.Frame.class.getResource("images/deployall.png"))));
         channelEditTasks.add(initActionCallback("doSaveChanges",ActionFactory.createBoundAction("doSaveChanges","Save Changes", "H"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
-//      channelEditTasks.add(initActionCallback("doApplyChanges",ActionFactory.createBoundAction("doApplyChanges","Apply Changes", "A"), new ImageIcon(com.webreach.mirth.client.Frame.class.getResource("images/stop.png"))));
+        //channelEditTasks.add(initActionCallback("doApplyChanges",ActionFactory.createBoundAction("doApplyChanges","Apply Changes", "A"), new ImageIcon(com.webreach.mirth.client.Frame.class.getResource("images/stop.png"))));
         channelEditTasks.add(initActionCallback("doNewDestination",ActionFactory.createBoundAction("doNewDestination","New Destination", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
         channelEditTasks.add(initActionCallback("doDeleteDestination",ActionFactory.createBoundAction("doDeleteDestination","Delete Destination", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         channelEditTasks.add(initActionCallback("doEditTransformer",ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
@@ -205,7 +205,7 @@ public class Frame extends JXFrame
         statusTasks.add(initActionCallback("doStart",ActionFactory.createBoundAction("doStart","Start Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
         statusTasks.add(initActionCallback("doPause",ActionFactory.createBoundAction("doPause","Pause Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/pause.png"))));
         statusTasks.add(initActionCallback("doStop",ActionFactory.createBoundAction("doStop","Stop Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
-        statusTasks.add(initActionCallback("doShowStats",ActionFactory.createBoundAction("doShowStats","Stats", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stats.png"))));
+        //statusTasks.add(initActionCallback("doShowStats",ActionFactory.createBoundAction("doShowStats","Stats", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stats.png"))));
         statusTasks.add(initActionCallback("doShowLogs",ActionFactory.createBoundAction("doShowLogs","Logs", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
         statusTasks.add(initActionCallback("doShowMessages",ActionFactory.createBoundAction("doShowMessages","Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
         setNonFocusable(statusTasks);

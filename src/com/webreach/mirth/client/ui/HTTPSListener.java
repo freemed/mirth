@@ -29,8 +29,8 @@ public class HTTPSListener extends ConnectorClass
         Properties properties = new Properties();
         properties.put("DataType", name);
         String listenerIPAddress = listenerIPAddressField.getText() + "." + listenerIPAddressField1.getText() + "." + listenerIPAddressField2.getText() + "." + listenerIPAddressField3.getText();
-        properties.put("ListenerIPAddress", listenerIPAddress);
-        properties.put("ListenerPort", listenerPortField.getText());
+        properties.put("address", listenerIPAddress);
+        properties.put("port", listenerPortField.getText());
         properties.put("ReceiveTimeout", receiveTimeoutField.getText());
         properties.put("BufferSize", bufferSizeField.getText());
 
@@ -71,7 +71,7 @@ public class HTTPSListener extends ConnectorClass
 
     public void setProperties(Properties props)
     {
-        String listenerIPAddress = (String)props.get("ListenerIPAddress");
+        String listenerIPAddress = (String)props.get("address");
         StringTokenizer IP = new StringTokenizer(listenerIPAddress, ".");
         if (IP.hasMoreTokens())
             listenerIPAddressField.setText(IP.nextToken());
@@ -90,7 +90,7 @@ public class HTTPSListener extends ConnectorClass
         else
             listenerIPAddressField3.setText("");      
 
-        listenerPortField.setText((String)props.get("ListenerPort"));
+        listenerPortField.setText((String)props.get("port"));
         receiveTimeoutField.setText((String)props.get("ReceiveTimeout"));
         bufferSizeField.setText((String)props.get("BufferSize"));
 

@@ -27,8 +27,8 @@ public class EmailSender extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put("DataType", name);
-        properties.put("SMTPServerHost", SMTPServerHostField.getText());
-        properties.put("SMTPServerPort", SMTPServerPortField.getText());
+        properties.put("address", SMTPServerHostField.getText());
+        properties.put("port", SMTPServerPortField.getText());
         properties.put("Username", emailUsernameField.getText());
         properties.put("Password", new String(emailPasswordField.getPassword()));
         properties.put("To", emailToField.getText());
@@ -39,8 +39,8 @@ public class EmailSender extends ConnectorClass
 
     public void setProperties(Properties props)
     {
-        SMTPServerHostField.setText((String)props.get("SMTPServerHost"));
-        SMTPServerPortField.setText((String)props.get("SMTPServerPort"));
+        SMTPServerHostField.setText((String)props.get("address"));
+        SMTPServerPortField.setText((String)props.get("port"));
         emailUsernameField.setText((String)props.get("Username"));
         emailPasswordField.setText((String)props.get("Password"));
         emailToField.setText((String)props.get("To"));

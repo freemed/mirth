@@ -48,11 +48,9 @@ public class StatusPanel extends javax.swing.JPanel {
         if(statusTable != null && statusTable.getSelectedRow() != -1)
         {
             lastIndex = (String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber("Name"));
-            deselectRows();
         }
         else
             lastIndex = null;
-        
         
         statusTable = new JXTable();
         int numColumns = 5;
@@ -130,8 +128,7 @@ public class StatusPanel extends javax.swing.JPanel {
                 deselectRows();
             }
         });
-        
-                
+         
         if(lastIndex != null)
         {
             for(int i = 0; i < statusTable.getRowCount(); i++)
@@ -145,7 +142,7 @@ public class StatusPanel extends javax.swing.JPanel {
     private void StatusListSelected(ListSelectionEvent evt) 
     {           
         int row = statusTable.getSelectedRow();
-        if(row >= 0 && statusTable.getSelectedColumn()>= 0)
+        if(row >= 0)
         {
             parent.setVisibleTasks(parent.statusTasks, 2, true);
             
