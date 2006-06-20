@@ -162,6 +162,7 @@ public class Frame extends JXFrame
         settingsTasks = new JXTaskPane();
         settingsTasks.setTitle("Settings Tasks");
         settingsTasks.setFocusable(false);
+        channelTasks.add(initActionCallback("doSaveSettings",ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
         setNonFocusable(settingsTasks);
         taskPaneContainer.add(settingsTasks);
 
@@ -191,7 +192,7 @@ public class Frame extends JXFrame
         channelEditTasks.add(initActionCallback("doDeleteDestination",ActionFactory.createBoundAction("doDeleteDestination","Delete Destination", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         channelEditTasks.add(initActionCallback("doEditTransformer",ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         channelEditTasks.add(initActionCallback("doEditFilter",ActionFactory.createBoundAction("doEditFilter","Edit Filter", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
-        channelEditTasks.add(initActionCallback("doEditValidator",ActionFactory.createBoundAction("doEditValidator","Edit Validator", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        //channelEditTasks.add(initActionCallback("doEditValidator",ActionFactory.createBoundAction("doEditValidator","Edit Validator", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         setNonFocusable(channelEditTasks);
         setVisibleTasks(channelEditTasks, 0, false);
         taskPaneContainer.add(channelEditTasks);
@@ -723,6 +724,21 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }
+    
+    public void doEditTransformer()
+    {
+        channelEditPage.editTransformer();
+    }
+    
+    public void doEditFilter()
+    {
+        channelEditPage.editFilter();
+    }
+    
+    public void doSaveSettings()
+    {
+        
     }
 }
 
