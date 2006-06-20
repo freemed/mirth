@@ -29,7 +29,7 @@ public class TransformPane extends JPanel {
 
 	
     /** Creates new form transformPanel */
-    public TransformPane(Transformer t) {
+    public TransformPane( Frame parent, Transformer t ) {
         initComponents();
         setSize( 600, 800 );
     }
