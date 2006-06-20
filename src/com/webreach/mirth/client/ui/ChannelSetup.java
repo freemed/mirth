@@ -83,6 +83,16 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.setMaximumSize(new Dimension(450, 3000));
     }
     
+    public void editTransformer()
+    {
+        
+    }
+    
+    public void editFilter()
+    {
+        
+    }
+    
     public void makeDestinationTable(boolean addNew)
     {
         List<Connector> dc;
@@ -891,7 +901,7 @@ public class ChannelSetup extends javax.swing.JPanel
 // TODO add your handling code here:
         //parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
     }//GEN-LAST:event_summaryNameFieldKeyTyped
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane channelView;
     private com.webreach.mirth.client.ui.ConnectorClass connectorClass1;
