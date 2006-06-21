@@ -38,6 +38,7 @@ public class Frame extends JXFrame
     JScrollPane jScrollPane1 = new JScrollPane();
     JScrollPane jScrollPane2 = new JScrollPane();
     Component currentContentPage = null;
+    JXTaskPaneContainer currentTaskPaneContainer = null;
     StatusPanel statusListPage;
     ChannelPanel channelListPage;
     AdminPanel adminPanel;
@@ -125,7 +126,7 @@ public class Frame extends JXFrame
         jSplitPane1.setDividerLocation(170);
         setCurrentContentPage(statusListPage);
         makePaneContainer();
-        jScrollPane1.getViewport().add(taskPaneContainer);
+        setCurrentTaskPaneContainer(taskPaneContainer);
     }
 
     public void setupChannel(Channel channel)
@@ -148,7 +149,19 @@ public class Frame extends JXFrame
         jScrollPane2.getViewport().add(contentPageObject);
         currentContentPage = contentPageObject;
     }
-
+    
+    private void setCurrentTaskPaneContainer(JXTaskPaneContainer container)
+    {
+        if (container==currentTaskPaneContainer)
+            return;
+        if (currentTaskPaneContainer!=null)
+        {
+            jScrollPane1.getViewport().remove(currentTaskPaneContainer);
+        }
+        jScrollPane1.getViewport().add(container);
+        currentTaskPaneContainer = container;
+    }
+    
     private void makePaneContainer()
     {
         // Create Action pane
