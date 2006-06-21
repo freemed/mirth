@@ -80,11 +80,11 @@ public class LLPSender extends ConnectorClass
 
     public void setDefaults()
     {
-        hostIPAddressField.setText("");
-        hostIPAddressField1.setText("");
-        hostIPAddressField2.setText("");
-        hostIPAddressField3.setText("");
-        hostPortField.setText("");
+        hostIPAddressField.setText("127");
+        hostIPAddressField1.setText("0");
+        hostIPAddressField2.setText("0");
+        hostIPAddressField3.setText("1");
+        hostPortField.setText("3601");
         serverTimeoutField.setText("");
         bufferSizeField.setText("");
         keepConnectionOpenYesRadio.setSelected(true);

@@ -24,7 +24,7 @@ public class Frame extends JXFrame
     java.util.List<Channel> channels;
     java.util.List<User> users;
     java.util.List<ChannelStatus> status;
-    Client mirthClient;
+    public Client mirthClient;
     ActionManager manager = ActionManager.getInstance();
     JPanel contentPane;
     BorderLayout borderLayout1 = new BorderLayout();
@@ -647,6 +647,8 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        setCurrentContentPage(new com.webreach.mirth.client.ui.browsers.event.EventBrowser(this));
     }
 
     public void doSaveChanges()
@@ -662,7 +664,8 @@ public class Frame extends JXFrame
 
     public void doShowLogs()
     {
-        new Logs(this, statusListPage.statusTable.getSelectedRow());
+        //new Logs(this, statusListPage.statusTable.getSelectedRow());
+        setCurrentContentPage(new com.webreach.mirth.client.ui.browsers.event.EventBrowser(this));
     }
 
     public void doShowStats()

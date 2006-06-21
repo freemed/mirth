@@ -88,11 +88,11 @@ public class LLPListener extends ConnectorClass
 
     public void setDefaults()
     {
-        listenerIPAddressField.setText("");
-        listenerIPAddressField1.setText("");
-        listenerIPAddressField2.setText("");
-        listenerIPAddressField3.setText("");
-        listenerPortField.setText("");
+        listenerIPAddressField.setText("127");
+        listenerIPAddressField1.setText("0");
+        listenerIPAddressField2.setText("0");
+        listenerIPAddressField3.setText("1");
+        listenerPortField.setText("3600");
         receiveTimeoutField.setText("");
         bufferSizeField.setText("");
         keepConnectionOpenYesRadio.setSelected(true);

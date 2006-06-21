@@ -121,12 +121,14 @@ public class ChannelSetup extends javax.swing.JPanel
             if(tableSize-1 == i && addNew)
             {
                 Transformer dt = new Transformer();
+                Filter df = new Filter();
 
                 Connector c = new Connector();
                 c.setName(getNewDestinationName(tableSize));
                 
                 c.setTransportName((String)destinationSourceDropdown.getItemAt(0));
                 c.setTransformer(dt);
+                c.setFilter(df);
 
                 tableData[i][0] = c.getName();
                 tableData[i][1] = c.getTransportName();
@@ -321,14 +323,16 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.setSelectedComponent(summary);
         
         Transformer sourceTransformer = new Transformer();
+        Filter sourceFilter = new Filter();
 
-        Transformer destinationTransformer = new Transformer();
 
         Connector sourceConnector = new Connector();
 	sourceConnector.setName("sourceConnector");
 	sourceConnector.setTransformer(sourceTransformer);
         sourceConnector.setTransportName((String)sourceSourceDropdown.getItemAt(0));
         sourceConnector.setProperties(connectorClass1.getProperties());
+        sourceConnector.setFilter(sourceFilter);
+        
         currentChannel.setSourceConnector(sourceConnector);
                 
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
@@ -336,11 +340,13 @@ public class ChannelSetup extends javax.swing.JPanel
             List<Connector> dc;
             dc = currentChannel.getDestinationConnectors();
             Transformer dt = new Transformer();
+            Filter df = new Filter();
 
             Connector c = new Connector();
             c.setName("Destination");
             c.setTransportName((String)destinationSourceDropdown.getItemAt(0));
             c.setTransformer(dt);
+            c.setFilter(df);
             dc.add(c);
         }
         
@@ -416,8 +422,6 @@ public class ChannelSetup extends javax.swing.JPanel
         else
             temp = currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))));
         temp.setProperties(connectorClass2.getProperties());
-
-        Filter filter = new Filter();
 
         currentChannel.setName(summaryNameField.getText());
         currentChannel.setDescription(summaryDescriptionText.getText());
