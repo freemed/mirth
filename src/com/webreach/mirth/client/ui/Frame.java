@@ -150,7 +150,7 @@ public class Frame extends JXFrame
         currentContentPage = contentPageObject;
     }
     
-    private void setCurrentTaskPaneContainer(JXTaskPaneContainer container)
+    public void setCurrentTaskPaneContainer(JXTaskPaneContainer container)
     {
         if (container==currentTaskPaneContainer)
             return;
