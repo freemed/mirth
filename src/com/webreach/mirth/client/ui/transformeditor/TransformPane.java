@@ -6,8 +6,10 @@
 
 package com.webreach.mirth.client.ui.transformeditor;
 
-import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
@@ -19,6 +21,7 @@ import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Transformer;
+import com.webreach.mirth.client.ui.Constants;
 
 
 /**
@@ -26,12 +29,13 @@ import com.webreach.mirth.model.Transformer;
  * @author  franciscos
  */
 public class TransformPane extends JPanel {
-
 	
     /** Creates new form transformPanel */
     public TransformPane( Frame parent, Transformer t ) {
         initComponents();
         setSize( 600, 800 );
+        steps = t.getSteps();
+        
     }
    
     
@@ -48,8 +52,8 @@ public class TransformPane extends JPanel {
         HighlighterPipeline highlighter = new HighlighterPipeline();
         highlighter.addHighlighter( AlternateRowHighlighter.beige );
         transformTable.setHighlighters( highlighter );
-        transformTable.setGridColor( new Color(224,224,224) );
-        transformTable.setRowHeight( 20 );
+        transformTable.setGridColor( Constants.GRID_COLOR );
+        transformTable.setRowHeight( Constants.ROW_HEIGHT );
 
         // the available panels
         stepPanel = new StepPanel();
@@ -62,11 +66,21 @@ public class TransformPane extends JPanel {
         // add some columns to the table
         // the object column will be hidden.  it maintains the relationship
         // between a row and the TransfomerStep it represents
-        //transformTableModel.addColumn("Step Object", new TransformStep[]{});
+        //transformTableModel.addColumn("Step Object", new Step[]{});
         transformTableModel.addColumn( " # ", new Integer[]{} );
         transformTableModel.addColumn( "Step Name", new String[]{} );
         transformTableModel.addColumn( "Step Type", new String[]{} );
+        
+        // populate the list with any exisitng steps from the
+        // Transformer object.
+        if ( steps != null ) {
+        	ListIterator li = steps.listIterator();
+	        int i = 0;
+	        while ( li.hasNext() )
+	        	transformTableModel.insertRow( i++, (Vector)li.next() );
 
+        }
+	       
         // this listener will save the changes to the panal data when
         // a new row is selected
         transformTable.getSelectionModel().addListSelectionListener( 
@@ -78,14 +92,14 @@ public class TransformPane extends JPanel {
         					
         					int currSelectedRow = transformTable.getSelectedRow();
         					
-        					TransformStep currStep = (TransformStep)
+        					Step currStep = (Step)
 									transformTableModel.getDataVector().elementAt( currSelectedRow );
         					String currType = currStep.getType();
         					
         					if ( lastSelectedRow != -1 &&
         							lastSelectedRow != transformTable.getRowCount() ) {
         						
-        						TransformStep lastStep = (TransformStep)
+        						Step lastStep = (Step)
                 						transformTableModel.getDataVector().elementAt( lastSelectedRow );
                 				
         						String lastType = lastStep.getType();
@@ -337,7 +351,7 @@ public class TransformPane extends JPanel {
     	// if there are no rows
     	if ( newRow == -1 || newRow >= transformTable.getRowCount() ) newRow = 0;
     	
-    	TransformStep step = new TransformStep( newRow );
+    	Step step = new Step( newRow );
     	
     	// we need to actually place these objects in the row
     	transformTableModel.insertRow( newRow, step );
@@ -394,7 +408,7 @@ public class TransformPane extends JPanel {
      */
     void updateStepNumbers() {    	
     	for ( int i = 0;  i < transformTable.getRowCount();  i++ )
-    		((TransformStep)transformTableModel.getDataVector().elementAt(i)).setNumber(i + 1);
+    		((Step)transformTableModel.getDataVector().elementAt(i)).setNumber(i + 1);
     }
     
     
@@ -407,6 +421,7 @@ public class TransformPane extends JPanel {
     private JXTable transformTable;
     private DefaultTableModel transformTableModel;
     private JScrollPane transformTableScrollPane;
+    private List steps;
     
     // this little sucker is used to track the last row that had
     // focus after a new row is selected

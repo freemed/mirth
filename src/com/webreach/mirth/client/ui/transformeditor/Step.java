@@ -26,7 +26,7 @@ package com.webreach.mirth.client.ui.transformeditor;
 
 import java.util.Vector;
 import javax.swing.ImageIcon;
-import com.webreach.mirth.client.ui.Constants;
+
 
 /**
  * @author chrisl, franciscos
@@ -38,15 +38,15 @@ import com.webreach.mirth.client.ui.Constants;
  * when necessary.
  * 
  * Ultimately, it will be better to modify the AbstractTableModel to work
- * with a TransformStep object, and I'll do that when I get a chance to
+ * with a Step object, and I'll do that when I get a chance to
  * clean up the code ;)  --fjs--
  */
-public class TransformStep extends Vector<Object> {
+public class Step extends Vector<Object> {
 	
 	/** the constructor takes an int to indicate where
 	 *  within the sequence of steps this one belongs
 	 **/
-	public TransformStep( int n ) {
+	public Step( int n ) {
 		super( TransformPane.NUMBER_OF_COLUMNS );
 		
 		name = "";
@@ -78,7 +78,7 @@ public class TransformStep extends Vector<Object> {
 		return icon;
 	}
 		
-	public String getJavaScript() {
+	public String getScript() {
 		return null;
 	}
 	
@@ -102,7 +102,7 @@ public class TransformStep extends Vector<Object> {
 		this.data = data;
 	}
 	
-	// TransformStep fields
+	// Step fields
 	//		these are a portion of the vector
 	protected Integer number;
 	protected String name;
