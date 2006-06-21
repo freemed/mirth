@@ -7,6 +7,7 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
+import com.webreach.mirth.client.ui.transformeditor.TransformPane;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.Connector;
@@ -85,7 +86,18 @@ public class ChannelSetup extends javax.swing.JPanel
     
     public void editTransformer()
     {
-        
+        if (channelView.getSelectedIndex() == 1)
+            new TransformPane(parent, currentChannel.getSourceConnector().getTransformer());
+        else if (channelView.getSelectedIndex() == 2)
+        {
+            if (currentChannel.getMode() == Channel.Mode.APPLICATION)
+                new TransformPane(parent, currentChannel.getDestinationConnectors().get(0).getTransformer());
+            else
+            {
+                int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
+                new TransformPane(parent, currentChannel.getDestinationConnectors().get(destination).getTransformer());
+            }
+        }
     }
     
     public void editFilter()
@@ -113,7 +125,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 Connector c = new Connector();
                 c.setName(getNewDestinationName(tableSize));
                 
-                c.setTransportName((String)destinationSourceDropdown.getSelectedItem());
+                c.setTransportName((String)destinationSourceDropdown.getItemAt(0));
                 c.setTransformer(dt);
 
                 tableData[i][0] = c.getName();
@@ -315,11 +327,10 @@ public class ChannelSetup extends javax.swing.JPanel
         Connector sourceConnector = new Connector();
 	sourceConnector.setName("sourceConnector");
 	sourceConnector.setTransformer(sourceTransformer);
-        sourceConnector.setTransportName((String)sourceSourceDropdown.getSelectedItem());
+        sourceConnector.setTransportName((String)sourceSourceDropdown.getItemAt(0));
         sourceConnector.setProperties(connectorClass1.getProperties());
-        
         currentChannel.setSourceConnector(sourceConnector);
-        
+                
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
         {
             List<Connector> dc;
@@ -328,7 +339,7 @@ public class ChannelSetup extends javax.swing.JPanel
 
             Connector c = new Connector();
             c.setName("Destination");
-            c.setTransportName((String)destinationSourceDropdown.getSelectedItem());
+            c.setTransportName((String)destinationSourceDropdown.getItemAt(0));
             c.setTransformer(dt);
             dc.add(c);
         }
@@ -366,10 +377,13 @@ public class ChannelSetup extends javax.swing.JPanel
             summaryEnabledCheckbox.setSelected(false);
 
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        if (currentChannel.getSourceConnector() != null)
-            sourceSourceDropdown.setSelectedItem(currentChannel.getSourceConnector().getTransportName());
-        else
-            sourceSourceDropdown.setSelectedIndex(0);
+
+        sourceSourceDropdown.setSelectedItem(currentChannel.getSourceConnector().getTransportName());
+        
+        if (currentChannel.getMode().equals(Channel.Mode.APPLICATION))
+        {
+            destinationSourceDropdown.setSelectedItem(currentChannel.getDestinationConnectors().get(0).getTransportName());
+        }
         
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
 
@@ -393,8 +407,8 @@ public class ChannelSetup extends javax.swing.JPanel
                 }
             }
         }
-
-
+        
+        currentChannel.getSourceConnector().setProperties(connectorClass1.getProperties());
         
         Connector temp;
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
@@ -409,8 +423,7 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel.setDescription(summaryDescriptionText.getText());
         currentChannel.setEnabled(summaryEnabledCheckbox.isSelected());
         currentChannel.setModified(false);
-
-
+        
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
@@ -718,7 +731,8 @@ public class ChannelSetup extends javax.swing.JPanel
     }//GEN-LAST:event_destinationComponentShown
 
     private void sourceSourceDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSourceDropdownActionPerformed
-
+        if (connectorClass1.getName() != null && connectorClass1.getName().equals((String)sourceSourceDropdown.getSelectedItem()))
+            return;
         for(int i=0; i<parent.sourceConnectors.size(); i++)
         {
             if(parent.sourceConnectors.get(i).getName().equalsIgnoreCase((String)sourceSourceDropdown.getSelectedItem()))
@@ -740,6 +754,8 @@ public class ChannelSetup extends javax.swing.JPanel
                 sourceConnector.setProperties(connectorClass1.getProperties());
             }
 
+            sourceConnector.setTransportName((String)sourceSourceDropdown.getSelectedItem());
+            
             connectorClass1.setProperties(sourceConnector.getProperties());
         }
         
@@ -775,12 +791,17 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void destinationSourceDropdownActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_destinationSourceDropdownActionPerformed
     {//GEN-HEADEREND:event_destinationSourceDropdownActionPerformed
+        
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
         {
+            if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()) && lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))))
+                return;
             generateMultipleDestinationPage();
         }
         else
         {
+            if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()))
+                return;
             generateSingleDestinationPage();
         }
     }//GEN-LAST:event_destinationSourceDropdownActionPerformed
@@ -877,6 +898,8 @@ public class ChannelSetup extends javax.swing.JPanel
                 destinationConnector.setProperties(connectorClass2.getProperties());
             }
 
+            destinationConnector.setTransportName((String)destinationSourceDropdown.getSelectedItem());
+            
             connectorClass2.setProperties(destinationConnector.getProperties());
         }
         
