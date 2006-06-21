@@ -40,15 +40,15 @@ public class MapperPanel extends StepPanel {
 		
 		helpTree = new JTree();
 		
-		hSplitPane = new JSplitPane(
+		vSplitPane = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, mappingScrollPane, helpTree );
-		hSplitPane.setContinuousLayout( true );
-		hSplitPane.setOneTouchExpandable( true );
-		hSplitPane.setDividerSize( 14 );
-		hSplitPane.setDividerLocation( 500 );
+		vSplitPane.setContinuousLayout( true );
+		vSplitPane.setOneTouchExpandable( true );
+		vSplitPane.setDividerSize( 14 );
+		vSplitPane.setDividerLocation( 500 );
 		
 		this.setLayout( new BorderLayout() );
-		this.add( hSplitPane, BorderLayout.CENTER );
+		this.add( vSplitPane, BorderLayout.CENTER );
 		
 	}
 
@@ -70,7 +70,7 @@ public class MapperPanel extends StepPanel {
 		
 	}
 	
-	private JSplitPane hSplitPane;
+	private JSplitPane vSplitPane;
 	private JLabel variableNameLabel;
 	private JTextField variableNameTextField;
 	private JPanel mappingPane;

@@ -37,19 +37,16 @@ public class TransformerPane extends JPanel {
 	
     /** Creates new form transformPanel */
     public TransformerPane( Frame p, Transformer t ) {
-        setSize( 600, 800 );
         parent = p;
+        transformer = t;
         initComponents();
-        
-        System.out.println("Parent: " + parent );
-        steps = t.getSteps();
         
     }
    
     
     /** 
      * This method is called from within the constructor to
-     * initialize the form.ww
+     * initialize the form.
      */
     private void initComponents() {
     	// instantiate the components
@@ -81,6 +78,7 @@ public class TransformerPane extends JPanel {
         
         // populate the list with any exisitng steps from the
         // Transformer object.
+        List steps = transformer.getSteps();
         if ( steps != null ) {
         	ListIterator li = steps.listIterator();
 	        int i = 0;
@@ -194,20 +192,21 @@ public class TransformerPane extends JPanel {
 	    transformerTableScrollPane.setViewportView( transformerTable );
         
         // make some task buttons!
-	    JXTaskPane transformerTasks = new JXTaskPane();
 	    JXTaskPaneContainer transformerTaskPaneContainer = new JXTaskPaneContainer();
+	    
+	    JXTaskPane viewPane = new JXTaskPane();
+        viewPane.setTitle("Mirth Views");
+        viewPane.setFocusable(false);
+        viewPane.add(initActionCallback( "accept",
+        		ActionFactory.createBoundAction( "accept", "Back", "B" ), 
+        		new ImageIcon( Frame.class.getResource("images/resultset_previous.png" )) ));
+        parent.setNonFocusable(viewPane);
+        transformerTaskPaneContainer.add(viewPane);
+	    
+	    JXTaskPane transformerTasks = new JXTaskPane();
 	    transformerTasks.setTitle("Transformer Tasks");
 	    transformerTasks.setFocusable(false);
 	    
-	    // move step up task
-	    transformerTasks.add( initActionCallback( "moveStepUp",
-	    		ActionFactory.createBoundAction( "moveStepUp", "Move Step Up", "U" ),
-	    		new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
-	    
-	    // move step down task
-        transformerTasks.add( initActionCallback( "moveStepDown",
-        		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
-        		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         
         // add new step task
         transformerTasks.add( initActionCallback( "addNewStep",
@@ -219,13 +218,21 @@ public class TransformerPane extends JPanel {
         		ActionFactory.createBoundAction( "deleteStep", "Delete Step", "X" ),
         		new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));
         
-        // accept task
-        transformerTasks.add( initActionCallback( "accept",
-        		ActionFactory.createBoundAction( "accept", "Accept", "A" ),
-        		new ImageIcon( Frame.class.getResource( "images/accept.png" )) ));
+	    // move step up task
+	    transformerTasks.add( initActionCallback( "moveStepUp",
+	    		ActionFactory.createBoundAction( "moveStepUp", "Move Step Up", "U" ),
+	    		new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
+	    
+	    // move step down task
+        transformerTasks.add( initActionCallback( "moveStepDown",
+        		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
+        		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         
+        transformerTaskPaneContainer.add( transformerTasks );
+        parent.setNonFocusable( transformerTasks );
         parent.setVisibleTasks( transformerTasks, 0, true );
         parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
+        parent.setCurrentContentPage( this );
         
         
         // BGN LAYOUT - a la NetBeans //
@@ -269,8 +276,8 @@ public class TransformerPane extends JPanel {
     /** void moveStepUp (MouseEvent evt)
      *  move the selected group of rows up by one row
      */
-    private void moveStepUp( MouseEvent evt ) {
-    	
+    public void moveStepUp() {
+    	System.out.println("moveStepUp");
     	updating = true;
     	
     	// need to grab the current row index,
@@ -300,8 +307,8 @@ public class TransformerPane extends JPanel {
     /** void moveStepDown (MouseEvent evt)
      *  move the selected group of rows down by one row
      */
-    private void moveStepDown( MouseEvent evt ) {
-    	
+    public void moveStepDown() {
+    	System.out.println("moveStepDown");
     	updating = true;
     	
     	int firstSelectedRow = transformerTable.getSelectedRow();
@@ -330,8 +337,8 @@ public class TransformerPane extends JPanel {
     /** void addNewStep(MouseEvent evt)
      *  add a new row after the current row
      */
-    private void addNewStep( MouseEvent evt ) {
-    	
+    public void addNewStep() {
+    	System.out.println("addNewStep");
     	int newRow = transformerTable.getSelectedRow() 
     		+ transformerTable.getSelectedRowCount();
     	
@@ -351,8 +358,8 @@ public class TransformerPane extends JPanel {
     /** void deleteStep(MouseEvent evt)
      *  delete all selected rows
      */
-    private void deleteStep( MouseEvent evt ) {
-    	
+    public void deleteStep() {
+    	System.out.println("deleteStep");
     	updating = true;
     	
     	int firstSelectedRow = transformerTable.getSelectedRow();
@@ -382,9 +389,12 @@ public class TransformerPane extends JPanel {
     /** void accept(MouseEvent evt)
      *  returns a vector of vectors to the caller of this.
      */
-    private void accept( MouseEvent evt ) {
+    public void accept() {
+    	System.out.println("accept");
     	System.out.println(transformerTableModel.getDataVector()); 
     	
+    	parent.setCurrentContentPage(parent.channelEditPage);
+    	parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
     	   	
     }
     
@@ -401,16 +411,16 @@ public class TransformerPane extends JPanel {
     
     
     
+    // the passed arguments to the constructor
+    private Frame parent;
+    private Transformer transformer;
     
     // Variables declaration
     private JXTable transformerTable;
     private DefaultTableModel transformerTableModel;
     private JScrollPane transformerTableScrollPane;
-    
-    // the passed arguments
-    private Frame parent;
-    private List steps;
-    
+    private JSplitPane hSplitPane;
+
     // this little sucker is used to track the last row that had
     // focus after a new row is selected
     private int lastSelectedRow = -1;	// no row by default

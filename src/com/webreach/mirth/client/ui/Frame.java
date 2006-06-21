@@ -42,8 +42,8 @@ public class Frame extends JXFrame
     StatusPanel statusListPage;
     ChannelPanel channelListPage;
     AdminPanel adminPanel;
-    ChannelSetup channelEditPage;
-    JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer();
+    public ChannelSetup channelEditPage;
+    public JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer();
     JXTaskPane viewPane;
     JXTaskPane otherPane;
     JXTaskPane settingsTasks;
@@ -139,7 +139,7 @@ public class Frame extends JXFrame
         channelEditPage.addChannel(channel);
     }
 
-    private void setCurrentContentPage(Component contentPageObject)
+    public void setCurrentContentPage(Component contentPageObject)
     {
         if (contentPageObject==currentContentPage)
             return;
