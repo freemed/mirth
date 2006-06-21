@@ -87,15 +87,15 @@ public class ChannelSetup extends javax.swing.JPanel
     public void editTransformer()
     {
         if (channelView.getSelectedIndex() == 1)
-            new TransformPane(parent, currentChannel.getSourceConnector().getTransformer());
+            new TransformerPane(parent, currentChannel.getSourceConnector().getTransformer());
         else if (channelView.getSelectedIndex() == 2)
         {
             if (currentChannel.getMode() == Channel.Mode.APPLICATION)
-                new TransformPane(parent, currentChannel.getDestinationConnectors().get(0).getTransformer());
+                new TransformerPane(parent, currentChannel.getDestinationConnectors().get(0).getTransformer());
             else
             {
                 int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
-                new TransformPane(parent, currentChannel.getDestinationConnectors().get(destination).getTransformer());
+                new TransformerPane(parent, currentChannel.getDestinationConnectors().get(destination).getTransformer());
             }
         }
     }
