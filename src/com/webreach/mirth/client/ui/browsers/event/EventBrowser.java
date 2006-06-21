@@ -52,6 +52,8 @@ public class EventBrowser extends javax.swing.JPanel
         );
         
         jPanel2.updateUI();
+        
+        parent.setCurrentContentPage(this);
     }
     public void makeChannelTable() {
         eventTable = new JXTable();

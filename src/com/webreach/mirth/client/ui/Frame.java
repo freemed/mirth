@@ -3,6 +3,7 @@ package com.webreach.mirth.client.ui;
 import com.sun.corba.se.spi.orbutil.fsm.State;
 import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
+import com.webreach.mirth.client.ui.browsers.event.EventBrowser;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.User;
@@ -224,7 +225,7 @@ public class Frame extends JXFrame
         statusTasks.add(initActionCallback("doPause",ActionFactory.createBoundAction("doPause","Pause Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/pause.png"))));
         statusTasks.add(initActionCallback("doStop",ActionFactory.createBoundAction("doStop","Stop Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         //statusTasks.add(initActionCallback("doShowStats",ActionFactory.createBoundAction("doShowStats","Stats", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stats.png"))));
-        statusTasks.add(initActionCallback("doShowLogs",ActionFactory.createBoundAction("doShowLogs","Logs", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
+        statusTasks.add(initActionCallback("doShowEvents",ActionFactory.createBoundAction("doShowEvents","Events", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
         statusTasks.add(initActionCallback("doShowMessages",ActionFactory.createBoundAction("doShowMessages","Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
         setNonFocusable(statusTasks);
         setVisibleTasks(statusTasks, 2, false);
@@ -647,8 +648,6 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        
-        setCurrentContentPage(new com.webreach.mirth.client.ui.browsers.event.EventBrowser(this));
     }
 
     public void doSaveChanges()
@@ -662,10 +661,9 @@ public class Frame extends JXFrame
         new Messages(this, statusListPage.statusTable.getSelectedRow());
     }
 
-    public void doShowLogs()
+    public void doShowEvents()
     {
-        //new Logs(this, statusListPage.statusTable.getSelectedRow());
-        setCurrentContentPage(new com.webreach.mirth.client.ui.browsers.event.EventBrowser(this));
+        new EventBrowser(this);
     }
 
     public void doShowStats()
