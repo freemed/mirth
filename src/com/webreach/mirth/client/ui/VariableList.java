@@ -6,6 +6,12 @@
 
 package com.webreach.mirth.client.ui;
 
+import com.webreach.mirth.client.ui.transformeditor.MapperData;
+import com.webreach.mirth.model.Step;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JList;
+
 /**
  *
  * @author  brendanh
@@ -17,6 +23,40 @@ public class VariableList extends javax.swing.JPanel
     public VariableList()
     {
         initComponents();
+    }
+    
+    public void setVariableList(List<Step> steps)
+    {
+        String [] variables = new String[steps.size()];
+        int i = 0;
+        
+        for (Iterator it = steps.iterator(); it.hasNext();)
+        {
+            Step step = (Step) it.next();
+            MapperData data = (MapperData)step.getData();
+            variables[i] = data.getVariableName();
+            i++;
+        }
+        
+        jList1 = new JList(variables);
+        
+        jScrollPane1.setViewportView(jList1);
+
+        org.jdesktop.layout.GroupLayout layout = (org.jdesktop.layout.GroupLayout)this.getLayout();
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addContainerGap())
+        );
     }
     
     /** This method is called from within the constructor to
