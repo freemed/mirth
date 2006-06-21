@@ -658,7 +658,6 @@ public class Frame extends JXFrame
 
     public void doShowMessages()
     {
-        new Messages(this, statusListPage.statusTable.getSelectedRow());
     }
 
     public void doShowEvents()
