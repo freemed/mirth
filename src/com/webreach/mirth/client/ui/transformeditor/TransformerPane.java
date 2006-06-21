@@ -37,9 +37,11 @@ public class TransformerPane extends JPanel {
 	
     /** Creates new form transformPanel */
     public TransformerPane( Frame p, Transformer t ) {
-        initComponents();
         setSize( 600, 800 );
         parent = p;
+        initComponents();
+        
+        System.out.println("Parent: " + parent );
         steps = t.getSteps();
         
     }
@@ -222,7 +224,7 @@ public class TransformerPane extends JPanel {
         		ActionFactory.createBoundAction( "accept", "Accept", "A" ),
         		new ImageIcon( Frame.class.getResource( "images/accept.png" )) ));
         
-        parent.setNonFocusable( transformerTasks );
+        parent.setVisibleTasks( transformerTasks, 0, true );
         parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
         
         
@@ -237,30 +239,15 @@ public class TransformerPane extends JPanel {
                     .add(GroupLayout.LEADING, stepPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(GroupLayout.LEADING, layout.createSequentialGroup()
                         .add(transformerTableScrollPane, GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                        .addPreferredGap(LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(GroupLayout.TRAILING)
-                            .add(addNewStepButton)
-                         	.add(deleteStepButton)
-                         	.add(moveUpButton)
-                            .add(moveDownButton)
-                         	.add(acceptButton)))
-                	)
+                        .addPreferredGap(LayoutStyle.RELATED))
+                    )
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(addNewStepButton)
-                        .add(deleteStepButton)
-                        .addPreferredGap(LayoutStyle.RELATED)
-                        .add(moveUpButton)
-                        .add(moveDownButton)
-                        .addPreferredGap(LayoutStyle.RELATED)
-                        .add(acceptButton))
-                    .add(transformerTableScrollPane, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))
+                .add(transformerTableScrollPane, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.RELATED)
                 .add(stepPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -279,7 +266,7 @@ public class TransformerPane extends JPanel {
     }
     
     
-    /** void moveUpButtonClicked(MouseEvent evt)
+    /** void moveStepUp (MouseEvent evt)
      *  move the selected group of rows up by one row
      */
     private void moveStepUp( MouseEvent evt ) {
@@ -310,7 +297,7 @@ public class TransformerPane extends JPanel {
     
     
     
-    /** void moveDownButtonClicked(MouseEvent evt)
+    /** void moveStepDown (MouseEvent evt)
      *  move the selected group of rows down by one row
      */
     private void moveStepDown( MouseEvent evt ) {
@@ -340,7 +327,7 @@ public class TransformerPane extends JPanel {
     
     
     
-    /** void addNewStepButton(MouseEvent evt)
+    /** void addNewStep(MouseEvent evt)
      *  add a new row after the current row
      */
     private void addNewStep( MouseEvent evt ) {
@@ -361,7 +348,7 @@ public class TransformerPane extends JPanel {
     
     
     
-    /** void deleteButton(MouseEvent evt)
+    /** void deleteStep(MouseEvent evt)
      *  delete all selected rows
      */
     private void deleteStep( MouseEvent evt ) {
@@ -416,11 +403,6 @@ public class TransformerPane extends JPanel {
     
     
     // Variables declaration
-    private JButton moveUpButton;
-    private JButton moveDownButton;
-    private JButton addNewStepButton;
-    private JButton deleteStepButton;
-    private JButton acceptButton;
     private JXTable transformerTable;
     private DefaultTableModel transformerTableModel;
     private JScrollPane transformerTableScrollPane;
