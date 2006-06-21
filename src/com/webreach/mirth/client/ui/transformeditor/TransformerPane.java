@@ -1,7 +1,7 @@
-/*
- * transformPanel.java
+/** TransformerPane.java
  *
- * Created on May 26, 2006, 5:08 PM
+ *  @author franciscos 
+ *  Created on May 26, 2006, 5:08 PM
  */
 
 package com.webreach.mirth.client.ui.transformeditor;
@@ -14,7 +14,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 import javax.swing.*;
-
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 import org.jdesktop.swingx.JXTable;
@@ -29,27 +28,28 @@ import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.client.ui.Constants;
 
 
-/**
- *
- * @author  franciscos
- */
+
 public class TransformerPane extends JPanel {
 	
-    /** Creates new form transformPanel */
+	
+    /** constructor
+     * 
+     *  Frame - the parent where this panel & its tasks will be loaded
+     *  Transformer - the data model
+     */
     public TransformerPane( Frame p, Transformer t ) {
         parent = p;
         transformer = t;
         initComponents();
-        
     }
    
     
-    /** 
-     * This method is called from within the constructor to
-     * initialize the form.
+    /** This method is called from within the constructor to
+     *  initialize the form.
      */
     private void initComponents() {
-    	// instantiate the components
+    	
+    	// the table
         transformerTableScrollPane = new JScrollPane();
         transformerTableScrollPane.setAutoscrolls( true );
         transformerTableModel = new DefaultTableModel();
@@ -59,24 +59,31 @@ public class TransformerPane extends JPanel {
         transformerTable.setHighlighters( highlighter );
         transformerTable.setGridColor( Constants.GRID_COLOR );
         transformerTable.setRowHeight( Constants.ROW_HEIGHT );
-
-        // the available panels
-        stepPanel = new StepPanel();
-        mapperPanel = new MapperPanel();
-        jsPanel = new JavaScriptPanel();
-        smtpPanel = new SMTPPanel();
-        jdbcPanel = new JDBCPanel();
-        alertPanel = new AlertPanel();
-
         // add some columns to the table
-        // the object column will be hidden.  it maintains the relationship
-        // between a row and the TransfomerStep it represents
-        //transformerTableModel.addColumn("Step Object", new Step[]{});
         transformerTableModel.addColumn( " # ", new Integer[]{} );
         transformerTableModel.addColumn( "Step Name", new String[]{} );
         transformerTableModel.addColumn( "Step Type", new String[]{} );
+
+        // the options for the comboBox in the table
+        String[] comboBoxValues = new String[] { 
+        		MAPPER_TYPE, JAVASCRIPT_TYPE, SMTP_TYPE, JDBC_TYPE, ALERT_TYPE };
         
-        // populate the list with any exisitng steps from the
+        // Set the combobox editor on the data type column, 
+        // and add action listener
+	    TableColumn col = transformerTable.getColumnModel().getColumn( STEP_TYPE_COL );
+	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
+	    col.setCellEditor( comboBox );
+	    col.setMinWidth( 90 );
+	    col.setMaxWidth( 200 );
+	    
+	    // format the data number column
+	    col = transformerTable.getColumnModel().getColumn( STEP_NUMBER_COL );
+	    col.setMaxWidth( 30 );
+	    col.setResizable( false );
+	    	    
+	    transformerTableScrollPane.setViewportView( transformerTable );
+        
+	    // populate the list with any exisitng steps from the
         // Transformer object.
         List steps = transformer.getSteps();
         if ( steps != null ) {
@@ -84,9 +91,21 @@ public class TransformerPane extends JPanel {
 	        int i = 0;
 	        while ( li.hasNext() )
 	        	transformerTableModel.insertRow( i++, (Vector)li.next() );
-
         }
-	       
+	    
+	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
+            public void itemStateChanged( ItemEvent evt ) {
+            	
+            	String type = evt.getItem().toString();
+
+            	// put some logic here to detect if the current panel
+            	// has data, and if so, tell the user that changing
+            	// the type will lose the data
+            	
+            	stepPanel.showCard( type );
+            }
+        });  
+	    
         // this listener will save the changes to the panal data when
         // a new row is selected
         transformerTable.getSelectionModel().addListSelectionListener( 
@@ -146,52 +165,22 @@ public class TransformerPane extends JPanel {
         			
         		});
         
+        // the available panels (cards)
+        stepPanel = new StepPanel();
+        mapperPanel = new MapperPanel();
+        jsPanel = new JavaScriptPanel();
+        smtpPanel = new SMTPPanel();
+        jdbcPanel = new JDBCPanel();
+        alertPanel = new AlertPanel();
         // establish the cards to use in the Transformer
-        //stepPanel.addCard(blankPanel, blankPanel.getType());
+        // stepPanel.addCard(blankPanel, blankPanel.getType());
         stepPanel.addCard( mapperPanel, MAPPER_TYPE );
         stepPanel.addCard( jsPanel, JAVASCRIPT_TYPE );
         stepPanel.addCard( smtpPanel, SMTP_TYPE );
         stepPanel.addCard( jdbcPanel, JDBC_TYPE );
         stepPanel.addCard( alertPanel, ALERT_TYPE );
-        
-        // the options for the comboBox in the table
-        String[] comboBoxValues = new String[] { MAPPER_TYPE, 
-        		JAVASCRIPT_TYPE, SMTP_TYPE,
-        		JDBC_TYPE, ALERT_TYPE };
-                
-        // Set the combobox editor on the data type column, 
-        // and add action listener
-	    TableColumn col = transformerTable.getColumnModel().getColumn( 
-	    		STEP_TYPE_COL );
-	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
-	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
-            public void itemStateChanged( ItemEvent evt ) {
-            	
-            	String type = evt.getItem().toString();
 
-            	// put some logic here to detect if the current panel
-            	// has data, and if so, tell the user that changing
-            	// the type will lose the data
-            	
-            	stepPanel.showCard( type );
-            	
-            }
-            
-        });
-	    
-	    col.setCellEditor( comboBox );
-	    col.setMinWidth( 90 );
-	    col.setMaxWidth( 200 );  
-	    
-	    // format the data number column
-	    col = transformerTable.getColumnModel().getColumn( 
-	    		STEP_NUMBER_COL );
-	    col.setMaxWidth( 30 );
-	    col.setResizable( false );
-	    	    
-	    transformerTableScrollPane.setViewportView( transformerTable );
-        
-        // make some task buttons!
+	    // make some task buttons!
 	    JXTaskPaneContainer transformerTaskPaneContainer = new JXTaskPaneContainer();
 	    
 	    JXTaskPane viewPane = new JXTaskPane();
@@ -264,8 +253,9 @@ public class TransformerPane extends JPanel {
     
     
     
-    public BoundAction initActionCallback(String callbackMethod,BoundAction boundAction, ImageIcon icon)
-    {
+    public BoundAction initActionCallback( 
+    		String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
+    	
         if(icon != null)
             boundAction.putValue(Action.SMALL_ICON, icon);
         boundAction.registerCallback(this,callbackMethod);
@@ -299,11 +289,8 @@ public class TransformerPane extends JPanel {
     	}
     	
     	updating = false;
-    	
     }
-    
-    
-    
+
     /** void moveStepDown (MouseEvent evt)
      *  move the selected group of rows down by one row
      */
@@ -329,10 +316,7 @@ public class TransformerPane extends JPanel {
     	}
     	
     	updating = false;
-    	
     }    
-    
-    
     
     /** void addNewStep(MouseEvent evt)
      *  add a new row after the current row
@@ -350,10 +334,7 @@ public class TransformerPane extends JPanel {
     	// we need to actually place these objects in the row
     	transformerTableModel.insertRow( newRow, step );
     	transformerTable.setRowSelectionInterval( newRow, newRow );
-    	
     }
-    
-    
     
     /** void deleteStep(MouseEvent evt)
      *  delete all selected rows
@@ -381,10 +362,7 @@ public class TransformerPane extends JPanel {
     		transformerTable.setRowSelectionInterval( maxRowIndex, maxRowIndex );
     	
     	updating = false;
-    	
     }
-    
-    
     
     /** void accept(MouseEvent evt)
      *  returns a vector of vectors to the caller of this.
@@ -395,10 +373,7 @@ public class TransformerPane extends JPanel {
     	
     	parent.setCurrentContentPage(parent.channelEditPage);
     	parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
-    	   	
     }
-    
-    
     
     /** void updateStepNumbers()
      *  traverses the table and updates all data numbers, both in the model
@@ -411,11 +386,13 @@ public class TransformerPane extends JPanel {
     
     
     
+//............................................................................\\
+    
     // the passed arguments to the constructor
     private Frame parent;
     private Transformer transformer;
     
-    // Variables declaration
+    // fields
     private JXTable transformerTable;
     private DefaultTableModel transformerTableModel;
     private JScrollPane transformerTableScrollPane;
@@ -434,9 +411,8 @@ public class TransformerPane extends JPanel {
     protected SMTPPanel smtpPanel;      	//           \/
     protected JDBCPanel jdbcPanel;			//           \/
     protected AlertPanel alertPanel;		//           \/
-    // End of variables declaration
     
-    // for TranformSteps
+    // transformer constants
     public static final int STEP_NUMBER_COL  = 0;
     public static final int STEP_NAME_COL  = 1;
     public static final int STEP_TYPE_COL  = 2;  

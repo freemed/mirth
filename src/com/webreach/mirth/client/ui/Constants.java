@@ -8,4 +8,7 @@ public class Constants
 	public static final int ROW_HEIGHT = 20;    
 	public static final Color GRID_COLOR = new Color( 224,224,224 );
 	
+	// for JSplitPane
+	public static final int DIVIDER_SIZE = 12;
+	
 }

@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import com.Ostermiller.Syntax.*;
+import com.webreach.mirth.client.ui.Constants;
 
 
 // do we really need to extend StepPanel?  maybe we don't
@@ -36,19 +37,18 @@ public class MapperPanel extends StepPanel {
 		mappingScrollPane = new JScrollPane( mappingPane );
 		mappingScrollPane.setAutoscrolls( true );
 		mappingScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		mappingScrollPane.setSize( new Dimension( 620, 460 ) );
 		
 		helpTree = new JTree();
 		
-		vSplitPane = new JSplitPane(
+		hSplitPane = new JSplitPane(
 				JSplitPane.HORIZONTAL_SPLIT, mappingScrollPane, helpTree );
-		vSplitPane.setContinuousLayout( true );
-		vSplitPane.setOneTouchExpandable( true );
-		vSplitPane.setDividerSize( 14 );
-		vSplitPane.setDividerLocation( 500 );
+		hSplitPane.setContinuousLayout( true );
+		hSplitPane.setOneTouchExpandable( true );
+		hSplitPane.setDividerSize( Constants.DIVIDER_SIZE );
+		hSplitPane.setDividerLocation( 500 );
 		
 		this.setLayout( new BorderLayout() );
-		this.add( vSplitPane, BorderLayout.CENTER );
+		this.add( hSplitPane, BorderLayout.CENTER );
 		
 	}
 
@@ -70,7 +70,7 @@ public class MapperPanel extends StepPanel {
 		
 	}
 	
-	private JSplitPane vSplitPane;
+	private JSplitPane hSplitPane;
 	private JLabel variableNameLabel;
 	private JTextField variableNameTextField;
 	private JPanel mappingPane;
