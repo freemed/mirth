@@ -14,9 +14,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 import javax.swing.*;
+
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.JXTaskPane;
+import org.jdesktop.swingx.JXTaskPaneContainer;
+import org.jdesktop.swingx.action.ActionFactory;
+import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
@@ -28,12 +33,13 @@ import com.webreach.mirth.client.ui.Constants;
  *
  * @author  franciscos
  */
-public class TransformPane extends JPanel {
+public class TransformerPane extends JPanel {
 	
     /** Creates new form transformPanel */
-    public TransformPane( Frame parent, Transformer t ) {
+    public TransformerPane( Frame p, Transformer t ) {
         initComponents();
         setSize( 600, 800 );
+        parent = p;
         steps = t.getSteps();
         
     }
@@ -45,15 +51,15 @@ public class TransformPane extends JPanel {
      */
     private void initComponents() {
     	// instantiate the components
-        transformTableScrollPane = new JScrollPane();
-        transformTableScrollPane.setAutoscrolls( true );
-        transformTableModel = new DefaultTableModel();
-        transformTable = new JXTable( transformTableModel );
+        transformerTableScrollPane = new JScrollPane();
+        transformerTableScrollPane.setAutoscrolls( true );
+        transformerTableModel = new DefaultTableModel();
+        transformerTable = new JXTable( transformerTableModel );
         HighlighterPipeline highlighter = new HighlighterPipeline();
         highlighter.addHighlighter( AlternateRowHighlighter.beige );
-        transformTable.setHighlighters( highlighter );
-        transformTable.setGridColor( Constants.GRID_COLOR );
-        transformTable.setRowHeight( Constants.ROW_HEIGHT );
+        transformerTable.setHighlighters( highlighter );
+        transformerTable.setGridColor( Constants.GRID_COLOR );
+        transformerTable.setRowHeight( Constants.ROW_HEIGHT );
 
         // the available panels
         stepPanel = new StepPanel();
@@ -66,10 +72,10 @@ public class TransformPane extends JPanel {
         // add some columns to the table
         // the object column will be hidden.  it maintains the relationship
         // between a row and the TransfomerStep it represents
-        //transformTableModel.addColumn("Step Object", new Step[]{});
-        transformTableModel.addColumn( " # ", new Integer[]{} );
-        transformTableModel.addColumn( "Step Name", new String[]{} );
-        transformTableModel.addColumn( "Step Type", new String[]{} );
+        //transformerTableModel.addColumn("Step Object", new Step[]{});
+        transformerTableModel.addColumn( " # ", new Integer[]{} );
+        transformerTableModel.addColumn( "Step Name", new String[]{} );
+        transformerTableModel.addColumn( "Step Type", new String[]{} );
         
         // populate the list with any exisitng steps from the
         // Transformer object.
@@ -77,30 +83,30 @@ public class TransformPane extends JPanel {
         	ListIterator li = steps.listIterator();
 	        int i = 0;
 	        while ( li.hasNext() )
-	        	transformTableModel.insertRow( i++, (Vector)li.next() );
+	        	transformerTableModel.insertRow( i++, (Vector)li.next() );
 
         }
 	       
         // this listener will save the changes to the panal data when
         // a new row is selected
-        transformTable.getSelectionModel().addListSelectionListener( 
+        transformerTable.getSelectionModel().addListSelectionListener( 
         		new ListSelectionListener() {
         			public void valueChanged( ListSelectionEvent e ) {
         				
         				if ( !updating && !e.getValueIsAdjusting() 
-        						&& transformTable.getRowCount() > 1 ) {
+        						&& transformerTable.getRowCount() > 1 ) {
         					
-        					int currSelectedRow = transformTable.getSelectedRow();
+        					int currSelectedRow = transformerTable.getSelectedRow();
         					
         					Step currStep = (Step)
-									transformTableModel.getDataVector().elementAt( currSelectedRow );
+									transformerTableModel.getDataVector().elementAt( currSelectedRow );
         					String currType = currStep.getType();
         					
         					if ( lastSelectedRow != -1 &&
-        							lastSelectedRow != transformTable.getRowCount() ) {
+        							lastSelectedRow != transformerTable.getRowCount() ) {
         						
         						Step lastStep = (Step)
-                						transformTableModel.getDataVector().elementAt( lastSelectedRow );
+                						transformerTableModel.getDataVector().elementAt( lastSelectedRow );
                 				
         						String lastType = lastStep.getType();
                 				
@@ -155,7 +161,7 @@ public class TransformPane extends JPanel {
                 
         // Set the combobox editor on the data type column, 
         // and add action listener
-	    TableColumn col = transformTable.getColumnModel().getColumn( 
+	    TableColumn col = transformerTable.getColumnModel().getColumn( 
 	    		STEP_TYPE_COL );
 	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
@@ -175,68 +181,52 @@ public class TransformPane extends JPanel {
 	    
 	    col.setCellEditor( comboBox );
 	    col.setMinWidth( 90 );
-	    col.setMaxWidth( 200 );
-	    
-	    // If the cell should appear like a combobox in its
-	    // non-editing state, also set the combobox renderer
-        //comboBox = new MyComboBoxEditor(comboBoxValues);
-	    //col.setCellRenderer(new MyComboBoxRenderer(comboBoxValues));    
+	    col.setMaxWidth( 200 );  
 	    
 	    // format the data number column
-	    col = transformTable.getColumnModel().getColumn( 
+	    col = transformerTable.getColumnModel().getColumn( 
 	    		STEP_NUMBER_COL );
 	    col.setMaxWidth( 30 );
 	    col.setResizable( false );
 	    	    
-	    transformTableScrollPane.setViewportView( transformTable );
+	    transformerTableScrollPane.setViewportView( transformerTable );
         
-        // make some buttons!
-        moveUpButton = new JButton(	new ImageIcon( 
-        		Frame.class.getResource( "images/arrow_up.png" ) ));
-        moveUpButton.setToolTipText( "Move data up" );
-        moveUpButton.addMouseListener( new MouseAdapter() {
-        	public void mouseClicked( MouseEvent evt ) {
-        		moveStepUp( evt );
-        	}
-        }); 
+        // make some task buttons!
+	    JXTaskPane transformerTasks = new JXTaskPane();
+	    JXTaskPaneContainer transformerTaskPaneContainer = new JXTaskPaneContainer();
+	    transformerTasks.setTitle("Transformer Tasks");
+	    transformerTasks.setFocusable(false);
+	    
+	    // move step up task
+	    transformerTasks.add( initActionCallback( "moveStepUp",
+	    		ActionFactory.createBoundAction( "moveStepUp", "Move Step Up", "U" ),
+	    		new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
+	    
+	    // move step down task
+        transformerTasks.add( initActionCallback( "moveStepDown",
+        		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
+        		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         
-        moveDownButton = new JButton( new ImageIcon(
-        		Frame.class.getResource( "images/arrow_down.png" ) ));
-        moveDownButton.setToolTipText( "Move data down" );
-        moveDownButton.addMouseListener( new MouseAdapter() {
-        	public void mouseClicked( MouseEvent evt ) {
-        		moveStepDown( evt );
-        	}
-        });
+        // add new step task
+        transformerTasks.add( initActionCallback( "addNewStep",
+        		ActionFactory.createBoundAction( "addNewStep", "Add New Step", "N" ),
+        		new ImageIcon( Frame.class.getResource( "images/add.png" )) ));
         
-        addNewStepButton = new JButton( new ImageIcon(
-        		Frame.class.getResource( "images/add.png" ) ));
-        addNewStepButton.setToolTipText( "Add new data" );
-        addNewStepButton.addMouseListener( new MouseAdapter() {
-        	public void mouseClicked( MouseEvent evt ) {
-        		addNewStep( evt );
-        	}
-        });
+        // delete step task
+        transformerTasks.add( initActionCallback( "deleteStep",
+        		ActionFactory.createBoundAction( "deleteStep", "Delete Step", "X" ),
+        		new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));
         
-        deleteStepButton = new JButton( new ImageIcon(
-        		Frame.class.getResource( "images/delete.png" ) ));
-        deleteStepButton.setToolTipText( "Delete data" );
-        deleteStepButton.addMouseListener( new MouseAdapter() {
-        	public void mouseClicked( MouseEvent evt ) {
-        		deleteStep( evt );
-        	}
-        });
+        // accept task
+        transformerTasks.add( initActionCallback( "accept",
+        		ActionFactory.createBoundAction( "accept", "Accept", "A" ),
+        		new ImageIcon( Frame.class.getResource( "images/accept.png" )) ));
         
-        acceptButton = new JButton( new ImageIcon(
-        		Frame.class.getResource( "images/accept.png" ) ));
-        acceptButton.setToolTipText( "Accept" );
-        acceptButton.addMouseListener( new MouseAdapter() {
-        	public void mouseClicked( MouseEvent evt ) {
-        		accept( evt );
-        	}
-        });
-
-        // BGN LAYOUT //
+        parent.setNonFocusable( transformerTasks );
+        parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
+        
+        
+        // BGN LAYOUT - a la NetBeans //
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,7 +236,7 @@ public class TransformPane extends JPanel {
                 .add(layout.createParallelGroup(GroupLayout.TRAILING)
                     .add(GroupLayout.LEADING, stepPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(transformTableScrollPane, GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                        .add(transformerTableScrollPane, GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                         .addPreferredGap(LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(GroupLayout.TRAILING)
                             .add(addNewStepButton)
@@ -270,13 +260,23 @@ public class TransformPane extends JPanel {
                         .add(moveDownButton)
                         .addPreferredGap(LayoutStyle.RELATED)
                         .add(acceptButton))
-                    .add(transformTableScrollPane, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))
+                    .add(transformerTableScrollPane, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.RELATED)
                 .add(stepPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         // END LAYOUT //
     } // END initComponents()
+    
+    
+    
+    public BoundAction initActionCallback(String callbackMethod,BoundAction boundAction, ImageIcon icon)
+    {
+        if(icon != null)
+            boundAction.putValue(Action.SMALL_ICON, icon);
+        boundAction.registerCallback(this,callbackMethod);
+        return boundAction;
+    }
     
     
     /** void moveUpButtonClicked(MouseEvent evt)
@@ -288,9 +288,9 @@ public class TransformPane extends JPanel {
     	
     	// need to grab the current row index,
     	// if the row is > 0, switch with row-1
-    	int firstSelectedRow = transformTable.getSelectedRow();
+    	int firstSelectedRow = transformerTable.getSelectedRow();
     	int moveTo = firstSelectedRow - 1;
-    	int selectedRowCount = transformTable.getSelectedRowCount();
+    	int selectedRowCount = transformerTable.getSelectedRowCount();
     	int lastSelectedRow;
     	if ( selectedRowCount > 1 )
     		lastSelectedRow = selectedRowCount + firstSelectedRow - 1;
@@ -298,15 +298,16 @@ public class TransformPane extends JPanel {
     	
     	// can't move above the first row
     	if ( firstSelectedRow > 0 && moveTo >= 0 ) {
-    		transformTableModel.moveRow(
+    		transformerTableModel.moveRow(
     				firstSelectedRow, lastSelectedRow, moveTo );
-    	   	transformTable.setRowSelectionInterval(
+    	   	transformerTable.setRowSelectionInterval(
     			moveTo, moveTo + selectedRowCount - 1 );
     	}
     	
     	updating = false;
     	
     }
+    
     
     
     /** void moveDownButtonClicked(MouseEvent evt)
@@ -316,10 +317,10 @@ public class TransformPane extends JPanel {
     	
     	updating = true;
     	
-    	int firstSelectedRow = transformTable.getSelectedRow();
+    	int firstSelectedRow = transformerTable.getSelectedRow();
     	int moveTo = firstSelectedRow + 1;
-    	int selectedRowCount = transformTable.getSelectedRowCount();
-    	int maxRow = transformTable.getRowCount() - 1;
+    	int selectedRowCount = transformerTable.getSelectedRowCount();
+    	int maxRow = transformerTable.getRowCount() - 1;
     	int lastSelectedRow;
     	if ( selectedRowCount > 1 )
     		lastSelectedRow = selectedRowCount + firstSelectedRow - 1; 
@@ -327,9 +328,9 @@ public class TransformPane extends JPanel {
     	
     	// we can't move past the last row
     	if ( lastSelectedRow < maxRow  && moveTo <= maxRow ) {
-    			transformTableModel.moveRow(
+    			transformerTableModel.moveRow(
     					firstSelectedRow, lastSelectedRow, moveTo );
-    	    	transformTable.setRowSelectionInterval(
+    	    	transformerTable.setRowSelectionInterval(
     	    			moveTo, moveTo + selectedRowCount - 1 );
     	}
     	
@@ -338,28 +339,26 @@ public class TransformPane extends JPanel {
     }    
     
     
+    
     /** void addNewStepButton(MouseEvent evt)
      *  add a new row after the current row
      */
     private void addNewStep( MouseEvent evt ) {
     	
-    	//updating = true;
-    	
-    	int newRow = transformTable.getSelectedRow() 
-    		+ transformTable.getSelectedRowCount();
+    	int newRow = transformerTable.getSelectedRow() 
+    		+ transformerTable.getSelectedRowCount();
     	
     	// if there are no rows
-    	if ( newRow == -1 || newRow >= transformTable.getRowCount() ) newRow = 0;
+    	if ( newRow == -1 || newRow >= transformerTable.getRowCount() ) newRow = 0;
     	
     	Step step = new Step( newRow );
     	
     	// we need to actually place these objects in the row
-    	transformTableModel.insertRow( newRow, step );
-    	transformTable.setRowSelectionInterval( newRow, newRow );
-    	
-    	//updating = false;
+    	transformerTableModel.insertRow( newRow, step );
+    	transformerTable.setRowSelectionInterval( newRow, newRow );
     	
     }
+    
     
     
     /** void deleteButton(MouseEvent evt)
@@ -369,37 +368,39 @@ public class TransformPane extends JPanel {
     	
     	updating = true;
     	
-    	int firstSelectedRow = transformTable.getSelectedRow();
-    	int selectedRowCount = transformTable.getSelectedRowCount();
+    	int firstSelectedRow = transformerTable.getSelectedRow();
+    	int selectedRowCount = transformerTable.getSelectedRowCount();
 
     	// if at least one row is selected
     	if ( selectedRowCount > 0 )
     		for ( int i = 0;  i < selectedRowCount;  i++ )
-    			transformTableModel.removeRow( firstSelectedRow );
+    			transformerTableModel.removeRow( firstSelectedRow );
     	
     	// let's fix the slection highlight after we remove all the rows
-    	int maxRowIndex = transformTable.getRowCount() - 1;
+    	int maxRowIndex = transformerTable.getRowCount() - 1;
     	
     	if ( maxRowIndex < 0 ) 
     		;// no more rows; nothing to select
     	else if ( maxRowIndex >= firstSelectedRow )
-    		transformTable.setRowSelectionInterval( firstSelectedRow, firstSelectedRow );
+    		transformerTable.setRowSelectionInterval( firstSelectedRow, firstSelectedRow );
     	else 
-    		transformTable.setRowSelectionInterval( maxRowIndex, maxRowIndex );
+    		transformerTable.setRowSelectionInterval( maxRowIndex, maxRowIndex );
     	
     	updating = false;
     	
     }
     
     
+    
     /** void accept(MouseEvent evt)
      *  returns a vector of vectors to the caller of this.
      */
     private void accept( MouseEvent evt ) {
-    	System.out.println(transformTableModel.getDataVector()); 
+    	System.out.println(transformerTableModel.getDataVector()); 
     	
     	   	
     }
+    
     
     
     /** void updateStepNumbers()
@@ -407,9 +408,11 @@ public class TransformPane extends JPanel {
      *  and the view, after any change to the table
      */
     void updateStepNumbers() {    	
-    	for ( int i = 0;  i < transformTable.getRowCount();  i++ )
-    		((Step)transformTableModel.getDataVector().elementAt(i)).setNumber(i + 1);
+    	for ( int i = 0;  i < transformerTable.getRowCount();  i++ )
+    		((Step)transformerTableModel.getDataVector().elementAt(i)).setNumber(i + 1);
     }
+    
+    
     
     
     // Variables declaration
@@ -418,9 +421,12 @@ public class TransformPane extends JPanel {
     private JButton addNewStepButton;
     private JButton deleteStepButton;
     private JButton acceptButton;
-    private JXTable transformTable;
-    private DefaultTableModel transformTableModel;
-    private JScrollPane transformTableScrollPane;
+    private JXTable transformerTable;
+    private DefaultTableModel transformerTableModel;
+    private JScrollPane transformerTableScrollPane;
+    
+    // the passed arguments
+    private Frame parent;
     private List steps;
     
     // this little sucker is used to track the last row that had
@@ -428,7 +434,7 @@ public class TransformPane extends JPanel {
     private int lastSelectedRow = -1;	// no row by default
     private boolean updating = false;
      
-    // panels
+    // panels using CardLayout
     protected StepPanel stepPanel;			// the card holder
     protected BlankPanel blankPanel;		// the cards \/
     protected MapperPanel mapperPanel; 		//           \/

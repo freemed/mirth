@@ -33,7 +33,7 @@ import javax.swing.JPanel;
  *
  */
 // we don't really need this class.  we could
-// place these methods in the TransformPane, which
+// place these methods in the TransformerPane, which
 // i might, when i get a chance to clean that class...
 public class StepPanel extends JPanel {
 

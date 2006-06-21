@@ -47,31 +47,31 @@ public class Step extends Vector<Object> {
 	 *  within the sequence of steps this one belongs
 	 **/
 	public Step( int n ) {
-		super( TransformPane.NUMBER_OF_COLUMNS );
+		super( TransformerPane.NUMBER_OF_COLUMNS );
 		
 		name = "";
 		number = n;
-		type = TransformPane.MAPPER_TYPE;	// by default, per Gerald
+		type = TransformerPane.MAPPER_TYPE;	// by default, per Gerald
 		icon = null;
 		javaScript = null;
 		data = new MapperData();
 		
-		insertElementAt( new Integer( number ), TransformPane.STEP_NUMBER_COL );
-		insertElementAt( "New Step", TransformPane.STEP_NAME_COL );
-		insertElementAt( type, TransformPane.STEP_TYPE_COL );
+		insertElementAt( new Integer( number ), TransformerPane.STEP_NUMBER_COL );
+		insertElementAt( "New Step", TransformerPane.STEP_NAME_COL );
+		insertElementAt( type, TransformerPane.STEP_TYPE_COL );
 		
 	}
 	
 	public int getNumber() {
-		return ( (Integer)get( TransformPane.STEP_NUMBER_COL ) ).intValue();
+		return ( (Integer)get( TransformerPane.STEP_NUMBER_COL ) ).intValue();
 	}
 	
 	public String getName() {
-		return (String)get( TransformPane.STEP_NAME_COL );
+		return (String)get( TransformerPane.STEP_NAME_COL );
 	}
 	
 	public String getType() {
-		return (String)get( TransformPane.STEP_TYPE_COL );
+		return (String)get( TransformerPane.STEP_TYPE_COL );
 	}
 	
 	public ImageIcon getTypeIcon() {
@@ -83,15 +83,15 @@ public class Step extends Vector<Object> {
 	}
 	
 	public void setNumber( int number ) {
-		set( TransformPane.STEP_NUMBER_COL, new Integer(number) );
+		set( TransformerPane.STEP_NUMBER_COL, new Integer(number) );
 	}
 	
 	public void setName( String name ) {
-		set( TransformPane.STEP_NAME_COL, name );
+		set( TransformerPane.STEP_NAME_COL, name );
 	}
 	
 	public void setType( String type ) {
-		set( TransformPane.STEP_TYPE_COL, type );
+		set( TransformerPane.STEP_TYPE_COL, type );
 	}
 	
 	public Object getData() {

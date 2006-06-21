@@ -20,7 +20,7 @@ public class TransformPaneTest {
         } catch (Exception e) { }
         
         JFrame frame = new JFrame("mirth :: Transform Panel");
-        frame.add(new TransformPane( null, new Transformer() ));
+        frame.add(new TransformerPane( null, new Transformer() ));
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
