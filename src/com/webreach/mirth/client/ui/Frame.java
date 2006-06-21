@@ -54,13 +54,14 @@ public class Frame extends JXFrame
     JXTaskPane userTasks;
     ArrayList<ConnectorClass> sourceConnectors = new ArrayList<ConnectorClass>();
     ArrayList<ConnectorClass> destinationConnectors = new ArrayList<ConnectorClass>();
+    Thread statusUpdater;     
     
     public Frame(Client mirthClient)
     {
         this.mirthClient = mirthClient;
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Thread statusUpdater = new Thread(new StatusUpdater(this));
+        statusUpdater = new Thread(new StatusUpdater(this));
         statusUpdater.start();
         
         try
