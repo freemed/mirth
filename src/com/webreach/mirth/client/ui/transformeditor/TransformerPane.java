@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -86,6 +87,7 @@ public class TransformerPane extends JPanel {
         vSplitPane.setDividerLocation( 200 );
         this.setLayout( new BorderLayout() );
         this.add( vSplitPane, BorderLayout.CENTER );
+        this.setBorder( BorderFactory.createEmptyBorder() );
         // END LAYOUT
         
 	    // make and place the task pane in the parent Frame
@@ -160,10 +162,14 @@ public class TransformerPane extends JPanel {
         transformerTableModel = (DefaultTableModel)transformerTable.getModel();
 
         // add any existing steps to the model
-        for ( int i=0;  i < transformer.getSteps().size();  i++ )
-            setRowData( transformer.getSteps().get(i), i );
+        List<Step> list = transformer.getSteps();
+        Iterator<Step> i = list.iterator();
+        while ( i.hasNext() ) {
+        	Step s = i.next();
+        	int row = s.getSequenceNumber();
+        	setRowData( s, row );
+        }
         
-        // the options for the comboBox in the STEP_TYPE_COLUMN
         String[] comboBoxValues = new String[] { 
         		MAPPER_TYPE, JAVASCRIPT_TYPE, SMTP_TYPE, JDBC_TYPE, ALERT_TYPE };
         
@@ -186,7 +192,7 @@ public class TransformerPane extends JPanel {
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( 150 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMinWidth( 80 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
-        //transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
+        transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
         
         transformerTable.setRowHeight( Constants.ROW_HEIGHT );
         transformerTable.setColumnMargin( Constants.COL_MARGIN );
@@ -195,6 +201,8 @@ public class TransformerPane extends JPanel {
         HighlighterPipeline highlighter = new HighlighterPipeline();
         highlighter.addHighlighter( AlternateRowHighlighter.beige );
         transformerTable.setHighlighters( highlighter );
+        transformerTable.setBorder( BorderFactory.createEmptyBorder() );
+        transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
         
         transformerTablePane.setViewportView( transformerTable );
         
@@ -268,16 +276,15 @@ public class TransformerPane extends JPanel {
         int row = transformerTable.getSelectedRow();
         
         if( row >= 0 && row < transformerTable.getRowCount() ) {
+        	System.out.println(row);
         	String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
-        	StepData data = (StepData)transformerTable.getValueAt( row, STEP_DATA_COL );
+        	//StepData data = (StepData)transformerTable.getValueAt( row, STEP_DATA_COL );
         	
         	//setData();        	
         	stepPanel.showCard( type );
         	//loadData( type, data );
         	prevSelectedRow = row;
         }
-        
-        //updateStepNumbers();
     }
     
     public void deselectRows() {
@@ -290,23 +297,14 @@ public class TransformerPane extends JPanel {
      *  all existing rows
      */
     public void addNewStep() {
-    	
-    	int row = transformerTable.getSelectedRow() 
-    		+ transformerTable.getSelectedRowCount();
-    	
-    	// if there are no rows
-    	if ( row == -1 || row > transformerTable.getRowCount() ) 
-    		row = 0;
-    	
-    	setRowData( null, row );
+    	setRowData( null, transformerTable.getRowCount() );
+    	updateStepNumbers();
     }
     
     /** void moveStepUp (MouseEvent evt)
      *  move the selected group of rows up by one row
      */
     public void moveStepUp() {
-    	// need to grab the current row index,
-    	// if the row is > 0, switch with row-1
     	int firstSelectedRow = transformerTable.getSelectedRow();
     	int moveTo = firstSelectedRow - 1;
     	int selectedRowCount = transformerTable.getSelectedRowCount();
@@ -320,6 +318,7 @@ public class TransformerPane extends JPanel {
     		transformerTableModel.moveRow( firstSelectedRow, lastSelectedRow, moveTo );
     	   	transformerTable.setRowSelectionInterval( moveTo, moveTo + selectedRowCount - 1 );
     	}
+    	updateStepNumbers();
     }
 
     /** void moveStepDown (MouseEvent evt)
@@ -342,6 +341,7 @@ public class TransformerPane extends JPanel {
     	    	transformerTable.setRowSelectionInterval(
     	    			moveTo, moveTo + selectedRowCount - 1 );
     	}
+    	updateStepNumbers();
     }    
     
  
@@ -367,17 +367,28 @@ public class TransformerPane extends JPanel {
     		transformerTable.setRowSelectionInterval( firstSelectedRow, firstSelectedRow );
     	else 
     		transformerTable.setRowSelectionInterval( maxRowIndex, maxRowIndex );
+    	
+    	updateStepNumbers();
     }
     
     /** void accept(MouseEvent evt)
      *  returns a vector of vectors to the caller of this.
      */
     public void accept() {
+    	List<Step> list = new ArrayList<Step>();
+    	for ( int i = 0;  i < transformerTable.getRowCount();  i++ ) {
+    		Step step = new Step();
+    		step.setSequenceNumber( Integer.parseInt(
+    				transformerTable.getValueAt( i, STEP_NUMBER_COL ).toString() ));
+    		step.setName( (String)transformerTable.getValueAt( i, STEP_NAME_COL ));
+    		step.setType( (String)transformerTable.getValueAt( i, STEP_TYPE_COL ));
+    		
+    		list.add( step );
+    	}
     	
-    	Vector v = (Vector)transformerTableModel.getDataVector();
-    	List<Step> steps = v.subList( 0, v.size() - 1 );
-    	transformer.setSteps( steps );
-    	
+    	transformer.setSteps( list );
+    
+    	// reset the task pane and content to channel edit page
     	parent.setCurrentContentPage( parent.channelEditPage );
     	parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
     }

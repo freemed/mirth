@@ -44,10 +44,8 @@ public class JavaScriptPanel extends ScriptPanel {
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingTextPane = new JTextPane( mappingDoc );
-		mappingTextPane.setBorder(
-				BorderFactory.createBevelBorder( BevelBorder.LOWERED ) );
-		mappingPane.setBorder(
-				BorderFactory.createTitledBorder("JavaScript" ) );
+		mappingTextPane.setBorder( BorderFactory.createEtchedBorder() );
+		mappingPane.setBorder( BorderFactory.createTitledBorder("JavaScript" ) );
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		

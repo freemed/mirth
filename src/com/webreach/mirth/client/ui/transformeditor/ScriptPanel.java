@@ -26,6 +26,8 @@
  */
 package com.webreach.mirth.client.ui.transformeditor;
 
+import com.webreach.mirth.client.ui.Constants;
+
 /**
  * @author chrisl, franciscos
  *
@@ -34,6 +36,7 @@ public class ScriptPanel extends StepPanel {
 	
 	public ScriptPanel() {
 		super();
+		this.setBackground( Constants.BACKGROUND_COLOR );
 	}
 				
 }
