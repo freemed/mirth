@@ -62,13 +62,17 @@ public class TransformerPane extends JPanel {
         transformerTable.setHighlighters( highlighter );
         transformerTable.setGridColor( Constants.GRID_COLOR );
         transformerTable.setRowHeight( Constants.ROW_HEIGHT );
+        
         // add some columns to the table
-        transformerTableModel.addColumn( " # ", new Integer[]{} );
-        transformerTableModel.addColumn( "Step Name", new String[]{} );
-        transformerTableModel.addColumn( "Step Type", new String[]{} );
-        transformerTableModel.addColumn( "Step Data", new Object[]{} );		// this col will be hidden
+        Vector<String> columns = new Vector<String>( NUMBER_OF_COLUMNS );
+        columns.add( " # " );
+        columns.add("Step Name");
+        columns.add("Step Type");
+        columns.add("Step Data");
+        transformerTableModel.setColumnIdentifiers( columns );
+        // 		hide the data column
         TableColumnModel colModel = transformerTable.getColumnModel();
-        colModel.removeColumn( colModel.getColumn( STEP_DATA_COL ) );		// hide the column
+        colModel.removeColumn( colModel.getColumn( STEP_DATA_COL ) );	
 
         // the options for the comboBox in the table
         String[] comboBoxValues = new String[] { 
@@ -92,18 +96,11 @@ public class TransformerPane extends JPanel {
 	    // populate the list with any exisitng steps from the
         // Transformer object.
 	    System.out.println(transformer);
-        List steps = transformer.getSteps();
+        List<Step> steps = transformer.getSteps();
         System.out.println(steps);
         if ( steps != null ) {
-        	ListIterator li = steps.listIterator();
-	        int i = 0;
-	        while ( li.hasNext() ) {
-	        	Step step = (Step)li.next();
-	        	Vector<Object> v = stepToVector( step );
-	        	transformerTableModel.insertRow( i, v );	        
-	        	transformerTable.setRowSelectionInterval( i, i );
-	        	i++;
-	        }
+        	Vector<Vector> v = listToDataVector( steps );
+        	transformerTableModel.setDataVector( v, columns );
         }
 	    
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
