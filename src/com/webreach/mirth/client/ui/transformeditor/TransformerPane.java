@@ -234,6 +234,7 @@ public class TransformerPane extends JPanel {
     	tableData[STEP_NUMBER_COL] = step.getSequenceNumber();
     	tableData[STEP_NAME_COL] = step.getName();
     	tableData[STEP_TYPE_COL] = step.getType();
+    	tableData[STEP_DATA_COL] = step.getData();
 
     	transformerTableModel.addRow( tableData );
         transformerTable.setRowSelectionInterval( row, row );
@@ -372,6 +373,7 @@ public class TransformerPane extends JPanel {
     				transformerTable.getValueAt( i, STEP_NUMBER_COL ).toString() ));
     		step.setName( (String)transformerTable.getValueAt( i, STEP_NAME_COL ));
     		step.setType( (String)transformerTable.getValueAt( i, STEP_TYPE_COL ));
+    		step.setData( (Object)transformerTable.getValueAt( i, STEP_DATA_COL ));
     		
     		list.add( step );
     	}
