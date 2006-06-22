@@ -310,7 +310,6 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel = parent.channels.get(index);
         
         channelView.setSelectedComponent(summary);
-        parent.channelEditTasks.setVisible(false);
         
         loadChannelInfo();
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
@@ -326,7 +325,6 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel = channel;
         
         channelView.setSelectedComponent(summary);
-        parent.channelEditTasks.setVisible(false);
         
         Transformer sourceTransformer = new Transformer();
         Filter sourceFilter = new Filter();
@@ -451,11 +449,6 @@ public class ChannelSetup extends javax.swing.JPanel
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        
-        if(channelView.getSelectedIndex() == 0)
-        {
-            parent.channelEditTasks.setVisible(false);
-        }
         
         return true;
     }
@@ -747,25 +740,17 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void summaryComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_summaryComponentShown
     {//GEN-HEADEREND:event_summaryComponentShown
-        if(parent.channelEditTasks.getContentPane().getComponent(0).isVisible())
-        {
-            parent.channelEditTasks.setVisible(true);
-            parent.setVisibleTasks(parent.channelEditTasks, 1, false);
-        }
-        else
-            parent.channelEditTasks.setVisible(false);
+        parent.setVisibleTasks(parent.channelEditTasks, 1, false);
     }//GEN-LAST:event_summaryComponentShown
 
     private void sourceComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_sourceComponentShown
     {//GEN-HEADEREND:event_sourceComponentShown
-        parent.channelEditTasks.setVisible(true);
         parent.setVisibleTasks(parent.channelEditTasks, 1, false);
         parent.setVisibleTasks(parent.channelEditTasks, 3, true);
     }//GEN-LAST:event_sourceComponentShown
 
     private void destinationComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_destinationComponentShown
     {//GEN-HEADEREND:event_destinationComponentShown
-        parent.channelEditTasks.setVisible(true);
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
         {
             parent.setVisibleTasks(parent.channelEditTasks, 1, false);
