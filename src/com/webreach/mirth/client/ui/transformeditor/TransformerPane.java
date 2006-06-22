@@ -228,7 +228,7 @@ public class TransformerPane extends JPanel {
     		step.setSequenceNumber( row );
     		step.setName( "New Step" );
     		step.setType( MAPPER_TYPE );	// mapper type by default
-    		step.setData( new MapperData() );
+    		step.setData( null ); //new MapperData() );
     	}
 	
     	tableData[STEP_NUMBER_COL] = step.getSequenceNumber();
@@ -242,7 +242,7 @@ public class TransformerPane extends JPanel {
     
     // sets the data from the previously used panel into the
     // previously selected Step object
-    private void setData() {
+   /* private void setData() {
     	Object data = null;
     	String type = null;
     	if ( prevSelectedRow >= 0 && prevSelectedRow < transformerTable.getRowCount() )
@@ -267,7 +267,7 @@ public class TransformerPane extends JPanel {
     	//else if ( type == JDBC_TYPE ) jdbcPanel.setData( data );
     	//else if ( type == ALERT_TYPE ) alertPanel.setData( data );
     }
-    
+    */
     private void TransformerListSelected( ListSelectionEvent evt ) {
         int row = transformerTable.getSelectedRow();
         
