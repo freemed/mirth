@@ -86,7 +86,6 @@ public class ChannelPanel extends javax.swing.JPanel {
             }
         });
         
-        channelTable.setFocusable(false);
         channelTable.setSelectionMode(0);        
         
         channelTable.getColumnExt("Status").setMaxWidth(90);

@@ -91,7 +91,6 @@ public class StatusPanel extends javax.swing.JPanel {
             }
         });
         
-        statusTable.setFocusable(false);
         statusTable.setSelectionMode(0);
                 
         statusTable.getColumnExt("Status").setMaxWidth(90);
@@ -144,26 +143,26 @@ public class StatusPanel extends javax.swing.JPanel {
         int row = statusTable.getSelectedRow();
         if(row >= 0)
         {
-            parent.setVisibleTasks(parent.statusTasks, 2, true);
+            parent.setVisibleTasks(parent.statusTasks, 3, true);
             
             int columnNumber = getColumnNumber("Status");
             if (((String)statusTable.getValueAt(row, columnNumber)).equals("Started"))
             {
-                parent.statusTasks.getContentPane().getComponent(2).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(3).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(3).setVisible(false);
                 parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(5).setVisible(true);
             }
             else if (((String)statusTable.getValueAt(row, columnNumber)).equals("Paused"))
             {
-                parent.statusTasks.getContentPane().getComponent(2).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(3).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(3).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
+                parent.statusTasks.getContentPane().getComponent(5).setVisible(true);
             }
             else
             {
-                parent.statusTasks.getContentPane().getComponent(2).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(3).setVisible(false);
+                parent.statusTasks.getContentPane().getComponent(3).setVisible(true);
                 parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
+                parent.statusTasks.getContentPane().getComponent(5).setVisible(false);
             }
         }
     }
@@ -171,7 +170,7 @@ public class StatusPanel extends javax.swing.JPanel {
     private void deselectRows()
     {
         statusTable.clearSelection();
-        parent.setVisibleTasks(parent.statusTasks, 2, false);
+        parent.setVisibleTasks(parent.statusTasks, 3, false);
     }
     
     public int getSelectedStatus()

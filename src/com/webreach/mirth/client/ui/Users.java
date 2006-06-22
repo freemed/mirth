@@ -69,7 +69,6 @@ public class Users extends javax.swing.JScrollPane {
             }
         });
         
-        usersTable.setFocusable(false);
         usersTable.setSelectionMode(0);
                 
         usersTable.getColumnExt("ID").setMaxWidth(90);

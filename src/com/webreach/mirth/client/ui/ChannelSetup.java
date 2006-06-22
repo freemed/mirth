@@ -166,10 +166,10 @@ public class ChannelSetup extends javax.swing.JPanel
         
         jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("Destination")).setCellEditor(new MyTableCellEditor(parent));
 
-        jTable1.setFocusable(false);
         jTable1.setSelectionMode(0);
         jTable1.setRowSelectionAllowed(true);
         jTable1.setRowHeight(20);
+        jTable1.setFocusable(false); // Need to figure a way to make the arrows work here because the pane that shows up steals the focus
         
         ((JXTable)jTable1).setColumnMargin(2);
         jTable1.setOpaque(true);
@@ -451,7 +451,12 @@ public class ChannelSetup extends javax.swing.JPanel
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
+        
+        if(channelView.getSelectedIndex() == 0)
+        {
+            parent.channelEditTasks.setVisible(false);
+        }
+        
         return true;
     }
 
@@ -505,7 +510,9 @@ public class ChannelSetup extends javax.swing.JPanel
         connectorClass2 = new com.webreach.mirth.client.ui.ConnectorClass();
         variableList2 = new com.webreach.mirth.client.ui.VariableList();
 
+        channelView.setFocusable(false);
         summary.setBackground(new java.awt.Color(255, 255, 255));
+        summary.setFocusable(false);
         summary.addComponentListener(new java.awt.event.ComponentAdapter()
         {
             public void componentShown(java.awt.event.ComponentEvent evt)
@@ -599,6 +606,7 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.addTab("Summary", summary);
 
         source.setBackground(new java.awt.Color(255, 255, 255));
+        source.setFocusable(false);
         source.addComponentListener(new java.awt.event.ComponentAdapter()
         {
             public void componentShown(java.awt.event.ComponentEvent evt)
@@ -662,6 +670,7 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.addTab("Source", source);
 
         destination.setBackground(new java.awt.Color(255, 255, 255));
+        destination.setFocusable(false);
         destination.addComponentListener(new java.awt.event.ComponentAdapter()
         {
             public void componentShown(java.awt.event.ComponentEvent evt)
@@ -738,7 +747,13 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void summaryComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_summaryComponentShown
     {//GEN-HEADEREND:event_summaryComponentShown
-        parent.channelEditTasks.setVisible(false);
+        if(parent.channelEditTasks.getContentPane().getComponent(0).isVisible())
+        {
+            parent.channelEditTasks.setVisible(true);
+            parent.setVisibleTasks(parent.channelEditTasks, 1, false);
+        }
+        else
+            parent.channelEditTasks.setVisible(false);
     }//GEN-LAST:event_summaryComponentShown
 
     private void sourceComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_sourceComponentShown
@@ -751,7 +766,13 @@ public class ChannelSetup extends javax.swing.JPanel
     private void destinationComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_destinationComponentShown
     {//GEN-HEADEREND:event_destinationComponentShown
         parent.channelEditTasks.setVisible(true);
-        parent.setVisibleTasks(parent.channelEditTasks, 1, true);
+        if(currentChannel.getMode() == Channel.Mode.APPLICATION)
+        {
+            parent.setVisibleTasks(parent.channelEditTasks, 1, false);
+            parent.setVisibleTasks(parent.channelEditTasks, 3, true);
+        }
+        else
+            parent.setVisibleTasks(parent.channelEditTasks, 1, true);
     }//GEN-LAST:event_destinationComponentShown
 
     private void sourceSourceDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSourceDropdownActionPerformed

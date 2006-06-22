@@ -221,14 +221,14 @@ public class Frame extends JXFrame
         statusTasks.setFocusable(false);
         statusTasks.add(initActionCallback("doRefresh",ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         statusTasks.add(initActionCallback("doStartAll",ActionFactory.createBoundAction("doStartAll","Start All Channels", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start1.png"))));
+        statusTasks.add(initActionCallback("doShowEvents",ActionFactory.createBoundAction("doShowEvents","Events", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
         statusTasks.add(initActionCallback("doStart",ActionFactory.createBoundAction("doStart","Start Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
         statusTasks.add(initActionCallback("doPause",ActionFactory.createBoundAction("doPause","Pause Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/pause.png"))));
         statusTasks.add(initActionCallback("doStop",ActionFactory.createBoundAction("doStop","Stop Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         //statusTasks.add(initActionCallback("doShowStats",ActionFactory.createBoundAction("doShowStats","Stats", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stats.png"))));
-        statusTasks.add(initActionCallback("doShowEvents",ActionFactory.createBoundAction("doShowEvents","Events", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
         statusTasks.add(initActionCallback("doShowMessages",ActionFactory.createBoundAction("doShowMessages","Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
         setNonFocusable(statusTasks);
-        setVisibleTasks(statusTasks, 2, false);
+        setVisibleTasks(statusTasks, 3, false);
         taskPaneContainer.add(statusTasks);
 
         // Create User Tasks Pane
