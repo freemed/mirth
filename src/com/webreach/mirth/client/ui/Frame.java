@@ -1,20 +1,17 @@
 package com.webreach.mirth.client.ui;
 
-import com.sun.corba.se.spi.orbutil.fsm.State;
 import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.browsers.event.EventBrowser;
+import com.webreach.mirth.client.ui.browsers.message.MessageBrowser;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.User;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
-import org.jdesktop.swingx.auth.*;
-import org.jdesktop.swingx.decorator.*;
 
 /**
  *
@@ -659,6 +656,7 @@ public class Frame extends JXFrame
 
     public void doShowMessages()
     {
+        new MessageBrowser(this);
     }
 
     public void doShowEvents()

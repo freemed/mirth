@@ -1,9 +1,11 @@
-package com.webreach.mirth.client.ui.browsers.event;
+package com.webreach.mirth.client.ui.browsers.message;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Channel;
+import com.webreach.mirth.model.MessageEvent;
 import com.webreach.mirth.model.SystemEvent;
+import com.webreach.mirth.model.filters.MessageEventFilter;
 import com.webreach.mirth.model.filters.SystemEventFilter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -13,22 +15,39 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DateFormatter;
+import org.apache.commons.httpclient.StatusLine;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
-public class EventBrowser extends javax.swing.JPanel
+public class MessageBrowser extends javax.swing.JPanel
 {
+    public static final String MESSAGE_ID_TABLE_NAME = "Message ID";
+    public static final String CHANNEL_ID_TABLE_NAME = "Channel ID";
+    public static final String DATE_TABLE_NAME = "Date";
+    public static final String SENDING_FACILITY_TABLE_NAME = "Sending Facility";
+    public static final String EVENT_TABLE_NAME = "Event";
+    public static final String CONTROL_ID_TABLE_NAME = "Control ID";
+    public static final String STATUS_TABLE_NAME = "Status";
+    
     private JScrollPane eventPane;
     private JXTable eventTable;
     private Frame parent;
-    private List<SystemEvent> systemEventList;
+    private List<MessageEvent> messageEventList;
     
-    public EventBrowser(Frame parent)
+    public MessageBrowser(Frame parent)
     {
         this.parent = parent;
         initComponents();
+        
+        String[] values = new String[MessageEvent.Status.values().length + 1];
+        values[0] = "ALL";
+        for (int i = 1; i < values.length; i++)
+            values[i] = MessageEvent.Status.values()[i-1].toString();
+        
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel(values));
+        
         eventPane = new JScrollPane();
 
         // use the start filters and make the table.
@@ -61,34 +80,38 @@ public class EventBrowser extends javax.swing.JPanel
         
         parent.setCurrentContentPage(this);
     }
-    public void makeEventTable(SystemEventFilter filter) {
+    public void makeEventTable(MessageEventFilter filter) {
         eventTable = new JXTable();
         try 
         {
-            systemEventList = parent.mirthClient.getSystemEvents(filter);
+            messageEventList = parent.mirthClient.getMessageEvents(filter);
         } 
         catch (ClientException ex)
         {
-            systemEventList = null;
+            messageEventList = null;
             ex.printStackTrace();
         }
         
-        if (systemEventList == null)
+        if (messageEventList == null)
             return;
                 
-        Object[][] tableData = new Object[systemEventList.size()][4];
+        Object[][] tableData = new Object[messageEventList.size()][4];
         
-        for (int i=0; i < systemEventList.size(); i++)
+        for (int i=0; i < messageEventList.size(); i++)
         {
-            SystemEvent systemEvent = systemEventList.get(i);
+            MessageEvent messageEvent = messageEventList.get(i);
             
-            tableData[i][0] = systemEvent.getId();
-            tableData[i][1] = systemEvent.getChannelId();
+            tableData[i][0] = messageEvent.getId();
+            tableData[i][1] = messageEvent.getChannelId();
             
-            Calendar calendar = systemEvent.getDate();
+            Calendar calendar = messageEvent.getDate();
             
             tableData[i][2] = String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", calendar);
-            tableData[i][3] = systemEvent.getEvent();
+            tableData[i][3] = messageEvent.getSendingFacility();
+            tableData[i][4] = messageEvent.getEvent();
+            tableData[i][5] = messageEvent.getControlId();
+            tableData[i][6] = messageEvent.getStatus();
+            
         }
                 
         
@@ -96,12 +119,12 @@ public class EventBrowser extends javax.swing.JPanel
                 tableData,
                 new String []
         {
-            "Event ID", "Channel ID", "Date", "Event"
+            MESSAGE_ID_TABLE_NAME, CHANNEL_ID_TABLE_NAME, DATE_TABLE_NAME, SENDING_FACILITY_TABLE_NAME, EVENT_TABLE_NAME, CONTROL_ID_TABLE_NAME, STATUS_TABLE_NAME
         }
         ) {
             boolean[] canEdit = new boolean []
             {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
             
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -111,12 +134,12 @@ public class EventBrowser extends javax.swing.JPanel
         
         eventTable.setSelectionMode(0);        
         
-        eventTable.getColumnExt("Event ID").setMaxWidth(90);
-        eventTable.getColumnExt("Event ID").setMinWidth(90);
-        eventTable.getColumnExt("Channel ID").setMaxWidth(90);
-        eventTable.getColumnExt("Channel ID").setMinWidth(90);
-        eventTable.getColumnExt("Date").setMaxWidth(120);
-        eventTable.getColumnExt("Date").setMinWidth(120);
+        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setMaxWidth(90);
+        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setMinWidth(90);
+        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setMaxWidth(90);
+        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setMinWidth(90);
+        eventTable.getColumnExt(DATE_TABLE_NAME).setMaxWidth(120);
+        eventTable.getColumnExt(DATE_TABLE_NAME).setMinWidth(120);
         
         eventTable.setRowHeight(20);
         eventTable.setColumnMargin(2);
@@ -148,31 +171,40 @@ public class EventBrowser extends javax.swing.JPanel
         
         if(row >= 0)
         {
-            description.setText(systemEventList.get(row).getDescription());
+            ER7TextArea.setText(messageEventList.get(row).getMessage());
         }
     }
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         filterPanel = new javax.swing.JPanel();
-        eventLabel = new javax.swing.JLabel();
+        sendingFacilityLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        eventField = new javax.swing.JTextField();
+        sendingFacilityField = new javax.swing.JTextField();
         filterButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         mirthDatePicker1 = new com.webreach.mirth.client.ui.MirthDatePicker();
         mirthDatePicker2 = new com.webreach.mirth.client.ui.MirthDatePicker();
+        controlIDField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        statusComboBox = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         descriptionPanel = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        ER7Panel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        description = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
+        ER7TextArea = new javax.swing.JTextArea();
+        XMLPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        XMLTextArea = new javax.swing.JTextArea();
+        HL7Panel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filter By", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
-        eventLabel.setText("Event:");
+        sendingFacilityLabel.setText("Sending Facility:");
 
         jLabel3.setText("Start Date:");
 
@@ -185,29 +217,35 @@ public class EventBrowser extends javax.swing.JPanel
 
         jLabel2.setText("End Date:");
 
+        jLabel1.setText("Control ID:");
+
+        jLabel5.setText("Status:");
+
         org.jdesktop.layout.GroupLayout filterPanelLayout = new org.jdesktop.layout.GroupLayout(filterPanel);
         filterPanel.setLayout(filterPanelLayout);
         filterPanelLayout.setHorizontalGroup(
             filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(filterPanelLayout.createSequentialGroup()
-                .add(37, 37, 37)
+                .addContainerGap()
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(filterPanelLayout.createSequentialGroup()
-                        .add(eventLabel)
-                        .add(6, 6, 6))
-                    .add(filterPanelLayout.createSequentialGroup()
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                    .add(jLabel3)
+                    .add(sendingFacilityLabel)
+                    .add(jLabel1)
+                    .add(jLabel5))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(filterButton)
-                    .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(filterPanelLayout.createSequentialGroup()
                         .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, statusComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, controlIDField)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         filterPanelLayout.setVerticalGroup(
             filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -217,15 +255,22 @@ public class EventBrowser extends javax.swing.JPanel
                     .add(jLabel2)
                     .add(filterPanelLayout.createSequentialGroup()
                         .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(eventLabel)
-                            .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(sendingFacilityLabel)
+                            .add(sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jLabel3)
-                                .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(controlIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel5)
+                            .add(statusComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel3)
+                            .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 11, Short.MAX_VALUE)
                 .add(filterButton)
                 .addContainerGap())
         );
@@ -253,36 +298,82 @@ public class EventBrowser extends javax.swing.JPanel
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
         );
 
         descriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
-        description.setColumns(20);
-        description.setRows(5);
-        description.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        description.setEnabled(false);
-        jScrollPane2.setViewportView(description);
+        ER7Panel.setBackground(new java.awt.Color(255, 255, 255));
+        ER7TextArea.setColumns(20);
+        ER7TextArea.setRows(5);
+        ER7TextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        ER7TextArea.setEnabled(false);
+        jScrollPane2.setViewportView(ER7TextArea);
 
-        jLabel4.setText("Description:");
+        org.jdesktop.layout.GroupLayout ER7PanelLayout = new org.jdesktop.layout.GroupLayout(ER7Panel);
+        ER7Panel.setLayout(ER7PanelLayout);
+        ER7PanelLayout.setHorizontalGroup(
+            ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, ER7PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        ER7PanelLayout.setVerticalGroup(
+            ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, ER7PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jTabbedPane1.addTab("ER7", ER7Panel);
+
+        XMLPanel.setBackground(new java.awt.Color(255, 255, 255));
+        XMLTextArea.setColumns(20);
+        XMLTextArea.setRows(5);
+        XMLTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        XMLTextArea.setEnabled(false);
+        jScrollPane3.setViewportView(XMLTextArea);
+
+        org.jdesktop.layout.GroupLayout XMLPanelLayout = new org.jdesktop.layout.GroupLayout(XMLPanel);
+        XMLPanel.setLayout(XMLPanelLayout);
+        XMLPanelLayout.setHorizontalGroup(
+            XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, XMLPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        XMLPanelLayout.setVerticalGroup(
+            XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, XMLPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jTabbedPane1.addTab("XML", XMLPanel);
+
+        HL7Panel.setBackground(new java.awt.Color(255, 255, 255));
+        org.jdesktop.layout.GroupLayout HL7PanelLayout = new org.jdesktop.layout.GroupLayout(HL7Panel);
+        HL7Panel.setLayout(HL7PanelLayout);
+        HL7PanelLayout.setHorizontalGroup(
+            HL7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 521, Short.MAX_VALUE)
+        );
+        HL7PanelLayout.setVerticalGroup(
+            HL7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 115, Short.MAX_VALUE)
+        );
+        jTabbedPane1.addTab("HL7", HL7Panel);
 
         org.jdesktop.layout.GroupLayout descriptionPanelLayout = new org.jdesktop.layout.GroupLayout(descriptionPanel);
         descriptionPanel.setLayout(descriptionPanelLayout);
         descriptionPanelLayout.setHorizontalGroup(
             descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(descriptionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-                    .add(jLabel4))
-                .addContainerGap())
+            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
         );
         descriptionPanelLayout.setVerticalGroup(
             descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(descriptionPanelLayout.createSequentialGroup()
-                .add(jLabel4)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                .addContainerGap())
+            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -305,9 +396,21 @@ public class EventBrowser extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
-        SystemEventFilter filter = new SystemEventFilter();
-        if (!eventField.getText().equals(""))
-            filter.setEvent(eventField.getText());
+        MessageEventFilter filter = new MessageEventFilter();
+        if (!sendingFacilityField.getText().equals(""))
+            filter.setSendingFacility(sendingFacilityField.getText());
+        
+        if (!controlIDField.getText().equals(""))
+            filter.setControlId(controlIDField.getText());
+        
+        if (!((String)statusComboBox.getSelectedItem()).equalsIgnoreCase("ALL"))
+        {
+            for (int i = 0; i < MessageEvent.Status.values().length; i++)
+            {
+                if (((String)statusComboBox.getSelectedItem()).equalsIgnoreCase(MessageEvent.Status.values()[i].toString()))
+                    filter.setStatus(MessageEvent.Status.values()[i]);
+            }
+        }
         
         if (mirthDatePicker1.getDate() != null)
         {
@@ -326,21 +429,30 @@ public class EventBrowser extends javax.swing.JPanel
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea description;
+    private javax.swing.JPanel ER7Panel;
+    private javax.swing.JTextArea ER7TextArea;
+    private javax.swing.JPanel HL7Panel;
+    private javax.swing.JPanel XMLPanel;
+    private javax.swing.JTextArea XMLTextArea;
+    private javax.swing.JTextField controlIDField;
     private javax.swing.JPanel descriptionPanel;
-    private javax.swing.JTextField eventField;
-    private javax.swing.JLabel eventLabel;
     private javax.swing.JButton filterButton;
     private javax.swing.JPanel filterPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker1;
     private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker2;
+    private javax.swing.JTextField sendingFacilityField;
+    private javax.swing.JLabel sendingFacilityLabel;
+    private javax.swing.JComboBox statusComboBox;
     // End of variables declaration//GEN-END:variables
     
 }
