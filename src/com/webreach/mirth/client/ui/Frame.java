@@ -586,6 +586,7 @@ public class Frame extends JXFrame
                 mirthClient.removeUser(users.get(userToDelete).getId());
                 users = mirthClient.getUsers();
                 adminPanel.u.makeUsersTable();
+                adminPanel.u.deselectRows();
            }
         }
         catch (ClientException ex)

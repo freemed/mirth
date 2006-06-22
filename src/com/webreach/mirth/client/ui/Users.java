@@ -113,7 +113,7 @@ public class Users extends javax.swing.JScrollPane {
         }
     }
     
-    private void deselectRows()
+    public void deselectRows()
     {
         usersTable.clearSelection();
         parent.setVisibleTasks(parent.userTasks, 2, false);

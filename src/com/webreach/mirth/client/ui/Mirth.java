@@ -12,6 +12,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -99,7 +100,10 @@ public class Mirth
                 
                 final MirthLoginService svc = new MirthLoginService(); 
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
-                                              
+                
+                panel.setBannerText("");
+                Constants.BACKGROUND_IMAGE = new ImageIcon(panel.getUI().getBanner());
+                
                 panel.setBannerText("Login :: Mirth");
                 panel.setOpaque(true);
                 JPanel loginInfo = (JPanel)((JPanel)panel.getComponent(1)).getComponent(1);

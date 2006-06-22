@@ -1,6 +1,7 @@
 package com.webreach.mirth.client.ui;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class Constants 
 {
@@ -15,5 +16,7 @@ public class Constants
         
 	// for JSplitPane
 	public static final int DIVIDER_SIZE = 12;
+        
+        public static ImageIcon BACKGROUND_IMAGE;
 	
 }
