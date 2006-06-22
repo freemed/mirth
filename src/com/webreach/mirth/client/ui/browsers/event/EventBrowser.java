@@ -5,10 +5,14 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.SystemEvent;
 import com.webreach.mirth.model.filters.SystemEventFilter;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.DateFormatter;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
@@ -26,9 +30,9 @@ public class EventBrowser extends javax.swing.JPanel
         this.parent = parent;
         initComponents();
         eventPane = new JScrollPane();
-        JXDatePicker datePicker = new JXDatePicker();
-        
-        makeEventTable();
+
+        // use the start filters and make the table.
+        filterButtonActionPerformed(null);
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
@@ -57,11 +61,11 @@ public class EventBrowser extends javax.swing.JPanel
         
         parent.setCurrentContentPage(this);
     }
-    public void makeEventTable() {
+    public void makeEventTable(SystemEventFilter filter) {
         eventTable = new JXTable();
         try 
         {
-            systemEventList = parent.mirthClient.getSystemEvents(new SystemEventFilter());
+            systemEventList = parent.mirthClient.getSystemEvents(filter);
         } 
         catch (ClientException ex)
         {
@@ -80,7 +84,10 @@ public class EventBrowser extends javax.swing.JPanel
             
             tableData[i][0] = systemEvent.getId();
             tableData[i][1] = systemEvent.getChannelId();
-            tableData[i][2] = systemEvent.getDate();
+            
+            Calendar calendar = systemEvent.getDate();
+            
+            tableData[i][2] = String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", calendar);
             tableData[i][3] = systemEvent.getEvent();
         }
                 
@@ -102,11 +109,14 @@ public class EventBrowser extends javax.swing.JPanel
             }
         });
         
-        eventTable.setFocusable(false);
         eventTable.setSelectionMode(0);        
         
         eventTable.getColumnExt("Event ID").setMaxWidth(90);
         eventTable.getColumnExt("Event ID").setMinWidth(90);
+        eventTable.getColumnExt("Channel ID").setMaxWidth(90);
+        eventTable.getColumnExt("Channel ID").setMinWidth(90);
+        eventTable.getColumnExt("Date").setMaxWidth(120);
+        eventTable.getColumnExt("Date").setMinWidth(120);
         
         eventTable.setRowHeight(20);
         eventTable.setColumnMargin(2);
@@ -144,10 +154,10 @@ public class EventBrowser extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         filterPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        eventLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        channelIDField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        eventField = new javax.swing.JTextField();
+        filterButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         mirthDatePicker1 = new com.webreach.mirth.client.ui.MirthDatePicker();
         mirthDatePicker2 = new com.webreach.mirth.client.ui.MirthDatePicker();
@@ -162,14 +172,14 @@ public class EventBrowser extends javax.swing.JPanel
         setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filter By", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
-        jLabel1.setText("Event:");
+        eventLabel.setText("Event:");
 
         jLabel3.setText("Start Date:");
 
-        jButton1.setText("Filter");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        filterButton.setText("Filter");
+        filterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                filterButtonActionPerformed(evt);
             }
         });
 
@@ -183,14 +193,14 @@ public class EventBrowser extends javax.swing.JPanel
                 .add(37, 37, 37)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(filterPanelLayout.createSequentialGroup()
-                        .add(jLabel1)
+                        .add(eventLabel)
                         .add(6, 6, 6))
                     .add(filterPanelLayout.createSequentialGroup()
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jButton1)
-                    .add(channelIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(filterButton)
+                    .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(filterPanelLayout.createSequentialGroup()
                         .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -207,8 +217,8 @@ public class EventBrowser extends javax.swing.JPanel
                     .add(jLabel2)
                     .add(filterPanelLayout.createSequentialGroup()
                         .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel1)
-                            .add(channelIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(eventLabel)
+                            .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -216,7 +226,7 @@ public class EventBrowser extends javax.swing.JPanel
                                 .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
-                .add(jButton1)
+                .add(filterButton)
                 .addContainerGap())
         );
 
@@ -293,18 +303,34 @@ public class EventBrowser extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
+        SystemEventFilter filter = new SystemEventFilter();
+        if (!eventField.getText().equals(""))
+            filter.setEvent(eventField.getText());
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (mirthDatePicker1.getDate() != null)
+        {
+            Calendar calendarStart = Calendar.getInstance();
+            calendarStart.setTimeInMillis(mirthDatePicker1.getDateInMillis());
+            filter.setStartDate(calendarStart);
+        }
+        if (mirthDatePicker2.getDate() != null)
+        {
+            Calendar calendarEnd = Calendar.getInstance();
+            calendarEnd.setTimeInMillis(mirthDatePicker2.getDateInMillis());
+            filter.setEndDate(calendarEnd);
+        }
+        makeEventTable(filter);
+    }//GEN-LAST:event_filterButtonActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField channelIDField;
     private javax.swing.JTextArea description;
     private javax.swing.JPanel descriptionPanel;
+    private javax.swing.JTextField eventField;
+    private javax.swing.JLabel eventLabel;
+    private javax.swing.JButton filterButton;
     private javax.swing.JPanel filterPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
