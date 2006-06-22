@@ -31,6 +31,9 @@ public class EventBrowser extends javax.swing.JPanel
         initComponents();
         eventPane = new JScrollPane();
 
+        mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
+        mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
+        
         // use the start filters and make the table.
         filterButtonActionPerformed(null);
         

@@ -41,6 +41,9 @@ public class MessageBrowser extends javax.swing.JPanel
         this.parent = parent;
         initComponents();
         
+        mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
+        mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
+        
         String[] values = new String[MessageEvent.Status.values().length + 1];
         values[0] = "ALL";
         for (int i = 1; i < values.length; i++)
