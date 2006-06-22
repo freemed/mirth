@@ -4,9 +4,13 @@
  *  Created on May 26, 2006, 5:08 PM
  */
 
+
 package com.webreach.mirth.client.ui.transformeditor;
 
+import java.awt.BorderLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
@@ -14,8 +18,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.*;
 import javax.swing.*;
-import org.jdesktop.layout.GroupLayout;
-import org.jdesktop.layout.LayoutStyle;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.JXTaskPaneContainer;
@@ -25,6 +27,7 @@ import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Transformer;
+import com.webreach.mirth.model.Step;
 import com.webreach.mirth.client.ui.Constants;
 
 
@@ -63,6 +66,9 @@ public class TransformerPane extends JPanel {
         transformerTableModel.addColumn( " # ", new Integer[]{} );
         transformerTableModel.addColumn( "Step Name", new String[]{} );
         transformerTableModel.addColumn( "Step Type", new String[]{} );
+        transformerTableModel.addColumn( "Step Data", new Object[]{} );		// this col will be hidden
+        TableColumnModel colModel = transformerTable.getColumnModel();
+        colModel.removeColumn( colModel.getColumn( STEP_DATA_COL ) );		// hide the column
 
         // the options for the comboBox in the table
         String[] comboBoxValues = new String[] { 
@@ -85,23 +91,27 @@ public class TransformerPane extends JPanel {
         
 	    // populate the list with any exisitng steps from the
         // Transformer object.
+	    System.out.println(transformer);
         List steps = transformer.getSteps();
+        System.out.println(steps);
         if ( steps != null ) {
         	ListIterator li = steps.listIterator();
 	        int i = 0;
-	        while ( li.hasNext() )
-	        	transformerTableModel.insertRow( i++, (Vector)li.next() );
+	        while ( li.hasNext() ) {
+	        	Step step = (Step)li.next();
+	        	Vector<Object> v = stepToVector( step );
+	        	transformerTableModel.insertRow( i, v );	        
+	        	transformerTable.setRowSelectionInterval( i, i );
+	        	i++;
+	        }
         }
 	    
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
-            public void itemStateChanged( ItemEvent evt ) {
-            	
+            public void itemStateChanged( ItemEvent evt ) {            	
             	String type = evt.getItem().toString();
-
             	// put some logic here to detect if the current panel
             	// has data, and if so, tell the user that changing
-            	// the type will lose the data
-            	
+            	// the type will lose the data            	
             	stepPanel.showCard( type );
             }
         });  
@@ -115,54 +125,34 @@ public class TransformerPane extends JPanel {
         				if ( !updating && !e.getValueIsAdjusting() 
         						&& transformerTable.getRowCount() > 1 ) {
         					
-        					int currSelectedRow = transformerTable.getSelectedRow();
-        					
-        					Step currStep = (Step)
-									transformerTableModel.getDataVector().elementAt( currSelectedRow );
-        					String currType = currStep.getType();
-        					
-        					if ( lastSelectedRow != -1 &&
-        							lastSelectedRow != transformerTable.getRowCount() ) {
+        					// save the previous panel data if there was a row
+        					// selected previously
+        					if ( prevSelectedRow != -1 && 
+        							prevSelectedRow != transformerTable.getRowCount() ) {
         						
-        						Step lastStep = (Step)
-                						transformerTableModel.getDataVector().elementAt( lastSelectedRow );
-                				
-        						String lastType = lastStep.getType();
-                				
-                				if ( lastType == MAPPER_TYPE )
-                					lastStep.setData( mapperPanel.getData() );
-                				else if ( lastType == JAVASCRIPT_TYPE )
-                					lastStep.setData( jsPanel.getData() );
-                				else if ( lastType == SMTP_TYPE )
-                					lastStep.setData( smtpPanel.getData() );
-                				else if ( lastType == JDBC_TYPE )
-                					lastStep.setData( jdbcPanel.getData() );
-                				else if ( lastType == ALERT_TYPE )
-                					lastStep.setData( alertPanel.getData() );
-        						        							        					
+        						Vector<Object> prevRow = (Vector<Object>)
+                						transformerTableModel.getDataVector().elementAt( prevSelectedRow );
+                				Step prevStep = vectorToStep( prevRow );
+                				prevStep.setData( stepPanel.getData() );
+                				prevRow = stepToVector( prevStep );
+                				//transformerTableModel.removeRow( prevSelectedRow );
+                				//transformerTableModel.insertRow( prevSelectedRow, prevRow );
         					}
-        					
-        					if ( currType == MAPPER_TYPE ) 
-								mapperPanel.setData( (MapperData)currStep.getData() );
-        					else if ( currType == JAVASCRIPT_TYPE )
-        						jsPanel.setData( (ScriptData)currStep.getData() );
-        					else if ( currType == SMTP_TYPE )
-        						smtpPanel.setData( (SMTPData)currStep.getData() );
-        					else if ( currType == JDBC_TYPE )
-        						jdbcPanel.setData( (JDBCData)currStep.getData() );
-        					else if ( currType == ALERT_TYPE )
-        						alertPanel.setData( (AlertData)currStep.getData() );
-        					
-									
+
+        					// get the current row
+        					int currSelectedRow = transformerTable.getSelectedRow();
+        					Vector<Object> currRow = (Vector<Object>)
+									 transformerTableModel.getDataVector().elementAt( currSelectedRow );
+        					Step currStep = vectorToStep( currRow );
+        					String currType = currStep.getType();
+        					stepPanel.setData( currStep.getData() );
         					stepPanel.showCard( currType );
 	        				
-        					lastSelectedRow = currSelectedRow;
-        					
+        					prevSelectedRow = currSelectedRow;
         				}
         				
         				updateStepNumbers();
         			}
-        			
         		});
         
         // the available panels (cards)
@@ -172,8 +162,8 @@ public class TransformerPane extends JPanel {
         smtpPanel = new SMTPPanel();
         jdbcPanel = new JDBCPanel();
         alertPanel = new AlertPanel();
-        // establish the cards to use in the Transformer
-        // stepPanel.addCard(blankPanel, blankPanel.getType());
+        // 		establish the cards to use in the Transformer
+        // 		stepPanel.addCard(blankPanel, blankPanel.getType());
         stepPanel.addCard( mapperPanel, MAPPER_TYPE );
         stepPanel.addCard( jsPanel, JAVASCRIPT_TYPE );
         stepPanel.addCard( smtpPanel, SMTP_TYPE );
@@ -187,8 +177,8 @@ public class TransformerPane extends JPanel {
         viewPane.setTitle("Mirth Views");
         viewPane.setFocusable(false);
         viewPane.add(initActionCallback( "accept",
-        		ActionFactory.createBoundAction( "accept", "Back", "B" ), 
-        		new ImageIcon( Frame.class.getResource("images/resultset_previous.png" )) ));
+        		ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
+        		new ImageIcon( Frame.class.getResource( "images/resultset_previous.png" )) ));
         parent.setNonFocusable(viewPane);
         transformerTaskPaneContainer.add(viewPane);
 	    
@@ -217,40 +207,24 @@ public class TransformerPane extends JPanel {
         		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
         		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         
+        // add the tasks to the taskpane, and the taskpane to the mirth client
         transformerTaskPaneContainer.add( transformerTasks );
         parent.setNonFocusable( transformerTasks );
         parent.setVisibleTasks( transformerTasks, 0, true );
         parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
         parent.setCurrentContentPage( this );
         
-        
-        // BGN LAYOUT - a la NetBeans //
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(GroupLayout.TRAILING)
-                    .add(GroupLayout.LEADING, stepPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(transformerTableScrollPane, GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                        .addPreferredGap(LayoutStyle.RELATED))
-                    )
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(transformerTableScrollPane, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(stepPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        // END LAYOUT //
-    } // END initComponents()
-    
+        // LAYOUT
+        transformerTableScrollPane.setBorder( BorderFactory.createEmptyBorder() );
+        stepPanel.setBorder( BorderFactory.createEmptyBorder() );
+        vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
+        		transformerTableScrollPane, stepPanel );
+        vSplitPane.setContinuousLayout( true );
+        vSplitPane.setDividerLocation( 200 );
+        this.setLayout( new BorderLayout() );
+        this.add( vSplitPane, BorderLayout.CENTER );
+   
+    } /* END initComponents() */
     
     
     public BoundAction initActionCallback( 
@@ -267,7 +241,7 @@ public class TransformerPane extends JPanel {
      *  move the selected group of rows up by one row
      */
     public void moveStepUp() {
-    	System.out.println("moveStepUp");
+    	
     	updating = true;
     	
     	// need to grab the current row index,
@@ -295,7 +269,7 @@ public class TransformerPane extends JPanel {
      *  move the selected group of rows down by one row
      */
     public void moveStepDown() {
-    	System.out.println("moveStepDown");
+    	
     	updating = true;
     	
     	int firstSelectedRow = transformerTable.getSelectedRow();
@@ -322,17 +296,21 @@ public class TransformerPane extends JPanel {
      *  add a new row after the current row
      */
     public void addNewStep() {
-    	System.out.println("addNewStep");
+    	
     	int newRow = transformerTable.getSelectedRow() 
     		+ transformerTable.getSelectedRowCount();
     	
     	// if there are no rows
-    	if ( newRow == -1 || newRow >= transformerTable.getRowCount() ) newRow = 0;
+    	if ( newRow == -1 || newRow > transformerTable.getRowCount() ) newRow = 0;
     	
-    	Step step = new Step( newRow );
-    	
+    	Step step = new Step();
+    	Vector<Object> v = new Vector<Object>( NUMBER_OF_COLUMNS );
+    	v.insertElementAt( step.getSequenceNumber(), STEP_NUMBER_COL );
+    	v.insertElementAt( step.getName(), STEP_NAME_COL );
+    	v.insertElementAt( step.getType(), STEP_TYPE_COL );
+
     	// we need to actually place these objects in the row
-    	transformerTableModel.insertRow( newRow, step );
+    	transformerTableModel.insertRow( newRow, v );
     	transformerTable.setRowSelectionInterval( newRow, newRow );
     }
     
@@ -340,7 +318,7 @@ public class TransformerPane extends JPanel {
      *  delete all selected rows
      */
     public void deleteStep() {
-    	System.out.println("deleteStep");
+    	
     	updating = true;
     	
     	int firstSelectedRow = transformerTable.getSelectedRow();
@@ -368,8 +346,10 @@ public class TransformerPane extends JPanel {
      *  returns a vector of vectors to the caller of this.
      */
     public void accept() {
-    	System.out.println("accept");
-    	System.out.println(transformerTableModel.getDataVector()); 
+    	
+    	Vector v = (Vector)transformerTableModel.getDataVector();
+    	List<Step> steps = v.subList( 0, v.size() - 1 );
+    	transformer.setSteps( steps );
     	
     	parent.setCurrentContentPage(parent.channelEditPage);
     	parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
@@ -379,9 +359,61 @@ public class TransformerPane extends JPanel {
      *  traverses the table and updates all data numbers, both in the model
      *  and the view, after any change to the table
      */
-    void updateStepNumbers() {    	
+    private void updateStepNumbers() {    	
     	for ( int i = 0;  i < transformerTable.getRowCount();  i++ )
-    		((Step)transformerTableModel.getDataVector().elementAt(i)).setNumber(i + 1);
+    		((Vector<Object>)
+    				transformerTableModel.getDataVector().elementAt(i)).set( STEP_NUMBER_COL, i );
+    }
+    
+    
+    /** StepToVector( Step step )
+     *  converts a Step object to a Vector object
+     */
+    private Vector<Object> stepToVector( Step step ) {    	
+    	Vector<Object> v = new Vector<Object>( NUMBER_OF_COLUMNS );
+    	v.insertElementAt( step.getSequenceNumber(), STEP_NUMBER_COL );
+    	v.insertElementAt( step.getName(), STEP_NAME_COL );
+    	v.insertElementAt( step.getType(), STEP_TYPE_COL );
+    	v.insertElementAt( step.getData(), STEP_DATA_COL );
+
+    	return v;
+    }
+    
+    /** VectorToStep( Vector<Object> v )
+     *  converts a Vector object to a Step object
+     */
+    private Step vectorToStep( Vector<Object> v ) {
+    	Step step = new Step();
+    	step.setSequenceNumber( ((Integer)v.get( STEP_NUMBER_COL )).intValue() );
+    	step.setName( (String)v.get( STEP_NAME_COL ) );
+    	step.setType( (String)v.get( STEP_TYPE_COL ) );
+    	step.setData( (Object)v.get( STEP_DATA_COL ) );
+    	
+    	return step;
+    }
+    
+    /** dataVectorToList( Vector<Object> v )
+     *  converts the table's dataVector to a List<Step>  
+     */
+    private List<Step> dataVectorToList( Vector<Object> v ) {
+    	List<Step> list = new ArrayList<Step>();
+    	for ( int i = 0;  i < v.size();  i++ )
+    		list.add( vectorToStep( (Vector<Object>)v.get(i) ) );
+    	
+    	return list;
+    }
+    
+    /** listToDataVector( List<Step> l )
+     *  converts a List<Step> to a Vector of Vectors for
+     *  a table model's dataVector
+     */
+    private Vector<Vector> listToDataVector( List<Step> l ){
+    	Vector<Vector> v = new Vector<Vector>();
+    	Iterator<Step> li = l.iterator();
+    	while ( li.hasNext() )
+    		v.add( stepToVector( li.next() ));
+    	
+    	return v;
     }
     
     
@@ -396,27 +428,28 @@ public class TransformerPane extends JPanel {
     private JXTable transformerTable;
     private DefaultTableModel transformerTableModel;
     private JScrollPane transformerTableScrollPane;
-    private JSplitPane hSplitPane;
+    private JSplitPane vSplitPane;
 
     // this little sucker is used to track the last row that had
     // focus after a new row is selected
-    private int lastSelectedRow = -1;	// no row by default
+    private int prevSelectedRow = -1;	// no row by default
     private boolean updating = false;
      
     // panels using CardLayout
     protected StepPanel stepPanel;			// the card holder
-    protected BlankPanel blankPanel;		// the cards \/
-    protected MapperPanel mapperPanel; 		//           \/
-    protected JavaScriptPanel jsPanel;      //           \/
-    protected SMTPPanel smtpPanel;      	//           \/
-    protected JDBCPanel jdbcPanel;			//           \/
-    protected AlertPanel alertPanel;		//           \/
+    protected BlankPanel blankPanel;		// the cards
+    protected MapperPanel mapperPanel; 		//    \/
+    protected JavaScriptPanel jsPanel;      //    \/
+    protected SMTPPanel smtpPanel;      	//    \/
+    protected JDBCPanel jdbcPanel;			//    \/
+    protected AlertPanel alertPanel;		//    \/
     
     // transformer constants
     public static final int STEP_NUMBER_COL  = 0;
     public static final int STEP_NAME_COL  = 1;
-    public static final int STEP_TYPE_COL  = 2;  
-    public static final int NUMBER_OF_COLUMNS = 3;
+    public static final int STEP_TYPE_COL  = 2;
+    public static final int STEP_DATA_COL = 3;
+    public static final int NUMBER_OF_COLUMNS = 4;
     public static final String BLANK_TYPE = "";
     public static final String MAPPER_TYPE = "Mapper";
     public static final String JAVASCRIPT_TYPE = "JavaScript";

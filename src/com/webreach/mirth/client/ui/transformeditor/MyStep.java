@@ -38,15 +38,15 @@ import javax.swing.ImageIcon;
  * when necessary.
  * 
  * Ultimately, it will be better to modify the AbstractTableModel to work
- * with a Step object, and I'll do that when I get a chance to
+ * with a MyStep object, and I'll do that when I get a chance to
  * clean up the code ;)  --fjs--
  */
-public class Step extends Vector<Object> {
+public class MyStep extends Vector<Object> {
 	
 	/** the constructor takes an int to indicate where
 	 *  within the sequence of steps this one belongs
 	 **/
-	public Step( int n ) {
+	public MyStep( int n ) {
 		super( TransformerPane.NUMBER_OF_COLUMNS );
 		
 		name = "";
@@ -57,7 +57,7 @@ public class Step extends Vector<Object> {
 		data = new MapperData();
 		
 		insertElementAt( new Integer( number ), TransformerPane.STEP_NUMBER_COL );
-		insertElementAt( "New Step", TransformerPane.STEP_NAME_COL );
+		insertElementAt( "New MyStep", TransformerPane.STEP_NAME_COL );
 		insertElementAt( type, TransformerPane.STEP_TYPE_COL );
 		
 	}
@@ -102,7 +102,7 @@ public class Step extends Vector<Object> {
 		this.data = data;
 	}
 	
-	// Step fields
+	// MyStep fields
 	//		these are a portion of the vector
 	protected Integer number;
 	protected String name;

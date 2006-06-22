@@ -40,15 +40,12 @@ public class StepPanel extends JPanel {
 	public StepPanel() {
 		super();
 		this.setLayout( new CardLayout() );
-		
 	}
-	
 	
 	// Adds a new card to the panel.  
 	public void addCard( StepPanel panel, String type ){
 		this.add(panel, type);
 	}
-
 	
 	// Shows a certain card
 	public void showCard( String type ) {
@@ -56,4 +53,17 @@ public class StepPanel extends JPanel {
 		cl.show(this, type);
 	}
 
+	// return the data object
+	public Object getData() {
+		return data;
+	}
+	
+	// set the data object
+	public void setData( Object data ) {
+		this.data = data;
+	}
+	
+	
+	private Object data;
+	
 }
