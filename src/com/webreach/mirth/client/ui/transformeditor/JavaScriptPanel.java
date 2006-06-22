@@ -55,7 +55,7 @@ public class JavaScriptPanel extends ScriptPanel {
 	}
 	
 	
-	public ScriptData getData() {
+	public Object getData() {
 		ScriptData scriptData = new ScriptData();
 		scriptData.setScript( mappingTextPane.getText() );
 		

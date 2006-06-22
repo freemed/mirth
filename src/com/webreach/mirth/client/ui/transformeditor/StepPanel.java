@@ -55,16 +55,16 @@ public class StepPanel extends JPanel {
 	}
 
 	// return the data object
-	public StepData getData() {
+	public Object getData() {
 		return data;
 	}
 	
 	// set the data object
-	public void setData( StepData data ) {
+	public void setData( Object data ) {
 		this.data = data;
 	}
 	
 	
-	private StepData data;
+	private Object data;
 	
 }

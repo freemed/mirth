@@ -94,7 +94,7 @@ public class MapperPanel extends StepPanel {
     } // END NetBeans LAYOUT
     
     
-	public StepData getData() {
+	public Object getData() {
 		MapperData mapperData = new MapperData();
 		mapperData.setVariableName( mappingTextField.getText() );
 		mapperData.setVariableMapping( mappingTextPane.getText() );
@@ -102,7 +102,7 @@ public class MapperPanel extends StepPanel {
 	}
 	
 	
-	public void setData( StepData data ) {
+	public void setData( MapperData data ) {
 		if ( data != null ) {
 			mappingTextField.setText( data.getVariableName() );
 			mappingTextPane.setText( data.getVariableMapping() );

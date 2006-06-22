@@ -13,10 +13,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
-import java.util.Vector;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -163,9 +161,9 @@ public class TransformerPane extends JPanel {
 
         // add any existing steps to the model
         List<Step> list = transformer.getSteps();
-        Iterator<Step> i = list.iterator();
-        while ( i.hasNext() ) {
-        	Step s = i.next();
+        ListIterator<Step> li = list.listIterator();
+        while ( li.hasNext() ) {
+        	Step s = li.next();
         	int row = s.getSequenceNumber();
         	setRowData( s, row );
         }
@@ -192,7 +190,7 @@ public class TransformerPane extends JPanel {
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( 150 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMinWidth( 80 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
-        transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
+        //transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
         
         transformerTable.setRowHeight( Constants.ROW_HEIGHT );
         transformerTable.setColumnMargin( Constants.COL_MARGIN );
@@ -221,7 +219,8 @@ public class TransformerPane extends JPanel {
     }    
     
     private void setRowData( Step step, int row ) {
-    	Object[][] tableData = new Object[1][NUMBER_OF_COLUMNS];
+    	// do things 1 row at a time
+    	Object[] tableData = new Object[NUMBER_OF_COLUMNS];
         
     	// we have a new step
     	if ( step == null )	{
@@ -232,22 +231,18 @@ public class TransformerPane extends JPanel {
     		step.setData( new MapperData() );
     	}
 	
-    	tableData[0][STEP_NUMBER_COL] = step.getSequenceNumber();
-    	tableData[0][STEP_NAME_COL] = step.getName();
-    	tableData[0][STEP_TYPE_COL] = step.getType();
+    	tableData[STEP_NUMBER_COL] = step.getSequenceNumber();
+    	tableData[STEP_NAME_COL] = step.getName();
+    	tableData[STEP_TYPE_COL] = step.getType();
 
-    	if ( row >= transformerTable.getRowCount() )
-        	transformerTableModel.addRow( tableData[0] );
-        else
-        	transformerTableModel.getDataVector().setElementAt( tableData[0], row );
-        
+    	transformerTableModel.addRow( tableData );
         transformerTable.setRowSelectionInterval( row, row );
     }
     
     // sets the data from the previously used panel into the
     // previously selected Step object
     private void setData() {
-    	StepData data = null;
+    	Object data = null;
     	String type = null;
     	if ( prevSelectedRow >= 0 && prevSelectedRow < transformerTable.getRowCount() )
     		type = (String)transformerTable.getValueAt( prevSelectedRow, STEP_TYPE_COL );
@@ -264,7 +259,7 @@ public class TransformerPane extends JPanel {
     }
         
     // loads the data object into the correct panel
-    private void loadData( String type, StepData data ) {
+    private void loadData( String type, Object data ) {
     	if ( type == MAPPER_TYPE ) mapperPanel.setData( (MapperData)data );
     	//else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
     	//else if ( type == SMTP_TYPE ) smtpPanel.setData( data );
@@ -276,7 +271,6 @@ public class TransformerPane extends JPanel {
         int row = transformerTable.getSelectedRow();
         
         if( row >= 0 && row < transformerTable.getRowCount() ) {
-        	System.out.println(row);
         	String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
         	//StepData data = (StepData)transformerTable.getValueAt( row, STEP_DATA_COL );
         	
@@ -291,16 +285,6 @@ public class TransformerPane extends JPanel {
         transformerTable.clearSelection();
     }
 
-    /** void addNewStep()
-     *  add a new row after the currently selected row,
-     *  if none selected, add a new row to the end of
-     *  all existing rows
-     */
-    public void addNewStep() {
-    	setRowData( null, transformerTable.getRowCount() );
-    	updateStepNumbers();
-    }
-    
     /** void moveStepUp (MouseEvent evt)
      *  move the selected group of rows up by one row
      */
@@ -342,9 +326,15 @@ public class TransformerPane extends JPanel {
     	    			moveTo, moveTo + selectedRowCount - 1 );
     	}
     	updateStepNumbers();
-    }    
+    }
     
- 
+    /** void addNewStep()
+     *  add a new step to the end of the list
+     */
+    public void addNewStep() {
+    	setRowData( null, transformerTable.getRowCount() );
+    	updateStepNumbers();
+    }
     
     /** void deleteStep(MouseEvent evt)
      *  delete all selected rows

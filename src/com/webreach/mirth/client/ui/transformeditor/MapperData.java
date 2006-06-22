@@ -1,6 +1,6 @@
 package com.webreach.mirth.client.ui.transformeditor;
 
-public class MapperData implements StepData {
+public class MapperData {
 	
 	public MapperData() {
 		variableName = "";
