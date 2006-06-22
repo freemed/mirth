@@ -148,21 +148,21 @@ public class StatusPanel extends javax.swing.JPanel {
             int columnNumber = getColumnNumber("Status");
             if (((String)statusTable.getValueAt(row, columnNumber)).equals("Started"))
             {
-                parent.statusTasks.getContentPane().getComponent(3).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
                 parent.statusTasks.getContentPane().getComponent(5).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(6).setVisible(true);
             }
             else if (((String)statusTable.getValueAt(row, columnNumber)).equals("Paused"))
             {
-                parent.statusTasks.getContentPane().getComponent(3).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(5).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
+                parent.statusTasks.getContentPane().getComponent(5).setVisible(false);
+                parent.statusTasks.getContentPane().getComponent(6).setVisible(true);
             }
             else
             {
-                parent.statusTasks.getContentPane().getComponent(3).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
+                parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
                 parent.statusTasks.getContentPane().getComponent(5).setVisible(false);
+                parent.statusTasks.getContentPane().getComponent(6).setVisible(false);
             }
         }
     }
