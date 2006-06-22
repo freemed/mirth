@@ -27,31 +27,30 @@ public class MapperPanel extends StepPanel {
      *  originally created with NetBeans, modified by franciscos
      */
     private void initComponents() {
-    	
-        treeScrollPane = new JScrollPane();
+    	treeScrollPane = new JScrollPane();
         helpTree = new JTree();
         hSplitPane = new JSplitPane();
         mappingPanel = new JPanel();
-        mappingLabel = new JLabel();
+        mappingLabel = new JLabel( "Variable: " );
         mappingTextField = new JTextField();
         mappingScrollPane = new JScrollPane();
         mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
         mappingTextPane = new JTextPane( mappingDoc );
 
-        treeScrollPane.setBackground( Constants.BACKGROUND_COLOR );
-        //mappingScrollPane.setBackground( Constants.BACKGROUND_COLOR );
-        //mappingPanel.setBackground( Constants.BACKGROUND_COLOR );
-        //hSplitPane.setBackground( Constants.BACKGROUND_COLOR );
-        this.setBackground( Constants.BACKGROUND_COLOR );
-        
-        this.setBorder( BorderFactory.createTitledBorder( "Mapping Panel"));
-        this.setPreferredSize( new Dimension( 1, 1 ));
-        
-        mappingLabel.setText( "Variable: " );
-        mappingTextField.setBorder( BorderFactory.createLoweredBevelBorder() );
-        //mappingTextPane.setBorder( BorderFactory.createLoweredBevelBorder() );
-        mappingPanel.setBorder( BorderFactory.createLoweredBevelBorder() );
+        treeScrollPane.setBorder( BorderFactory.createEmptyBorder() );
+        hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
+        mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
+        mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
+        mappingScrollPane.setBorder( BorderFactory.createEmptyBorder() );
+        mappingTextPane.setBorder( BorderFactory.createEtchedBorder() );
+        this.setBorder( BorderFactory.createEmptyBorder() );
+    	this.setPreferredSize( new Dimension( 1, 1 ) );
+       
+    	hSplitPane.setDividerLocation( 450 );
+        hSplitPane.setLeftComponent( mappingPanel );
+        hSplitPane.setRightComponent( treeScrollPane );
+         
         mappingScrollPane.setViewportView( mappingTextPane );
         treeScrollPane.setViewportView( helpTree );
 
@@ -81,10 +80,6 @@ public class MapperPanel extends StepPanel {
                 .add(mappingScrollPane, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        
-        hSplitPane.setDividerLocation( 450 );
-        hSplitPane.setLeftComponent( mappingPanel );
-        hSplitPane.setRightComponent( treeScrollPane );
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -99,7 +94,7 @@ public class MapperPanel extends StepPanel {
     } // END NetBeans LAYOUT
     
     
-	public Object getData() {
+	public StepData getData() {
 		MapperData mapperData = new MapperData();
 		mapperData.setVariableName( mappingTextField.getText() );
 		mapperData.setVariableMapping( mappingTextPane.getText() );
@@ -107,16 +102,15 @@ public class MapperPanel extends StepPanel {
 	}
 	
 	
-	public void setData( Object data ) {
-		MapperData mapperData = (MapperData)data;
-		if ( mapperData != null ) {
-			mappingTextField.setText( mapperData.getVariableName() );
-			mappingTextPane.setText( mapperData.getVariableMapping() );
+	public void setData( StepData data ) {
+		if ( data != null ) {
+			mappingTextField.setText( data.getVariableName() );
+			mappingTextPane.setText( data.getVariableMapping() );
 		}
 	}    
     
     
-    // Variables declaration - do not modify
+    // Variables declaration
     protected JScrollPane treeScrollPane;
     protected JSplitPane hSplitPane;
     protected JTextPane mappingTextPane;

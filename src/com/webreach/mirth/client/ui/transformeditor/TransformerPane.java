@@ -34,14 +34,8 @@ import com.webreach.mirth.client.ui.Constants;
 
 
 
-public class TransformerPane extends JPanel {
+public class TransformerPane extends JPanel {	
 	
-	
-	/** default constructor 
-	 *  needed for bean
-	 */
-	public TransformerPane(){ initComponents(); }
-    
 	/** constructor
      * 
      *  Frame - the parent where this panel & its tasks will be loaded
@@ -58,7 +52,6 @@ public class TransformerPane extends JPanel {
      *  initialize the form.
      */
     public void initComponents() {
-    	System.out.println( "you are here" );
         
         // the available panels (cards)
         stepPanel = new StepPanel();
@@ -75,8 +68,7 @@ public class TransformerPane extends JPanel {
         stepPanel.addCard( jdbcPanel, JDBC_TYPE );
         stepPanel.addCard( alertPanel, ALERT_TYPE );
 
-        transformerTablePane = new JScrollPane();
-        
+        transformerTablePane = new JScrollPane();        
         transformerTablePane.addMouseListener( new MouseAdapter() {
             public void mouseClicked( MouseEvent evt ) {
                 deselectRows();
@@ -154,48 +146,47 @@ public class TransformerPane extends JPanel {
     public void makeTransformerTable() {
         transformerTable = new JXTable();
         
-        Object[][] tableData = new Object[(transformer.getSteps()).size()][3];
-        
-        transformerTable.setModel(new DefaultTableModel( tableData, 
-        		new String [] { "#", "Name", "Type" } ) {
+        transformerTable.setModel(new DefaultTableModel( 
+        		new String [] { "#", "Name", "Type", "Data" }, 0 ) {	// Data column is hidden
             		boolean[] canEdit = new boolean [] {
-            				false, false, false
+            				false, true, true, true
             		};
             
             		public boolean isCellEditable( int rowIndex, int columnIndex ) {
-            			return canEdit [columnIndex];
+            			return canEdit[columnIndex];
             		}
         		});
+        
+        transformerTableModel = (DefaultTableModel)transformerTable.getModel();
 
         // add any existing steps to the model
         for ( int i=0;  i < transformer.getSteps().size();  i++ )
             setRowData( transformer.getSteps().get(i), i );
         
-        // the options for the comboBox in the table
+        // the options for the comboBox in the STEP_TYPE_COLUMN
         String[] comboBoxValues = new String[] { 
         		MAPPER_TYPE, JAVASCRIPT_TYPE, SMTP_TYPE, JDBC_TYPE, ALERT_TYPE };
         
-        // Set the combobox editor on the type column, 
-        // and add action listener
+        // Set the combobox editor on the type column, and add action listener
 	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
             public void itemStateChanged( ItemEvent evt ) {            	
             	String type = evt.getItem().toString();
             	// put some logic here to detect if the current panel
             	// has data, and if so, tell the user that changing
-            	// the type will lose the data            	
+            	// the type will lose the data        
+            	
             	stepPanel.showCard( type );
             }
         }); 
 	    
 	    transformerTable.setSelectionMode( 0 );        
-        
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setMaxWidth( 30 );
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setMinWidth( 30 );
-
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( 150 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMinWidth( 80 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
+        //transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
         
         transformerTable.setRowHeight( Constants.ROW_HEIGHT );
         transformerTable.setColumnMargin( Constants.COL_MARGIN );
@@ -214,61 +205,79 @@ public class TransformerPane extends JPanel {
             }
         });
         
-        transformerTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        transformerTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked( MouseEvent evt ) {
                 if (evt.getClickCount() >= 2) ;	// ??? //
             }
         });
     }    
     
     private void setRowData( Step step, int row ) {
-    	Object[][] tableData = new Object[1][3];
+    	Object[][] tableData = new Object[1][NUMBER_OF_COLUMNS];
         
-    	tableData[row][STEP_NUMBER_COL] = step.getSequenceNumber();
-        tableData[row][STEP_NAME_COL] = step.getName();
-        tableData[row][STEP_TYPE_COL] = step.getType();
-        
-        if ( row >= transformerTable.getRowCount() )
-        	transformerTableModel.getDataVector().insertElementAt( tableData, row );
+    	// we have a new step
+    	if ( step == null )	{
+    		step = new Step();
+    		step.setSequenceNumber( row );
+    		step.setName( "New Step" );
+    		step.setType( MAPPER_TYPE );	// mapper type by default
+    		step.setData( new MapperData() );
+    	}
+	
+    	tableData[0][STEP_NUMBER_COL] = step.getSequenceNumber();
+    	tableData[0][STEP_NAME_COL] = step.getName();
+    	tableData[0][STEP_TYPE_COL] = step.getType();
+
+    	if ( row >= transformerTable.getRowCount() )
+        	transformerTableModel.addRow( tableData[0] );
         else
-        	transformerTableModel.getDataVector().setElementAt( tableData, row );
+        	transformerTableModel.getDataVector().setElementAt( tableData[0], row );
+        
+        transformerTable.setRowSelectionInterval( row, row );
     }
     
     // sets the data from the previously used panel into the
     // previously selected Step object
-    private void setData( String type ) {
-    	Object data = null;
-    	
+    private void setData() {
+    	StepData data = null;
+    	String type = null;
+    	if ( prevSelectedRow >= 0 && prevSelectedRow < transformerTable.getRowCount() )
+    		type = (String)transformerTable.getValueAt( prevSelectedRow, STEP_TYPE_COL );
     	if ( type == MAPPER_TYPE ) data = mapperPanel.getData();
-    	else if ( type == JAVASCRIPT_TYPE ) data = jsPanel.getData();
-    	else if ( type == SMTP_TYPE ) data = smtpPanel.getData();
-    	else if ( type == JDBC_TYPE ) data = jdbcPanel.getData();
-    	else if ( type == ALERT_TYPE ) data = alertPanel.getData();
+    	//else if ( type == JAVASCRIPT_TYPE ) data = jsPanel.getData();
+    	//else if ( type == SMTP_TYPE ) data = smtpPanel.getData();
+    	//else if ( type == JDBC_TYPE ) data = jdbcPanel.getData();
+    	//else if ( type == ALERT_TYPE ) data = alertPanel.getData();
     	
-    	transformerTable.setValueAt( data, prevSelectedRow, STEP_DATA_COL  );
+    	System.out.println(type + " - " + data);
+    	if ( data != null && prevSelectedRow >= 0 
+    			&& prevSelectedRow < transformerTable.getRowCount() )
+    		transformerTable.setValueAt( data, prevSelectedRow, STEP_DATA_COL );
     }
         
     // loads the data object into the correct panel
-    private void loadData( String type, Object data ) {
-    	if ( type == MAPPER_TYPE ) mapperPanel.setData( data );
-    	else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
-    	else if ( type == SMTP_TYPE ) smtpPanel.setData( data );
-    	else if ( type == JDBC_TYPE ) jdbcPanel.setData( data );
-    	else if ( type == ALERT_TYPE ) alertPanel.setData( data );
+    private void loadData( String type, StepData data ) {
+    	if ( type == MAPPER_TYPE ) mapperPanel.setData( (MapperData)data );
+    	//else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
+    	//else if ( type == SMTP_TYPE ) smtpPanel.setData( data );
+    	//else if ( type == JDBC_TYPE ) jdbcPanel.setData( data );
+    	//else if ( type == ALERT_TYPE ) alertPanel.setData( data );
     }
     
     private void TransformerListSelected( ListSelectionEvent evt ) {
         int row = transformerTable.getSelectedRow();
         
-        if(row >= 0) {
+        if( row >= 0 && row < transformerTable.getRowCount() ) {
         	String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
-        	Object data = transformerTable.getValueAt( row, STEP_DATA_COL );
+        	StepData data = (StepData)transformerTable.getValueAt( row, STEP_DATA_COL );
         	
-        	setData( type );        	
+        	//setData();        	
         	stepPanel.showCard( type );
-        	loadData( type, data );
+        	//loadData( type, data );
         	prevSelectedRow = row;
         }
+        
+        //updateStepNumbers();
     }
     
     public void deselectRows() {
@@ -282,22 +291,20 @@ public class TransformerPane extends JPanel {
      */
     public void addNewStep() {
     	
-    	int newRow = transformerTable.getSelectedRow() 
+    	int row = transformerTable.getSelectedRow() 
     		+ transformerTable.getSelectedRowCount();
     	
     	// if there are no rows
-    	if ( newRow == -1 || newRow > transformerTable.getRowCount() ) newRow = 0;
+    	if ( row == -1 || row > transformerTable.getRowCount() ) 
+    		row = 0;
     	
-    	setRowData( new Step(), newRow );
+    	setRowData( null, row );
     }
     
     /** void moveStepUp (MouseEvent evt)
      *  move the selected group of rows up by one row
      */
     public void moveStepUp() {
-    	
-    	updating = true;
-    	
     	// need to grab the current row index,
     	// if the row is > 0, switch with row-1
     	int firstSelectedRow = transformerTable.getSelectedRow();
@@ -310,22 +317,15 @@ public class TransformerPane extends JPanel {
     	
     	// can't move above the first row
     	if ( firstSelectedRow > 0 && moveTo >= 0 ) {
-    		transformerTableModel.moveRow(
-    				firstSelectedRow, lastSelectedRow, moveTo );
-    	   	transformerTable.setRowSelectionInterval(
-    			moveTo, moveTo + selectedRowCount - 1 );
+    		transformerTableModel.moveRow( firstSelectedRow, lastSelectedRow, moveTo );
+    	   	transformerTable.setRowSelectionInterval( moveTo, moveTo + selectedRowCount - 1 );
     	}
-    	
-    	updating = false;
     }
 
     /** void moveStepDown (MouseEvent evt)
      *  move the selected group of rows down by one row
      */
     public void moveStepDown() {
-    	
-    	updating = true;
-    	
     	int firstSelectedRow = transformerTable.getSelectedRow();
     	int moveTo = firstSelectedRow + 1;
     	int selectedRowCount = transformerTable.getSelectedRowCount();
@@ -342,8 +342,6 @@ public class TransformerPane extends JPanel {
     	    	transformerTable.setRowSelectionInterval(
     	    			moveTo, moveTo + selectedRowCount - 1 );
     	}
-    	
-    	updating = false;
     }    
     
  
@@ -352,9 +350,6 @@ public class TransformerPane extends JPanel {
      *  delete all selected rows
      */
     public void deleteStep() {
-    	
-    	updating = true;
-    	
     	int firstSelectedRow = transformerTable.getSelectedRow();
     	int selectedRowCount = transformerTable.getSelectedRowCount();
 
@@ -372,8 +367,6 @@ public class TransformerPane extends JPanel {
     		transformerTable.setRowSelectionInterval( firstSelectedRow, firstSelectedRow );
     	else 
     		transformerTable.setRowSelectionInterval( maxRowIndex, maxRowIndex );
-    	
-    	updating = false;
     }
     
     /** void accept(MouseEvent evt)
@@ -395,61 +388,8 @@ public class TransformerPane extends JPanel {
      */
     private void updateStepNumbers() {    	
     	for ( int i = 0;  i < transformerTable.getRowCount();  i++ )
-    		((Vector<Object>)
-    				transformerTableModel.getDataVector().elementAt(i)).set( STEP_NUMBER_COL, i );
+    		transformerTableModel.setValueAt( i, i, STEP_NUMBER_COL );
     }
-    
-    
-    /** StepToVector( Step step )
-     *  converts a Step object to a Vector object
-     */
-    private Vector<Object> stepToVector( Step step ) {    	
-    	Vector<Object> v = new Vector<Object>( NUMBER_OF_COLUMNS );
-    	v.insertElementAt( step.getSequenceNumber(), STEP_NUMBER_COL );
-    	v.insertElementAt( step.getName(), STEP_NAME_COL );
-    	v.insertElementAt( step.getType(), STEP_TYPE_COL );
-    	v.insertElementAt( step.getData(), STEP_DATA_COL );
-
-    	return v;
-    }
-    
-    /** VectorToStep( Vector<Object> v )
-     *  converts a Vector object to a Step object
-     */
-    private Step vectorToStep( Vector<Object> v ) {
-    	Step step = new Step();
-    	step.setSequenceNumber( ((Integer)v.get( STEP_NUMBER_COL )).intValue() );
-    	step.setName( (String)v.get( STEP_NAME_COL ) );
-    	step.setType( (String)v.get( STEP_TYPE_COL ) );
-    	step.setData( (Object)v.get( STEP_DATA_COL ) );
-    	
-    	return step;
-    }
-    
-    /** dataVectorToList( Vector<Object> v )
-     *  converts the table's dataVector to a List<Step>  
-     */
-    private List<Step> dataVectorToList( Vector<Object> v ) {
-    	List<Step> list = new ArrayList<Step>();
-    	for ( int i = 0;  i < v.size();  i++ )
-    		list.add( vectorToStep( (Vector<Object>)v.get(i) ) );
-    	
-    	return list;
-    }
-    
-    /** listToDataVector( List<Step> l )
-     *  converts a List<Step> to a Vector of Vectors for
-     *  a table model's dataVector
-     */
-    private Vector<Vector> listToDataVector( List<Step> l ){
-    	Vector<Vector> v = new Vector<Vector>();
-    	Iterator<Step> li = l.iterator();
-    	while ( li.hasNext() )
-    		v.add( stepToVector( (Step)li.next() ));
-    	
-    	return v;
-    }
-    
     
     
 //............................................................................\\
@@ -467,7 +407,6 @@ public class TransformerPane extends JPanel {
     // this little sucker is used to track the last row that had
     // focus after a new row is selected
     private int prevSelectedRow = -1;	// no row by default
-    private boolean updating = false;
      
     // panels using CardLayout
     protected StepPanel stepPanel;			// the card holder

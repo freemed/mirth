@@ -39,6 +39,7 @@ public class StepPanel extends JPanel {
 
 	public StepPanel() {
 		super();
+		data = null;
 		this.setLayout( new CardLayout() );
 	}
 	
@@ -54,16 +55,16 @@ public class StepPanel extends JPanel {
 	}
 
 	// return the data object
-	public Object getData() {
+	public StepData getData() {
 		return data;
 	}
 	
 	// set the data object
-	public void setData( Object data ) {
+	public void setData( StepData data ) {
 		this.data = data;
 	}
 	
 	
-	private Object data;
+	private StepData data;
 	
 }
