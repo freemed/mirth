@@ -86,12 +86,11 @@ public class EventBrowser extends javax.swing.JPanel
             SystemEvent systemEvent = systemEventList.get(i);
             
             tableData[i][0] = systemEvent.getId();
-            tableData[i][1] = systemEvent.getChannelId();
             
             Calendar calendar = systemEvent.getDate();
             
-            tableData[i][2] = String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", calendar);
-            tableData[i][3] = systemEvent.getEvent();
+            tableData[i][1] = String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", calendar);
+            tableData[i][2] = systemEvent.getEvent();
         }
                 
         
@@ -99,12 +98,12 @@ public class EventBrowser extends javax.swing.JPanel
                 tableData,
                 new String []
         {
-            "Event ID", "Channel ID", "Date", "Event"
+            "Event ID", "Date", "Event"
         }
         ) {
             boolean[] canEdit = new boolean []
             {
-                false, false, false, false
+                false, false, false
             };
             
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -116,8 +115,6 @@ public class EventBrowser extends javax.swing.JPanel
         
         eventTable.getColumnExt("Event ID").setMaxWidth(90);
         eventTable.getColumnExt("Event ID").setMinWidth(90);
-        eventTable.getColumnExt("Channel ID").setMaxWidth(90);
-        eventTable.getColumnExt("Channel ID").setMinWidth(90);
         eventTable.getColumnExt("Date").setMaxWidth(120);
         eventTable.getColumnExt("Date").setMinWidth(120);
         
