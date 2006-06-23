@@ -33,6 +33,14 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.model.Step;
 import com.webreach.mirth.client.ui.Constants;
+import com.webreach.mirth.client.ui.editor.AlertPanel;
+import com.webreach.mirth.client.ui.editor.BlankPanel;
+import com.webreach.mirth.client.ui.editor.JDBCPanel;
+import com.webreach.mirth.client.ui.editor.JavaScriptPanel;
+import com.webreach.mirth.client.ui.editor.MapperPanel;
+import com.webreach.mirth.client.ui.editor.MyComboBoxEditor;
+import com.webreach.mirth.client.ui.editor.SMTPPanel;
+import com.webreach.mirth.client.ui.editor.StepPanel;
 
 
 

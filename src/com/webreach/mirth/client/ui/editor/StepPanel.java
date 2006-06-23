@@ -22,7 +22,7 @@
  *   Chris Lang <chrisl@webreachinc.com>
  *
  * ***** END LICENSE BLOCK ***** */
-package com.webreach.mirth.client.ui.transformeditor;
+package com.webreach.mirth.client.ui.editor;
 
 import java.awt.CardLayout;
 import java.util.Map;

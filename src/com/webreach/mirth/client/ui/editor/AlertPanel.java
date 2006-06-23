@@ -1,15 +1,9 @@
-/**
- * 
- */
-package com.webreach.mirth.client.ui.transformeditor;
+package com.webreach.mirth.client.ui.editor;
 
 import java.util.Map;
 
-/**
- * @author chrisl
- *
- */
-public class SMTPPanel extends StepPanel {
+public class AlertPanel extends StepPanel {
+	
 	
 	public Map<Object, Object> getData() {
 		return null;// TODO get data from this panel

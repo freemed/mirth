@@ -56,7 +56,7 @@ public class FilterPane extends JPanel {
     public void initComponents() {
         
         // the available panels (cards)
-        rulePanel = new RulePanel();
+        rulePanel = new StepPanel();
         blankPanel = new BlankPanel();
         jsPanel = new JavaScriptPanel();
         // 		establish the cards to use in the Filter
@@ -380,7 +380,7 @@ public class FilterPane extends JPanel {
     private int prevSelectedRow = -1;	// no row by default
      
     // panels using CardLayout
-    protected RulePanel rulePanel;		// the card holder
+    protected StepPanel rulePanel;		// the card holder
     protected BlankPanel blankPanel;	// the cards
     protected JavaScriptPanel jsPanel;  //    \/
     

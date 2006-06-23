@@ -22,7 +22,7 @@
  *   Chris Lang <chrisl@webreachinc.com>
  *
  * ***** END LICENSE BLOCK ***** */
-package com.webreach.mirth.client.ui.filtereditor;
+package com.webreach.mirth.client.ui.editor;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ import com.Ostermiller.Syntax.HighlightedDocument;
  * @author chrisl
  *
  */
-public class JavaScriptPanel extends RulePanel {
+public class JavaScriptPanel extends StepPanel {
 
 	public JavaScriptPanel() {
 		super();
