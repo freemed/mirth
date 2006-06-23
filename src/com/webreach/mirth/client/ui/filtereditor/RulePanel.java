@@ -37,16 +37,16 @@ import javax.swing.JPanel;
 // we don't really need this class.  we could
 // place these methods in the TransformerPane, which
 // i might, when i get a chance to clean that class...
-public class StepPanel extends JPanel {
+public class RulePanel extends JPanel {
 
-	public StepPanel() {
+	public RulePanel() {
 		super();
 		data = null;
 		this.setLayout( new CardLayout() );
 	}
 	
 	// Adds a new card to the panel.  
-	public void addCard( StepPanel panel, String type ){
+	public void addCard( RulePanel panel, String type ){
 		this.add(panel, type);
 	}
 	

@@ -32,7 +32,7 @@ import com.webreach.mirth.client.ui.Constants;
  * @author chrisl, franciscos
  *
  */
-public class ScriptPanel extends StepPanel {
+public class ScriptPanel extends RulePanel {
 	
 	public ScriptPanel() {
 		super();

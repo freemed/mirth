@@ -38,7 +38,7 @@ import com.Ostermiller.Syntax.HighlightedDocument;
  * @author chrisl
  *
  */
-public class JavaScriptPanel extends StepPanel {
+public class JavaScriptPanel extends RulePanel {
 
 	public JavaScriptPanel() {
 		super();

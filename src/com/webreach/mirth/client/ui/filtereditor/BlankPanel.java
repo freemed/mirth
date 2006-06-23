@@ -1,7 +1,7 @@
 package com.webreach.mirth.client.ui.filtereditor;
 
 
-public class BlankPanel extends StepPanel {
+public class BlankPanel extends RulePanel {
 
 	public BlankPanel() {
 		super();
