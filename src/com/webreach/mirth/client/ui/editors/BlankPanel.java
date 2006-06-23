@@ -1,7 +1,7 @@
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 
-public class BlankPanel extends StepPanel {
+public class BlankPanel extends CardPanel {
 
 	public BlankPanel() {
 		super();

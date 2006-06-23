@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import java.util.Map;
  * @author chrisl
  *
  */
-public class SMTPPanel extends StepPanel {
+public class SMTPPanel extends CardPanel {
 	
 	public Map<Object, Object> getData() {
 		return null;// TODO get data from this panel

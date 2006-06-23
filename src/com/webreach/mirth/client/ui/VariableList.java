@@ -6,7 +6,7 @@
 
 package com.webreach.mirth.client.ui;
 
-import com.webreach.mirth.client.ui.transformeditor.TransformerPane;
+import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
 import com.webreach.mirth.model.Step;
 import java.awt.Color;
 import java.awt.Point;

@@ -1,4 +1,4 @@
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 import java.awt.Component;
 

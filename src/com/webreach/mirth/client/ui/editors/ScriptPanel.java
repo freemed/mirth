@@ -24,7 +24,7 @@
  * ***** END LICENSE BLOCK ***** *//**
  * 
  */
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 import com.webreach.mirth.client.ui.Constants;
 
@@ -32,7 +32,7 @@ import com.webreach.mirth.client.ui.Constants;
  * @author chrisl, franciscos
  *
  */
-public class ScriptPanel extends StepPanel {
+public class ScriptPanel extends CardPanel {
 	
 	public ScriptPanel() {
 		super();

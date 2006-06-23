@@ -5,7 +5,7 @@
  */
 
 
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,7 +18,7 @@ import org.jdesktop.layout.*;
 import com.Ostermiller.Syntax.*;
 
 
-public class MapperPanel extends StepPanel {
+public class MapperPanel extends CardPanel {
     
     /** Creates new form MapperPanel */
     public MapperPanel() {

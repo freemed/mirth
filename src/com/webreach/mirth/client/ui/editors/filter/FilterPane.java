@@ -5,7 +5,7 @@
  */
 
 
-package com.webreach.mirth.client.ui.filtereditor;
+package com.webreach.mirth.client.ui.editors.filter;
 
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
@@ -32,7 +32,7 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
 import com.webreach.mirth.client.ui.Constants;
-import com.webreach.mirth.client.ui.editor.*;
+import com.webreach.mirth.client.ui.editors.*;
 
 
 
@@ -57,7 +57,7 @@ public class FilterPane extends JPanel {
     public void initComponents() {
         
         // the available panels (cards)
-        rulePanel = new StepPanel();
+        rulePanel = new CardPanel();
         blankPanel = new BlankPanel();
         jsPanel = new JavaScriptPanel();
         // 		establish the cards to use in the Filter
@@ -381,7 +381,7 @@ public class FilterPane extends JPanel {
     private int prevSelectedRow = -1;	// no row by default
      
     // panels using CardLayout
-    protected StepPanel rulePanel;		// the card holder
+    protected CardPanel rulePanel;		// the card holder
     protected BlankPanel blankPanel;	// the cards
     protected JavaScriptPanel jsPanel;  //    \/
     

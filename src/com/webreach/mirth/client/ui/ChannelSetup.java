@@ -7,8 +7,8 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
-import com.webreach.mirth.client.ui.filtereditor.FilterPane;
-import com.webreach.mirth.client.ui.transformeditor.TransformerPane;
+import com.webreach.mirth.client.ui.editors.filter.FilterPane;
+import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.Connector;

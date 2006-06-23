@@ -5,7 +5,7 @@
  */
 
 
-package com.webreach.mirth.client.ui.transformeditor;
+package com.webreach.mirth.client.ui.editors.transformer;
 
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -33,14 +32,7 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.model.Step;
 import com.webreach.mirth.client.ui.Constants;
-import com.webreach.mirth.client.ui.editor.AlertPanel;
-import com.webreach.mirth.client.ui.editor.BlankPanel;
-import com.webreach.mirth.client.ui.editor.JDBCPanel;
-import com.webreach.mirth.client.ui.editor.JavaScriptPanel;
-import com.webreach.mirth.client.ui.editor.MapperPanel;
-import com.webreach.mirth.client.ui.editor.MyComboBoxEditor;
-import com.webreach.mirth.client.ui.editor.SMTPPanel;
-import com.webreach.mirth.client.ui.editor.StepPanel;
+import com.webreach.mirth.client.ui.editors.*;
 
 
 
@@ -65,7 +57,7 @@ public class TransformerPane extends JPanel {
     public void initComponents() {
         
         // the available panels (cards)
-        stepPanel = new StepPanel();
+        stepPanel = new CardPanel();
         blankPanel = new BlankPanel();
         mapperPanel = new MapperPanel();
         jsPanel = new JavaScriptPanel();
@@ -430,7 +422,7 @@ public class TransformerPane extends JPanel {
     private int prevSelectedRow = -1;	// no row by default
      
     // panels using CardLayout
-    protected StepPanel stepPanel;			// the card holder
+    protected CardPanel stepPanel;			// the card holder
     protected BlankPanel blankPanel;		// the cards
     protected MapperPanel mapperPanel; 		//    \/
     protected JavaScriptPanel jsPanel;      //    \/

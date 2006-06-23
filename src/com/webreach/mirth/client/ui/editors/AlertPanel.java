@@ -1,8 +1,8 @@
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 import java.util.Map;
 
-public class AlertPanel extends StepPanel {
+public class AlertPanel extends CardPanel {
 	
 	
 	public Map<Object, Object> getData() {

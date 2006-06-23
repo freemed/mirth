@@ -22,7 +22,7 @@
  *   Chris Lang <chrisl@webreachinc.com>
  *
  * ***** END LICENSE BLOCK ***** */
-package com.webreach.mirth.client.ui.editor;
+package com.webreach.mirth.client.ui.editors;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.BadLocationException;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
@@ -38,7 +39,7 @@ import com.Ostermiller.Syntax.HighlightedDocument;
  * @author chrisl
  *
  */
-public class JavaScriptPanel extends StepPanel {
+public class JavaScriptPanel extends CardPanel {
 
 	public JavaScriptPanel() {
 		super();
@@ -48,7 +49,10 @@ public class JavaScriptPanel extends StepPanel {
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingTextPane = new JTextPane( mappingDoc );
 		mappingTextPane.setBorder( BorderFactory.createEtchedBorder() );
-		mappingPane.setBorder( BorderFactory.createTitledBorder("JavaScript" ) );
+		mappingPane.setBorder( BorderFactory.createTitledBorder( 
+        		BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
+        		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
+        		new Color( 0,0,0 ) ));
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		
