@@ -6,6 +6,7 @@
 
 package com.webreach.mirth.client.ui;
 
+import com.Ostermiller.Syntax.HighlightedDocument;
 import java.util.Properties;
 
 /**
@@ -21,6 +22,9 @@ public class DatabaseWriter extends ConnectorClass
         this.parent = parent;
         name = "Database Writer";
         initComponents();
+        HighlightedDocument mappingDoc = new HighlightedDocument();
+        mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
+        databaseSQLTextPane.setDocument(mappingDoc);
     }
 
     public Properties getProperties()
