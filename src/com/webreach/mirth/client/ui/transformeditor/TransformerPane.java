@@ -13,8 +13,11 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -228,7 +231,7 @@ public class TransformerPane extends JPanel {
     		step.setSequenceNumber( row );
     		step.setName( "New Step" );
     		step.setType( MAPPER_TYPE );	// mapper type by default
-    		step.setData( null ); //new MapperData() );
+    		step.setData( new HashMap() );
     	}
 	
     	tableData[STEP_NUMBER_COL] = step.getSequenceNumber();
@@ -242,11 +245,13 @@ public class TransformerPane extends JPanel {
     
     // sets the data from the previously used panel into the
     // previously selected Step object
-   /* private void setData() {
-    	Object data = null;
-    	String type = null;
+   private void saveData() {
+    	Map data = new HashMap();
+    	String type = "";
+    	
     	if ( prevSelectedRow >= 0 && prevSelectedRow < transformerTable.getRowCount() )
     		type = (String)transformerTable.getValueAt( prevSelectedRow, STEP_TYPE_COL );
+    	
     	if ( type == MAPPER_TYPE ) data = mapperPanel.getData();
     	//else if ( type == JAVASCRIPT_TYPE ) data = jsPanel.getData();
     	//else if ( type == SMTP_TYPE ) data = smtpPanel.getData();
@@ -260,7 +265,7 @@ public class TransformerPane extends JPanel {
     }
         
     // loads the data object into the correct panel
-    private void loadData( String type, Object data ) {
+    /*private void loadData( String type, Object data ) {
     	if ( type == MAPPER_TYPE ) mapperPanel.setData( (MapperData)data );
     	//else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
     	//else if ( type == SMTP_TYPE ) smtpPanel.setData( data );
@@ -270,12 +275,13 @@ public class TransformerPane extends JPanel {
     */
     private void TransformerListSelected( ListSelectionEvent evt ) {
         int row = transformerTable.getSelectedRow();
+        deselectRows();
         
         if( row >= 0 && row < transformerTable.getRowCount() ) {
         	String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
-        	//StepData data = (StepData)transformerTable.getValueAt( row, STEP_DATA_COL );
+        	Object data = transformerTable.getValueAt( row, STEP_DATA_COL );
         	
-        	//setData();        	
+        	saveData();        	
         	stepPanel.showCard( type );
         	//loadData( type, data );
         	prevSelectedRow = row;

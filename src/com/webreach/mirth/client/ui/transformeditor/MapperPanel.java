@@ -8,6 +8,8 @@
 package com.webreach.mirth.client.ui.transformeditor;
 
 import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import org.jdesktop.layout.*;
@@ -94,18 +96,19 @@ public class MapperPanel extends StepPanel {
     } // END NetBeans LAYOUT
     
     
-	public Object getData() {
-		MapperData mapperData = new MapperData();
-		mapperData.setVariableName( mappingTextField.getText() );
-		mapperData.setVariableMapping( mappingTextPane.getText() );
-		return mapperData;
+	public Map<String, String> getData() {
+		HashMap<String, String> m = new HashMap();
+		m.put( "Variable", mappingTextField.getText() );
+		m.put( "Mapping", mappingTextPane.getText() );
+		
+		return m;
 	}
 	
 	
-	public void setData( MapperData data ) {
+	public void setData( Map data ) {
 		if ( data != null ) {
-			mappingTextField.setText( data.getVariableName() );
-			mappingTextPane.setText( data.getVariableMapping() );
+			mappingTextField.setText( (String)data.get( "Variable" ) );
+			mappingTextPane.setText( (String)data.get( "Mapping" ) );
 		}
 	}    
     

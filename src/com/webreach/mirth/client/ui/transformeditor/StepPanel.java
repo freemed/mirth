@@ -25,6 +25,8 @@
 package com.webreach.mirth.client.ui.transformeditor;
 
 import java.awt.CardLayout;
+import java.util.Map;
+
 import javax.swing.JPanel;
 
 
@@ -55,16 +57,16 @@ public class StepPanel extends JPanel {
 	}
 
 	// return the data object
-	public Object getData() {
+	public Map getData() {
 		return data;
 	}
 	
 	// set the data object
-	public void setData( Object data ) {
+	public void setData( Map data ) {
 		this.data = data;
 	}
 	
 	
-	private Object data;
+	private Map data;
 	
 }
