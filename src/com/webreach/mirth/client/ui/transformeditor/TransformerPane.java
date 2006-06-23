@@ -171,6 +171,9 @@ public class TransformerPane extends JPanel {
         	int row = s.getSequenceNumber();
         	setRowData( s, row );
         }
+        // select the first row if there is one
+        if ( transformerTableModel.getRowCount() > 0 )
+        	transformerTable.setRowSelectionInterval( 0, 0 );
         
         String[] comboBoxValues = new String[] { 
         		MAPPER_TYPE, JAVASCRIPT_TYPE, SMTP_TYPE, JDBC_TYPE, ALERT_TYPE };
@@ -349,11 +352,13 @@ public class TransformerPane extends JPanel {
      */
     public void deleteStep() {
     	int row = transformerTable.getSelectedRow();
-    	if ( row >= 0 && row < transformerTableModel.getRowCount() )
+    	if ( isValid( row ) )
     		transformerTableModel.removeRow( row );
     	
-    	if ( row >= 0 && row < transformerTableModel.getRowCount() )
+    	if ( isValid( row ) )
     		transformerTable.setRowSelectionInterval( row, row );
+    	else
+    		stepPanel.showCard( BLANK_TYPE );
     	
     	updateStepNumbers();
     }
