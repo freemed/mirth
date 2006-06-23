@@ -91,23 +91,63 @@ public class ChannelSetup extends javax.swing.JPanel
     
     public void editTransformer()
     {
+        TransformerPane tp = null;
         if (channelView.getSelectedIndex() == 1)
-            new TransformerPane(parent, currentChannel.getSourceConnector().getTransformer());
+        {
+            tp = new TransformerPane(parent, currentChannel.getSourceConnector().getTransformer());
+            
+            if(tp.runTransformerEditor())
+            {
+                parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+                setSourceVariableList();
+            }
+        }
         else if (channelView.getSelectedIndex() == 2)
         {
             if (currentChannel.getMode() == Channel.Mode.APPLICATION)
-                new TransformerPane(parent, currentChannel.getDestinationConnectors().get(0).getTransformer());
+                tp = new TransformerPane(parent, currentChannel.getDestinationConnectors().get(0).getTransformer());
             else
             {
                 int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
-                new TransformerPane(parent, currentChannel.getDestinationConnectors().get(destination).getTransformer());
+                tp = new TransformerPane(parent, currentChannel.getDestinationConnectors().get(destination).getTransformer());
+            }
+            
+            if(tp.runTransformerEditor())
+            {
+                parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+                setDestinationVariableList();
             }
         }
     }
     
     public void editFilter()
     {
-        
+        /*
+        FilterPane fp = null;
+        if (channelView.getSelectedIndex() == 1)
+        {
+            fp = new FilterPane(parent, currentChannel.getSourceConnector().getFilter());
+            
+            if(fp.runTransformerEditor())
+            {
+                parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+            }
+        }
+        else if (channelView.getSelectedIndex() == 2)
+        {
+            if (currentChannel.getMode() == Channel.Mode.APPLICATION)
+                fp = new FilterPane(parent, currentChannel.getDestinationConnectors().get(0).getFilter());
+            else
+            {
+                int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
+                fp = new FilterPane(parent, currentChannel.getDestinationConnectors().get(destination).getFilter());
+            }
+            
+            if(fp.runTransformerEditor())
+            {
+                parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+            }
+        }*/
     }
     
     public void makeDestinationTable(boolean addNew)
