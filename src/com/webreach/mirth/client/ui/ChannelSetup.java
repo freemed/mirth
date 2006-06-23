@@ -280,10 +280,12 @@ public class ChannelSetup extends javax.swing.JPanel
     {
         List<Connector> dc;
         String destinationName;
+        
         if(getSelectedDestination() != -1)
             destinationName = (String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"));
         else
             return false;
+        
         if(currentChannel != null && currentChannel.getDestinationConnectors() != null)
         {
             dc = currentChannel.getDestinationConnectors();
@@ -987,11 +989,13 @@ public class ChannelSetup extends javax.swing.JPanel
     public void setSourceVariableList()
     {
         variableList1.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
+        variableList1.repaint();
     }    
     
     public void setDestinationVariableList()
     {
         variableList2.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+        variableList2.repaint();
     }
 
     public Connector makeNewConnector()

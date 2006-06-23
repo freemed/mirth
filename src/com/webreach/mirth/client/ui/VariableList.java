@@ -38,7 +38,6 @@ public class VariableList extends javax.swing.JPanel
             if(step.getType().equalsIgnoreCase(TransformerPane.MAPPER_TYPE))
             {
                 data = (Map)step.getData();
-                data.put("Variable", "HEY " + i);
                 variables[i] = (String)data.get("Variable");
                 i++;
             }
