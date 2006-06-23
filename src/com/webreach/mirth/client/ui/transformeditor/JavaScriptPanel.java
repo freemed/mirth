@@ -25,6 +25,9 @@
 package com.webreach.mirth.client.ui.transformeditor;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.BadLocationException;
@@ -35,7 +38,7 @@ import com.Ostermiller.Syntax.HighlightedDocument;
  * @author chrisl
  *
  */
-public class JavaScriptPanel extends ScriptPanel {
+public class JavaScriptPanel extends StepPanel {
 
 	public JavaScriptPanel() {
 		super();
@@ -55,18 +58,15 @@ public class JavaScriptPanel extends ScriptPanel {
 	}
 	
 	
-	public Object getData() {
-		ScriptData scriptData = new ScriptData();
-		scriptData.setScript( mappingTextPane.getText() );
-		
-		return scriptData;
+	public Map<Object, Object> getData() {
+		Map<Object, Object> m = new HashMap<Object, Object>();
+		m.put( "Script", mappingTextPane.getText() );
+		return m;
 	}
 	
 	
-	public void setData( ScriptData scriptData ) {
-		if ( scriptData != null ) 
-			mappingTextPane.setText( scriptData.getScript() );
-	
+	public void setData( Map<Object, Object> m ) {
+		mappingTextPane.setText( (String)m.get( "Script" ) );	
 	}
 
 	

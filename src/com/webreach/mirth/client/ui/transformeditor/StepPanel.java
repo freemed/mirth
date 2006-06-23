@@ -57,16 +57,16 @@ public class StepPanel extends JPanel {
 	}
 
 	// return the data object
-	public Map getData() {
+	public Map<Object, Object> getData() {
 		return data;
 	}
 	
 	// set the data object
-	public void setData( Map data ) {
+	public void setData( Map<Object, Object> data ) {
 		this.data = data;
 	}
 	
 	
-	private Map data;
+	private Map<Object, Object> data;
 	
 }

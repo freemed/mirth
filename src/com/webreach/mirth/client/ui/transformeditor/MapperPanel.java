@@ -96,8 +96,8 @@ public class MapperPanel extends StepPanel {
     } // END NetBeans LAYOUT
     
     
-	public Map<String, String> getData() {
-		HashMap<String, String> m = new HashMap();
+	public Map<Object, Object> getData() {
+		Map<Object, Object> m = new HashMap<Object, Object>();
 		m.put( "Variable", mappingTextField.getText() );
 		m.put( "Mapping", mappingTextPane.getText() );
 		
@@ -105,7 +105,7 @@ public class MapperPanel extends StepPanel {
 	}
 	
 	
-	public void setData( Map data ) {
+	public void setData( Map<Object, Object> data ) {
 		if ( data != null ) {
 			mappingTextField.setText( (String)data.get( "Variable" ) );
 			mappingTextPane.setText( (String)data.get( "Mapping" ) );
