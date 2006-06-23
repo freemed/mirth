@@ -24,7 +24,7 @@
  * ***** END LICENSE BLOCK ***** *//**
  * 
  */
-package com.webreach.mirth.client.ui.transformeditor;
+package com.webreach.mirth.client.ui.filtereditor;
 
 import com.webreach.mirth.client.ui.Constants;
 
