@@ -46,9 +46,18 @@ public class TransformerPane extends JPanel {
     public TransformerPane( Frame p, Transformer t ) {
         parent = p;
         transformer = t;
+        incomingTransformer = t;
+        
         initComponents();
+        
+        modified = false;
     }
    
+    public boolean runTransformerEditor() {
+    	initComponents();
+    	
+    	return modified;
+    }
     
     /** This method is called from within the constructor to
      *  initialize the form.
@@ -80,6 +89,11 @@ public class TransformerPane extends JPanel {
         });
         
         makeTransformerTable();
+
+        // select the first row if there is one
+        System.out.println("here: " + transformerTableModel.getRowCount());
+        if ( transformerTableModel.getRowCount() > 0 )
+        	transformerTable.setRowSelectionInterval( 0, 0 );
 
         // BGN LAYOUT
         transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
@@ -134,7 +148,7 @@ public class TransformerPane extends JPanel {
         parent.setNonFocusable( transformerTasks );
         parent.setVisibleTasks( transformerTasks, 0, true );
         parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
-        parent.setCurrentContentPage( this );
+        parent.setCurrentContentPage( this );        
         
     }  // END initComponents()
     
@@ -171,9 +185,6 @@ public class TransformerPane extends JPanel {
         	int row = s.getSequenceNumber();
         	setRowData( s, row );
         }
-        // select the first row if there is one
-        if ( transformerTableModel.getRowCount() > 0 )
-        	transformerTable.setRowSelectionInterval( 0, 0 );
         
         String[] comboBoxValues = new String[] { 
         		MAPPER_TYPE, JAVASCRIPT_TYPE, SMTP_TYPE, JDBC_TYPE, ALERT_TYPE };
@@ -242,12 +253,12 @@ public class TransformerPane extends JPanel {
     }
     
     private boolean isValid( int row ) {
-    	return ( row >= 0 && row <= transformerTableModel.getRowCount() );
+    	return ( row >= 0 && row < transformerTableModel.getRowCount() );
     }
     
     public void deselectRows() {
-        transformerTable.clearSelection();
         saveData();
+        transformerTable.clearSelection();
         stepPanel.showCard( BLANK_TYPE );
     }
     
@@ -317,6 +328,38 @@ public class TransformerPane extends JPanel {
         transformerTable.setRowSelectionInterval( row, row );
     }
     
+    /** void addNewStep()
+     *  add a new step to the end of the list
+     */
+    public void addNewStep() {
+    	saveData();
+    	int row = transformerTable.getRowCount();
+    	setRowData( null, row );
+    	prevSelectedRow = row;
+    	System.out.println(prevSelectedRow);
+    	
+    	updateStepNumbers();
+    }
+    
+    /** void deleteStep(MouseEvent evt)
+     *  delete all selected rows
+     */
+    public void deleteStep() {
+    	int row = transformerTable.getSelectedRow();
+    	if ( isValid( row ) )
+    		transformerTableModel.removeRow( row );
+    	
+    	if ( isValid( row - 1 ) )
+    		transformerTable.setRowSelectionInterval( row - 1, row - 1 );
+    	else
+    		stepPanel.showCard( BLANK_TYPE );
+    	
+    	updateStepNumbers();
+    }
+    
+    public void moveStepUp() { moveStep( -1 ); }
+    public void moveStepDown() { moveStep( 1 ); }
+    
     /** void moveStep( int i )
      *  move the selected row i places
      */
@@ -330,35 +373,6 @@ public class TransformerPane extends JPanel {
         	transformerTableModel.moveRow( selectedRow, selectedRow, moveTo );
         	transformerTable.setRowSelectionInterval( moveTo, moveTo );
     	}
-    	
-    	updateStepNumbers();
-    }
-    
-    public void moveStepUp() { moveStep( -1 ); }
-    
-    public void moveStepDown() { moveStep( 1 ); }
-    
-    /** void addNewStep()
-     *  add a new step to the end of the list
-     */
-    public void addNewStep() {
-    	saveData();
-    	setRowData( null, transformerTable.getRowCount() );
-    	updateStepNumbers();
-    }
-    
-    /** void deleteStep(MouseEvent evt)
-     *  delete all selected rows
-     */
-    public void deleteStep() {
-    	int row = transformerTable.getSelectedRow();
-    	if ( isValid( row ) )
-    		transformerTableModel.removeRow( row );
-    	
-    	if ( isValid( row ) )
-    		transformerTable.setRowSelectionInterval( row, row );
-    	else
-    		stepPanel.showCard( BLANK_TYPE );
     	
     	updateStepNumbers();
     }
@@ -404,13 +418,16 @@ public class TransformerPane extends JPanel {
     // the passed arguments to the constructor
     private Frame parent;
     private Transformer transformer;
+    private Transformer incomingTransformer;
     
     // fields
     private JXTable transformerTable;
     private DefaultTableModel transformerTableModel;
     private JScrollPane transformerTablePane;
     private JSplitPane vSplitPane;
-    private boolean saving;
+    private boolean saving;				// allow the selection listener to breathe
+    private boolean modified;			// returns to caller of runTransformerEditor
+    									// indicating whether any changes have been made
 
     // this little sucker is used to track the last row that had
     // focus after a new row is selected
