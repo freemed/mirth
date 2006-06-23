@@ -8,10 +8,13 @@ package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.ui.transformeditor.TransformerPane;
 import com.webreach.mirth.model.Step;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -24,27 +27,29 @@ public class VariableList extends javax.swing.JPanel
     public VariableList()
     {
         initComponents();
+        jList1.setDragEnabled(true);
     }
     
     public void setVariableList(List<Step> steps)
     {
-        String [] variables = new String[steps.size()];
+        ArrayList<String> variables = new ArrayList<String>();
         int i = 0;
         
         for (Iterator it = steps.iterator(); it.hasNext();)
         {
             Step step = (Step) it.next();
             Map data;
+            
             if(step.getType().equalsIgnoreCase(TransformerPane.MAPPER_TYPE))
             {
                 data = (Map)step.getData();
-                variables[i] = (String)data.get("Variable");
+                variables.add((String)data.get("Variable"));
                 i++;
             }
         }
         
         jList1.removeAll();
-        jList1.setListData(variables);
+        jList1.setListData(variables.toArray());
         
         jScrollPane1.setViewportView(jList1);
     }

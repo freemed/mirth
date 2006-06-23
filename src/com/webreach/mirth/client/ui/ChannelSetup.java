@@ -353,13 +353,13 @@ public class ChannelSetup extends javax.swing.JPanel
         
         loadChannelInfo();
         
-        setSourceVariableList();
-        setDestinationVariableList();
-        
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
             makeDestinationTable(false);
         else
             generateSingleDestinationPage();
+        
+        setSourceVariableList();
+        setDestinationVariableList();
     }
 
     public void addChannel(Channel channel)
@@ -1060,6 +1060,11 @@ public class ChannelSetup extends javax.swing.JPanel
         c.setTransformer(dt);
         c.setFilter(df);
         return c;
+    }
+    
+    public void showSaveButton()
+    {
+        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
     }
     
     private void summaryEnabledCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_summaryEnabledCheckboxStateChanged
