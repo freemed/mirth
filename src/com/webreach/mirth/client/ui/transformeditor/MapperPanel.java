@@ -7,14 +7,15 @@
 
 package com.webreach.mirth.client.ui.transformeditor;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.*;
+import javax.swing.border.*;
 import org.jdesktop.layout.*;
 import com.Ostermiller.Syntax.*;
-import com.webreach.mirth.client.ui.Constants;
 
 
 public class MapperPanel extends StepPanel {
@@ -44,8 +45,11 @@ public class MapperPanel extends StepPanel {
         hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
         mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
         mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
-        mappingScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-        mappingTextPane.setBorder( BorderFactory.createEtchedBorder() );
+        mappingScrollPane.setBorder( BorderFactory.createLoweredBevelBorder() );
+        mappingTextPane.setBorder( BorderFactory.createTitledBorder( 
+        		BorderFactory.createEtchedBorder(), "Mapping", TitledBorder.LEFT,
+        		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
+        		new Color( 0,0,0 ) ));
         this.setBorder( BorderFactory.createEmptyBorder() );
     	this.setPreferredSize( new Dimension( 1, 1 ) );
        
