@@ -7,6 +7,7 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
+import com.webreach.mirth.client.ui.filtereditor.FilterPane;
 import com.webreach.mirth.client.ui.transformeditor.TransformerPane;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
@@ -108,32 +109,19 @@ public class ChannelSetup extends javax.swing.JPanel
     
     public void editFilter()
     {
-        /*
-        FilterPane fp = null;
         if (channelView.getSelectedIndex() == 1)
-        {
-            fp = new FilterPane(parent, currentChannel.getSourceConnector().getFilter());
-            
-            if(fp.runTransformerEditor())
-            {
-                parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
-            }
-        }
+            new FilterPane(parent, currentChannel.getSourceConnector().getFilter());
+        
         else if (channelView.getSelectedIndex() == 2)
         {
             if (currentChannel.getMode() == Channel.Mode.APPLICATION)
-                fp = new FilterPane(parent, currentChannel.getDestinationConnectors().get(0).getFilter());
+                new FilterPane(parent, currentChannel.getDestinationConnectors().get(0).getFilter());
             else
             {
                 int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
-                fp = new FilterPane(parent, currentChannel.getDestinationConnectors().get(destination).getFilter());
+                new FilterPane(parent, currentChannel.getDestinationConnectors().get(destination).getFilter());
             }
-            
-            if(fp.runTransformerEditor())
-            {
-                parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
-            }
-        }*/
+        }
     }
     
     public void makeDestinationTable(boolean addNew)
