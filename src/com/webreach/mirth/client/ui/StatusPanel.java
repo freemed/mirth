@@ -3,6 +3,7 @@ package com.webreach.mirth.client.ui;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
+import com.webreach.mirth.model.Statistics;
 import java.awt.Point;
 import java.util.List;
 import javax.swing.JFrame;
@@ -57,7 +58,19 @@ public class StatusPanel extends javax.swing.JPanel {
         Object[][] tableData = new Object[parent.status.size()][numColumns];
         for (int i=0; i < parent.status.size(); i++)
         {
-            ChannelStatus temp = parent.status.get(i);      
+            ChannelStatus temp = parent.status.get(i); 
+            try
+            {
+                Statistics tempStats = parent.mirthClient.getStatistics(temp.getChannelId());
+                tableData[i][2] = tempStats.getSentCount();
+                tableData[i][3] = tempStats.getReceivedCount();
+                tableData[i][4] = tempStats.getErrorCount();
+            } 
+            catch (ClientException ex)
+            {
+                ex.printStackTrace();
+            }
+            
             if (temp.getState() == ChannelStatus.State.STARTED)
                 tableData[i][0] = "Started";
             else if (temp.getState() == ChannelStatus.State.STOPPED)
@@ -66,10 +79,7 @@ public class StatusPanel extends javax.swing.JPanel {
                 tableData[i][0] = "Paused";
             
             tableData[i][1] = temp.getName();
-
-            tableData[i][2] = "0"; //parent.mirthClient.getStatistics(temp.getChannelId()).getSentCount();
-            tableData[i][3] = "0";
-            tableData[i][4] = "0";
+                
         }
         
         statusTable.setModel(new javax.swing.table.DefaultTableModel(
