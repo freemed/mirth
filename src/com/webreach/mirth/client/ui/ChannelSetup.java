@@ -17,6 +17,7 @@ import com.webreach.mirth.model.Transport;
 import com.webreach.mirth.model.Validator;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -47,33 +48,36 @@ public class ChannelSetup extends javax.swing.JPanel
     private boolean isDeleting = false;
     private JXTable jTable1;
     private JScrollPane jScrollPane4;
+    Map<String,Transport> transports;
 
     public ChannelSetup(JFrame parent)
     {
         this.parent = (Frame)parent;
         initComponents();
         jScrollPane4 = new JScrollPane();
-        String[] sourceConnectors;
-        String[] destinationConnectors;
-        Map<String,Transport> transports;
+        ArrayList<String> sourceConnectors;
+        ArrayList<String> destinationConnectors;
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
             transports = this.parent.mirthClient.getTransports();
-            sourceConnectors = new String[transports.size()];
-            destinationConnectors = new String[transports.size()];
-            int j = 0;
+            sourceConnectors = new ArrayList<String>();
+            destinationConnectors = new ArrayList<String>();
             Iterator i=transports.entrySet().iterator();
             while(i.hasNext())
             {
                Entry entry = (Entry)i.next();
-               sourceConnectors[j] = transports.get(entry.getKey()).getName();
-               destinationConnectors[j] = transports.get(entry.getKey()).getName();
-               j++;
+               
+               if(transports.get(entry.getKey()).getType() == Transport.Type.LISTENER)
+                   sourceConnectors.add(transports.get(entry.getKey()).getName());
+               
+               else if(transports.get(entry.getKey()).getType() == Transport.Type.SENDER)
+                   destinationConnectors.add(transports.get(entry.getKey()).getName());
             }
-            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectors));
-            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectors));
+            
+            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectors.toArray()));
+            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectors.toArray()));
         }
         catch(ClientException e)
         {
