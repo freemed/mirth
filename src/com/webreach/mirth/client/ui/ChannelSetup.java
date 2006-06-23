@@ -121,15 +121,9 @@ public class ChannelSetup extends javax.swing.JPanel
         {
             if(tableSize-1 == i && addNew)
             {
-                Transformer dt = new Transformer();
-                Filter df = new Filter();
-
-                Connector c = new Connector();
+                Connector c = makeNewConnector();
                 c.setName(getNewDestinationName(tableSize));
-                
                 c.setTransportName((String)destinationSourceDropdown.getItemAt(0));
-                c.setTransformer(dt);
-                c.setFilter(df);
 
                 tableData[i][0] = c.getName();
                 tableData[i][1] = c.getTransportName();
@@ -312,6 +306,10 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.setSelectedComponent(summary);
         
         loadChannelInfo();
+        
+        setSourceVariableList();
+        setDestinationVariableList();
+        
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
             makeDestinationTable(false);
         else
@@ -326,16 +324,10 @@ public class ChannelSetup extends javax.swing.JPanel
         
         channelView.setSelectedComponent(summary);
         
-        Transformer sourceTransformer = new Transformer();
-        Filter sourceFilter = new Filter();
-
-
-        Connector sourceConnector = new Connector();
+        Connector sourceConnector = makeNewConnector();
 	sourceConnector.setName("sourceConnector");
-	sourceConnector.setTransformer(sourceTransformer);
         sourceConnector.setTransportName((String)sourceSourceDropdown.getItemAt(0));
         sourceConnector.setProperties(connectorClass1.getProperties());
-        sourceConnector.setFilter(sourceFilter);
         
         currentChannel.setSourceConnector(sourceConnector);
                 
@@ -343,14 +335,10 @@ public class ChannelSetup extends javax.swing.JPanel
         {
             List<Connector> dc;
             dc = currentChannel.getDestinationConnectors();
-            Transformer dt = new Transformer();
-            Filter df = new Filter();
 
-            Connector c = new Connector();
+            Connector c = makeNewConnector();
             c.setName("Destination");
             c.setTransportName((String)destinationSourceDropdown.getItemAt(0));
-            c.setTransformer(dt);
-            c.setFilter(df);
             dc.add(c);
         }
         
@@ -780,6 +768,9 @@ public class ChannelSetup extends javax.swing.JPanel
 
             if (sourceConnector.getProperties().size() == 0 || !dataType.equals((String)sourceSourceDropdown.getSelectedItem()))
             {
+                String name = sourceConnector.getName();
+                sourceConnector = makeNewConnector();
+                sourceConnector.setName(name);
                 connectorClass1.setDefaults();
                 sourceConnector.setProperties(connectorClass1.getProperties());
             }
@@ -864,6 +855,9 @@ public class ChannelSetup extends javax.swing.JPanel
         // set to defaults on first load of connector or if it has changed types.
         if (destinationConnector.getProperties().size() == 0 || !dataType.equals((String)destinationSourceDropdown.getSelectedItem()))
         {
+            String name = destinationConnector.getName();
+            destinationConnector = makeNewConnector();
+            destinationConnector.setName(name);
             connectorClass2.setDefaults();
             destinationConnector.setProperties(connectorClass2.getProperties());
         }
@@ -938,6 +932,9 @@ public class ChannelSetup extends javax.swing.JPanel
 
             if (destinationConnector.getProperties().size() == 0 || !dataType.equals((String)destinationSourceDropdown.getSelectedItem()))
             {
+                String name = destinationConnector.getName();
+                destinationConnector = makeNewConnector();
+                destinationConnector.setName(name);
                 connectorClass2.setDefaults();
                 destinationConnector.setProperties(connectorClass2.getProperties());
             }
@@ -946,9 +943,7 @@ public class ChannelSetup extends javax.swing.JPanel
             
             connectorClass2.setProperties(destinationConnector.getProperties());
         }
-        
-        variableList2.setVariableList(destinationConnector.getTransformer().getSteps());
-        
+                
         destination.removeAll();
 
         org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
@@ -984,7 +979,28 @@ public class ChannelSetup extends javax.swing.JPanel
 
         destination.updateUI();
     }
+    
+    public void setSourceVariableList()
+    {
+        variableList1.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
+    }    
+    
+    public void setDestinationVariableList()
+    {
+        variableList2.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+    }
 
+    public Connector makeNewConnector()
+    {
+        Connector c = new Connector();
+        Transformer dt = new Transformer();
+        Filter df = new Filter();
+        
+        c.setTransformer(dt);
+        c.setFilter(df);
+        return c;
+    }
+    
     private void summaryEnabledCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_summaryEnabledCheckboxStateChanged
 // TODO add your handling code here:
     }//GEN-LAST:event_summaryEnabledCheckboxStateChanged

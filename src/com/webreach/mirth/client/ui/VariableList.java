@@ -6,10 +6,11 @@
 
 package com.webreach.mirth.client.ui;
 
-import com.webreach.mirth.client.ui.transformeditor.MapperData;
+import com.webreach.mirth.client.ui.transformeditor.TransformerPane;
 import com.webreach.mirth.model.Step;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JList;
 
 /**
@@ -33,30 +34,20 @@ public class VariableList extends javax.swing.JPanel
         for (Iterator it = steps.iterator(); it.hasNext();)
         {
             Step step = (Step) it.next();
-            MapperData data = (MapperData)step.getData();
-            variables[i] = data.getVariableName();
-            i++;
+            Map data;
+            if(step.getType().equalsIgnoreCase(TransformerPane.MAPPER_TYPE))
+            {
+                data = (Map)step.getData();
+                data.put("Variable", "HEY " + i);
+                variables[i] = (String)data.get("Variable");
+                i++;
+            }
         }
         
-        jList1 = new JList(variables);
+        jList1.removeAll();
+        jList1.setListData(variables);
         
         jScrollPane1.setViewportView(jList1);
-
-        org.jdesktop.layout.GroupLayout layout = (org.jdesktop.layout.GroupLayout)this.getLayout();
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
-                .addContainerGap())
-        );
     }
     
     /** This method is called from within the constructor to
