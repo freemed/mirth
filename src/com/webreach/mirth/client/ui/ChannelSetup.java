@@ -390,13 +390,14 @@ public class ChannelSetup extends javax.swing.JPanel
         
         loadChannelInfo();
         
-        setSourceVariableList();
-        setDestinationVariableList();
-        
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
             makeDestinationTable(true);
         else
             generateSingleDestinationPage();
+        
+        setSourceVariableList();
+        setDestinationVariableList();
+        
         saveChanges();
     }
 
@@ -1040,7 +1041,13 @@ public class ChannelSetup extends javax.swing.JPanel
     
     public void setDestinationVariableList()
     {
-        variableList2.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+        if (currentChannel.getMode() == Channel.Mode.APPLICATION)
+            variableList2.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+        else
+        {
+            int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
+            variableList2.setVariableList(currentChannel.getDestinationConnectors().get(destination).getTransformer().getSteps());
+        }
         variableList2.repaint();
     }
 
