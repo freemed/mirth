@@ -42,15 +42,14 @@ public class FilterPane extends JPanel {
      *  Frame - the parent where this panel & its tasks will be loaded
      *  Filter - the data model
      */
-    /*public FilterPane( Frame p, Filter t ) {
+   public FilterPane( Frame p, Filter t ) {
         parent = p;
         filter = t;
         initComponents();
     	
         modified = false;
-    }*/
-	public FilterPane() { initComponents(); }
-    
+    }
+	
     /** This method is called from within the constructor to
      *  initialize the form.
      */
