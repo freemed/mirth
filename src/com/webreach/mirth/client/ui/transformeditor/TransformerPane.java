@@ -48,8 +48,6 @@ public class TransformerPane extends JPanel {
         transformer = t;
         incomingTransformer = t;
         
-        initComponents();
-        
         modified = false;
     }
    
@@ -92,8 +90,10 @@ public class TransformerPane extends JPanel {
 
         // select the first row if there is one
         System.out.println("here: " + transformerTableModel.getRowCount());
-        if ( transformerTableModel.getRowCount() > 0 )
+        if ( transformerTableModel.getRowCount() > 0 ) {
         	transformerTable.setRowSelectionInterval( 0, 0 );
+        	prevSelectedRow = 0;
+        }
 
         // BGN LAYOUT
         transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
@@ -394,6 +394,7 @@ public class TransformerPane extends JPanel {
     		list.add( step );
     	}
     	
+    	modified = true;
     	transformer.setSteps( list );
     
     	// reset the task pane and content to channel edit page
