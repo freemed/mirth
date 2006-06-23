@@ -850,13 +850,14 @@ public class ChannelSetup extends javax.swing.JPanel
         }
 
         List<Connector> dc = currentChannel.getDestinationConnectors();
-        Connector destinationConnector = dc.get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))));
+        int connectorIndex = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
+        Connector destinationConnector = dc.get(connectorIndex);
                 
         String dataType = destinationConnector.getProperties().getProperty("DataType");
         if (dataType == null)
             dataType = "";
 
-//        System.out.println(destinationConnector.getTransportName() + " " + (String)destinationSourceDropdown.getSelectedItem());
+        //System.out.println(destinationConnector.getTransportName() + " " + (String)destinationSourceDropdown.getSelectedItem());
         
         // set to defaults on first load of connector or if it has changed types.
         if (destinationConnector.getProperties().size() == 0 || !dataType.equals((String)destinationSourceDropdown.getSelectedItem()))
@@ -865,10 +866,11 @@ public class ChannelSetup extends javax.swing.JPanel
             destinationConnector = makeNewConnector();
             destinationConnector.setName(name);
             connectorClass2.setDefaults();
-            destinationConnector.setProperties(connectorClass2.getProperties());
+            destinationConnector.setProperties(connectorClass2.getProperties());    
         }
         
         destinationConnector.setTransportName((String)destinationSourceDropdown.getSelectedItem());
+        dc.set(connectorIndex, destinationConnector);
         
         if (!((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Connector Type"))).equals(destinationConnector.getTransportName()) && getSelectedDestination() != -1)
             jTable1.setValueAt((String)destinationSourceDropdown.getSelectedItem(),getSelectedDestination(),getColumnNumber("Connector Type"));
@@ -928,8 +930,8 @@ public class ChannelSetup extends javax.swing.JPanel
         if (currentChannel.getDestinationConnectors().size() == 1 && currentChannel.getDestinationConnectors().get(0).getTransportName().equals(connectorClass2.getName()))
             connectorClass2.setProperties(currentChannel.getDestinationConnectors().get(0).getProperties());
         */
-        
-        Connector destinationConnector = currentChannel.getDestinationConnectors().get(0);
+        int connectorIndex = 0;
+        Connector destinationConnector = currentChannel.getDestinationConnectors().get(connectorIndex);
         if(destinationConnector != null)
         {
             String dataType = destinationConnector.getProperties().getProperty("DataType");
@@ -946,7 +948,7 @@ public class ChannelSetup extends javax.swing.JPanel
             }
 
             destinationConnector.setTransportName((String)destinationSourceDropdown.getSelectedItem());
-            
+            currentChannel.getDestinationConnectors().set(connectorIndex, destinationConnector);
             connectorClass2.setProperties(destinationConnector.getProperties());
         }
                 
