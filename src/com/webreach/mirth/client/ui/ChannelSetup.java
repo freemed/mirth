@@ -349,6 +349,10 @@ public class ChannelSetup extends javax.swing.JPanel
         }
         
         loadChannelInfo();
+        
+        setSourceVariableList();
+        setDestinationVariableList();
+        
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
             makeDestinationTable(true);
         else
@@ -782,7 +786,7 @@ public class ChannelSetup extends javax.swing.JPanel
             }
 
             sourceConnector.setTransportName((String)sourceSourceDropdown.getSelectedItem());
-            
+            currentChannel.setSourceConnector(sourceConnector);
             connectorClass1.setProperties(sourceConnector.getProperties());
         }
         
