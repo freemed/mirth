@@ -1,4 +1,4 @@
-package com.webreach.mirth.client.ui.transformeditor;
+package com.webreach.mirth.client.ui.filtereditor;
 
 
 public class BlankPanel extends StepPanel {
