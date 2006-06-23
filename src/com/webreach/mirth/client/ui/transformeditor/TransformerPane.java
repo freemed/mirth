@@ -46,15 +46,9 @@ public class TransformerPane extends JPanel {
     public TransformerPane( Frame p, Transformer t ) {
         parent = p;
         transformer = t;
-        incomingTransformer = t;
-        
-        modified = false;
-    }
-   
-    public boolean runTransformerEditor() {
-    	initComponents();
+        initComponents();
     	
-    	return modified;
+        modified = false;
     }
     
     /** This method is called from within the constructor to
@@ -89,7 +83,6 @@ public class TransformerPane extends JPanel {
         makeTransformerTable();
 
         // select the first row if there is one
-        System.out.println("here: " + transformerTableModel.getRowCount());
         if ( transformerTableModel.getRowCount() > 0 ) {
         	transformerTable.setRowSelectionInterval( 0, 0 );
         	prevSelectedRow = 0;
@@ -268,9 +261,7 @@ public class TransformerPane extends JPanel {
     	saving = true;
     	
     	if ( isValid( prevSelectedRow ) ) {
-    		System.out.println( " Saving row " + prevSelectedRow );
-    		
-    		Map data = new HashMap();
+    		Map<Object, Object> data = new HashMap<Object, Object>();
         	String type = (String)
         			transformerTable.getValueAt( prevSelectedRow, STEP_TYPE_COL );
     	
@@ -293,9 +284,7 @@ public class TransformerPane extends JPanel {
     	int row = transformerTable.getSelectedRow();
     	
     	if ( isValid( row ) ) {
-    		System.out.println( "Loading row " + row );
-    		
-	    	String type = (String)transformerTableModel.getValueAt( row, STEP_TYPE_COL );
+    		String type = (String)transformerTableModel.getValueAt( row, STEP_TYPE_COL );
 	    	Map<Object, Object> data = (Map<Object, Object>)
 					transformerTableModel.getValueAt( row, STEP_DATA_COL );
 	    	
@@ -336,7 +325,6 @@ public class TransformerPane extends JPanel {
     	int row = transformerTable.getRowCount();
     	setRowData( null, row );
     	prevSelectedRow = row;
-    	System.out.println(prevSelectedRow);
     	
     	updateStepNumbers();
     }
@@ -402,6 +390,7 @@ public class TransformerPane extends JPanel {
     	parent.channelEditPage.setDestinationVariableList();
     	parent.setCurrentContentPage( parent.channelEditPage );
     	parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
+    	//if ( modified ) parent.showSaveButton();
     }
     
     /** void updateStepNumbers()
@@ -419,7 +408,6 @@ public class TransformerPane extends JPanel {
     // the passed arguments to the constructor
     private Frame parent;
     private Transformer transformer;
-    private Transformer incomingTransformer;
     
     // fields
     private JXTable transformerTable;
@@ -427,9 +415,8 @@ public class TransformerPane extends JPanel {
     private JScrollPane transformerTablePane;
     private JSplitPane vSplitPane;
     private boolean saving;				// allow the selection listener to breathe
-    private boolean modified;			// returns to caller of runTransformerEditor
-    									// indicating whether any changes have been made
-
+    private boolean modified;			
+    
     // this little sucker is used to track the last row that had
     // focus after a new row is selected
     private int prevSelectedRow = -1;	// no row by default
