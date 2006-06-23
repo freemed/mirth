@@ -218,7 +218,7 @@ public class TransformerPane extends JPanel {
         
         transformerTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked( MouseEvent evt ) {
-                if (evt.getClickCount() >= 2) ;	// ??? //
+                if (evt.getClickCount() >= 1 ) ;	// ??? //
             }
         });
     }    
@@ -226,17 +226,20 @@ public class TransformerPane extends JPanel {
     private void TransformerListSelected( ListSelectionEvent evt ) {
         int row = transformerTable.getSelectedRow();
         
-        if( row >= 0 && row < transformerTable.getRowCount() ) {
+        if( isValid( row ) ) {
         	String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
-        	Map<Object, Object> data = (Map<Object, Object>)
-        			transformerTableModel.getValueAt( row, STEP_DATA_COL );
         	
         	saveData();
         	stepPanel.showCard( type );
-        	loadData( type, data );
-        	prevSelectedRow = row;
+        	loadData();
         	transformerTable.setRowSelectionInterval( row, row );
         }
+        
+        prevSelectedRow = row;
+    }
+    
+    private boolean isValid( int row ) {
+    	return ( row >= 0 && row <= transformerTableModel.getRowCount() );
     }
     
     public void deselectRows() {
@@ -248,10 +251,11 @@ public class TransformerPane extends JPanel {
     // sets the data from the previously used panel into the
     // previously selected Step object
     private void saveData() {
-    	System.out.println( "Saving row " + prevSelectedRow );
     	saving = true;
     	
-    	if ( prevSelectedRow >= 0 && prevSelectedRow < transformerTableModel.getRowCount() ) {
+    	if ( isValid( prevSelectedRow ) ) {
+    		System.out.println( " Saving row " + prevSelectedRow );
+    		
     		Map data = new HashMap();
         	String type = (String)
         			transformerTable.getValueAt( prevSelectedRow, STEP_TYPE_COL );
@@ -271,13 +275,22 @@ public class TransformerPane extends JPanel {
     }
         
     // loads the data object into the correct panel
-    private void loadData( String type, Map<Object, Object> data ) {
-    	System.out.println( "Loading step " + prevSelectedRow );
-    	if ( type == MAPPER_TYPE ) mapperPanel.setData( data );
-    	else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
-    	else if ( type == SMTP_TYPE ) smtpPanel.setData( data );
-    	else if ( type == JDBC_TYPE ) jdbcPanel.setData( data );
-    	else if ( type == ALERT_TYPE ) alertPanel.setData( data );
+    private void loadData() {
+    	int row = transformerTable.getSelectedRow();
+    	
+    	if ( isValid( row ) ) {
+    		System.out.println( "Loading row " + row );
+    		
+	    	String type = (String)transformerTableModel.getValueAt( row, STEP_TYPE_COL );
+	    	Map<Object, Object> data = (Map<Object, Object>)
+					transformerTableModel.getValueAt( row, STEP_DATA_COL );
+	    	
+	    	if ( type == MAPPER_TYPE ) mapperPanel.setData( data );
+	    	else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
+	    	else if ( type == SMTP_TYPE ) smtpPanel.setData( data );
+	    	else if ( type == JDBC_TYPE ) jdbcPanel.setData( data );
+	    	else if ( type == ALERT_TYPE ) alertPanel.setData( data );
+    	}
     }
 
     private void setRowData( Step step, int row ) {
@@ -305,6 +318,7 @@ public class TransformerPane extends JPanel {
      *  move the selected row i places
      */
     public void moveStep( int i ) {
+    	saveData();
     	int selectedRow = transformerTable.getSelectedRow();
     	int moveTo = selectedRow + i;
     	
@@ -325,6 +339,7 @@ public class TransformerPane extends JPanel {
      *  add a new step to the end of the list
      */
     public void addNewStep() {
+    	saveData();
     	setRowData( null, transformerTable.getRowCount() );
     	updateStepNumbers();
     }
