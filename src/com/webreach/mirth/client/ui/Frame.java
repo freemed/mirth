@@ -7,9 +7,24 @@ import com.webreach.mirth.client.ui.browsers.message.MessageBrowser;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.User;
-import java.awt.*;
-import java.util.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
 
@@ -19,40 +34,41 @@ import org.jdesktop.swingx.action.*;
  */
 public class Frame extends JXFrame
 {
-    java.util.List<Channel> channels;
-    java.util.List<User> users;
-    java.util.List<ChannelStatus> status;
     public Client mirthClient;
-    ActionManager manager = ActionManager.getInstance();
-    JPanel contentPane;
-    BorderLayout borderLayout1 = new BorderLayout();
-    JMenuBar jMenuBar1 = new JMenuBar();
-    JMenu jMenuFile = new JMenu();
-    JMenuItem jMenuFileExit = new JMenuItem();
-    JMenu jMenuHelp = new JMenu();
-    JMenuItem jMenuHelpAbout = new JMenuItem();
-    JLabel statusBar = new JLabel();
-    JSplitPane jSplitPane1 = new JSplitPane();
-    JScrollPane jScrollPane1 = new JScrollPane();
-    JScrollPane jScrollPane2 = new JScrollPane();
-    Component currentContentPage = null;
-    JXTaskPaneContainer currentTaskPaneContainer = null;
-    StatusPanel statusListPage;
-    ChannelPanel channelListPage;
-    AdminPanel adminPanel;
+    
+    public StatusPanel statusListPage;
+    public ChannelPanel channelListPage;
+    public AdminPanel adminPanel;
     public ChannelSetup channelEditPage;
-    public JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer();
-    JXTaskPane viewPane;
-    JXTaskPane otherPane;
-    JXTaskPane settingsTasks;
-    JXTaskPane channelTasks;
-    JXTaskPane statusTasks;
-    JXTaskPane details;
-    JXTaskPane channelEditTasks;
-    JXTaskPane userTasks;
-    ArrayList<ConnectorClass> sourceConnectors = new ArrayList<ConnectorClass>();
-    ArrayList<ConnectorClass> destinationConnectors = new ArrayList<ConnectorClass>();
-    Thread statusUpdater;     
+    public JXTaskPaneContainer taskPaneContainer;
+    
+    protected List<Channel> channels;
+    protected List<User> users;
+    protected List<ChannelStatus> status;
+    
+    protected ActionManager manager = ActionManager.getInstance();
+    protected JPanel contentPane;
+    protected BorderLayout borderLayout1 = new BorderLayout();
+    protected JLabel statusBar = new JLabel();
+    protected JSplitPane jSplitPane1 = new JSplitPane();
+    protected JScrollPane jScrollPane1 = new JScrollPane();
+    protected JScrollPane jScrollPane2 = new JScrollPane();
+    protected Component currentContentPage = null;
+    protected JXTaskPaneContainer currentTaskPaneContainer = null;
+    
+    protected JXTaskPane viewPane;
+    protected JXTaskPane otherPane;
+    protected JXTaskPane settingsTasks;
+    protected JXTaskPane channelTasks;
+    protected JXTaskPane statusTasks;
+    protected JXTaskPane details;
+    protected JXTaskPane channelEditTasks;
+    protected JXTaskPane userTasks;
+    
+    protected ArrayList<ConnectorClass> sourceConnectors;
+    protected ArrayList<ConnectorClass> destinationConnectors; 
+    
+    private Thread statusUpdater;     
     
     public Frame(Client mirthClient)
     {
@@ -74,10 +90,7 @@ public class Frame extends JXFrame
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         
-        statusListPage = new StatusPanel(this);
-        channelListPage = new ChannelPanel(this);
-        adminPanel = new AdminPanel(this);
-
+        sourceConnectors = new ArrayList<ConnectorClass>();
         sourceConnectors.add(new DatabaseReader(this));
         sourceConnectors.add(new DatabaseWriter(this));
         sourceConnectors.add(new EmailSender(this));
@@ -87,6 +100,7 @@ public class Frame extends JXFrame
         sourceConnectors.add(new LLPListener(this));
         sourceConnectors.add(new LLPSender(this));
         
+        destinationConnectors = new ArrayList<ConnectorClass>();
         destinationConnectors.add(new DatabaseReader(this));
         destinationConnectors.add(new DatabaseWriter(this));
         destinationConnectors.add(new EmailSender(this));
@@ -95,6 +109,13 @@ public class Frame extends JXFrame
         destinationConnectors.add(new HTTPSListener(this));
         destinationConnectors.add(new LLPListener(this));
         destinationConnectors.add(new LLPSender(this));
+        
+        taskPaneContainer = new JXTaskPaneContainer();
+        
+        statusListPage = new StatusPanel(this);
+        channelListPage = new ChannelPanel(this);
+        adminPanel = new AdminPanel(this);
+        channelEditPage = new ChannelSetup(this);
 
         try
         {
@@ -109,7 +130,6 @@ public class Frame extends JXFrame
 
     private void jbInit() throws Exception
     {
-        channelEditPage = new ChannelSetup(this);
         contentPane = (JPanel) getContentPane();
         contentPane.setLayout(new BorderLayout());
         contentPane.setBorder(null);
@@ -131,7 +151,7 @@ public class Frame extends JXFrame
     public void setupChannel(Channel channel)
     {
         setCurrentContentPage(channelEditPage);
-        setBold(viewPane,-1);
+        setBold(viewPane,Constants.ERROR_CONSTANT);
         setFocus(channelEditTasks);
         setVisibleTasks(channelEditTasks, 0, false);
         channelEditPage.addChannel(channel);
@@ -141,10 +161,10 @@ public class Frame extends JXFrame
     {
         if (contentPageObject==currentContentPage)
             return;
+        
         if (currentContentPage!=null)
-        {
             jScrollPane2.getViewport().remove(currentContentPage);
-        }
+        
         jScrollPane2.getViewport().add(contentPageObject);
         currentContentPage = contentPageObject;
     }
@@ -153,10 +173,10 @@ public class Frame extends JXFrame
     {
         if (container==currentTaskPaneContainer)
             return;
+        
         if (currentTaskPaneContainer!=null)
-        {
             jScrollPane1.getViewport().remove(currentTaskPaneContainer);
-        }
+        
         jScrollPane1.getViewport().add(container);
         currentTaskPaneContainer = container;
     }
@@ -272,7 +292,6 @@ public class Frame extends JXFrame
 
     public void goToAbout()
     {
-        //new About(this).setVisible(true);
         Frame_AboutBox dlg = new Frame_AboutBox(this);
         Dimension dlgSize = dlg.getPreferredSize();
         Dimension frmSize = getSize();
@@ -288,6 +307,7 @@ public class Frame extends JXFrame
     {
         if (!confirmLeaveChannelEditor())
             return;
+        
         doRefresh();
         setBold(viewPane, 0);
         setCurrentContentPage(statusListPage);
@@ -298,6 +318,7 @@ public class Frame extends JXFrame
     {
         if (!confirmLeaveChannelEditor())
             return;
+        
         doRefreshChannels();
         setBold(viewPane, 1);
         setCurrentContentPage(channelListPage);
@@ -309,6 +330,7 @@ public class Frame extends JXFrame
     {
         if (!confirmLeaveChannelEditor())
             return;
+        
         setBold(viewPane, 2);
         setCurrentContentPage(adminPanel);
         adminPanel.showTasks();
@@ -326,8 +348,7 @@ public class Frame extends JXFrame
         Dimension channelWizardSize = channelWizard.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
-        channelWizard.setLocation((frmSize.width - channelWizardSize.width) / 2 + loc.x,
-                        (frmSize.height - channelWizardSize.height) / 2 + loc.y);
+        channelWizard.setLocation((frmSize.width - channelWizardSize.width) / 2 + loc.x, (frmSize.height - channelWizardSize.height) / 2 + loc.y);
         channelWizard.setModal(true);
         channelWizard.setResizable(false);
         channelWizard.setVisible(true);
@@ -337,11 +358,11 @@ public class Frame extends JXFrame
     {
         doRefreshChannels();
 
-        if (channelListPage.getSelectedChannel() == -1)
+        if (channelListPage.getSelectedChannel() == Constants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
-            setBold(viewPane, -1);
+            setBold(viewPane, Constants.ERROR_CONSTANT);
             setCurrentContentPage(channelEditPage);
             setFocus(channelEditTasks);
             setVisibleTasks(channelEditTasks, 0, false);
@@ -370,10 +391,10 @@ public class Frame extends JXFrame
 
     public void doRefreshChannels()
     {
-        int channelId = -1;
+        int channelId = Constants.ERROR_CONSTANT;
         String channelName = null;
 
-        if(channelListPage.getSelectedChannel() != -1)
+        if(channelListPage.getSelectedChannel() != Constants.ERROR_CONSTANT)
             channelId = channels.get(channelListPage.getSelectedChannel()).getId();
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -432,6 +453,7 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
         doRefresh();   
     }
     
@@ -450,6 +472,7 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
         doRefresh();
     }
     
@@ -465,6 +488,7 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
         doRefresh();
     }
     
@@ -480,6 +504,7 @@ public class Frame extends JXFrame
             ex.printStackTrace();
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
         doRefresh();
     }
     
@@ -492,6 +517,7 @@ public class Frame extends JXFrame
     {
         if(!alertUser("Are you sure you want to delete this destination?"))
             return;
+        
         channelEditPage.deleteDestination();
     }
     
@@ -499,7 +525,7 @@ public class Frame extends JXFrame
     {
        doRefreshChannels();
        
-        if (channelListPage.getSelectedChannel() == -1)
+        if (channelListPage.getSelectedChannel() == Constants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
@@ -515,7 +541,7 @@ public class Frame extends JXFrame
     {
         doRefreshChannels();
 
-        if (channelListPage.getSelectedChannel() == -1)
+        if (channelListPage.getSelectedChannel() == Constants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
@@ -529,12 +555,11 @@ public class Frame extends JXFrame
 
     public void doNewUser()
     {
-        UserWizard userWizard = new UserWizard(this, -1);
+        UserWizard userWizard = new UserWizard(this, Constants.ERROR_CONSTANT);
         Dimension userWizardSize = userWizard.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
-        userWizard.setLocation((frmSize.width - userWizardSize.width) / 2 + loc.x,
-                        (frmSize.height - userWizardSize.height) / 2 + loc.y);
+        userWizard.setLocation((frmSize.width - userWizardSize.width) / 2 + loc.x, (frmSize.height - userWizardSize.height) / 2 + loc.y);
         userWizard.setModal(true);
         userWizard.setResizable(false);
         userWizard.setVisible(true);
@@ -544,7 +569,7 @@ public class Frame extends JXFrame
     {
         doRefreshUser();
 
-        if (adminPanel.u.getUserIndex() == -1)
+        if (adminPanel.u.getUserIndex() == Constants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Users no longer exists.");
         else
         {
@@ -552,8 +577,7 @@ public class Frame extends JXFrame
             Dimension dialogSize = userDialog.getPreferredSize();
             Dimension frmSize = getSize();
             Point loc = getLocation();
-            userDialog.setLocation((frmSize.width - dialogSize.width) / 2 + loc.x,
-                            (frmSize.height - dialogSize.height) / 2 + loc.y);
+            userDialog.setLocation((frmSize.width - dialogSize.width) / 2 + loc.x, (frmSize.height - dialogSize.height) / 2 + loc.y);
             userDialog.setResizable(false);
             userDialog.setVisible(true);
         }
@@ -563,6 +587,7 @@ public class Frame extends JXFrame
     {
         if(!alertUser("Are you sure you want to delete this user?"))
             return;
+        
         int userToDelete = adminPanel.u.getUserIndex();
         String userName = (String) adminPanel.u.usersTable.getValueAt(adminPanel.u.getSelectedRow(), adminPanel.u.getColumnNumber("Username"));
         
@@ -575,7 +600,7 @@ public class Frame extends JXFrame
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
-           if(userToDelete != -1) 
+           if(userToDelete != Constants.ERROR_CONSTANT) 
            {
                 mirthClient.removeUser(users.get(userToDelete).getId());
                 users = mirthClient.getUsers();
@@ -592,10 +617,10 @@ public class Frame extends JXFrame
 
     public void doRefreshUser()
     {
-        int userId = -1;
+        int userId = Constants.ERROR_CONSTANT;
         String userName = null;
 
-        if(adminPanel.u.getUserIndex() != -1)
+        if(adminPanel.u.getUserIndex() != Constants.ERROR_CONSTANT)
             userId = users.get(adminPanel.u.getUserIndex()).getId();
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -624,6 +649,7 @@ public class Frame extends JXFrame
     public void doDeployAll()
     {
         doRefreshChannels();
+        
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
@@ -661,7 +687,8 @@ public class Frame extends JXFrame
     {
         for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
             pane.getContentPane().getComponent(i).setFont(new Font("Tahoma",Font.PLAIN,11));
-        if (index != -1)
+        
+        if (index != Constants.ERROR_CONSTANT)
             pane.getContentPane().getComponent(index).setFont(new Font("Tahoma",Font.BOLD,11));
     }
 
