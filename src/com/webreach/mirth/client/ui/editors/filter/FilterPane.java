@@ -71,26 +71,6 @@ public class FilterPane extends JPanel {
 			}
 		});
 		
-		makeFilterTable();
-		
-		// select the first row if there is one
-		if ( filterTableModel.getRowCount() > 0 ) {
-			filterTable.setRowSelectionInterval( 0, 0 );
-			prevSelectedRow = 0;
-		}
-		
-		// BGN LAYOUT
-		filterTablePane.setBorder( BorderFactory.createEmptyBorder() );
-		rulePanel.setBorder( BorderFactory.createEmptyBorder() );
-		vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
-				filterTablePane, rulePanel );
-		vSplitPane.setContinuousLayout( true );
-		vSplitPane.setDividerLocation( 200 );
-		this.setLayout( new BorderLayout() );
-		this.add( vSplitPane, BorderLayout.CENTER );
-		this.setBorder( BorderFactory.createEmptyBorder() );
-		// END LAYOUT
-		
 		// make and place the task pane in the parent Frame
 		filterTaskPaneContainer = new JXTaskPaneContainer();
 		
@@ -131,17 +111,39 @@ public class FilterPane extends JPanel {
 		filterTaskPaneContainer.add( filterTasks );
 		parent.setNonFocusable( filterTasks );
 		parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
+		
+		makeFilterTable();
+		
+		// BGN LAYOUT
+		filterTablePane.setBorder( BorderFactory.createEmptyBorder() );
+		rulePanel.setBorder( BorderFactory.createEmptyBorder() );
+		vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
+				filterTablePane, rulePanel );
+		vSplitPane.setContinuousLayout( true );
+		vSplitPane.setDividerLocation( 200 );
+		this.setLayout( new BorderLayout() );
+		this.add( vSplitPane, BorderLayout.CENTER );
+		this.setBorder( BorderFactory.createEmptyBorder() );
+		// END LAYOUT
+		
 		parent.setCurrentContentPage( this );        
 		
 		// select the first row if there is one, and configure
         // the task pane so that it shows only relevant tasks
         int rowCount = filterTableModel.getRowCount();
+        
         if (  rowCount <= 0 )
         	parent.setVisibleTasks( filterTasks, 1, false );
         else if ( rowCount == 1 )
             parent.setVisibleTasks( filterTasks, 2, false );
         else 
         	parent.setVisibleTasks( filterTasks, 0, true );
+        
+        // select the first row if there is one
+		if ( rowCount > 0 ) {
+			filterTable.setRowSelectionInterval( 0, 0 );
+			prevSelectedRow = 0;
+		}
         	
 	}  // END initComponents()
 	
@@ -186,17 +188,19 @@ public class FilterPane extends JPanel {
 		MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 		((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
 			public void itemStateChanged( ItemEvent evt ) {            	
-				//String operator = evt.getItem().toString();
+				String operator = evt.getItem().toString();
+				System.out.println(operator);
 			}
 		}); 
 		
 		filterTable.setSelectionMode( 0 );		// only select one row at a time        
 		filterTable.getColumnExt( RULE_NUMBER_COL ).setMaxWidth( 30 );
 		filterTable.getColumnExt( RULE_NUMBER_COL ).setMinWidth( 30 );
-		filterTable.getColumnExt( RULE_OP_COL ).setMaxWidth( 50 );
-		filterTable.getColumnExt( RULE_OP_COL ).setMinWidth( 50 );
+		filterTable.getColumnExt( RULE_OP_COL ).setMaxWidth( 60 );
+		filterTable.getColumnExt( RULE_OP_COL ).setMinWidth( 60 );
 		filterTable.getColumnExt( RULE_OP_COL ).setCellEditor( comboBox );
 		
+		filterTable.setSortable( false );
 		filterTable.setRowHeight( Constants.ROW_HEIGHT );
 		filterTable.setColumnMargin( Constants.COL_MARGIN );
 		filterTable.setOpaque( true );

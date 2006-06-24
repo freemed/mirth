@@ -79,21 +79,7 @@ public class TransformerPane extends JPanel {
             }
         });
         
-        makeTransformerTable();
-
-       // BGN LAYOUT
-        transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
-        stepPanel.setBorder( BorderFactory.createEmptyBorder() );
-        vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
-        		transformerTablePane, stepPanel );
-        vSplitPane.setContinuousLayout( true );
-        vSplitPane.setDividerLocation( 200 );
-        this.setLayout( new BorderLayout() );
-        this.add( vSplitPane, BorderLayout.CENTER );
-        this.setBorder( BorderFactory.createEmptyBorder() );
-        // END LAYOUT
-        
-	    // make and place the task pane in the parent Frame
+        // make and place the task pane in the parent Frame
 	    transformerTaskPaneContainer = new JXTaskPaneContainer();
 	    
 	    viewTasks = new JXTaskPane();
@@ -129,10 +115,26 @@ public class TransformerPane extends JPanel {
         		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
         		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         
+        System.out.println(transformerTasks);
         // add the tasks to the taskpane, and the taskpane to the mirth client
         transformerTaskPaneContainer.add( transformerTasks );
         parent.setNonFocusable( transformerTasks );
         parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
+        
+        makeTransformerTable();
+
+        // BGN LAYOUT
+         transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
+         stepPanel.setBorder( BorderFactory.createEmptyBorder() );
+         vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
+         		transformerTablePane, stepPanel );
+         vSplitPane.setContinuousLayout( true );
+         vSplitPane.setDividerLocation( 200 );
+         this.setLayout( new BorderLayout() );
+         this.add( vSplitPane, BorderLayout.CENTER );
+         this.setBorder( BorderFactory.createEmptyBorder() );
+         // END LAYOUT
+        
         parent.setCurrentContentPage( this );
 
         // select the first row if there is one, and configure
@@ -141,9 +143,15 @@ public class TransformerPane extends JPanel {
         if (  rowCount <= 0 )
         	parent.setVisibleTasks( transformerTasks, 1, false );
         else if ( rowCount == 1 )
-            parent.setVisibleTasks( transformerTasks, 2, false );
+        	transformerTable.setRowSelectionInterval( 0, 0 );
         else
         	parent.setVisibleTasks( transformerTasks, 0, true );
+
+        // select the first row if there is one
+		if ( rowCount > 0 ) {
+			transformerTable.setRowSelectionInterval( 0, 0 );
+			prevSelectedRow = 0;
+		}
         
     }  // END initComponents()
     
@@ -189,10 +197,6 @@ public class TransformerPane extends JPanel {
 	    ((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
             public void itemStateChanged( ItemEvent evt ) {            	
             	String type = evt.getItem().toString();
-            	// put some logic here to detect if the current panel
-            	// has data, and if so, tell the user that changing
-            	// the type will lose the data        
-            	
             	stepPanel.showCard( type );
             }
         }); 
@@ -205,6 +209,7 @@ public class TransformerPane extends JPanel {
         transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
         transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
         
+        transformerTable.setSortable( false );
         transformerTable.setRowHeight( Constants.ROW_HEIGHT );
         transformerTable.setColumnMargin( Constants.COL_MARGIN );
         transformerTable.setOpaque( true );
@@ -410,10 +415,16 @@ public class TransformerPane extends JPanel {
         if ( rowCount <= 0 )
         	parent.setVisibleTasks( transformerTasks, 1, false );
         else if ( rowCount == 1 ) {
+        	System.out.println(parent);
+        	System.out.println(transformerTasks);
         	parent.setVisibleTasks( transformerTasks, 0, true );
         	parent.setVisibleTasks( transformerTasks, 2, false );
         } else
         	parent.setVisibleTasks( transformerTasks, 0, true );
+        
+        // have J&B reconfigure setVisibleTasks to only operate
+        // on one row, then you can run it through a for loop,
+        // or turn off one at a time.  (moveUp/Down)
     }
     
     
