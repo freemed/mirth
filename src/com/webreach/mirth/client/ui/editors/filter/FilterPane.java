@@ -161,7 +161,7 @@ public class FilterPane extends JPanel {
 		filterTable.setModel(new DefaultTableModel( 
 				new String [] { "#", "Operator", "Script" }, 0 ) {
 			boolean[] canEdit = new boolean [] {
-					false, false, false
+					false, true, false
 			};
 			
 			public boolean isCellEditable( int rowIndex, int columnIndex ) {
@@ -186,9 +186,7 @@ public class FilterPane extends JPanel {
 		// Set the combobox editor on the operator column, and add action listener
 		MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 		((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
-			public void itemStateChanged( ItemEvent evt ) {            	
-				String operator = evt.getItem().toString();
-				System.out.println(operator);
+			public void itemStateChanged( ItemEvent evt ) {
 			}
 		}); 
 		
@@ -283,7 +281,10 @@ public class FilterPane extends JPanel {
 			rule = new Rule();
 			rule.setSequenceNumber( row );
 			rule.setScript( "return null;" );
-			rule.setOperator( Rule.Operator.AND );	// AND operator by default
+			if ( row == 0 )
+				rule.setOperator( Rule.Operator.NONE );	// NONE operator by default on row 0
+			else
+				rule.setOperator( Rule.Operator.AND );	// AND operator by default elsewhere
 		}
 		
 		tableData[RULE_NUMBER_COL] = rule.getSequenceNumber();
@@ -351,7 +352,8 @@ public class FilterPane extends JPanel {
 			Rule rule = new Rule();
 			rule.setSequenceNumber( Integer.parseInt(
 					filterTable.getValueAt( i, RULE_NUMBER_COL ).toString() ));
-			//rule.setOperator( (String)filterTableModel.getValueAt( i, RULE_OP_COL ) ); 
+			rule.setOperator( Rule.Operator.valueOf(
+					filterTableModel.getValueAt( i, RULE_OP_COL ).toString() )); 
 			rule.setScript( (String)filterTableModel.getValueAt( i, RULE_SCRIPT_COL ));
 			
 			list.add( rule );

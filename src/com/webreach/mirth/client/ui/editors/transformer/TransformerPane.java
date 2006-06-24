@@ -115,7 +115,6 @@ public class TransformerPane extends JPanel {
         		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
         		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         
-        System.out.println(transformerTasks);
         // add the tasks to the taskpane, and the taskpane to the mirth client
         transformerTaskPaneContainer.add( transformerTasks );
         parent.setNonFocusable( transformerTasks );
@@ -201,7 +200,7 @@ public class TransformerPane extends JPanel {
             }
         }); 
 	    
-	    transformerTable.setSelectionMode( 0 );        
+	    transformerTable.setSelectionMode( 0 );		// only select one row at a time
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setMaxWidth( 30 );
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setMinWidth( 30 );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( 150 );
@@ -415,8 +414,6 @@ public class TransformerPane extends JPanel {
         if ( rowCount <= 0 )
         	parent.setVisibleTasks( transformerTasks, 1, false );
         else if ( rowCount == 1 ) {
-        	System.out.println(parent);
-        	System.out.println(transformerTasks);
         	parent.setVisibleTasks( transformerTasks, 0, true );
         	parent.setVisibleTasks( transformerTasks, 2, false );
         } else
