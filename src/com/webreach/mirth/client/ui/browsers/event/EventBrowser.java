@@ -148,7 +148,7 @@ public class EventBrowser extends javax.swing.JPanel
         
         if(row >= 0)
         {
-            description.setText(systemEventList.get(row).getDescription());
+            description.setText(systemEventList.get(row).getDescription() + "\n" + systemEventList.get(row).getAttributes());
         }
     }
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
