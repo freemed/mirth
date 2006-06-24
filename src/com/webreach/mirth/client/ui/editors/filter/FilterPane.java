@@ -35,7 +35,6 @@ import com.webreach.mirth.client.ui.Constants;
 import com.webreach.mirth.client.ui.editors.*;
 
 
-// testing SubClipse
 public class FilterPane extends JPanel {	
 	
 	/** CONSTRUCTOR
