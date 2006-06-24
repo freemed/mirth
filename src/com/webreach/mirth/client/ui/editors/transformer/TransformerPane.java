@@ -65,7 +65,6 @@ public class TransformerPane extends JPanel {
         jdbcPanel = new JDBCPanel();
         alertPanel = new AlertPanel();
         // 		establish the cards to use in the Transformer
-        // 		stepPanel.addCard(blankPanel, blankPanel.getType());
         stepPanel.addCard( blankPanel, BLANK_TYPE );
         stepPanel.addCard( mapperPanel, MAPPER_TYPE );
         stepPanel.addCard( jsPanel, JAVASCRIPT_TYPE );
@@ -82,13 +81,7 @@ public class TransformerPane extends JPanel {
         
         makeTransformerTable();
 
-        // select the first row if there is one
-        if ( transformerTableModel.getRowCount() > 0 ) {
-        	transformerTable.setRowSelectionInterval( 0, 0 );
-        	prevSelectedRow = 0;
-        }
-
-        // BGN LAYOUT
+       // BGN LAYOUT
         transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
         stepPanel.setBorder( BorderFactory.createEmptyBorder() );
         vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
@@ -101,18 +94,18 @@ public class TransformerPane extends JPanel {
         // END LAYOUT
         
 	    // make and place the task pane in the parent Frame
-	    JXTaskPaneContainer transformerTaskPaneContainer = new JXTaskPaneContainer();
+	    transformerTaskPaneContainer = new JXTaskPaneContainer();
 	    
-	    JXTaskPane viewPane = new JXTaskPane();
-        viewPane.setTitle("Mirth Views");
-        viewPane.setFocusable(false);
-        viewPane.add(initActionCallback( "accept",
+	    viewTasks = new JXTaskPane();
+        viewTasks.setTitle("Mirth Views");
+        viewTasks.setFocusable(false);
+        viewTasks.add(initActionCallback( "accept",
         		ActionFactory.createBoundAction( "accept", "Back to Transformers", "B" ), 
         		new ImageIcon( Frame.class.getResource( "images/resultset_previous.png" )) ));
-        parent.setNonFocusable(viewPane);
-        transformerTaskPaneContainer.add(viewPane);
+        parent.setNonFocusable(viewTasks);
+        transformerTaskPaneContainer.add(viewTasks);
 	    
-	    JXTaskPane transformerTasks = new JXTaskPane();
+	    transformerTasks = new JXTaskPane();
 	    transformerTasks.setTitle( "Transformer Tasks" );
 	    transformerTasks.setFocusable( false );
         
@@ -139,9 +132,18 @@ public class TransformerPane extends JPanel {
         // add the tasks to the taskpane, and the taskpane to the mirth client
         transformerTaskPaneContainer.add( transformerTasks );
         parent.setNonFocusable( transformerTasks );
-        parent.setVisibleTasks( transformerTasks, 0, true );
         parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
-        parent.setCurrentContentPage( this );        
+        parent.setCurrentContentPage( this );
+
+        // select the first row if there is one, and configure
+        // the task pane so that it shows only relevant tasks
+        int rowCount = transformerTableModel.getRowCount();
+        if (  rowCount <= 0 )
+        	parent.setVisibleTasks( transformerTasks, 1, false );
+        else if ( rowCount == 1 )
+            parent.setVisibleTasks( transformerTasks, 2, false );
+        else
+        	parent.setVisibleTasks( transformerTasks, 0, true );
         
     }  // END initComponents()
     
@@ -315,6 +317,8 @@ public class TransformerPane extends JPanel {
 
     	transformerTableModel.addRow( tableData );
         transformerTable.setRowSelectionInterval( row, row );
+        
+        updateStepNumbers();
     }
     
     /** void addNewStep()
@@ -398,8 +402,18 @@ public class TransformerPane extends JPanel {
      *  and the view, after any change to the table
      */
     private void updateStepNumbers() {    	
-    	for ( int i = 0;  i < transformerTable.getRowCount();  i++ )
+    	int rowCount = transformerTableModel.getRowCount();
+    	
+    	for ( int i = 0;  i < rowCount;  i++ )
     		transformerTableModel.setValueAt( i, i, STEP_NUMBER_COL );
+
+        if ( rowCount <= 0 )
+        	parent.setVisibleTasks( transformerTasks, 1, false );
+        else if ( rowCount == 1 ) {
+        	parent.setVisibleTasks( transformerTasks, 0, true );
+        	parent.setVisibleTasks( transformerTasks, 2, false );
+        } else
+        	parent.setVisibleTasks( transformerTasks, 0, true );
     }
     
     
@@ -415,7 +429,11 @@ public class TransformerPane extends JPanel {
     private JScrollPane transformerTablePane;
     private JSplitPane vSplitPane;
     private boolean saving;				// allow the selection listener to breathe
-    private boolean modified;			
+    private boolean modified;
+    JXTaskPaneContainer transformerTaskPaneContainer;
+    JXTaskPane transformerTasks;
+    JXTaskPane viewTasks;
+    
     
     // this little sucker is used to track the last row that had
     // focus after a new row is selected
