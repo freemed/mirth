@@ -69,11 +69,11 @@ public class TransformerPane extends JPanel {
         // the task pane so that it shows only relevant tasks
         int rowCount = transformerTableModel.getRowCount();
         if (  rowCount <= 0 )
-        	parent.setVisibleTasks( transformerTasks, 1, false );
+        	parent.setVisibleTasks( transformerTasks, 1, -1, false );
         else if ( rowCount == 1 )
         	transformerTable.setRowSelectionInterval( 0, 0 );
         else
-        	parent.setVisibleTasks( transformerTasks, 0, true );
+        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
 
         // select the first row if there is one
 		if ( rowCount > 0 ) {
@@ -174,11 +174,11 @@ public class TransformerPane extends JPanel {
         // the task pane so that it shows only relevant tasks
         int rowCount = transformerTableModel.getRowCount();
         if (  rowCount <= 0 )
-        	parent.setVisibleTasks( transformerTasks, 1, false );
+        	parent.setVisibleTasks( transformerTasks, 1, -1, false );
         else if ( rowCount == 1 )
         	transformerTable.setRowSelectionInterval( 0, 0 );
         else
-        	parent.setVisibleTasks( transformerTasks, 0, true );
+        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
 
         // select the first row if there is one
 		if ( rowCount > 0 ) {
@@ -437,12 +437,12 @@ public class TransformerPane extends JPanel {
     		transformerTableModel.setValueAt( i, i, STEP_NUMBER_COL );
 
         if ( rowCount <= 0 )
-        	parent.setVisibleTasks( transformerTasks, 1, false );
+        	parent.setVisibleTasks( transformerTasks, 1, -1, false );
         else if ( rowCount == 1 ) {
-        	parent.setVisibleTasks( transformerTasks, 0, true );
-        	parent.setVisibleTasks( transformerTasks, 2, false );
+        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
+        	parent.setVisibleTasks( transformerTasks, 2, -1, false );
         } else
-        	parent.setVisibleTasks( transformerTasks, 0, true );
+        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
         
         // have J&B reconfigure setVisibleTasks to only operate
         // on one row, then you can run it through a for loop,

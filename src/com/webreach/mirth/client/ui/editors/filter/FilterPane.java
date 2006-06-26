@@ -31,6 +31,8 @@ import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
+import com.webreach.mirth.model.Step;
+import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.client.ui.Constants;
 import com.webreach.mirth.client.ui.editors.*;
 
@@ -42,13 +44,47 @@ public class FilterPane extends JPanel {
 	 *  Frame - the parent where this panel & its tasks will be loaded
 	 *  Filter - the data model
 	 */
-	public FilterPane( Frame p, Filter t ) {
+	public FilterPane( Frame p ) {
 		parent = p;
-		filter = t;
 		initComponents();
 		
 		modified = false;
 	}
+	
+	/** load( Filter f )
+     *  now that the components have been initialized...
+     */
+    public void load( Filter f ) {
+    	filter = f;
+    	
+    	// add any existing steps to the model
+        List<Rule> list = filter.getRules();
+        ListIterator<Rule> li = list.listIterator();
+        while ( li.hasNext() ) {
+        	Rule s = li.next();
+        	int row = s.getSequenceNumber();
+        	setRowData( s, row );
+        }
+        
+    	// select the first row if there is one, and configure
+        // the task pane so that it shows only relevant tasks
+        int rowCount = filterTableModel.getRowCount();
+        if (  rowCount <= 0 )
+        	parent.setVisibleTasks( filterTasks, 1, -1, false );
+        else if ( rowCount == 1 )
+        	filterTable.setRowSelectionInterval( 0, 0 );
+        else
+        	parent.setVisibleTasks( filterTasks, 0, -1, true );
+
+        // select the first row if there is one
+		if ( rowCount > 0 ) {
+			filterTable.setRowSelectionInterval( 0, 0 );
+			prevSelectedRow = 0;
+		}
+    	
+    	parent.setCurrentContentPage( this );
+    	parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
+    }
 	
 	/** This method is called from within the constructor to
 	 *  initialize the form.
@@ -132,11 +168,11 @@ public class FilterPane extends JPanel {
         int rowCount = filterTableModel.getRowCount();
         
         if (  rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, 1, false );
+        	parent.setVisibleTasks( filterTasks, 1, -1, false );
         else if ( rowCount == 1 )
-            parent.setVisibleTasks( filterTasks, 2, false );
+            parent.setVisibleTasks( filterTasks, 2, -1, false );
         else 
-        	parent.setVisibleTasks( filterTasks, 0, true );
+        	parent.setVisibleTasks( filterTasks, 0, -1, true );
         
         // select the first row if there is one
 		if ( rowCount > 0 ) {
@@ -170,15 +206,6 @@ public class FilterPane extends JPanel {
 		});
 		
 		filterTableModel = (DefaultTableModel)filterTable.getModel();
-		
-		// add any existing rules to the model
-		List<Rule> list = filter.getRules();
-		ListIterator<Rule> li = list.listIterator();
-		while ( li.hasNext() ) {
-			Rule s = li.next();
-			int row = s.getSequenceNumber();
-			setRowData( s, row );
-		}
 		
 		String[] comboBoxValues = new String[] { Rule.Operator.NONE.toString(), 
 				Rule.Operator.AND.toString(), Rule.Operator.OR.toString() };
@@ -381,12 +408,12 @@ public class FilterPane extends JPanel {
     		filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );
 
         if ( rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, 1, false );
+        	parent.setVisibleTasks( filterTasks, 1, -1, false );
         else if ( rowCount == 1 ) {
-        	parent.setVisibleTasks( filterTasks, 0, true );
-        	parent.setVisibleTasks( filterTasks, 2, false );
+        	parent.setVisibleTasks( filterTasks, 0, -1, true );
+        	parent.setVisibleTasks( filterTasks, 2, -1, false );
         } else
-        	parent.setVisibleTasks( filterTasks, 0, true );
+        	parent.setVisibleTasks( filterTasks, 0, -1, true );
     }
 	
 	
