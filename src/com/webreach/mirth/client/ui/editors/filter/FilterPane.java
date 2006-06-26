@@ -57,7 +57,11 @@ public class FilterPane extends JPanel {
     public void load( Filter f ) {
     	filter = f;
     	
-    	filterTableModel.setDataVector( null, new String [] { "#", "Name", "Type", "Data" });
+    	// we need to clear all the old data before we load the new
+    	int rowCount = filterTableModel.getRowCount();
+    	for ( int i = rowCount - 1; i >= 0;  i-- )
+    		filterTableModel.removeRow( i );
+    	
     	// add any existing steps to the model
         List<Rule> list = filter.getRules();
         ListIterator<Rule> li = list.listIterator();
@@ -69,7 +73,6 @@ public class FilterPane extends JPanel {
         
     	// select the first row if there is one, and configure
         // the task pane so that it shows only relevant tasks
-        int rowCount = filterTableModel.getRowCount();
         if (  rowCount <= 0 )
         	parent.setVisibleTasks( filterTasks, 1, -1, false );
         else if ( rowCount == 1 )
