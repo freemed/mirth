@@ -109,14 +109,14 @@ public class Users extends javax.swing.JScrollPane {
         int row = usersTable.getSelectedRow();
         if(row >= 0 && usersTable.getSelectedColumn()>= 0)
         {
-            parent.setVisibleTasks(parent.userTasks, 2, true);
+            parent.setVisibleTasks(parent.userTasks, 2, -1, true);
         }
     }
     
     public void deselectRows()
     {
         usersTable.clearSelection();
-        parent.setVisibleTasks(parent.userTasks, 2, false);
+        parent.setVisibleTasks(parent.userTasks, 2, -1, false);
     }
     
     public int getSelectedRow()

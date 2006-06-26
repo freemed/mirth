@@ -153,7 +153,7 @@ public class StatusPanel extends javax.swing.JPanel {
         int row = statusTable.getSelectedRow();
         if(row >= 0)
         {
-            parent.setVisibleTasks(parent.statusTasks, 3, true);
+            parent.setVisibleTasks(parent.statusTasks, 3, -1, true);
             
             int columnNumber = getColumnNumber("Status");
             if (((String)statusTable.getValueAt(row, columnNumber)).equals("Started"))
@@ -180,7 +180,7 @@ public class StatusPanel extends javax.swing.JPanel {
     private void deselectRows()
     {
         statusTable.clearSelection();
-        parent.setVisibleTasks(parent.statusTasks, 3, false);
+        parent.setVisibleTasks(parent.statusTasks, 3, -1, false);
     }
     
     public int getSelectedStatus()

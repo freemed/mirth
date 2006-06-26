@@ -127,7 +127,7 @@ public class ChannelPanel extends javax.swing.JPanel {
         
         if(row >= 0)
         {
-            parent.setVisibleTasks(parent.channelTasks, 3, true);
+            parent.setVisibleTasks(parent.channelTasks, 3, -1, true);
 
             int columnNumber = getColumnNumber("Status");
             if (((String)channelTable.getValueAt(row, columnNumber)).equals("Enabled"))
@@ -140,7 +140,7 @@ public class ChannelPanel extends javax.swing.JPanel {
     public void deselectRows()
     {
         channelTable.clearSelection();
-        parent.setVisibleTasks(parent.channelTasks, 3, false);
+        parent.setVisibleTasks(parent.channelTasks, 3, -1, false);
     }
     
     public int getSelectedChannel()

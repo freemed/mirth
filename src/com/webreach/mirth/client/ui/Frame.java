@@ -155,7 +155,7 @@ public class Frame extends JXFrame
         setCurrentContentPage(channelEditPage);
         setBold(viewPane,Constants.ERROR_CONSTANT);
         setFocus(channelEditTasks);
-        setVisibleTasks(channelEditTasks, 0, false);
+        setVisibleTasks(channelEditTasks, 0, -1, false);
         channelEditPage.addChannel(channel);
     }
 
@@ -215,7 +215,7 @@ public class Frame extends JXFrame
         channelTasks.add(initActionCallback("doEnable",ActionFactory.createBoundAction("doEnable","Enable", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
         channelTasks.add(initActionCallback("doDisable",ActionFactory.createBoundAction("doDisable","Disable", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         setNonFocusable(channelTasks);
-        setVisibleTasks(channelTasks, 3, false);
+        setVisibleTasks(channelTasks, 3, -1, false);
         taskPaneContainer.add(channelTasks);
 
         // Create Channel Edit Tasks Pane
@@ -228,7 +228,7 @@ public class Frame extends JXFrame
         channelEditTasks.add(initActionCallback("doEditTransformer",ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         channelEditTasks.add(initActionCallback("doEditFilter",ActionFactory.createBoundAction("doEditFilter","Edit Filter", "F"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         setNonFocusable(channelEditTasks);
-        setVisibleTasks(channelEditTasks, 0, false);
+        setVisibleTasks(channelEditTasks, 0, -1, false);
         taskPaneContainer.add(channelEditTasks);
 
         // Create Status Tasks Pane
@@ -244,7 +244,7 @@ public class Frame extends JXFrame
         statusTasks.add(initActionCallback("doStop",ActionFactory.createBoundAction("doStop","Stop Channel", "O"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         //statusTasks.add(initActionCallback("doShowStats",ActionFactory.createBoundAction("doShowStats","Stats", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stats.png"))));
         setNonFocusable(statusTasks);
-        setVisibleTasks(statusTasks, 3, false);
+        setVisibleTasks(statusTasks, 3, -1, false);
         taskPaneContainer.add(statusTasks);
         
         // Create Event Tasks Pane
@@ -253,7 +253,7 @@ public class Frame extends JXFrame
         eventTasks.setFocusable(false);
         eventTasks.add(initActionCallback("doRefresh",ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         setNonFocusable(eventTasks);
-        setVisibleTasks(eventTasks, 1, false);
+        setVisibleTasks(eventTasks, 1, -1, false);
         taskPaneContainer.add(eventTasks);
         
         // Create Message Tasks Pane
@@ -262,7 +262,7 @@ public class Frame extends JXFrame
         messageTasks.setFocusable(false);
         messageTasks.add(initActionCallback("doRefresh",ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         setNonFocusable(messageTasks);
-        setVisibleTasks(messageTasks, 1, false);
+        setVisibleTasks(messageTasks, 1, -1, false);
         taskPaneContainer.add(messageTasks);
 
         // Create User Tasks Pane
@@ -274,7 +274,7 @@ public class Frame extends JXFrame
         userTasks.add(initActionCallback("doEditUser",ActionFactory.createBoundAction("doEditChannel","Edit User", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         userTasks.add(initActionCallback("doDeleteUser",ActionFactory.createBoundAction("doDeleteChannel","Delete User","D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         setNonFocusable(userTasks);
-        setVisibleTasks(userTasks, 2, false);
+        setVisibleTasks(userTasks, 2, -1, false);
         taskPaneContainer.add(userTasks);
 
         //Create Other Pane
@@ -385,7 +385,7 @@ public class Frame extends JXFrame
             setBold(viewPane, Constants.ERROR_CONSTANT);
             setCurrentContentPage(channelEditPage);
             setFocus(channelEditTasks);
-            setVisibleTasks(channelEditTasks, 0, false);
+            setVisibleTasks(channelEditTasks, 0, -1, false);
             channelEditPage.editChannel(channelListPage.getSelectedChannel());
         }
     }
@@ -734,10 +734,18 @@ public class Frame extends JXFrame
             pane.getContentPane().getComponent(i).setFocusable(false);
     }
 
-    public void setVisibleTasks(JXTaskPane pane, int startIndex, boolean visible)
+    public void setVisibleTasks(JXTaskPane pane, int startIndex, int endIndex, boolean visible)
     {
-        for (int i=startIndex; i<pane.getContentPane().getComponentCount(); i++)
-            pane.getContentPane().getComponent(i).setVisible(visible);
+        if(endIndex == -1)
+        {
+            for (int i=startIndex; i < pane.getContentPane().getComponentCount(); i++)
+                pane.getContentPane().getComponent(i).setVisible(visible);
+        }
+        else
+        {
+            for (int i=startIndex; (i <= endIndex) || (i < pane.getContentPane().getComponentCount()); i++)
+                pane.getContentPane().getComponent(i).setVisible(visible);
+        }
     }
 
     public boolean confirmLeaveChannelEditor()
