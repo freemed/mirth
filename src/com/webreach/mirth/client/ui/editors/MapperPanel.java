@@ -35,7 +35,7 @@ public class MapperPanel extends CardPanel {
      */
     private void initComponents() {
     	treeScrollPane = new JScrollPane();
-        helpTree = new JXTree();
+        helpTree = new HelpTree();
         hSplitPane = new JSplitPane();
         mappingPanel = new JPanel();
         mappingLabel = new JLabel( "Variable: " );
@@ -126,7 +126,7 @@ public class MapperPanel extends CardPanel {
     protected JSplitPane hSplitPane;
     protected JTextPane mappingTextPane;
     private HighlightedDocument mappingDoc;
-    protected JXTree helpTree;
+    protected HelpTree helpTree;
     protected JLabel mappingLabel;
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;

@@ -70,7 +70,8 @@ public class JavaScriptPanel extends CardPanel {
 	
 	
 	public void setData( Map<Object, Object> m ) {
-		mappingTextPane.setText( (String)m.get( "Script" ) );	
+		if ( m != null )
+			mappingTextPane.setText( (String)m.get( "Script" ) );	
 	}
 
 	

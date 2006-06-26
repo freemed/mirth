@@ -335,6 +335,7 @@ public class TransformerPane extends JPanel {
         
     	// we have a new step
     	if ( step == null )	{
+    		saveData();
     		step = new Step();
     		step.setSequenceNumber( row );
     		step.setName( "New Step" );
@@ -348,21 +349,18 @@ public class TransformerPane extends JPanel {
     	tableData[STEP_DATA_COL] = step.getData();
 
     	transformerTableModel.addRow( tableData );
-        transformerTable.setRowSelectionInterval( row, row );
+    	transformerTable.setRowSelectionInterval( row, row );
         
-        updateStepNumbers();
     }
     
     /** void addNewStep()
      *  add a new step to the end of the list
      */
     public void addNewStep() {
-    	saveData();
     	int row = transformerTable.getRowCount();
+    		
     	setRowData( null, row );
     	prevSelectedRow = row;
-    	
-    	updateStepNumbers();
     }
     
     /** void deleteStep(MouseEvent evt)
@@ -420,8 +418,9 @@ public class TransformerPane extends JPanel {
     		list.add( step );
     	}
     	
-    	modified = true;
+    	//modified = true;
     	transformer.setSteps( list );
+    	transformerTableModel.setDataVector( null, new String[] {} );
     
     	// reset the task pane and content to channel edit page
     	parent.channelEditPage.setSourceVariableList();
@@ -449,9 +448,6 @@ public class TransformerPane extends JPanel {
         } else
         	parent.setVisibleTasks( transformerTasks, 0, -1, true );
         
-        // have J&B reconfigure setVisibleTasks to only operate
-        // on one row, then you can run it through a for loop,
-        // or turn off one at a time.  (moveUp/Down)
     }
     
     

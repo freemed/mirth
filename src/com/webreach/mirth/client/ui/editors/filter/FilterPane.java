@@ -323,8 +323,6 @@ public class FilterPane extends JPanel {
 		
 		filterTableModel.addRow( tableData );
 		filterTable.setRowSelectionInterval( row, row );
-		
-		updateRuleNumbers();
 	}
 	
 	/** void addNewRule()
@@ -334,8 +332,6 @@ public class FilterPane extends JPanel {
 		int row = filterTable.getRowCount();
 		setRowData( null, row );
 		prevSelectedRow = row;
-		
-		updateRuleNumbers();
 	}
 	
 	/** void deleteRule(MouseEvent evt)
@@ -393,6 +389,7 @@ public class FilterPane extends JPanel {
 		
 		//modified = true;
 		filter.setRules( list );
+		filterTableModel.setDataVector( null, new String[] {} );
 		
 		// reset the task pane and content to channel edit page
 		parent.channelEditPage.setSourceVariableList();
