@@ -347,7 +347,9 @@ public class FilterPane extends JPanel {
 		if ( isValid( row ) )
 			filterTableModel.removeRow( row );
 		
-		if ( isValid( row - 1 ) )
+		if ( isValid( row ) )
+			filterTable.setRowSelectionInterval( row, row );
+		else if ( isValid( row - 1 ) )
 			filterTable.setRowSelectionInterval( row - 1, row - 1 );
 		else
 			rulePanel.showCard( BLANK_TYPE );

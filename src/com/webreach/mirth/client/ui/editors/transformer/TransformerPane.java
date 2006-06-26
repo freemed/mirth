@@ -374,9 +374,11 @@ public class TransformerPane extends JPanel {
     	if ( isValid( row ) )
     		transformerTableModel.removeRow( row );
     	
-    	if ( isValid( row - 1 ) )
+    	if ( isValid ( row ) )
+    		transformerTable.setRowSelectionInterval( row, row );
+    	else if ( isValid( row - 1 ) )
     		transformerTable.setRowSelectionInterval( row - 1, row - 1 );
-    	else
+    	else 
     		stepPanel.showCard( BLANK_TYPE );
     	
     	updateStepNumbers();
