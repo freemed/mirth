@@ -782,7 +782,9 @@ public class ChannelSetup extends javax.swing.JPanel
         if (connectorClass1.getName() != null && connectorClass1.getName().equals((String)sourceSourceDropdown.getSelectedItem()))
             return;
         
-        if (!compareProps(connectorClass1.getProperties(), connectorClass1.getDefaults()))
+        if (!compareProps(connectorClass1.getProperties(), connectorClass1.getDefaults()) || 
+                currentChannel.getSourceConnector().getFilter().getRules().size() > 0 ||
+                currentChannel.getSourceConnector().getTransformer().getSteps().size() > 0)
         {
             boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
             if (!changeType)
@@ -865,7 +867,12 @@ public class ChannelSetup extends javax.swing.JPanel
         {
             if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()) && lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))))
                 return;
-            if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()))
+            
+            // if the selected destination is still the same AND the default properties/transformer/filter have 
+            // not been changed from defaults then ask if the user would like to really change connector type.
+            if (lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))) && (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()) || 
+                currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getFilter().getRules().size() > 0 ||
+                currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getTransformer().getSteps().size() > 0))
             {
                 boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
                 if (!changeType)
@@ -880,7 +887,9 @@ public class ChannelSetup extends javax.swing.JPanel
         {
             if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()))
                 return;
-            if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()))
+            if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()) || 
+                currentChannel.getDestinationConnectors().get(0).getFilter().getRules().size() > 0 ||
+                currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps().size() > 0)
             {
                 boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
                 if (!changeType)
@@ -1081,10 +1090,7 @@ public class ChannelSetup extends javax.swing.JPanel
         {
             String key = (String)propertyKeys.nextElement();
             if (!p1.getProperty(key).equals(p2.getProperty(key)))
-            {
-                System.out.println(key + " : " + p1.getProperty(key) + " " + p2.getProperty(key));
                 return false;
-            }
         }
         return true;
     }
