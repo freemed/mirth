@@ -27,13 +27,18 @@ public class UserWizard extends javax.swing.JDialog
         this.parent = (Frame)parent;
         initComponents();
         finishButton.setEnabled(false);
+        
         if(row != -1)
         {
+            jLabel2.setText("Edit User");
             index = this.parent.adminPanel.u.getUserIndex();
             username.setText(this.parent.users.get(index).getUsername());     
             password1.setText(this.parent.users.get(index).getPassword());
             password2.setText(this.parent.users.get(index).getPassword());
         }
+        else
+            jLabel2.setText("New User");
+        
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
