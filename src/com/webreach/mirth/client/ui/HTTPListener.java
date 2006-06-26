@@ -86,11 +86,11 @@ public class HTTPListener extends ConnectorClass
 
     public void setDefaults()
     {
-        listenerIPAddressField.setText("");
-        listenerIPAddressField1.setText("");
-        listenerIPAddressField2.setText("");
-        listenerIPAddressField3.setText("");
-        listenerPortField.setText("");
+        listenerIPAddressField.setText("127");
+        listenerIPAddressField1.setText("0");
+        listenerIPAddressField2.setText("0");
+        listenerIPAddressField3.setText("1");
+        listenerPortField.setText("3700");
         receiveTimeoutField.setText("");
         bufferSizeField.setText("");
         keepConnectionOpenYesRadio.setSelected(true);
@@ -103,6 +103,24 @@ public class HTTPListener extends ConnectorClass
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
 
+    public Properties getDefaults()
+    {
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("address", "127.0.0.1");
+        properties.put("port", "3700");
+        properties.put("ReceiveTimeout", "");
+        properties.put("BufferSize", "");
+        properties.put("KeepConnectionOpen", "YES");
+        properties.put("StartOfMessageCharacter", "");
+        properties.put("EndOfMessageCharacter", "");
+        properties.put("FieldSeparator", "");
+        properties.put("RecordSeparator", "");
+        properties.put("SendACK", sendACKCombobox.getItemAt(0));
+        return properties;
+    }
+
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

@@ -19,6 +19,7 @@ import com.webreach.mirth.model.Validator;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -779,6 +780,17 @@ public class ChannelSetup extends javax.swing.JPanel
     private void sourceSourceDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSourceDropdownActionPerformed
         if (connectorClass1.getName() != null && connectorClass1.getName().equals((String)sourceSourceDropdown.getSelectedItem()))
             return;
+        
+        if (!compareProps(connectorClass1.getProperties(), connectorClass1.getDefaults()))
+        {
+            boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+            if (!changeType)
+            {
+                sourceSourceDropdown.setSelectedItem(connectorClass1.getProperties().get("DataType"));
+                return;
+            }
+        }
+        
         for(int i=0; i<parent.sourceConnectors.size(); i++)
         {
             if(parent.sourceConnectors.get(i).getName().equalsIgnoreCase((String)sourceSourceDropdown.getSelectedItem()))
@@ -799,7 +811,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 String name = sourceConnector.getName();
                 sourceConnector = makeNewConnector();
                 sourceConnector.setName(name);
-                connectorClass1.setDefaults();
+                connectorClass1.setProperties(connectorClass1.getDefaults());
                 sourceConnector.setProperties(connectorClass1.getProperties());
             }
 
@@ -848,17 +860,34 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void destinationSourceDropdownActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_destinationSourceDropdownActionPerformed
     {//GEN-HEADEREND:event_destinationSourceDropdownActionPerformed
-        
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
         {
             if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()) && lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))))
                 return;
+            if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()))
+            {
+                boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                if (!changeType)
+                {
+                    destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
+                    return;
+                }
+            }
             generateMultipleDestinationPage();
         }
         else
         {
             if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()))
                 return;
+            if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()))
+            {
+                boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                if (!changeType)
+                {
+                    destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
+                    return;
+                }
+            }            
             generateSingleDestinationPage();
         }
     }//GEN-LAST:event_destinationSourceDropdownActionPerformed
@@ -887,7 +916,7 @@ public class ChannelSetup extends javax.swing.JPanel
             String name = destinationConnector.getName();
             destinationConnector = makeNewConnector();
             destinationConnector.setName(name);
-            connectorClass2.setDefaults();
+            connectorClass2.setProperties(connectorClass2.getDefaults());
             destinationConnector.setProperties(connectorClass2.getProperties());    
         }
         
@@ -965,7 +994,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 String name = destinationConnector.getName();
                 destinationConnector = makeNewConnector();
                 destinationConnector.setName(name);
-                connectorClass2.setDefaults();
+                connectorClass2.setProperties(connectorClass2.getDefaults());
                 destinationConnector.setProperties(connectorClass2.getProperties());
             }
 
@@ -1042,6 +1071,21 @@ public class ChannelSetup extends javax.swing.JPanel
     public void showSaveButton()
     {
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+    }
+    
+    private boolean compareProps(Properties p1, Properties p2)
+    {
+        Enumeration<?> propertyKeys = p1.propertyNames();
+        while (propertyKeys.hasMoreElements())
+        {
+            String key = (String)propertyKeys.nextElement();
+            if (!p1.getProperty(key).equals(p2.getProperty(key)))
+            {
+                System.out.println(key + " : " + p1.getProperty(key) + " " + p2.getProperty(key));
+                return false;
+            }
+        }
+        return true;
     }
     
     private void summaryEnabledCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_summaryEnabledCheckboxStateChanged

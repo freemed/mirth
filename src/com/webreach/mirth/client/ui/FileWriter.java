@@ -14,11 +14,12 @@ import java.util.Properties;
  */
 public class FileWriter extends ConnectorClass
 {
-	Frame parent;
+    Frame parent;
+    
     /** Creates new form FileWriter */
     public FileWriter(Frame parent)
     {
-		this.parent = parent;
+        this.parent = parent;
         name = "File Writer";
         initComponents();
     }
@@ -45,6 +46,16 @@ public class FileWriter extends ConnectorClass
         directoryField.setText("");
         fileNameField.setText("");
         fileContentsTextArea.setText("");
+    }
+    
+    public Properties getDefaults()
+    {
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("Directory", "");
+        properties.put("FileName", "");
+        properties.put("Contents", "");
+        return properties;
     }
 
     /** This method is called from within the constructor to

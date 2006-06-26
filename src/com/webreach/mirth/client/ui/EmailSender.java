@@ -58,6 +58,20 @@ public class EmailSender extends ConnectorClass
         emailSubjectField.setText("");
         emailBodyTextArea.setText("");
     }
+    
+    public Properties getDefaults()
+    {
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("address", "");
+        properties.put("port", "");
+        properties.put("Username", "");
+        properties.put("Password", "");
+        properties.put("To", "");
+        properties.put("Subject", "");
+        properties.put("Body", "");
+        return properties;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

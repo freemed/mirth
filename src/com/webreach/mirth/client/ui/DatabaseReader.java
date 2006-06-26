@@ -58,6 +58,18 @@ public class DatabaseReader extends ConnectorClass
         databasePasswordField.setText("");
         databaseSQLTextPane.setText("");
     }
+    
+    public Properties getDefaults()
+    {
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("Driver", databaseDriverCombobox.getItemAt(0));
+        properties.put("URL", "");
+        properties.put("Username", "");
+        properties.put("Password", "");
+        properties.put("SQLStatement", "");
+        return properties;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

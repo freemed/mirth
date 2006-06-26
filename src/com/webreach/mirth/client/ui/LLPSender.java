@@ -94,6 +94,23 @@ public class LLPSender extends ConnectorClass
         recordSeparatorField.setText("");
         fieldSeparatorField.setText("");
     }
+    
+    public Properties getDefaults()
+    {        
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("address", "127.0.0.1");
+        properties.put("port", "3601");
+        properties.put("ServerTimeout", "");
+        properties.put("BufferSize", "");
+        properties.put("KeepConnectionOpen", "YES");
+        properties.put("MaximumRetryCount", "");
+        properties.put("StartOfMessageCharacter", "");
+        properties.put("EndOfMessageCharacter", "");
+        properties.put("RecordSeparator", "");
+        properties.put("FieldSeparator", "");
+        return properties;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

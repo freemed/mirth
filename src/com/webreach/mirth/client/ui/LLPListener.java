@@ -102,6 +102,23 @@ public class LLPListener extends ConnectorClass
         recordSeparatorField.setText("");
         sendACKCombobox.setSelectedIndex(0);
     }
+    
+    public Properties getDefaults()
+    {
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("address", "127.0.0.1");
+        properties.put("port", "3600");
+        properties.put("ReceiveTimeout", "");
+        properties.put("BufferSize", "");
+        properties.put("KeepConnectionOpen", "YES");
+        properties.put("StartOfMessageCharacter", "");
+        properties.put("EndOfMessageCharacter", "");
+        properties.put("FieldSeparator", "");
+        properties.put("RecordSeparator", "");
+        properties.put("SendACK", sendACKCombobox.getItemAt(0));
+        return properties;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

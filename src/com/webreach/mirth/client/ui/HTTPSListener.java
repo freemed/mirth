@@ -132,11 +132,11 @@ public class HTTPSListener extends ConnectorClass
 
     public void setDefaults()
     {
-        listenerIPAddressField.setText("");
-        listenerIPAddressField1.setText("");
-        listenerIPAddressField2.setText("");
-        listenerIPAddressField3.setText("");        
-        listenerPortField.setText("");
+        listenerIPAddressField.setText("127");
+        listenerIPAddressField1.setText("0");
+        listenerIPAddressField2.setText("0");
+        listenerIPAddressField3.setText("1");        
+        listenerPortField.setText("3800");
         receiveTimeoutField.setText("");
         bufferSizeField.setText("");
         keepConnectionOpenYesRadio.setSelected(true);
@@ -159,6 +159,35 @@ public class HTTPSListener extends ConnectorClass
         sendACKCombobox.setSelectedIndex(0);
     }
 
+    public Properties getDefaults()
+    {
+        Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("address", "127.0.0.1");
+        properties.put("port", "3800");
+        properties.put("ReceiveTimeout", "");
+        properties.put("BufferSize", "");
+        properties.put("KeepConnectionOpen", "YES");
+        properties.put("KeyStore", "");
+        properties.put("KeyStorePassword", "");
+        properties.put("KeyStoreType", "");
+        properties.put("KeyManagerAlgorithm", "");
+        properties.put("ProtocolHandler", "");
+        properties.put("RequireClientAuthentication", "YES");
+        properties.put("SecurityProvider", "");
+        properties.put("ClientKeystore", "");
+        properties.put("ClientKeystorePassword", "");
+        properties.put("TrustKeystore", "");
+        properties.put("TrustKeystorePassword", "");
+        properties.put("ExplicitTrustStoreOnly", "YES");
+        properties.put("StartOfMessageCharacter", "");
+        properties.put("EndOfMessageCharacter", "");
+        properties.put("FieldSeparator", "");
+        properties.put("RecordSeparator", "");
+        properties.put("SendACK", sendACKCombobox.getItemAt(0));
+        return properties;
+    }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
