@@ -50,6 +50,8 @@ public class ChannelSetup extends javax.swing.JPanel
     private JXTable jTable1;
     private JScrollPane jScrollPane4;
     Map<String,Transport> transports;
+    TransformerPane transformerPane;
+    FilterPane filterPane;
 
     public ChannelSetup(JFrame parent)
     {
@@ -58,7 +60,9 @@ public class ChannelSetup extends javax.swing.JPanel
         jScrollPane4 = new JScrollPane();
         ArrayList<String> sourceConnectors;
         ArrayList<String> destinationConnectors;
-
+        transformerPane = new TransformerPane(this.parent);
+        filterPane = new FilterPane(this.parent);
+        
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
@@ -93,16 +97,16 @@ public class ChannelSetup extends javax.swing.JPanel
     public void editTransformer()
     {
         if (channelView.getSelectedIndex() == 1)
-            new TransformerPane(parent, currentChannel.getSourceConnector().getTransformer());
+            transformerPane.load(currentChannel.getSourceConnector().getTransformer());
         
         else if (channelView.getSelectedIndex() == 2)
         {
             if (currentChannel.getMode() == Channel.Mode.APPLICATION)
-                new TransformerPane(parent, currentChannel.getDestinationConnectors().get(0).getTransformer());
+                transformerPane.load(currentChannel.getDestinationConnectors().get(0).getTransformer());
             else
             {
                 int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
-                new TransformerPane(parent, currentChannel.getDestinationConnectors().get(destination).getTransformer());
+                transformerPane.load(currentChannel.getDestinationConnectors().get(destination).getTransformer());
             }
         }
     }
@@ -110,16 +114,16 @@ public class ChannelSetup extends javax.swing.JPanel
     public void editFilter()
     {
         if (channelView.getSelectedIndex() == 1)
-            new FilterPane(parent, currentChannel.getSourceConnector().getFilter());
+            filterPane.load(currentChannel.getSourceConnector().getFilter());
         
         else if (channelView.getSelectedIndex() == 2)
         {
             if (currentChannel.getMode() == Channel.Mode.APPLICATION)
-                new FilterPane(parent, currentChannel.getDestinationConnectors().get(0).getFilter());
+                filterPane.load(currentChannel.getDestinationConnectors().get(0).getFilter());
             else
             {
                 int destination = getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")));
-                new FilterPane(parent, currentChannel.getDestinationConnectors().get(destination).getFilter());
+                filterPane.load(currentChannel.getDestinationConnectors().get(destination).getFilter());
             }
         }
     }
