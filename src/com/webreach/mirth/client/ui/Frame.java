@@ -770,7 +770,13 @@ public class Frame extends JXFrame
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
-            mirthClient.updateChannel(curr, true);
+            if(!mirthClient.updateChannel(curr, false))
+            {
+                if(alertUser("This channel has been modified since you first opened it.  Click \"Yes\" to overwrite these changes, \"No\" to not save your changes, or \"Cancel\" to return."))
+                    mirthClient.updateChannel(curr, true);
+                else
+                    return;
+            }
             channels = mirthClient.getChannels();
             channelListPage.makeChannelTable();
         }
