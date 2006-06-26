@@ -770,7 +770,7 @@ public class Frame extends JXFrame
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
-            mirthClient.updateChannel(curr);
+            mirthClient.updateChannel(curr, true);
             channels = mirthClient.getChannels();
             channelListPage.makeChannelTable();
         }
