@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 
 public class Constants 
 {
-        // for error checking
-        public static final int ERROR_CONSTANT = -1;
+    // for error checking
+    public static final int ERROR_CONSTANT = -1;
         
 	// for JXTables
 	public static final int ROW_HEIGHT = 20;
@@ -19,6 +19,6 @@ public class Constants
 	// for JSplitPane
 	public static final int DIVIDER_SIZE = 12;
         
-        public static ImageIcon BACKGROUND_IMAGE;
+    public static ImageIcon BACKGROUND_IMAGE;
 	
 }

@@ -57,10 +57,8 @@ public class TransformerPane extends JPanel {
     	transformer = t;
     	
     	// we need to clear all the old data before we load the new
-        int rowCount = transformerTableModel.getRowCount();
-    	for ( int i = rowCount - 1; i >= 0;  i-- )
-    		transformerTableModel.removeRow( i );
-    	
+        makeTransformerTable();
+        
     	// add any existing steps to the model
         List<Step> list = transformer.getSteps();
         ListIterator<Step> li = list.listIterator();
@@ -70,9 +68,9 @@ public class TransformerPane extends JPanel {
         	setRowData( s, row );
         }
         
-    	// select the first row if there is one, and configure
-        // the task pane so that it shows only relevant tasks
-        if (  rowCount <= 0 )
+    	// configure the task pane so that it shows only relevant tasks
+        int rowCount = transformerTableModel.getRowCount();
+    	if (  rowCount <= 0 )
         	parent.setVisibleTasks( transformerTasks, 1, -1, false );
         else if ( rowCount == 1 )
         	transformerTable.setRowSelectionInterval( 0, 0 );
@@ -83,7 +81,8 @@ public class TransformerPane extends JPanel {
 		if ( rowCount > 0 ) {
 			transformerTable.setRowSelectionInterval( 0, 0 );
 			prevSelectedRow = 0;
-		}
+		} else
+			stepPanel.showCard( BLANK_TYPE );
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );

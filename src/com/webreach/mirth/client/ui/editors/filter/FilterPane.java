@@ -58,9 +58,7 @@ public class FilterPane extends JPanel {
     	filter = f;
     	
     	// we need to clear all the old data before we load the new
-    	int rowCount = filterTableModel.getRowCount();
-    	for ( int i = rowCount - 1; i >= 0;  i-- )
-    		filterTableModel.removeRow( i );
+    	makeFilterTable();
     	
     	// add any existing steps to the model
         List<Rule> list = filter.getRules();
@@ -71,9 +69,9 @@ public class FilterPane extends JPanel {
         	setRowData( s, row );
         }
         
-    	// select the first row if there is one, and configure
-        // the task pane so that it shows only relevant tasks
-        if (  rowCount <= 0 )
+    	// configure the task pane so that it shows only relevant tasks
+        int rowCount = filterTableModel.getRowCount();
+    	if (  rowCount <= 0 )
         	parent.setVisibleTasks( filterTasks, 1, -1, false );
         else if ( rowCount == 1 )
         	filterTable.setRowSelectionInterval( 0, 0 );
@@ -84,7 +82,8 @@ public class FilterPane extends JPanel {
 		if ( rowCount > 0 ) {
 			filterTable.setRowSelectionInterval( 0, 0 );
 			prevSelectedRow = 0;
-		}
+		} else
+			rulePanel.showCard( BLANK_TYPE );
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
