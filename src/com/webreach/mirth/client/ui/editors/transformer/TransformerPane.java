@@ -213,15 +213,6 @@ public class TransformerPane extends JPanel {
         
         transformerTableModel = (DefaultTableModel)transformerTable.getModel();
 
-        // add any existing steps to the model
-        List<Step> list = transformer.getSteps();
-        ListIterator<Step> li = list.listIterator();
-        while ( li.hasNext() ) {
-        	Step s = li.next();
-        	int row = s.getSequenceNumber();
-        	setRowData( s, row );
-        }
-        
         String[] comboBoxValues = new String[] { 
         		MAPPER_TYPE, JAVASCRIPT_TYPE, SMTP_TYPE, JDBC_TYPE, ALERT_TYPE };
         
