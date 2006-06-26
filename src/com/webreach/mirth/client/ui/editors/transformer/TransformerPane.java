@@ -43,12 +43,46 @@ public class TransformerPane extends JPanel {
      *  Frame - the parent where this panel & its tasks will be loaded
      *  Transformer - the data model
      */
-    public TransformerPane( Frame p, Transformer t ) {
+    public TransformerPane( Frame p ) {
         parent = p;
-        transformer = t;
         initComponents();
     	
         modified = false;
+    }
+    
+    /** load( Transformer t )
+     *  now that the components have been initialized...
+     */
+    public void load( Transformer t ) {
+    	transformer = t;
+    	
+    	// add any existing steps to the model
+        List<Step> list = transformer.getSteps();
+        ListIterator<Step> li = list.listIterator();
+        while ( li.hasNext() ) {
+        	Step s = li.next();
+        	int row = s.getSequenceNumber();
+        	setRowData( s, row );
+        }
+        
+    	// select the first row if there is one, and configure
+        // the task pane so that it shows only relevant tasks
+        int rowCount = transformerTableModel.getRowCount();
+        if (  rowCount <= 0 )
+        	parent.setVisibleTasks( transformerTasks, 1, false );
+        else if ( rowCount == 1 )
+        	transformerTable.setRowSelectionInterval( 0, 0 );
+        else
+        	parent.setVisibleTasks( transformerTasks, 0, true );
+
+        // select the first row if there is one
+		if ( rowCount > 0 ) {
+			transformerTable.setRowSelectionInterval( 0, 0 );
+			prevSelectedRow = 0;
+		}
+    	
+    	parent.setCurrentContentPage( this );
+    	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
     }
     
     /** This method is called from within the constructor to
@@ -86,7 +120,7 @@ public class TransformerPane extends JPanel {
         viewTasks.setTitle("Mirth Views");
         viewTasks.setFocusable(false);
         viewTasks.add(initActionCallback( "accept",
-        		ActionFactory.createBoundAction( "accept", "Back to Transformers", "B" ), 
+        		ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
         		new ImageIcon( Frame.class.getResource( "images/resultset_previous.png" )) ));
         parent.setNonFocusable(viewTasks);
         transformerTaskPaneContainer.add(viewTasks);

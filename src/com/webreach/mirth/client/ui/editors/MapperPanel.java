@@ -10,11 +10,15 @@ package com.webreach.mirth.client.ui.editors;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.*;
 import org.jdesktop.layout.*;
+import org.jdesktop.swingx.JXTree;
+
 import com.Ostermiller.Syntax.*;
 
 
@@ -31,7 +35,7 @@ public class MapperPanel extends CardPanel {
      */
     private void initComponents() {
     	treeScrollPane = new JScrollPane();
-        helpTree = new JTree();
+        helpTree = new JXTree();
         hSplitPane = new JSplitPane();
         mappingPanel = new JPanel();
         mappingLabel = new JLabel( "Variable: " );
@@ -40,7 +44,7 @@ public class MapperPanel extends CardPanel {
         mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
         mappingTextPane = new JTextPane( mappingDoc );
-
+        
         treeScrollPane.setBorder( BorderFactory.createEmptyBorder() );
         hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
         mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
@@ -122,7 +126,7 @@ public class MapperPanel extends CardPanel {
     protected JSplitPane hSplitPane;
     protected JTextPane mappingTextPane;
     private HighlightedDocument mappingDoc;
-    protected JTree helpTree;
+    protected JXTree helpTree;
     protected JLabel mappingLabel;
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;

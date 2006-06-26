@@ -77,7 +77,7 @@ public class FilterPane extends JPanel {
 		viewTasks.setTitle("Mirth Views");
 		viewTasks.setFocusable(false);
 		viewTasks.add(initActionCallback( "accept",
-				ActionFactory.createBoundAction( "accept", "Back to Filters", "B" ), 
+				ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
 				new ImageIcon( Frame.class.getResource( "images/resultset_previous.png" )) ));
 		parent.setNonFocusable(viewTasks);
 		filterTaskPaneContainer.add(viewTasks);
