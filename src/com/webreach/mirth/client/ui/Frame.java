@@ -820,7 +820,7 @@ public class Frame extends JXFrame
     
     public boolean alertUser(String message)
     {
-        int option = JOptionPane.showConfirmDialog(this, message);
+        int option = JOptionPane.showConfirmDialog(this, message , "Select an Option", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION)
             return true;
         else
