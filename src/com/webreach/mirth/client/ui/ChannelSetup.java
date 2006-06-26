@@ -447,7 +447,6 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel.setName(summaryNameField.getText());
         currentChannel.setDescription(summaryDescriptionText.getText());
         currentChannel.setEnabled(summaryEnabledCheckbox.isSelected());
-        currentChannel.setModified(false);
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
