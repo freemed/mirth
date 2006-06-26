@@ -56,6 +56,7 @@ public class TransformerPane extends JPanel {
     public void load( Transformer t ) {
     	transformer = t;
     	
+    	transformerTableModel.setDataVector( null, new String [] { "#", "Name", "Type", "Data" });
     	// add any existing steps to the model
         List<Step> list = transformer.getSteps();
         ListIterator<Step> li = list.listIterator();

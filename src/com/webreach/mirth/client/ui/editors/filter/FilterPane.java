@@ -57,6 +57,7 @@ public class FilterPane extends JPanel {
     public void load( Filter f ) {
     	filter = f;
     	
+    	filterTableModel.setDataVector( null, new String [] { "#", "Name", "Type", "Data" });
     	// add any existing steps to the model
         List<Rule> list = filter.getRules();
         ListIterator<Rule> li = list.listIterator();
