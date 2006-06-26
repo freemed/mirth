@@ -772,7 +772,7 @@ public class Frame extends JXFrame
         {
             if(!mirthClient.updateChannel(curr, false))
             {
-                if(alertUser("This channel has been modified since you first opened it.  Click \"Yes\" to overwrite these changes, \"No\" to not save your changes, or \"Cancel\" to return."))
+                if(alertUser("This channel has been modified since you first opened it.  Would you like to overwrite it?"))
                     mirthClient.updateChannel(curr, true);
                 else
                     return;
