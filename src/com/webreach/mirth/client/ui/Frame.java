@@ -61,6 +61,8 @@ public class Frame extends JXFrame
     protected JXTaskPane settingsTasks;
     protected JXTaskPane channelTasks;
     protected JXTaskPane statusTasks;
+    protected JXTaskPane eventTasks;
+    protected JXTaskPane messageTasks;    
     protected JXTaskPane details;
     protected JXTaskPane channelEditTasks;
     protected JXTaskPane userTasks;
@@ -244,6 +246,24 @@ public class Frame extends JXFrame
         setNonFocusable(statusTasks);
         setVisibleTasks(statusTasks, 3, false);
         taskPaneContainer.add(statusTasks);
+        
+        // Create Event Tasks Pane
+        eventTasks = new JXTaskPane();
+        eventTasks.setTitle("Event Tasks");
+        eventTasks.setFocusable(false);
+        eventTasks.add(initActionCallback("doRefresh",ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        setNonFocusable(eventTasks);
+        setVisibleTasks(eventTasks, 1, false);
+        taskPaneContainer.add(eventTasks);
+        
+        // Create Message Tasks Pane
+        messageTasks = new JXTaskPane();
+        messageTasks.setTitle("Message Tasks");
+        messageTasks.setFocusable(false);
+        messageTasks.add(initActionCallback("doRefresh",ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        setNonFocusable(messageTasks);
+        setVisibleTasks(messageTasks, 1, false);
+        taskPaneContainer.add(messageTasks);
 
         // Create User Tasks Pane
         userTasks = new JXTaskPane();
@@ -670,12 +690,16 @@ public class Frame extends JXFrame
 
     public void doShowMessages()
     {
-        new MessageBrowser(this);
+        setBold(viewPane, Constants.ERROR_CONSTANT);
+        setCurrentContentPage(new MessageBrowser(this));
+        setFocus(messageTasks);
     }
 
     public void doShowEvents()
     {
-        new EventBrowser(this);
+        setBold(viewPane, Constants.ERROR_CONSTANT);
+        setCurrentContentPage(new EventBrowser(this));
+        setFocus(eventTasks);
     }
 
     public void doShowStats()
@@ -697,6 +721,8 @@ public class Frame extends JXFrame
         channelTasks.setVisible(false);
         channelEditTasks.setVisible(false);
         statusTasks.setVisible(false);
+        eventTasks.setVisible(false);
+        messageTasks.setVisible(false);
         settingsTasks.setVisible(false);
         userTasks.setVisible(false);
         pane.setVisible(true);
