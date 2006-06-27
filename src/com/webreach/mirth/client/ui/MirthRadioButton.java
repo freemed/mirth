@@ -4,11 +4,6 @@ package com.webreach.mirth.client.ui;
 public class MirthRadioButton extends javax.swing.JRadioButton {
     private Frame parent;
     
-    public MirthRadioButton()
-    {
-        super();
-    }
-    
     public MirthRadioButton(Frame parent) {
         super();
         this.parent = parent;

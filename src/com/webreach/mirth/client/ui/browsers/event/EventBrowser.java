@@ -34,9 +34,6 @@ public class EventBrowser extends javax.swing.JPanel
         mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
         mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
         
-        // use the start filters and make the table.
-        filterButtonActionPerformed(null);
-        
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mouseClicked(java.awt.event.MouseEvent evt)
@@ -61,9 +58,14 @@ public class EventBrowser extends javax.swing.JPanel
         );
         
         jPanel2.updateUI();
-        
-        parent.setCurrentContentPage(this);
     }
+    
+    public void loadNew()
+    {
+        // use the start filters and make the table.
+        filterButtonActionPerformed(null);
+    }
+    
     public void makeEventTable(SystemEventFilter filter) {
         eventTable = new JXTable();
         try 

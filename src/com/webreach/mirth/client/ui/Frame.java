@@ -38,6 +38,8 @@ public class Frame extends JXFrame
     public ChannelPanel channelListPage;
     public AdminPanel adminPanel;
     public ChannelSetup channelEditPage;
+    public EventBrowser eventBrowser;
+    public MessageBrowser messageBrowser;
     public JXTaskPaneContainer taskPaneContainer;
     
     protected List<Channel> channels;
@@ -116,6 +118,8 @@ public class Frame extends JXFrame
         channelListPage = new ChannelPanel(this);
         adminPanel = new AdminPanel(this);
         channelEditPage = new ChannelSetup(this);
+        eventBrowser = new EventBrowser(this);
+        messageBrowser = new MessageBrowser(this);
         
         try
         {
@@ -722,14 +726,16 @@ public class Frame extends JXFrame
     public void doShowMessages()
     {
         setBold(viewPane, Constants.ERROR_CONSTANT);
-        setCurrentContentPage(new MessageBrowser(this));
+        messageBrowser.loadNew();
+        setCurrentContentPage(messageBrowser);
         setFocus(messageTasks);
     }
 
     public void doShowEvents()
     {
         setBold(viewPane, Constants.ERROR_CONSTANT);
-        setCurrentContentPage(new EventBrowser(this));
+        eventBrowser.loadNew();
+        setCurrentContentPage(eventBrowser);
         setFocus(eventTasks);
     }
 

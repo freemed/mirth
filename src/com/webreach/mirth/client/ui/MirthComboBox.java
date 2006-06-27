@@ -3,12 +3,7 @@ package com.webreach.mirth.client.ui;
 
 public class MirthComboBox extends javax.swing.JComboBox {
     private Frame parent;
-    
-    public MirthComboBox()
-    {
-        super();
-    }
-    
+
     public MirthComboBox(Frame parent) {
         super();
         this.parent = parent;

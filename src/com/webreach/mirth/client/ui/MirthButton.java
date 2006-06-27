@@ -4,11 +4,6 @@ package com.webreach.mirth.client.ui;
 public class MirthButton extends javax.swing.JButton {
     private Frame parent;
     
-    public MirthButton()
-    {
-        super();
-    }
-    
     public MirthButton(Frame parent) {
         super();
         this.parent = parent;

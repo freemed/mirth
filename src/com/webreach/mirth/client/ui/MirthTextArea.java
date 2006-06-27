@@ -5,12 +5,7 @@ import java.awt.event.KeyEvent;
 public class MirthTextArea extends javax.swing.JTextArea
 {
     private Frame parent;
-    
-    public MirthTextArea()
-    {
-        super();
-    }
-    
+
     public MirthTextArea(Frame parent)
     {
         super();

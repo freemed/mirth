@@ -3,12 +3,7 @@ package com.webreach.mirth.client.ui;
 
 public class MirthCheckBox extends javax.swing.JCheckBox {
     private Frame parent;
-    
-    public MirthCheckBox()
-    {
-        super();
-    }
-    
+
     public MirthCheckBox(Frame parent) {
         super();
         this.parent = parent;

@@ -5,12 +5,7 @@ import java.awt.event.KeyEvent;
 public class MirthTextField extends javax.swing.JTextField
 {
     private Frame parent;
-    
-    public MirthTextField()
-    {
-        super();
-    }
-    
+
     public MirthTextField(Frame parent)
     {
         super();

@@ -52,9 +52,6 @@ public class MessageBrowser extends javax.swing.JPanel
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel(values));
         
         eventPane = new JScrollPane();
-
-        // use the start filters and make the table.
-        filterButtonActionPerformed(null);
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
@@ -80,9 +77,14 @@ public class MessageBrowser extends javax.swing.JPanel
         );
         
         jPanel2.updateUI();
-        
-        parent.setCurrentContentPage(this);
     }
+    
+    public void loadNew()
+    {
+        // use the start filters and make the table.
+        filterButtonActionPerformed(null);
+    }
+    
     public void makeEventTable(MessageEventFilter filter) {
         eventTable = new JXTable();
         try 
