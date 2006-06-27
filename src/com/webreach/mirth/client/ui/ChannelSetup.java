@@ -39,6 +39,7 @@ public class ChannelSetup extends javax.swing.JPanel
     private Frame parent;
     //private int lastIndex = -1;
     private boolean isDeleting = false;
+    private boolean loadingChannel = false;
     private JXTable jTable1;
     private JScrollPane jScrollPane4;
     Map<String,Transport> transports;
@@ -315,6 +316,7 @@ public class ChannelSetup extends javax.swing.JPanel
 
     public void editChannel(int index)
     {
+        loadingChannel = true;
         this.index = index;
         lastIndex = "";
         currentChannel = parent.channels.get(index);
@@ -330,10 +332,12 @@ public class ChannelSetup extends javax.swing.JPanel
         
         setSourceVariableList();
         setDestinationVariableList();
+        loadingChannel = false;
     }
 
     public void addChannel(Channel channel)
     {
+        loadingChannel = true;
         index = -1;
         lastIndex = "";
         currentChannel = channel;
@@ -369,6 +373,7 @@ public class ChannelSetup extends javax.swing.JPanel
         setDestinationVariableList();
         
         saveChanges();
+        loadingChannel = false;
     }
 
     private void loadChannelInfo()
@@ -744,18 +749,22 @@ public class ChannelSetup extends javax.swing.JPanel
     }//GEN-LAST:event_destinationComponentShown
 
     private void sourceSourceDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSourceDropdownActionPerformed
-        if (connectorClass1.getName() != null && connectorClass1.getName().equals((String)sourceSourceDropdown.getSelectedItem()))
-            return;
         
-        if (!compareProps(connectorClass1.getProperties(), connectorClass1.getDefaults()) || 
-                currentChannel.getSourceConnector().getFilter().getRules().size() > 0 ||
-                currentChannel.getSourceConnector().getTransformer().getSteps().size() > 0)
+        if (!loadingChannel)
         {
-            boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
-            if (!changeType)
-            {
-                sourceSourceDropdown.setSelectedItem(connectorClass1.getProperties().get("DataType"));
+            if (connectorClass1.getName() != null && connectorClass1.getName().equals((String)sourceSourceDropdown.getSelectedItem()))
                 return;
+
+            if (!compareProps(connectorClass1.getProperties(), connectorClass1.getDefaults()) || 
+                    currentChannel.getSourceConnector().getFilter().getRules().size() > 0 ||
+                    currentChannel.getSourceConnector().getTransformer().getSteps().size() > 0)
+            {
+                boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                if (!changeType)
+                {
+                    sourceSourceDropdown.setSelectedItem(connectorClass1.getProperties().get("DataType"));
+                    return;
+                }
             }
         }
         
@@ -830,39 +839,45 @@ public class ChannelSetup extends javax.swing.JPanel
     {//GEN-HEADEREND:event_destinationSourceDropdownActionPerformed
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
         {
-            if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()) && lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))))
-                return;
-            
-            // if the selected destination is still the same AND the default properties/transformer/filter have 
-            // not been changed from defaults then ask if the user would like to really change connector type.
-            if (lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))) && (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()) || 
-                currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getFilter().getRules().size() > 0 ||
-                currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getTransformer().getSteps().size() > 0))
+            if (!loadingChannel)
             {
-                boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
-                if (!changeType)
-                {
-                    destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
+                if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()) && lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))))
                     return;
+
+                // if the selected destination is still the same AND the default properties/transformer/filter have 
+                // not been changed from defaults then ask if the user would like to really change connector type.
+                if (lastIndex.equals((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination"))) && (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()) || 
+                    currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getFilter().getRules().size() > 0 ||
+                    currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getTransformer().getSteps().size() > 0))
+                {
+                    boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                    if (!changeType)
+                    {
+                        destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
+                        return;
+                    }
                 }
             }
             generateMultipleDestinationPage();
         }
         else
         {
-            if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()))
-                return;
-            if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()) || 
-                currentChannel.getDestinationConnectors().get(0).getFilter().getRules().size() > 0 ||
-                currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps().size() > 0)
+            if (!loadingChannel)
             {
-                boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
-                if (!changeType)
-                {
-                    destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
+                if (connectorClass2.getName() != null && connectorClass2.getName().equals((String)destinationSourceDropdown.getSelectedItem()))
                     return;
+                if (!compareProps(connectorClass2.getProperties(), connectorClass2.getDefaults()) || 
+                    currentChannel.getDestinationConnectors().get(0).getFilter().getRules().size() > 0 ||
+                    currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps().size() > 0)
+                {
+                    boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                    if (!changeType)
+                    {
+                        destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
+                        return;
+                    }
                 }
-            }            
+            }
             generateSingleDestinationPage();
         }
     }//GEN-LAST:event_destinationSourceDropdownActionPerformed
