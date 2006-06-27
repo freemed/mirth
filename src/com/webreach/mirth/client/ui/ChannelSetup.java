@@ -744,6 +744,11 @@ public class ChannelSetup extends javax.swing.JPanel
             parent.setVisibleTasks(parent.channelEditTasks, 1, 2, false);
             parent.setVisibleTasks(parent.channelEditTasks, 3, -1, true);
         }
+        else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+        {
+            parent.setVisibleTasks(parent.channelEditTasks, 1, 2, true);
+            parent.setVisibleTasks(parent.channelEditTasks, 3, -1, false);
+        }
         else
             parent.setVisibleTasks(parent.channelEditTasks, 1, -1, true);
     }//GEN-LAST:event_destinationComponentShown
