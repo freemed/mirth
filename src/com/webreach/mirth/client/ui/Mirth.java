@@ -249,7 +249,7 @@ class MirthLoginService extends LoginService
             //String password =  String.valueOf(frm.getPanel().getPassword());  
             String user = "admin";
             String pw = "abc12345";
-            String svr = "http://34.34.34.69:8080";
+            String svr = "http://127.0.0.1:8080";
             String mirthServer = ((javax.swing.JTextField)p.getComponent(1)).getText();
             //c = new Client(mirthServer);
             c = new Client(svr);

@@ -422,14 +422,8 @@ public class ChannelSetup extends javax.swing.JPanel
         }
         if (!currentChannel.getName().equals(summaryNameField.getText()))
         {
-            for (int i = 0; i < parent.channels.size(); i++)
-            {
-                if (parent.channels.get(i).getName().equals(summaryNameField.getText()))
-                {
-                    JOptionPane.showMessageDialog(parent, "Channel name already exists.");
-                    return false;
-                }
-            }
+            if(!parent.checkChannelName(summaryNameField.getText()))
+                return false;
         }
         
         currentChannel.getSourceConnector().setProperties(connectorClass1.getProperties());

@@ -199,18 +199,19 @@ public class UserWizard extends javax.swing.JDialog
 
     private void password2KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_password2KeyReleased
     {//GEN-HEADEREND:event_password2KeyReleased
-        if(String.valueOf(password1.getPassword()).equals("") || String.valueOf(password2.getPassword()).trim().equals("") || username.getText().trim().equals(""))
-            finishButton.setEnabled(false);
-        else
-            finishButton.setEnabled(true);
+        if(!checkIfAbleToFinish())
+            return;
+        if(evt.getKeyCode() == evt.VK_ENTER)
+            finishButtonActionPerformed(null);
     }//GEN-LAST:event_password2KeyReleased
 
     private void password1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_password1KeyReleased
     {//GEN-HEADEREND:event_password1KeyReleased
-        if(String.valueOf(password1.getPassword()).equals("") || String.valueOf(password2.getPassword()).trim().equals("") || username.getText().trim().equals(""))
-            finishButton.setEnabled(false);
-        else
-            finishButton.setEnabled(true);
+        if(!checkIfAbleToFinish())
+            return;
+        if(evt.getKeyCode() == evt.VK_ENTER)
+            finishButtonActionPerformed(null);
+        
     }//GEN-LAST:event_password1KeyReleased
 
     private void finishButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_finishButtonActionPerformed
@@ -253,17 +254,29 @@ public class UserWizard extends javax.swing.JDialog
 
     private void usernameKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_usernameKeyReleased
     {//GEN-HEADEREND:event_usernameKeyReleased
-        if(String.valueOf(password1.getPassword()).equals("") || String.valueOf(password2.getPassword()).trim().equals("") || username.getText().trim().equals(""))
-            finishButton.setEnabled(false);
-        else
-            finishButton.setEnabled(true);
+        if(!checkIfAbleToFinish())
+            return;
+        if(evt.getKeyCode() == evt.VK_ENTER)
+            finishButtonActionPerformed(null);
     }//GEN-LAST:event_usernameKeyReleased
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelButtonActionPerformed
     {//GEN-HEADEREND:event_cancelButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
-  
+    
+    public boolean checkIfAbleToFinish()
+    {
+        if(String.valueOf(password1.getPassword()).equals("") || String.valueOf(password2.getPassword()).trim().equals("") || username.getText().trim().equals(""))
+            finishButton.setEnabled(false);
+        else
+        {
+            finishButton.setEnabled(true);
+            return true;
+        }
+        return false;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JPanel channelOverview;

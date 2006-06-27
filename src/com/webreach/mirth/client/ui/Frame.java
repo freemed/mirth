@@ -4,9 +4,11 @@ import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.browsers.event.EventBrowser;
 import com.webreach.mirth.client.ui.browsers.message.MessageBrowser;
+import com.webreach.mirth.client.ui.util.FileUtil;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.User;
+import com.webreach.mirth.model.converters.ObjectSerializer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -15,10 +17,13 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.filechooser.FileFilter;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
 
@@ -237,12 +243,14 @@ public class Frame extends JXFrame
         channelTasks.add(initActionCallback("doRefreshChannels", "Click here to refresh the list of channels.", ActionFactory.createBoundAction("doRefreshChannels","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         channelTasks.add(initActionCallback("doDeployAll", "Click here to deploy all currently enabled channels.", ActionFactory.createBoundAction("doDeployAll","Deploy All", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/deployall.png"))));
         channelTasks.add(initActionCallback("doNewChannel", "Click here to create a new channel.", ActionFactory.createBoundAction("doNewChannel","New Channel", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
+        channelTasks.add(initActionCallback("doImport", "Click here to import a channel from an XML file.", ActionFactory.createBoundAction("doImport","Import", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/import.png"))));
+        channelTasks.add(initActionCallback("doExport", "Click here to export the currently selected channel to an XML file.", ActionFactory.createBoundAction("doExport","Export", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/export.png"))));
         channelTasks.add(initActionCallback("doEditChannel", "Click here to edit the currently selected channel.", ActionFactory.createBoundAction("doEditChannel","Edit Channel", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         channelTasks.add(initActionCallback("doDeleteChannel", "Click here to delete the currently selected channel.", ActionFactory.createBoundAction("doDeleteChannel","Delete Channel","D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         channelTasks.add(initActionCallback("doEnable", "Click here to enable the currently selected channel.", ActionFactory.createBoundAction("doEnable","Enable", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
         channelTasks.add(initActionCallback("doDisable", "Click here to disable the currently selected channel.", ActionFactory.createBoundAction("doDisable","Disable", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         setNonFocusable(channelTasks);
-        setVisibleTasks(channelTasks, 3, -1, false);
+        setVisibleTasks(channelTasks, 4, -1, false);
         taskPaneContainer.add(channelTasks);
 
         // Create Channel Edit Tasks Pane
@@ -417,14 +425,19 @@ public class Frame extends JXFrame
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
-            setBold(viewPane, Constants.ERROR_CONSTANT);
-            setCurrentContentPage(channelEditPage);
-            setFocus(channelEditTasks);
-            setVisibleTasks(channelEditTasks, 0, -1, false);
-            channelEditPage.editChannel(channelListPage.getSelectedChannel());
+            editChannel(channelListPage.getSelectedChannel());
         }
     }
-
+    
+    public void editChannel(int index)
+    {
+        setBold(viewPane, Constants.ERROR_CONSTANT);
+        setCurrentContentPage(channelEditPage);
+        setFocus(channelEditTasks);
+        setVisibleTasks(channelEditTasks, 0, -1, false);
+        channelEditPage.editChannel(index);
+    }
+    
     public void doDeleteChannel()
     {
         if(!alertUser("Are you sure you want to delete this channel?"))
@@ -853,6 +866,115 @@ public class Frame extends JXFrame
     public void doSaveSettings()
     {
         
+    }
+    
+    public void doImport()
+    {
+        JFileChooser importFileChooser = new JFileChooser();
+        /*FileFilter filter = new FileFilter()
+        {
+            public boolean accept(File f)
+            {
+               
+            }
+
+            public String getDescription()
+            {
+            }
+        };
+        filter.addExtension("xml");
+        filter.setDescription("Import Channel");
+        importFileChooser.setFileFilter(filter);*/
+        int returnVal = importFileChooser.showOpenDialog(this);
+        File importFile = null; 
+        
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
+            importFile = importFileChooser.getSelectedFile();
+            String channelXML = "";
+            
+            try
+            {
+                channelXML = FileUtil.read(importFile);
+            } 
+            catch (IOException ex)
+            {
+                JOptionPane.showMessageDialog(this, "File could not be read.");
+                    return;
+            }
+            
+            ObjectSerializer serializer = new ObjectSerializer();
+            Channel importChannel = (Channel)serializer.fromXML(channelXML);
+            if(!checkChannelName(importChannel.getName()))
+                return;            
+            
+            channels.add(importChannel);
+            
+            try
+            {
+                importChannel.setId(mirthClient.getNextId());
+            } 
+            catch (ClientException ex)
+            {
+                ex.printStackTrace();
+            }
+            
+            editChannel(channels.size()-1);
+        }
+    }
+    
+    public boolean checkChannelName(String name)
+    {
+        for (int i = 0; i < channels.size(); i++)
+        {
+            if (channels.get(i).getName().equalsIgnoreCase(name))
+            {
+                JOptionPane.showMessageDialog(this, "Channel name already exists. Please choose a unique name.");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void doExport()
+    {
+        
+        /*FileFilter filter = new FileFilter()
+        {
+            public boolean accept(File f)
+            {
+               
+            }
+
+            public String getDescription()
+            {
+            }
+        };
+        filter.addExtension("xml");
+        filter.setDescription("Import Channel");
+        importFileChooser.setFileFilter(filter);*/
+        
+        JFileChooser exportFileChooser = new JFileChooser();
+        int returnVal = exportFileChooser.showSaveDialog(this);
+        File exportFile = null; 
+        
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
+            Channel channel = channels.get(channelListPage.getSelectedChannel());
+            ObjectSerializer serializer = new ObjectSerializer();
+            String channelXML = serializer.toXML(channel);
+            
+            exportFile = exportFileChooser.getSelectedFile();
+            
+            try
+            {
+                FileUtil.write(exportFile, channelXML);
+            } 
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
     }
     
     public boolean alertUser(String message)

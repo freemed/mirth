@@ -127,20 +127,20 @@ public class ChannelPanel extends javax.swing.JPanel {
         
         if(row >= 0)
         {
-            parent.setVisibleTasks(parent.channelTasks, 3, -1, true);
+            parent.setVisibleTasks(parent.channelTasks, 4, -1, true);
 
             int columnNumber = getColumnNumber("Status");
             if (((String)channelTable.getValueAt(row, columnNumber)).equals("Enabled"))
-                parent.channelTasks.getContentPane().getComponent(5).setVisible(false);
+                parent.channelTasks.getContentPane().getComponent(7).setVisible(false);
             else
-                parent.channelTasks.getContentPane().getComponent(6).setVisible(false);
+                parent.channelTasks.getContentPane().getComponent(8).setVisible(false);
         }
     }
     
     public void deselectRows()
     {
         channelTable.clearSelection();
-        parent.setVisibleTasks(parent.channelTasks, 3, -1, false);
+        parent.setVisibleTasks(parent.channelTasks, 4, -1, false);
     }
     
     public int getSelectedChannel()
