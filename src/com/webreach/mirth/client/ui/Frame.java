@@ -871,20 +871,7 @@ public class Frame extends JXFrame
     public void doImport()
     {
         JFileChooser importFileChooser = new JFileChooser();
-        /*FileFilter filter = new FileFilter()
-        {
-            public boolean accept(File f)
-            {
-               
-            }
-
-            public String getDescription()
-            {
-            }
-        };
-        filter.addExtension("xml");
-        filter.setDescription("Import Channel");
-        importFileChooser.setFileFilter(filter);*/
+        importFileChooser.setFileFilter(new XMLFileFilter());
         int returnVal = importFileChooser.showOpenDialog(this);
         File importFile = null; 
         
@@ -905,6 +892,7 @@ public class Frame extends JXFrame
             
             ObjectSerializer serializer = new ObjectSerializer();
             Channel importChannel = (Channel)serializer.fromXML(channelXML);
+            
             if(!checkChannelName(importChannel.getName()))
                 return;            
             
@@ -937,24 +925,9 @@ public class Frame extends JXFrame
     }
     
     public void doExport()
-    {
-        
-        /*FileFilter filter = new FileFilter()
-        {
-            public boolean accept(File f)
-            {
-               
-            }
-
-            public String getDescription()
-            {
-            }
-        };
-        filter.addExtension("xml");
-        filter.setDescription("Import Channel");
-        importFileChooser.setFileFilter(filter);*/
-        
+    {        
         JFileChooser exportFileChooser = new JFileChooser();
+        exportFileChooser.setFileFilter(new XMLFileFilter());
         int returnVal = exportFileChooser.showSaveDialog(this);
         File exportFile = null; 
         
