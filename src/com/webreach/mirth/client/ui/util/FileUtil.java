@@ -8,14 +8,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtil {
-	public void write(File file, String data) throws IOException {
+	public static void write(File file, String data) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		writer.write(data);
 		writer.flush();
 		writer.close();
 	}
 
-	public String read(File file) throws IOException {
+	public static String read(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		StringBuilder contents = new StringBuilder();
 		String line = null;
