@@ -22,6 +22,7 @@ public class HL7ReferenceLoader {
 				contents.append(line + "\n");
 			}
 
+			reader.close();
 			values = CSVParser.parse(new StringReader(contents.toString()));
 		} catch (IOException e) {
 			e.printStackTrace();
