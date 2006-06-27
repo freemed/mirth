@@ -157,6 +157,7 @@ public class Frame extends JXFrame
             {
                 try
                 {
+                    statusUpdater.interrupt();
                     statusUpdater.join();
                 } 
                 catch (InterruptedException ex)

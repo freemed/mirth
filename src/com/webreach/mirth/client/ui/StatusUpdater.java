@@ -25,29 +25,28 @@ public class StatusUpdater implements Runnable
     
     public void run()
     {
-        while(true)
+        try
         {
-            refreshRate = 5000;
-            try
+            while(!Thread.interrupted())
             {
+                refreshRate = 5000;
                 Thread.sleep(refreshRate);
-            } 
-            catch (InterruptedException ex)
-            {
-                ex.printStackTrace();
-            }
-            if(parent.jScrollPane2.getViewport().getComponent(0) == parent.statusListPage)
-            {
-                try
+                if(parent.jScrollPane2.getViewport().getComponent(0) == parent.statusListPage)
                 {
-                    parent.status = parent.mirthClient.getChannelStatusList();
-                    parent.statusListPage.makeStatusTable();
-                }
-                catch (ClientException ex)
-                {
-                    ex.printStackTrace();
+                    try
+                    {
+                        parent.status = parent.mirthClient.getChannelStatusList();
+                        parent.statusListPage.makeStatusTable();
+                    }
+                    catch (ClientException ex)
+                    {
+                        ex.printStackTrace();
+                    }
                 }
             }
+        }
+        catch(InterruptedException e)
+        {
         }
     }
 }
