@@ -46,8 +46,6 @@ public class TransformerPane extends JPanel {
     public TransformerPane( Frame p ) {
         parent = p;
         initComponents();
-    	
-        modified = false;
     }
     
     /** load( Transformer t )
@@ -70,12 +68,6 @@ public class TransformerPane extends JPanel {
         
     	// configure the task pane so that it shows only relevant tasks
         int rowCount = transformerTableModel.getRowCount();
-    	if (  rowCount <= 0 )
-        	parent.setVisibleTasks( transformerTasks, 1, -1, false );
-        else if ( rowCount == 1 )
-        	transformerTable.setRowSelectionInterval( 0, 0 );
-        else
-        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
 
         // select the first row if there is one
 		if ( rowCount > 0 ) {
@@ -86,6 +78,8 @@ public class TransformerPane extends JPanel {
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
+    	
+    	updateStepNumbers();
     }
     
     /** This method is called from within the constructor to
@@ -266,11 +260,12 @@ public class TransformerPane extends JPanel {
     
     private void TransformerListSelected( ListSelectionEvent evt ) {
         int row = transformerTable.getSelectedRow();
-        
+
+    	saveData();
+    	
         if( isValid( row ) ) {
         	String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
         	
-        	saveData();
         	stepPanel.showCard( type );
         	loadData();
         	transformerTable.setRowSelectionInterval( row, row );
@@ -361,6 +356,8 @@ public class TransformerPane extends JPanel {
     		
     	setRowData( null, row );
     	prevSelectedRow = row;
+    	
+    	updateStepNumbers();
     }
     
     /** void deleteStep(MouseEvent evt)
@@ -418,7 +415,6 @@ public class TransformerPane extends JPanel {
     		list.add( step );
     	}
     	
-    	//modified = true;
     	transformer.setSteps( list );
     	transformerTableModel.setDataVector( null, new String[] {} );
     
@@ -426,7 +422,7 @@ public class TransformerPane extends JPanel {
     	parent.channelEditPage.setSourceVariableList();
     	parent.channelEditPage.setDestinationVariableList();
     	parent.setCurrentContentPage( parent.channelEditPage );
-    	parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
+    	parent.setCurrentTaskPaneContainer( parent.taskPaneContainer );
     	//if ( modified ) parent.showSaveButton();
     }
     
@@ -445,7 +441,7 @@ public class TransformerPane extends JPanel {
         else if ( rowCount == 1 ) {
         	parent.setVisibleTasks( transformerTasks, 0, -1, true );
         	parent.setVisibleTasks( transformerTasks, 2, -1, false );
-        } else
+        } else 
         	parent.setVisibleTasks( transformerTasks, 0, -1, true );
         
     }
@@ -463,7 +459,6 @@ public class TransformerPane extends JPanel {
     private JScrollPane transformerTablePane;
     private JSplitPane vSplitPane;
     private boolean saving;				// allow the selection listener to breathe
-    private boolean modified;
     JXTaskPaneContainer transformerTaskPaneContainer;
     JXTaskPane transformerTasks;
     JXTaskPane viewTasks;

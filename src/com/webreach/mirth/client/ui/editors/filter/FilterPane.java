@@ -69,16 +69,8 @@ public class FilterPane extends JPanel {
         	setRowData( s, row );
         }
         
-    	// configure the task pane so that it shows only relevant tasks
-        int rowCount = filterTableModel.getRowCount();
-    	if (  rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, 1, -1, false );
-        else if ( rowCount == 1 )
-        	filterTable.setRowSelectionInterval( 0, 0 );
-        else
-        	parent.setVisibleTasks( filterTasks, 0, -1, true );
-
-        // select the first row if there is one
+    	int rowCount = filterTableModel.getRowCount();
+    	// select the first row if there is one
 		if ( rowCount > 0 ) {
 			filterTable.setRowSelectionInterval( 0, 0 );
 			prevSelectedRow = 0;
@@ -87,6 +79,8 @@ public class FilterPane extends JPanel {
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
+    	
+    	updateRuleNumbers();
     }
 	
 	/** This method is called from within the constructor to
@@ -170,17 +164,11 @@ public class FilterPane extends JPanel {
         // the task pane so that it shows only relevant tasks
         int rowCount = filterTableModel.getRowCount();
         
-        if (  rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, 1, -1, false );
-        else if ( rowCount == 1 )
-            parent.setVisibleTasks( filterTasks, 2, -1, false );
-        else 
-        	parent.setVisibleTasks( filterTasks, 0, -1, true );
-        
         // select the first row if there is one
 		if ( rowCount > 0 ) {
 			filterTable.setRowSelectionInterval( 0, 0 );
 			prevSelectedRow = 0;
+			updateRuleNumbers();
 		}
         	
 	}  // END initComponents()
@@ -256,9 +244,10 @@ public class FilterPane extends JPanel {
 	
 	private void FilterListSelected( ListSelectionEvent evt ) {
 		int row = filterTable.getSelectedRow();
+
+		saveData();
 		
-		if( isValid( row ) ) { 
-			saveData();
+		if( isValid( row ) ) {
 			loadData();
 			rulePanel.showCard( JAVASCRIPT_TYPE );
 			filterTable.setRowSelectionInterval( row, row );
@@ -308,6 +297,7 @@ public class FilterPane extends JPanel {
 		
 		// we have a new rule
 		if ( rule == null )	{
+			saveData();
 			rule = new Rule();
 			rule.setSequenceNumber( row );
 			rule.setScript( "return null;" );
@@ -332,6 +322,7 @@ public class FilterPane extends JPanel {
 		int row = filterTable.getRowCount();
 		setRowData( null, row );
 		prevSelectedRow = row;
+		updateRuleNumbers();
 	}
 	
 	/** void deleteRule(MouseEvent evt)
@@ -359,6 +350,7 @@ public class FilterPane extends JPanel {
 	 *  move the selected row i places
 	 */
 	public void moveRule( int i ) {
+		saveData();
 		int selectedRow = filterTable.getSelectedRow();
 		int moveTo = selectedRow + i;
 		
@@ -375,6 +367,7 @@ public class FilterPane extends JPanel {
 	 *  returns a vector of vectors to the caller of this.
 	 */
 	public void accept() {
+		saveData();
 		List<Rule> list = new ArrayList<Rule>();
 		for ( int i = 0;  i < filterTable.getRowCount();  i++ ) {
 			Rule rule = new Rule();
@@ -414,8 +407,9 @@ public class FilterPane extends JPanel {
         else if ( rowCount == 1 ) {
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
         	parent.setVisibleTasks( filterTasks, 2, -1, false );
-        } else
+        } else 
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
+        	
     }
 	
 	
