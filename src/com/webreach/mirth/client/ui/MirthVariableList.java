@@ -1,20 +1,7 @@
-/*
- * MirthVariableList.java
- *
- * Created on June 21, 2006, 3:16 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package com.webreach.mirth.client.ui;
 
 import org.jdesktop.swingx.JXList;
 
-/**
- *
- * @author jacobb
- */
 public class MirthVariableList extends JXList {
     
     /**

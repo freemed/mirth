@@ -1,17 +1,7 @@
-/*
- * FileWriter.java
- *
- * Created on May 22, 2006, 12:06 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import java.util.Properties;
 
-/**
- *
- * @author  brendanh
- */
 public class FileWriter extends ConnectorClass
 {
     Frame parent;

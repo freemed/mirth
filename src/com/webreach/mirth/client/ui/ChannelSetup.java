@@ -1,9 +1,3 @@
-/*
- * ChannelSetup.java
- *
- * Created on April 28, 2006, 11:05 AM
- */
-
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
@@ -36,10 +30,7 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import java.util.Map.Entry;
-/**
- *
- * @author  brendanh
- */
+
 public class ChannelSetup extends javax.swing.JPanel
 {
     public Channel currentChannel;
@@ -494,8 +485,7 @@ public class ChannelSetup extends javax.swing.JPanel
     }
 
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         filterButtonGroup = new javax.swing.ButtonGroup();
         validationButtonGroup = new javax.swing.ButtonGroup();
         channelView = new javax.swing.JTabbedPane();
@@ -524,10 +514,8 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.setFocusable(false);
         summary.setBackground(new java.awt.Color(255, 255, 255));
         summary.setFocusable(false);
-        summary.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        summary.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 summaryComponentShown(evt);
             }
         });
@@ -535,14 +523,6 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryNameLabel.setText("Channel Name:");
 
         summaryDescriptionLabel.setText("Channel Description:");
-
-        summaryNameField.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
-                summaryNameFieldKeyTyped(evt);
-            }
-        });
 
         summaryDescriptionText.setColumns(20);
         summaryDescriptionText.setRows(5);
@@ -562,13 +542,6 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryEnabledCheckbox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         summaryEnabledCheckbox.setFocusable(false);
         summaryEnabledCheckbox.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        summaryEnabledCheckbox.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
-                summaryEnabledCheckboxStateChanged(evt);
-            }
-        });
 
         org.jdesktop.layout.GroupLayout summaryLayout = new org.jdesktop.layout.GroupLayout(summary);
         summary.setLayout(summaryLayout);
@@ -618,19 +591,15 @@ public class ChannelSetup extends javax.swing.JPanel
 
         source.setBackground(new java.awt.Color(255, 255, 255));
         source.setFocusable(false);
-        source.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        source.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 sourceComponentShown(evt);
             }
         });
 
         sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TCP/IP", "Database", "Email" }));
-        sourceSourceDropdown.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        sourceSourceDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sourceSourceDropdownActionPerformed(evt);
             }
         });
@@ -641,7 +610,7 @@ public class ChannelSetup extends javax.swing.JPanel
         connectorClass1.setLayout(connectorClass1Layout);
         connectorClass1Layout.setHorizontalGroup(
             connectorClass1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 345, Short.MAX_VALUE)
+            .add(0, 356, Short.MAX_VALUE)
         );
         connectorClass1Layout.setVerticalGroup(
             connectorClass1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -682,19 +651,15 @@ public class ChannelSetup extends javax.swing.JPanel
 
         destination.setBackground(new java.awt.Color(255, 255, 255));
         destination.setFocusable(false);
-        destination.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        destination.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 destinationComponentShown(evt);
             }
         });
 
         destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TCP/IP", "Database", "Email" }));
-        destinationSourceDropdown.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        destinationSourceDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 destinationSourceDropdownActionPerformed(evt);
             }
         });
@@ -705,7 +670,7 @@ public class ChannelSetup extends javax.swing.JPanel
         connectorClass2.setLayout(connectorClass2Layout);
         connectorClass2Layout.setHorizontalGroup(
             connectorClass2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 345, Short.MAX_VALUE)
+            .add(0, 356, Short.MAX_VALUE)
         );
         connectorClass2Layout.setVerticalGroup(
             connectorClass2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1094,16 +1059,7 @@ public class ChannelSetup extends javax.swing.JPanel
         }
         return true;
     }
-    
-    private void summaryEnabledCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_summaryEnabledCheckboxStateChanged
-// TODO add your handling code here:
-    }//GEN-LAST:event_summaryEnabledCheckboxStateChanged
-
-    private void summaryNameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_summaryNameFieldKeyTyped
-// TODO add your handling code here:
-        //parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
-    }//GEN-LAST:event_summaryNameFieldKeyTyped
-    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane channelView;
     private com.webreach.mirth.client.ui.ConnectorClass connectorClass1;

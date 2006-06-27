@@ -1,19 +1,9 @@
-/*
- * WizardDialog.java
- *
- * Created on May 17, 2006, 2:57 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.Channel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author  brendanh
- */
 public class ChannelWizard extends javax.swing.JDialog
 {
     private Frame parent;

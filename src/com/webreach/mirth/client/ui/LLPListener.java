@@ -1,18 +1,8 @@
-/*
- * LLPListener.java
- *
- * Created on May 22, 2006, 12:02 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-/**
- *
- * @author  brendanh
- */
 public class LLPListener extends ConnectorClass
 {
     Frame parent;

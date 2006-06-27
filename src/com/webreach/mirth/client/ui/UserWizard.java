@@ -1,9 +1,3 @@
-/*
- * UserDialog.java
- *
- * Created on May 22, 2006, 11:03 AM
- */
-
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
@@ -12,10 +6,6 @@ import java.awt.Cursor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author  brendanh
- */
 public class UserWizard extends javax.swing.JDialog
 {
     Frame parent;

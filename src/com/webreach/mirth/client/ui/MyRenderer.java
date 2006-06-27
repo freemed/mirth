@@ -1,12 +1,3 @@
-/*
- * MyRenderer.java
- *
- * Created on May 3, 2006, 9:33 AM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package com.webreach.mirth.client.ui;
 
 import java.awt.Component;

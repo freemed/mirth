@@ -119,9 +119,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="summaryNameField">
-              <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="summaryNameFieldKeyTyped"/>
-              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
@@ -175,9 +172,6 @@
                   <Insets value="[0, 0, 0, 0]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="summaryEnabledCheckboxStateChanged"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

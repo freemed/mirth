@@ -1,17 +1,7 @@
-/*
- * EmailSender.java
- *
- * Created on May 22, 2006, 12:05 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import java.util.Properties;
 
-/**
- *
- * @author  brendanh
- */
 public class EmailSender extends ConnectorClass
 {
 	Frame parent;

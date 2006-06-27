@@ -1,19 +1,6 @@
-/*
- * StatusUpdater.java
- *
- * Created on June 20, 2006, 1:46 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package com.webreach.mirth.client.ui;
 import com.webreach.mirth.client.core.ClientException;
 
-/**
- *
- * @author brendanh
- */
 public class StatusUpdater implements Runnable
 {
     Frame parent;

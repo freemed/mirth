@@ -30,10 +30,6 @@ import javax.swing.JSplitPane;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
 
-/**
- *
- * @author  brendanh
- */
 public class Frame extends JXFrame
 {
     public Client mirthClient;

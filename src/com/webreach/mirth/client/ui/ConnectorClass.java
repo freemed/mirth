@@ -1,17 +1,7 @@
-/*
- * ConnectorClass.java
- *
- * Created on May 26, 2006, 9:29 AM
- */
-
 package com.webreach.mirth.client.ui;
 
 import java.util.Properties;
 
-/**
- *
- * @author  brendanh
- */
 public class ConnectorClass extends javax.swing.JPanel
 {
     String name;

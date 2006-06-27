@@ -1,9 +1,3 @@
-/*
- * VariableList.java
- *
- * Created on June 21, 2006, 1:57 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
@@ -22,10 +16,6 @@ import org.jdesktop.swingx.decorator.Highlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import org.jdesktop.swingx.decorator.RolloverHighlighter;
 
-/**
- *
- * @author  brendanh
- */
 public class VariableList extends javax.swing.JPanel
 {
     

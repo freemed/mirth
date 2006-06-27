@@ -1,17 +1,7 @@
-/*
- * AdminPanel.java
- *
- * Created on April 28, 2006, 11:01 AM
- */
-
 package com.webreach.mirth.client.ui;
 
 import javax.swing.JFrame;
 
-/**
- *
- * @author  brendanh
- */
 public class AdminPanel extends javax.swing.JPanel
 {
     Frame parent;

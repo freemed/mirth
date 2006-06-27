@@ -5,18 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- * <p>Title: Mirth Beta Prototype</p>
- *
- * <p>Description: Mirth Beta Prototype</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: WebReach, Inc.</p>
- *
- * @author Gary Teichrow
- * @version 1.0
- */
 public class Frame_AboutBox extends JDialog implements ActionListener {
     JPanel panel1 = new JPanel();
     JPanel panel2 = new JPanel();

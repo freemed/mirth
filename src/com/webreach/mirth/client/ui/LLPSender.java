@@ -3,10 +3,6 @@ package com.webreach.mirth.client.ui;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
-/**
- *
- * @author  brendanh
- */
 public class LLPSender extends ConnectorClass
 {
 	Frame parent;

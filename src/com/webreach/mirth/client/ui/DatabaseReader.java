@@ -1,18 +1,8 @@
-/*
- * DatabaseWriter.java
- *
- * Created on May 22, 2006, 12:04 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
 import java.util.Properties;
 
-/**
- *
- * @author  brendanh
- */
 public class DatabaseReader extends ConnectorClass
 {
     Frame parent;
