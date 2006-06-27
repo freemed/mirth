@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Frame_AboutBox extends JDialog implements ActionListener {
-    JPanel panel1 = new JPanel();
-    JPanel panel2 = new JPanel();
-    JPanel insetsPanel1 = new JPanel();
-    JPanel insetsPanel2 = new JPanel();
-    JPanel insetsPanel3 = new JPanel();
+public class About extends JDialog implements ActionListener 
+{
+    private JPanel panel1 = new JPanel();
+    private JPanel panel2 = new JPanel();
+    private JPanel insetsPanel1 = new JPanel();
+    private JPanel insetsPanel2 = new JPanel();
+    private JPanel insetsPanel3 = new JPanel();
     JButton button1 = new JButton();
     JLabel imageLabel = new JLabel();
     JLabel label1 = new JLabel();
@@ -27,7 +28,7 @@ public class Frame_AboutBox extends JDialog implements ActionListener {
     String copyright = "Copyright (c) 2006";
     String comments = "Mirth Beta Prototype";
 
-    public Frame_AboutBox(Frame parent) {
+    public About(Frame parent) {
         super(parent);
         panel1.setBackground(new Color(255,255,255));
         panel2.setBackground(new Color(255,255,255));
