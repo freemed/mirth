@@ -14,9 +14,10 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
-public class Users extends javax.swing.JScrollPane {
-
+public class Users extends javax.swing.JScrollPane 
+{
     public JXTable usersTable;
+    
     private Frame parent;
     
     /** Creates new form thisl */
@@ -30,7 +31,8 @@ public class Users extends javax.swing.JScrollPane {
     private void initComponents()
     {
         makeUsersTable();
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
+        this.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 deselectRows();
@@ -43,6 +45,7 @@ public class Users extends javax.swing.JScrollPane {
         usersTable = new JXTable();
         Object[][] tableData = null;
         tableData = new Object[parent.users.size()][3];
+        
         for (int i=0; i < parent.users.size(); i++)
         {
             User temp = parent.users.get(i);
@@ -50,6 +53,7 @@ public class Users extends javax.swing.JScrollPane {
             tableData[i][0] = "" + temp.getId();
             tableData[i][1] = temp.getUsername();
         } 
+        
         usersTable.setModel(new javax.swing.table.DefaultTableModel(
             tableData,
             new String []
@@ -154,7 +158,7 @@ public class Users extends javax.swing.JScrollPane {
                 }
             }
         }
-        return -1;
+        return Constants.ERROR_CONSTANT;
     }
     
     public int getColumnNumber(String name)
@@ -164,6 +168,6 @@ public class Users extends javax.swing.JScrollPane {
             if (usersTable.getColumnName(i).equalsIgnoreCase(name))
                 return i;
         }
-        return -1;
+        return Constants.ERROR_CONSTANT;
     }
 }

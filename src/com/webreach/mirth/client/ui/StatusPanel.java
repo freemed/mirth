@@ -14,12 +14,14 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
-public class StatusPanel extends javax.swing.JPanel {
-
-    private JScrollPane statusPane;
+public class StatusPanel extends javax.swing.JPanel 
+{
     public JXTable statusTable;
+     
+    private JScrollPane statusPane;
     private Frame parent;
     private String lastIndex = null;
+    
     /** Creates new form statusPanel */
     public StatusPanel(JFrame parent) 
     {  
@@ -47,9 +49,7 @@ public class StatusPanel extends javax.swing.JPanel {
     public void makeStatusTable()
     {
         if(statusTable != null && statusTable.getSelectedRow() != -1)
-        {
             lastIndex = (String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber("Name"));
-        }
         else
             lastIndex = null;
         
@@ -58,10 +58,10 @@ public class StatusPanel extends javax.swing.JPanel {
         Object[][] tableData = new Object[parent.status.size()][numColumns];
         for (int i=0; i < parent.status.size(); i++)
         {
-            ChannelStatus temp = parent.status.get(i); 
+            ChannelStatus tempStatus = parent.status.get(i); 
             try
             {
-                Statistics tempStats = parent.mirthClient.getStatistics(temp.getChannelId());
+                Statistics tempStats = parent.mirthClient.getStatistics(tempStatus.getChannelId());
                 tableData[i][2] = tempStats.getSentCount();
                 tableData[i][3] = tempStats.getReceivedCount();
                 tableData[i][4] = tempStats.getErrorCount();
@@ -71,14 +71,14 @@ public class StatusPanel extends javax.swing.JPanel {
                 ex.printStackTrace();
             }
             
-            if (temp.getState() == ChannelStatus.State.STARTED)
+            if (tempStatus.getState() == ChannelStatus.State.STARTED)
                 tableData[i][0] = "Started";
-            else if (temp.getState() == ChannelStatus.State.STOPPED)
+            else if (tempStatus.getState() == ChannelStatus.State.STOPPED)
                 tableData[i][0] = "Stopped";
-            else if (temp.getState() == ChannelStatus.State.PAUSED)
+            else if (tempStatus.getState() == ChannelStatus.State.PAUSED)
                 tableData[i][0] = "Paused";
             
-            tableData[i][1] = temp.getName();
+            tableData[i][1] = tempStatus.getName();
                 
         }
         
@@ -190,7 +190,7 @@ public class StatusPanel extends javax.swing.JPanel {
             if(((String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber("Name"))).equalsIgnoreCase(parent.status.get(i).getName()))
                 return i;
         }
-        return -1;
+        return Constants.ERROR_CONSTANT;
     }
     
     public int getColumnNumber(String name)
@@ -200,6 +200,6 @@ public class StatusPanel extends javax.swing.JPanel {
             if (statusTable.getColumnName(i).equalsIgnoreCase(name))
                 return i;
         }
-        return -1;
+        return Constants.ERROR_CONSTANT;
     }
 }

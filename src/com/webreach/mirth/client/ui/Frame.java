@@ -339,7 +339,7 @@ public class Frame extends JXFrame
 
     public void goToAbout()
     {
-        Frame_AboutBox dlg = new Frame_AboutBox(this);
+        About dlg = new About(this);
         Dimension dlgSize = dlg.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
