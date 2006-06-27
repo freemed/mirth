@@ -1,0 +1,152 @@
+ABS,Abstract,6.5.12
+ACC,Accident,6.5.9
+ADD,Addendum,2.15.1
+AFF,Professional Affiliation,15.4.1
+AIG,Appointment Information _ General Resource,10.6.5
+AIL,Appointment Information _ Location Resource,10.6.6
+AIP,Appointment Information _ Personnel Resource,10.6.7
+AIS,Appointment Information,10.6.4
+AL1,Patient Allergy Information,3.4.6
+APR,Appointment Preferences,10.6.8
+ARQ,Appointment Request,10.6.1
+AUT,Authorization Information,11.6.2
+BHS,Batch Header,2.15.2
+BLC,Blood Code,6.5.13
+BLG,Billing,4.5.2
+BPO,Blood product order,4.21.1
+BPX,Blood product dispense status,4.21.2
+BTS,Batch Trailer,2.15.3
+BTX,Blood Product Transfusion/Disposition,4.21.3
+CDM,Charge Description Master,8.10.2
+CER,Certificate Detail,15.4.2
+CM0,Clinical Study Master,8.11.2
+CM1,Clinical Study Phase Master,8.11.3
+CM2,Clinical Study Schedule Master,8.11.4
+CNS,Clear Notification,13.4.8
+CON,Consent Segment,9.9.4
+CSP,Clinical Study Phase,7.8.2
+CSR,Clinical Study Registration,7.8.1
+CSS,Clinical Study Data Schedule Segment,7.8.3
+CTD,Contact Data,11.6.4
+CTI,Clinical Trial Identification,7.8.4
+DB1,Disability,3.4.11
+DG1,Diagnosis,6.5.2
+DRG,Diagnosis Related Group,6.5.3
+DSC,Continuation Pointer,2.15.4
+DSP,Display Data,5.5.1
+ECD,Equipment Command,13.4.5
+ECR,Equipment Command Response,13.4.6
+EDU,Educational Detail,15.4.3
+EQL,Embedded Query Language,5.10.5.2
+EQP,Equipment/log Service,13.4.12
+EQU,Equipment Detail,13.4.1
+ERQ,Event replay query,5.10.5.3
+ERR,Error,2.15.5
+EVN,Event Type,3.4.1
+FAC,Facility,7.12.6
+FHS,File Header,2.15.6
+FT1,Financial Transaction,6.5.1
+FTS,File Trailer,2.15.7
+GOL,Goal Detail,12.4.1
+GP1,Grouping/Reimbursement - Visit,6.5.15
+GP2,Grouping/Reimbursement - Procedure Line Item,6.5.16
+GT1,Guarantor,6.5.5
+IAM,Patient Adverse Reaction Information,3.4.7
+IIM,Inventory Item Master,8.12.2
+IN1,Insurance,6.5.6
+IN2,Insurance Additional Information,6.5.7
+IN3,Insurance Additional Information, Certification,6.5.8
+INV,Inventory Detail,13.4.4
+IPC,Imaging Procedure Control Segment,4.5.6
+ISD,Interaction Status Detail,13.4.2
+LAN,Language Detail,15.4.4
+LCC,Location Charge Code,8.9.6
+LCH,Location Characteristic,8.9.3
+LDP,Location Department,8.9.5
+LOC,Location Identification,8.9.2
+LRL,Location Relationship,8.9.4
+MFA,Master File Acknowledgment,8.5.3
+MFE,Master File Entry,8.5.2
+MFI,Master File Identification,8.5.1
+MRG,Merge Patient Information,3.4.9
+MSA,Message Acknowledgment,2.15.8
+MSH,Message Header,2.15.9
+NCK,System Clock,14.4.1
+NDS,Notification Detail,13.4.7
+NK1,Next of Kin / Associated Parties,3.4.5
+NPU,Bed Status Update,3.4.8
+NSC,Application Status Change,14.4.2
+NST,Application control level statistics,14.4.3
+NTE,Notes and Comments,2.15.10
+OBR,Observation Request,7.4.1
+OBX,Observation/Result,9.6.2
+ODS,Dietary Orders, Supplements, and Preferences,4.8.1
+ODT,Diet Tray Instructions,4.8.2
+OM1,General Segment,8.8.8
+OM2,Numeric Observation,8.8.9
+OM3,Categorical Service/Test/Observation,8.8.10
+OM4,Observations that Require Specimens,8.8.11
+OM5,Observation Batteries (Sets),8.8.12
+OM6,Observations that are Calculated from Other Observations,8.8.13
+OM7,Additional Basic Attributes,8.8.14
+ORC,Common Order,4.5.1
+ORG,Practitioner Organization Unit,15.4.5
+OVR,Override Segment,2.15.11
+PCR,Possible Causal Relationship,7.12.3
+PD1,Patient Additional Demographic,3.4.10
+PDA,Patient Death and Autopsy,3.4.12
+PDC,Product Detail Country,7.12.5
+PEO,Product Experience Observation,7.12.2
+PES,Product Experience Sender,7.12.1
+PID,Patient Identification,3.4.2
+PR1,Procedures,6.5.4
+PRA,Practitioner Detail,15.4.6
+PRB,Problem Details,12.4.2
+PRC,Pricing,8.10.3
+PRD,Provider Data,11.6.3
+PSH,Product Summary Header,7.12.4
+PTH,Pathway,12.4.4
+PV1,Patient Visit,3.4.3
+PV2,Patient Visit - Additional Information,3.4.4
+QAK,Query Acknowledgment,5.5.2
+QID,Query Identification,5.5.3
+QPD,Query Parameter Definition,5.5.4
+QRD,Original-Style Query Definition,5.10.5.4
+QRF,Original style query filter,5.10.5.5
+QRI,Query Response Instance,5.5.5
+RCP,Response Control Parameter,5.5.6
+RDF,Table Row Definition,5.5.7
+RDT,Table Row Data,5.5.8
+RF1,Referral Information,11.6.1
+RGS,Resource Group,10.6.3
+RMI,Risk Management Incident,6.5.14
+ROL,Role,15.4.7
+RQ1,Requisition Detail-1,4.11.2
+RQD,Requisition Detail,4.11.1
+RXA,Pharmacy/Treatment Administration,4.18.1
+RXC,Pharmacy/Treatment Component Order,4.14.3
+RXD,Pharmacy/Treatment Dispense,4.14.5
+RXE,Pharmacy/Treatment Encoded Order,4.14.4
+RXG,Pharmacy/Treatment Give,4.14.6
+RXO,Pharmacy/Treatment Order,4.14.1
+RXR,Pharmacy/Treatment Route,4.14.2
+SAC,Specimen Container detail,13.4.3
+SCH,Scheduling Activity Information,10.6.2
+SFT,Software Segment,2.15.12
+SID,Substance Identifier,13.4.11
+SPM,Specimen,7.4.3
+SPR,Stored Procedure Request Definition,5.10.5.6
+STF,Staff Identification,15.4.8
+TCC,Test Code Configuration,13.4.9
+TCD,Test Code Detail,13.4.10
+TQ1,Timing/Quantity,4.5.4
+TQ2,Timing/Quantity Relationship,4.5.5
+TXA,Transcription Document Header,9.6.1
+UB1,UB82,6.5.10
+UB2,UB92 Data,6.5.11
+URD,Results/update Definition,5.10.5.7
+URS,Unsolicited Selection,5.10.5.8
+VAR,Variance,12.4.5
+VTQ,Virtual Table Query Request,5.10.5.9
+ZL7,(proposed example only),8.6.1
+
