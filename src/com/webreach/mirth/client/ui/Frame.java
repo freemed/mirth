@@ -891,23 +891,31 @@ public class Frame extends JXFrame
             }
             
             ObjectSerializer serializer = new ObjectSerializer();
-            Channel importChannel = (Channel)serializer.fromXML(channelXML);
-            
-            if(!checkChannelName(importChannel.getName()))
-                return;            
-            
-            channels.add(importChannel);
-            
             try
             {
-                importChannel.setId(mirthClient.getNextId());
-            } 
-            catch (ClientException ex)
-            {
-                ex.printStackTrace();
-            }
+                Channel importChannel = (Channel)serializer.fromXML(channelXML);
+                
+                if(!checkChannelName(importChannel.getName()))
+                    return;            
             
-            editChannel(channels.size()-1);
+                channels.add(importChannel);
+
+                try
+                {
+                    importChannel.setId(mirthClient.getNextId());
+                } 
+                catch (ClientException ex)
+                {
+                    ex.printStackTrace();
+                }
+
+                editChannel(channels.size()-1);
+                channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+            }
+            catch (Exception e)
+            {
+                JOptionPane.showMessageDialog(this, "Bad input file.");
+            }
         }
     }
     
@@ -936,7 +944,6 @@ public class Frame extends JXFrame
             Channel channel = channels.get(channelListPage.getSelectedChannel());
             ObjectSerializer serializer = new ObjectSerializer();
             String channelXML = serializer.toXML(channel);
-            
             exportFile = exportFileChooser.getSelectedFile();
             
             try
@@ -945,7 +952,7 @@ public class Frame extends JXFrame
             } 
             catch (IOException ex)
             {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "File could not be written.");
             }
         }
     }
