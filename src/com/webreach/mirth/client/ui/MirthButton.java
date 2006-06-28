@@ -4,9 +4,9 @@ package com.webreach.mirth.client.ui;
 public class MirthButton extends javax.swing.JButton {
     private Frame parent;
     
-    public MirthButton(Frame parent) {
+    public MirthButton() {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         this.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPressed(evt);

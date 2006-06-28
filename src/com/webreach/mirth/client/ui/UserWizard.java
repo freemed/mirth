@@ -12,10 +12,10 @@ public class UserWizard extends javax.swing.JDialog
     private int index = -1;
     
     /** Creates new form UserDialog */
-    public UserWizard(JFrame parent, int row)
+    public UserWizard(int row)
     {
-        super(parent);
-        this.parent = (Frame)parent;
+        super(PlatformUI.MIRTH_FRAME);
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         finishButton.setEnabled(false);
         

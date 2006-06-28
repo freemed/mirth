@@ -7,9 +7,9 @@ public class DatabaseReader extends ConnectorClass
 {
     Frame parent;
     /** Creates new form DatabaseWriter */
-    public DatabaseReader(Frame parent)
+    public DatabaseReader()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "Database Reader";
         initComponents();
         HighlightedDocument mappingDoc = new HighlightedDocument();

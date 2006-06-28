@@ -2,7 +2,6 @@ package com.webreach.mirth.client.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.ImageIcon;
 
 public class UIConstants 
 {
@@ -23,9 +22,5 @@ public class UIConstants
     // fonts
     public static final Font TEXTFIELD_PLAIN_FONT = new Font("Tahoma",Font.PLAIN,11);
     public static final Font TEXTFIELD_BOLD_FONT = new Font("Tahoma",Font.BOLD,11);
-        
-    public static ImageIcon BACKGROUND_IMAGE;
-    public static String SERVER_NAME;
-    public static String USER_NAME;
-	
+    
 }

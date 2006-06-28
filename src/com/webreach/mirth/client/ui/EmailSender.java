@@ -6,9 +6,9 @@ public class EmailSender extends ConnectorClass
 {
 	Frame parent;
     /** Creates new form EmailSender */
-    public EmailSender(Frame parent)
+    public EmailSender()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "Email Sender";
         initComponents();
     }

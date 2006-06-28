@@ -7,9 +7,9 @@ public class FileWriter extends ConnectorClass
     Frame parent;
     
     /** Creates new form FileWriter */
-    public FileWriter(Frame parent)
+    public FileWriter()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "File Writer";
         initComponents();
     }

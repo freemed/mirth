@@ -6,10 +6,10 @@ public class MirthTextField extends javax.swing.JTextField
 {
     private Frame parent;
 
-    public MirthTextField(Frame parent)
+    public MirthTextField()
     {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
     }
     
     public void processKeyEvent(KeyEvent ev)

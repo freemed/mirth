@@ -7,11 +7,11 @@ public class AdminPanel extends javax.swing.JPanel
     Frame parent;
     Users u;
     /** Creates new form AdminPanel */
-    public AdminPanel(JFrame parent)
+    public AdminPanel()
     {
-        this.parent = (Frame)parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
-        u = new Users(parent);
+        u = new Users();
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(users);
         users.setLayout(layout);
         layout.setHorizontalGroup(

@@ -16,8 +16,8 @@ public class ChannelPanel extends javax.swing.JPanel {
     private Frame parent;
     
     /** Creates new form ChannelPanel */
-    public ChannelPanel(JFrame parent) {
-        this.parent = (Frame)parent;
+    public ChannelPanel() {
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
     }
     

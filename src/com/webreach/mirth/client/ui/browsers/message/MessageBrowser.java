@@ -2,6 +2,7 @@ package com.webreach.mirth.client.ui.browsers.message;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.MessageEvent;
 import com.webreach.mirth.model.filters.MessageEventFilter;
@@ -30,9 +31,9 @@ public class MessageBrowser extends javax.swing.JPanel
     private Frame parent;
     private List<MessageEvent> messageEventList;
     
-    public MessageBrowser(Frame parent)
+    public MessageBrowser()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         
         mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });

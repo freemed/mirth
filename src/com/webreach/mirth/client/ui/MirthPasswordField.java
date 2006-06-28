@@ -6,10 +6,10 @@ public class MirthPasswordField extends javax.swing.JPasswordField
 {
     private Frame parent;
     
-    public MirthPasswordField(Frame parent)
+    public MirthPasswordField()
     {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
     }
     
     public void processKeyEvent(KeyEvent ev)

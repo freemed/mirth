@@ -6,10 +6,10 @@ public class MirthTextArea extends javax.swing.JTextArea
 {
     private Frame parent;
 
-    public MirthTextArea(Frame parent)
+    public MirthTextArea()
     {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
     }
     
     public void processKeyEvent(KeyEvent ev)

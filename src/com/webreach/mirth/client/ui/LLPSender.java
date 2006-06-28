@@ -7,9 +7,9 @@ public class LLPSender extends ConnectorClass
 {
 	Frame parent;
     /** Creates new form LLPSender */
-    public LLPSender(Frame parent)
+    public LLPSender()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "LLP Sender";
         initComponents();
     }

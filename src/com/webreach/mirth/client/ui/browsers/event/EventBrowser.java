@@ -2,6 +2,7 @@ package com.webreach.mirth.client.ui.browsers.event;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.SystemEvent;
 import com.webreach.mirth.model.filters.SystemEventFilter;
@@ -23,9 +24,9 @@ public class EventBrowser extends javax.swing.JPanel
     private Frame parent;
     private List<SystemEvent> systemEventList;
     
-    public EventBrowser(Frame parent)
+    public EventBrowser()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         eventPane = new JScrollPane();
 

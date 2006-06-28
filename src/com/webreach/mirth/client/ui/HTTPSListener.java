@@ -7,9 +7,9 @@ public class HTTPSListener extends ConnectorClass
 {
     Frame parent;
     /** Creates new form HTTPSListener */
-    public HTTPSListener(Frame parent)
+    public HTTPSListener()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "HTTPS Listener";
         initComponents();
     }

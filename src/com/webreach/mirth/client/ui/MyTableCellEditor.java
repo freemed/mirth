@@ -19,10 +19,10 @@ public class MyTableCellEditor extends AbstractCellEditor implements TableCellEd
     Object originalValue;
 
     
-    public MyTableCellEditor(Frame parent)
+    public MyTableCellEditor()
     {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
     }
 
     // This method is called just before the cell value

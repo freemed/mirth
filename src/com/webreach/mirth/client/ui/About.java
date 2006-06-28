@@ -28,8 +28,8 @@ public class About extends JDialog implements ActionListener
     String copyright = "Copyright (c) 2006";
     String comments = "Mirth Beta Prototype";
 
-    public About(Frame parent) {
-        super(parent);
+    public About() {
+        super(PlatformUI.MIRTH_FRAME);
         panel1.setBackground(new Color(255,255,255));
         panel2.setBackground(new Color(255,255,255));
         insetsPanel1.setBackground(new Color(255,255,255));

@@ -41,9 +41,9 @@ public class ChannelSetup extends javax.swing.JPanel
     private TransformerPane transformerPane;
     private FilterPane filterPane;
 
-    public ChannelSetup(JFrame parent)
+    public ChannelSetup()
     {
-        this.parent = (Frame)parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         jScrollPane4 = new JScrollPane();
         ArrayList<String> sourceConnectors;
@@ -168,7 +168,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 }
         });
         
-        jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("Destination")).setCellEditor(new MyTableCellEditor(parent));
+        jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("Destination")).setCellEditor(new MyTableCellEditor());
 
         jTable1.setSelectionMode(0);
         jTable1.setRowSelectionAllowed(true);

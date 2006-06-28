@@ -39,12 +39,13 @@ public class Mirth
      */
     public Mirth(Client m) 
     {
-        Frame frame = new Frame(m);
-        frame.setSize(800,600);
-        frame.setLocationRelativeTo(null);
-        //frame.setExtendedState(frame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
-        frame.addComponentListener(new java.awt.event.ComponentAdapter() 
+        PlatformUI.MIRTH_FRAME = new Frame();
+        PlatformUI.MIRTH_FRAME.setupFrame(m);
+        PlatformUI.MIRTH_FRAME.setSize(800,600);
+        PlatformUI.MIRTH_FRAME.setLocationRelativeTo(null);
+        //PlatformUI.MIRTH_FRAME.setExtendedState(frame.MAXIMIZED_BOTH);
+        PlatformUI.MIRTH_FRAME.setVisible(true);
+        PlatformUI.MIRTH_FRAME.addComponentListener(new java.awt.event.ComponentAdapter() 
         {
             public void componentResized(ComponentEvent e) 
             {
@@ -55,6 +56,8 @@ public class Mirth
                }
             }
         });
+        
+        
     }
     
     /**
@@ -81,7 +84,7 @@ public class Mirth
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
                 
                 panel.setBannerText("");
-                UIConstants.BACKGROUND_IMAGE = new ImageIcon(panel.getUI().getBanner());
+                PlatformUI.BACKGROUND_IMAGE = new ImageIcon(panel.getUI().getBanner());
                 
                 panel.setBannerText("Login :: Mirth");
                 panel.setOpaque(true);
@@ -237,8 +240,8 @@ class MirthLoginService extends LoginService
                 //if(c.login(username,new String(pass)))
                 if(c.login(user,pw))
                 {
-                    UIConstants.USER_NAME = user;
-                    UIConstants.SERVER_NAME = mirthServer;
+                    PlatformUI.USER_NAME = user;
+                    PlatformUI.SERVER_NAME = mirthServer;
                     return true;
                 }
             }

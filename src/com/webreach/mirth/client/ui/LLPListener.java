@@ -7,9 +7,9 @@ public class LLPListener extends ConnectorClass
 {
     Frame parent;
     /** Creates new form LLPListener */
-    public LLPListener(Frame parent)
+    public LLPListener()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "LLP Listener";
         initComponents();
     }

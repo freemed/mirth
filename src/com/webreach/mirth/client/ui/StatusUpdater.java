@@ -5,9 +5,9 @@ public class StatusUpdater implements Runnable
 {
     Frame parent;
     int refreshRate;
-    public StatusUpdater(Frame parent)
+    public StatusUpdater()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
     }
     
     public void run()

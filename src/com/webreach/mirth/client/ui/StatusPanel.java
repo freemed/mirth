@@ -20,9 +20,9 @@ public class StatusPanel extends javax.swing.JPanel
     private String lastIndex = null;
     
     /** Creates new form statusPanel */
-    public StatusPanel(JFrame parent) 
+    public StatusPanel() 
     {  
-        this.parent = (Frame)parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
     }
     

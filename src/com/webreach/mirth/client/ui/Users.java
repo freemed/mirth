@@ -15,9 +15,9 @@ public class Users extends javax.swing.JScrollPane
     private Frame parent;
     
     /** Creates new form thisl */
-    public Users(JFrame parent) 
+    public Users() 
     {  
-        this.parent = (Frame)parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         setVisible(true);
     }

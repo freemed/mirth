@@ -74,12 +74,12 @@ public class Frame extends JXFrame
     
     private Thread statusUpdater;     
     
-    public Frame(Client mirthClient)
+    public void setupFrame(Client mirthClient)
     {
         this.mirthClient = mirthClient;
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        statusUpdater = new Thread(new StatusUpdater(this));
+        statusUpdater = new Thread(new StatusUpdater());
         statusUpdater.start();
         
         try
@@ -95,33 +95,33 @@ public class Frame extends JXFrame
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         
         sourceConnectors = new ArrayList<ConnectorClass>();
-        sourceConnectors.add(new DatabaseReader(this));
-        sourceConnectors.add(new DatabaseWriter(this));
-        sourceConnectors.add(new EmailSender(this));
-        sourceConnectors.add(new FileWriter(this));
-        sourceConnectors.add(new HTTPListener(this));
-        sourceConnectors.add(new HTTPSListener(this));
-        sourceConnectors.add(new LLPListener(this));
-        sourceConnectors.add(new LLPSender(this));
+        sourceConnectors.add(new DatabaseReader());
+        sourceConnectors.add(new DatabaseWriter());
+        sourceConnectors.add(new EmailSender());
+        sourceConnectors.add(new FileWriter());
+        sourceConnectors.add(new HTTPListener());
+        sourceConnectors.add(new HTTPSListener());
+        sourceConnectors.add(new LLPListener());
+        sourceConnectors.add(new LLPSender());
         
         destinationConnectors = new ArrayList<ConnectorClass>();
-        destinationConnectors.add(new DatabaseReader(this));
-        destinationConnectors.add(new DatabaseWriter(this));
-        destinationConnectors.add(new EmailSender(this));
-        destinationConnectors.add(new FileWriter(this));
-        destinationConnectors.add(new HTTPListener(this));
-        destinationConnectors.add(new HTTPSListener(this));
-        destinationConnectors.add(new LLPListener(this));
-        destinationConnectors.add(new LLPSender(this));
+        destinationConnectors.add(new DatabaseReader());
+        destinationConnectors.add(new DatabaseWriter());
+        destinationConnectors.add(new EmailSender());
+        destinationConnectors.add(new FileWriter());
+        destinationConnectors.add(new HTTPListener());
+        destinationConnectors.add(new HTTPSListener());
+        destinationConnectors.add(new LLPListener());
+        destinationConnectors.add(new LLPSender());
         
         taskPaneContainer = new JXTaskPaneContainer();
         
-        statusListPage = new StatusPanel(this);
-        channelListPage = new ChannelPanel(this);
-        adminPanel = new AdminPanel(this);
-        channelEditPage = new ChannelSetup(this);
-        eventBrowser = new EventBrowser(this);
-        messageBrowser = new MessageBrowser(this);
+        statusListPage = new StatusPanel();
+        channelListPage = new ChannelPanel();
+        adminPanel = new AdminPanel();
+        channelEditPage = new ChannelSetup();
+        eventBrowser = new EventBrowser();
+        messageBrowser = new MessageBrowser();
         
         try
         {
@@ -345,7 +345,7 @@ public class Frame extends JXFrame
 
     public void goToAbout()
     {
-        About dlg = new About(this);
+        About dlg = new About();
         Dimension dlgSize = dlg.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
@@ -405,7 +405,7 @@ public class Frame extends JXFrame
 
     public void doNewChannel()
     {
-        ChannelWizard channelWizard = new ChannelWizard(this);
+        ChannelWizard channelWizard = new ChannelWizard();
         Dimension channelWizardSize = channelWizard.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
@@ -630,7 +630,7 @@ public class Frame extends JXFrame
 
     public void doNewUser()
     {
-        UserWizard userWizard = new UserWizard(this, UIConstants.ERROR_CONSTANT);
+        UserWizard userWizard = new UserWizard(UIConstants.ERROR_CONSTANT);
         Dimension userWizardSize = userWizard.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
@@ -648,7 +648,7 @@ public class Frame extends JXFrame
             JOptionPane.showMessageDialog(this, "Users no longer exists.");
         else
         {
-            UserWizard userDialog = new UserWizard(this, adminPanel.u.getSelectedRow());
+            UserWizard userDialog = new UserWizard(adminPanel.u.getSelectedRow());
             Dimension dialogSize = userDialog.getPreferredSize();
             Dimension frmSize = getSize();
             Point loc = getLocation();

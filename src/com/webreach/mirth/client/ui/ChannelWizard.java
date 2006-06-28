@@ -10,10 +10,10 @@ public class ChannelWizard extends javax.swing.JDialog
     private Channel channel;
     
     /** Creates new form WizardDialog */
-    public ChannelWizard(JFrame parent)
+    public ChannelWizard()
     {
-        super(parent);
-        this.parent = (Frame)parent;
+        super(PlatformUI.MIRTH_FRAME);
+        this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         channelName.setText("");
         nextButton.setEnabled(false);

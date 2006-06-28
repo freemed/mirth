@@ -4,9 +4,9 @@ package com.webreach.mirth.client.ui;
 public class MirthCheckBox extends javax.swing.JCheckBox {
     private Frame parent;
 
-    public MirthCheckBox(Frame parent) {
+    public MirthCheckBox() {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         this.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxChanged(evt);

@@ -7,9 +7,9 @@ public class DatabaseWriter extends ConnectorClass
 {
     Frame parent;
     /** Creates new form DatabaseWriter */
-    public DatabaseWriter(Frame parent)
+    public DatabaseWriter()
     {
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         name = "Database Writer";
         initComponents();
         HighlightedDocument mappingDoc = new HighlightedDocument();

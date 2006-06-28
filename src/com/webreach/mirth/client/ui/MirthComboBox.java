@@ -4,9 +4,9 @@ package com.webreach.mirth.client.ui;
 public class MirthComboBox extends javax.swing.JComboBox {
     private Frame parent;
 
-    public MirthComboBox(Frame parent) {
+    public MirthComboBox() {
         super();
-        this.parent = parent;
+        this.parent = PlatformUI.MIRTH_FRAME;
         this.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxChanged(evt);
