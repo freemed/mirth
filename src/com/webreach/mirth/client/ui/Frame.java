@@ -952,6 +952,7 @@ public class Frame extends JXFrame
             try
             {
                 FileUtil.write(exportFile, channelXML);
+                JOptionPane.showMessageDialog(this, channel.getName() + " was written to " + exportFile.getPath() + ".");
             } 
             catch (IOException ex)
             {
