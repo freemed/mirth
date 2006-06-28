@@ -167,15 +167,6 @@ public class TransformerPane extends JPanel {
         
     }  // END initComponents()
     
-    // for the task pane
-    public BoundAction initActionCallback( 
-    		String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
-    	
-        if(icon != null) boundAction.putValue(Action.SMALL_ICON, icon);
-        boundAction.registerCallback(this,callbackMethod);
-        return boundAction;
-    }
-
     public void makeTransformerTable() {
         transformerTable = new JXTable();
         
@@ -233,6 +224,16 @@ public class TransformerPane extends JPanel {
         });
     }    
     
+    // for the task pane
+    public BoundAction initActionCallback( 
+    		String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
+    	
+        if(icon != null) boundAction.putValue(Action.SMALL_ICON, icon);
+        boundAction.registerCallback(this,callbackMethod);
+        return boundAction;
+    }
+
+    // called when a table row is (re)selected
     private void TransformerListSelected( ListSelectionEvent evt ) {
         int row = transformerTable.getSelectedRow();
         int last = evt.getLastIndex();
@@ -256,8 +257,39 @@ public class TransformerPane extends JPanel {
         updateTaskPane();
     }
     
+	// returns true if the row is a valid index in the existing model
     private boolean isValid( int row ) {
     	return ( row >= 0 && row < transformerTableModel.getRowCount() );
+    }
+    
+    // returns true if the variable name is unique
+    private boolean isUnique( String var ) {
+    	boolean unique = true;
+    	
+    	for ( int i = 0;  i < transformerTableModel.getRowCount();  i++ ) {
+    		String temp = "";
+    		
+    		Map<Object,Object> data = 
+    			(Map<Object,Object>)transformerTableModel.getValueAt( i, STEP_DATA_COL );
+    		
+    		if ( data != null ) temp = (String)data.get( "Variable" );
+    		
+    		if ( var.trim().equalsIgnoreCase( temp ) ) unique = false;
+    	}
+    		
+    	return unique;
+    }
+    
+    // returns a unique default var name
+    private String getUniqueName() {
+    	String base = "$newVar";
+    	int i = 0;
+    	
+    	while ( true ) {
+    		String var = base + i;
+    		if ( isUnique( var ) ) return var;
+    		i++;
+    	}
     }
     
     // sets the data from the previously used panel into the
@@ -307,16 +339,6 @@ public class TransformerPane extends JPanel {
     private void setRowData( Step step, int row ) {
     	Object[] tableData = new Object[NUMBER_OF_COLUMNS];
         
-    	// we have a new step
-    	if ( step == null )	{
-    		saveData();
-    		step = new Step();
-    		step.setSequenceNumber( row );
-    		step.setName( "New Step" );
-    		step.setType( MAPPER_TYPE );	// mapper type by default
-    		step.setData( new HashMap() );
-    	}
-	
     	tableData[STEP_NUMBER_COL] = step.getSequenceNumber();
     	tableData[STEP_NAME_COL] = step.getName();
     	tableData[STEP_TYPE_COL] = step.getType();
@@ -332,8 +354,17 @@ public class TransformerPane extends JPanel {
      */
     public void addNewStep() {
     	int row = transformerTable.getRowCount();
-    		
-    	setRowData( null, row );
+    	Step step = new Step();
+    	Map<Object,Object> data = new HashMap<Object,Object>();
+    	
+    	data.put("Variable", getUniqueName() );
+    	
+    	step.setSequenceNumber( row );
+		step.setName( "New Step" );
+		step.setType( MAPPER_TYPE );	// mapper type by default
+		step.setData( data );
+
+		setRowData( step, row );
     	prevSelRow = row;
     }
     

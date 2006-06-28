@@ -60,20 +60,20 @@ public class MapperPanel extends CardPanel {
         hSplitPane.setLeftComponent( mappingPanel );
         hSplitPane.setRightComponent( treeScrollPane );
         
-        refTable.getColumnExt( "ID" ).setMaxWidth( 30 );
-        refTable.getColumnExt( "ID" ).setMinWidth( 30 );
-        refTable.getColumnExt( "Chapter" ).setMaxWidth( 55 );
-        refTable.getColumnExt( "Chapter" ).setMinWidth( 55 );
-        refTable.setModel( new DefaultTableModel(
+       refTable.setModel( new DefaultTableModel(
 				(new HL7ReferenceLoader()).getReferenceTable(), 
 				new String[] {"ID","Description","Chapter"} ) {
 			boolean[] canEdit = new boolean [] { false, false, false };
 			
 			public boolean isCellEditable ( int row, int col ) {
-				return canEdit[row];
+				return canEdit[col];
 			}
 		});
-        
+       refTable.getColumnExt( "ID" ).setMaxWidth( 30 );
+       refTable.getColumnExt( "ID" ).setMinWidth( 30 );
+       refTable.getColumnExt( "Chapter" ).setMaxWidth( 55 );
+       refTable.getColumnExt( "Chapter" ).setMinWidth( 55 );
+       
         mappingScrollPane.setViewportView( mappingTextPane );
         treeScrollPane.setViewportView( refTable );
 

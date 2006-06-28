@@ -160,15 +160,6 @@ public class FilterPane extends JPanel {
         	
 	}  // END initComponents()
 	
-	// for the task pane
-	public BoundAction initActionCallback( 
-			String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
-		
-		if(icon != null) boundAction.putValue(Action.SMALL_ICON, icon);
-		boundAction.registerCallback(this,callbackMethod);
-		return boundAction;
-	}
-	
 	public void makeFilterTable() {
 		filterTable = new JXTable();
 		
@@ -224,6 +215,16 @@ public class FilterPane extends JPanel {
 				});
 	}    
 	
+	// for the task pane
+	public BoundAction initActionCallback( 
+			String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
+		
+		if(icon != null) boundAction.putValue(Action.SMALL_ICON, icon);
+		boundAction.registerCallback(this,callbackMethod);
+		return boundAction;
+	}
+	
+	// called whenever a table row is (re)selected
 	private void FilterListSelected( ListSelectionEvent evt ) {
 		int row = filterTable.getSelectedRow();
 		int last = evt.getLastIndex();
@@ -243,6 +244,7 @@ public class FilterPane extends JPanel {
 		updateTaskPane();
 	}
 	
+	// returns true if the row is a valid index in the existing model
 	private boolean isValid( int row ) {
 		return ( row >= 0 && row < filterTableModel.getRowCount() );
 	}
@@ -280,18 +282,6 @@ public class FilterPane extends JPanel {
 	private void setRowData( Rule rule, int row ) {
 		Object[] tableData = new Object[NUMBER_OF_COLUMNS];
 		
-		// we have a new rule
-		if ( rule == null )	{
-			saveData();
-			rule = new Rule();
-			rule.setSequenceNumber( row );
-			rule.setScript( "return null;" );
-			if ( row == 0 )
-				rule.setOperator( Rule.Operator.NONE );	// NONE operator by default on row 0
-			else
-				rule.setOperator( Rule.Operator.AND );	// AND operator by default elsewhere
-		}
-		
 		tableData[RULE_NUMBER_COL] = rule.getSequenceNumber();
 		tableData[RULE_OP_COL] = rule.getOperator();
 		tableData[RULE_SCRIPT_COL] = rule.getScript();
@@ -305,7 +295,16 @@ public class FilterPane extends JPanel {
 	 */
 	public void addNewRule() {
 		int row = filterTable.getRowCount();
-		setRowData( null, row );
+		Rule rule = new Rule();
+		
+		rule.setSequenceNumber( row );
+		rule.setScript( "return null;" );
+		if ( row == 0 )
+			rule.setOperator( Rule.Operator.NONE );	// NONE operator by default on row 0
+		else
+			rule.setOperator( Rule.Operator.AND );	// AND operator by default elsewhere
+
+		setRowData( rule, row );
 		prevSelRow = row;
 		updateRuleNumbers();
 	}
