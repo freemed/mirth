@@ -9,25 +9,17 @@ import java.io.StringReader;
 import com.Ostermiller.util.CSVParser;
 
 public class HL7ReferenceLoader {
-	public String[][] getReferenceTable() {
-		String[][] values = null;
+	public String[][] getReferenceTable() throws IOException {
+		File referenceFile = new File("reference.csv");
+		BufferedReader reader = new BufferedReader(new FileReader(referenceFile));
+		StringBuilder contents = new StringBuilder();
+		String line = null;
 
-		try {
-			File referenceFile = new File("reference.csv");
-			BufferedReader reader = new BufferedReader(new FileReader(referenceFile));
-			StringBuilder contents = new StringBuilder();
-			String line = null;
-
-			while ((line = reader.readLine()) != null) {
-				contents.append(line + "\n");
-			}
-
-			reader.close();
-			values = CSVParser.parse(new StringReader(contents.toString()));
-		} catch (IOException e) {
-			e.printStackTrace();
+		while ((line = reader.readLine()) != null) {
+			contents.append(line + "\n");
 		}
 
-		return values;
+		reader.close();
+		return CSVParser.parse(new StringReader(contents.toString()));
 	}
 }
