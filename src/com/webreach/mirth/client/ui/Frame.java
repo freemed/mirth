@@ -29,7 +29,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import mirthui.Stats;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
 
@@ -747,11 +746,6 @@ public class Frame extends JXFrame
         eventBrowser.loadNew();
         setCurrentContentPage(eventBrowser);
         setFocus(eventTasks);
-    }
-
-    public void doShowStats()
-    {
-        new Stats(this, statusListPage.statusTable.getSelectedRow());
     }
 
     public void setBold(JXTaskPane pane, int index)
