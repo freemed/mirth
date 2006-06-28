@@ -48,8 +48,8 @@ public class ChannelSetup extends javax.swing.JPanel
         jScrollPane4 = new JScrollPane();
         ArrayList<String> sourceConnectors;
         ArrayList<String> destinationConnectors;
-        transformerPane = new TransformerPane(this.parent);
-        filterPane = new FilterPane(this.parent);
+        transformerPane = new TransformerPane();
+        filterPane = new FilterPane();
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
