@@ -77,14 +77,14 @@ public class EmailSender extends ConnectorClass
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        emailUsernameField = new javax.swing.JTextField();
-        SMTPServerPortField = new javax.swing.JTextField();
-        SMTPServerHostField = new javax.swing.JTextField();
-        emailToField = new javax.swing.JTextField();
-        emailSubjectField = new javax.swing.JTextField();
+        emailUsernameField = new com.webreach.mirth.client.ui.MirthTextField();
+        SMTPServerPortField = new com.webreach.mirth.client.ui.MirthTextField();
+        SMTPServerHostField = new com.webreach.mirth.client.ui.MirthTextField();
+        emailToField = new com.webreach.mirth.client.ui.MirthTextField();
+        emailSubjectField = new com.webreach.mirth.client.ui.MirthTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        emailBodyTextArea = new javax.swing.JTextArea();
-        emailPasswordField = new javax.swing.JPasswordField();
+        emailBodyTextArea = new com.webreach.mirth.client.ui.MirthTextArea();
+        emailPasswordField = new com.webreach.mirth.client.ui.MirthPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email Sender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -126,11 +126,11 @@ public class EmailSender extends ConnectorClass
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, emailPasswordField)
-                        .add(emailUsernameField)
-                        .add(SMTPServerPortField)
-                        .add(emailToField)
-                        .add(emailSubjectField)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, emailPasswordField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(emailUsernameField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(SMTPServerPortField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(emailToField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(emailSubjectField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, SMTPServerHostField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -171,13 +171,13 @@ public class EmailSender extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField SMTPServerHostField;
-    private javax.swing.JTextField SMTPServerPortField;
-    private javax.swing.JTextArea emailBodyTextArea;
-    private javax.swing.JPasswordField emailPasswordField;
-    private javax.swing.JTextField emailSubjectField;
-    private javax.swing.JTextField emailToField;
-    private javax.swing.JTextField emailUsernameField;
+    private com.webreach.mirth.client.ui.MirthTextField SMTPServerHostField;
+    private com.webreach.mirth.client.ui.MirthTextField SMTPServerPortField;
+    private com.webreach.mirth.client.ui.MirthTextArea emailBodyTextArea;
+    private com.webreach.mirth.client.ui.MirthPasswordField emailPasswordField;
+    private com.webreach.mirth.client.ui.MirthTextField emailSubjectField;
+    private com.webreach.mirth.client.ui.MirthTextField emailToField;
+    private com.webreach.mirth.client.ui.MirthTextField emailUsernameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

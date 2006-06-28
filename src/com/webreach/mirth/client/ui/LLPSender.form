@@ -196,63 +196,63 @@
         <Property name="text" type="java.lang.String" value="Field Separator:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hostPortField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostPortField">
     </Component>
-    <Component class="javax.swing.JTextField" name="serverTimeoutField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="serverTimeoutField">
     </Component>
-    <Component class="javax.swing.JTextField" name="bufferSizeField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="bufferSizeField">
     </Component>
-    <Component class="javax.swing.JTextField" name="maximumRetryCountField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="maximumRetryCountField">
     </Component>
-    <Component class="javax.swing.JTextField" name="startOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="startOfMessageCharacterField">
     </Component>
-    <Component class="javax.swing.JTextField" name="endOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="endOfMessageCharacterField">
     </Component>
-    <Component class="javax.swing.JTextField" name="recordSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="recordSeparatorField">
     </Component>
-    <Component class="javax.swing.JTextField" name="fieldSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fieldSeparatorField">
     </Component>
-    <Component class="javax.swing.JRadioButton" name="keepConnectionOpenYesRadio">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenYesRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
         </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="keepConnectionOpenGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Yes"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="keepConnectionOpenNoRadio">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenNoRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
         </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="keepConnectionOpenGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="No"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hostIPAddressField3">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField3">
     </Component>
-    <Component class="javax.swing.JTextField" name="hostIPAddressField2">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField2">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel25">
       <Properties>
@@ -270,7 +270,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hostIPAddressField1">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField1">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -280,7 +280,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="hostIPAddressField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField">
     </Component>
   </SubComponents>
 </Form>

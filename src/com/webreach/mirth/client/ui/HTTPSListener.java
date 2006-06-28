@@ -210,40 +210,40 @@ public class HTTPSListener extends ConnectorClass
         jLabel12 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        listenerPortField = new javax.swing.JTextField();
-        receiveTimeoutField = new javax.swing.JTextField();
-        bufferSizeField = new javax.swing.JTextField();
-        keyStoreField = new javax.swing.JTextField();
-        keyStorePasswordField = new javax.swing.JTextField();
-        keyStoreTypeField = new javax.swing.JTextField();
-        keyManagerAlgorithmField = new javax.swing.JTextField();
-        protocolHandlerField = new javax.swing.JTextField();
-        securityProviderField = new javax.swing.JTextField();
+        listenerPortField = new com.webreach.mirth.client.ui.MirthTextField();
+        receiveTimeoutField = new com.webreach.mirth.client.ui.MirthTextField();
+        bufferSizeField = new com.webreach.mirth.client.ui.MirthTextField();
+        keyStoreField = new com.webreach.mirth.client.ui.MirthTextField();
+        keyStorePasswordField = new com.webreach.mirth.client.ui.MirthTextField();
+        keyStoreTypeField = new com.webreach.mirth.client.ui.MirthTextField();
+        keyManagerAlgorithmField = new com.webreach.mirth.client.ui.MirthTextField();
+        protocolHandlerField = new com.webreach.mirth.client.ui.MirthTextField();
+        securityProviderField = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        clientKeystoreField = new javax.swing.JTextField();
-        clientKeystorePasswordField = new javax.swing.JTextField();
-        trustKeystoreField = new javax.swing.JTextField();
-        trustKeystorePasswordField = new javax.swing.JTextField();
-        keyManagerFactoryField = new javax.swing.JTextField();
-        startOfMessageCharacterField = new javax.swing.JTextField();
-        endOfMessageCharacterField = new javax.swing.JTextField();
-        recordSeparatorField = new javax.swing.JTextField();
-        fieldSeparatorField = new javax.swing.JTextField();
-        sendACKCombobox = new javax.swing.JComboBox();
-        keepConnectionOpenYesRadio = new javax.swing.JRadioButton();
-        keepConnectionOpenNoRadio = new javax.swing.JRadioButton();
-        requireClientAuthenticationYesRadio = new javax.swing.JRadioButton();
-        requireClientAuthenticationNoRadio = new javax.swing.JRadioButton();
-        explicitTrustStoreOnlyYesRadio = new javax.swing.JRadioButton();
-        explicitTrustStoreOnlyNoRadio = new javax.swing.JRadioButton();
-        listenerIPAddressField2 = new javax.swing.JTextField();
+        clientKeystoreField = new com.webreach.mirth.client.ui.MirthTextField();
+        clientKeystorePasswordField = new com.webreach.mirth.client.ui.MirthTextField();
+        trustKeystoreField = new com.webreach.mirth.client.ui.MirthTextField();
+        trustKeystorePasswordField = new com.webreach.mirth.client.ui.MirthTextField();
+        keyManagerFactoryField = new com.webreach.mirth.client.ui.MirthTextField();
+        startOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
+        endOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
+        recordSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
+        fieldSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
+        sendACKCombobox = new com.webreach.mirth.client.ui.MirthComboBox();
+        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        requireClientAuthenticationYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        requireClientAuthenticationNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        explicitTrustStoreOnlyYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        explicitTrustStoreOnlyNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        listenerIPAddressField2 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel9 = new javax.swing.JLabel();
-        listenerIPAddressField3 = new javax.swing.JTextField();
+        listenerIPAddressField3 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel25 = new javax.swing.JLabel();
-        listenerIPAddressField1 = new javax.swing.JTextField();
+        listenerIPAddressField1 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel26 = new javax.swing.JLabel();
-        listenerIPAddressField = new javax.swing.JTextField();
+        listenerIPAddressField = new com.webreach.mirth.client.ui.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HTTPS Listener", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -296,39 +296,39 @@ public class HTTPSListener extends ConnectorClass
         sendACKCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Auto", "Yes", "No" }));
 
         keepConnectionOpenYesRadio.setBackground(new java.awt.Color(255, 255, 255));
+        keepConnectionOpenYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenGroup.add(keepConnectionOpenYesRadio);
         keepConnectionOpenYesRadio.setText("Yes");
-        keepConnectionOpenYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenYesRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         keepConnectionOpenNoRadio.setBackground(new java.awt.Color(255, 255, 255));
+        keepConnectionOpenNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenGroup.add(keepConnectionOpenNoRadio);
         keepConnectionOpenNoRadio.setText("No");
-        keepConnectionOpenNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenNoRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         requireClientAuthenticationYesRadio.setBackground(new java.awt.Color(255, 255, 255));
+        requireClientAuthenticationYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         requireClientAuthenticationGroup.add(requireClientAuthenticationYesRadio);
         requireClientAuthenticationYesRadio.setText("Yes");
-        requireClientAuthenticationYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         requireClientAuthenticationYesRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         requireClientAuthenticationNoRadio.setBackground(new java.awt.Color(255, 255, 255));
+        requireClientAuthenticationNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         requireClientAuthenticationGroup.add(requireClientAuthenticationNoRadio);
         requireClientAuthenticationNoRadio.setText("No");
-        requireClientAuthenticationNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         requireClientAuthenticationNoRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         explicitTrustStoreOnlyYesRadio.setBackground(new java.awt.Color(255, 255, 255));
+        explicitTrustStoreOnlyYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         explicitTrustStoreOnlyGroup.add(explicitTrustStoreOnlyYesRadio);
         explicitTrustStoreOnlyYesRadio.setText("Yes");
-        explicitTrustStoreOnlyYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         explicitTrustStoreOnlyYesRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         explicitTrustStoreOnlyNoRadio.setBackground(new java.awt.Color(255, 255, 255));
+        explicitTrustStoreOnlyNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         explicitTrustStoreOnlyGroup.add(explicitTrustStoreOnlyNoRadio);
         explicitTrustStoreOnlyNoRadio.setText("No");
-        explicitTrustStoreOnlyNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         explicitTrustStoreOnlyNoRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -373,9 +373,9 @@ public class HTTPSListener extends ConnectorClass
                 .add(17, 17, 17)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(explicitTrustStoreOnlyYesRadio)
+                        .add(explicitTrustStoreOnlyYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(explicitTrustStoreOnlyNoRadio))
+                        .add(explicitTrustStoreOnlyNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                         .add(listenerPortField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(receiveTimeoutField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -397,13 +397,13 @@ public class HTTPSListener extends ConnectorClass
                         .add(fieldSeparatorField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(sendACKCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
-                        .add(keepConnectionOpenYesRadio)
+                        .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(keepConnectionOpenNoRadio))
+                        .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
-                        .add(requireClientAuthenticationYesRadio)
+                        .add(requireClientAuthenticationYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(requireClientAuthenticationNoRadio))
+                        .add(requireClientAuthenticationNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(listenerIPAddressField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -418,8 +418,7 @@ public class HTTPSListener extends ConnectorClass
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel25)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(listenerIPAddressField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(listenerIPAddressField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -451,8 +450,8 @@ public class HTTPSListener extends ConnectorClass
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel13)
-                    .add(keepConnectionOpenYesRadio)
-                    .add(keepConnectionOpenNoRadio))
+                    .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel23)
@@ -476,8 +475,8 @@ public class HTTPSListener extends ConnectorClass
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(requireClientAuthenticationYesRadio)
-                    .add(requireClientAuthenticationNoRadio))
+                    .add(requireClientAuthenticationYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(requireClientAuthenticationNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
@@ -501,8 +500,8 @@ public class HTTPSListener extends ConnectorClass
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
-                    .add(explicitTrustStoreOnlyYesRadio)
-                    .add(explicitTrustStoreOnlyNoRadio))
+                    .add(explicitTrustStoreOnlyYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(explicitTrustStoreOnlyNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(7, 7, 7)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
@@ -533,14 +532,14 @@ public class HTTPSListener extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bufferSizeField;
-    private javax.swing.JTextField clientKeystoreField;
-    private javax.swing.JTextField clientKeystorePasswordField;
-    private javax.swing.JTextField endOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.MirthTextField bufferSizeField;
+    private com.webreach.mirth.client.ui.MirthTextField clientKeystoreField;
+    private com.webreach.mirth.client.ui.MirthTextField clientKeystorePasswordField;
+    private com.webreach.mirth.client.ui.MirthTextField endOfMessageCharacterField;
     private javax.swing.ButtonGroup explicitTrustStoreOnlyGroup;
-    private javax.swing.JRadioButton explicitTrustStoreOnlyNoRadio;
-    private javax.swing.JRadioButton explicitTrustStoreOnlyYesRadio;
-    private javax.swing.JTextField fieldSeparatorField;
+    private com.webreach.mirth.client.ui.MirthRadioButton explicitTrustStoreOnlyNoRadio;
+    private com.webreach.mirth.client.ui.MirthRadioButton explicitTrustStoreOnlyYesRadio;
+    private com.webreach.mirth.client.ui.MirthTextField fieldSeparatorField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -568,28 +567,28 @@ public class HTTPSListener extends ConnectorClass
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.ButtonGroup keepConnectionOpenGroup;
-    private javax.swing.JRadioButton keepConnectionOpenNoRadio;
-    private javax.swing.JRadioButton keepConnectionOpenYesRadio;
-    private javax.swing.JTextField keyManagerAlgorithmField;
-    private javax.swing.JTextField keyManagerFactoryField;
-    private javax.swing.JTextField keyStoreField;
-    private javax.swing.JTextField keyStorePasswordField;
-    private javax.swing.JTextField keyStoreTypeField;
-    private javax.swing.JTextField listenerIPAddressField;
-    private javax.swing.JTextField listenerIPAddressField1;
-    private javax.swing.JTextField listenerIPAddressField2;
-    private javax.swing.JTextField listenerIPAddressField3;
-    private javax.swing.JTextField listenerPortField;
-    private javax.swing.JTextField protocolHandlerField;
-    private javax.swing.JTextField receiveTimeoutField;
-    private javax.swing.JTextField recordSeparatorField;
+    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenNoRadio;
+    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenYesRadio;
+    private com.webreach.mirth.client.ui.MirthTextField keyManagerAlgorithmField;
+    private com.webreach.mirth.client.ui.MirthTextField keyManagerFactoryField;
+    private com.webreach.mirth.client.ui.MirthTextField keyStoreField;
+    private com.webreach.mirth.client.ui.MirthTextField keyStorePasswordField;
+    private com.webreach.mirth.client.ui.MirthTextField keyStoreTypeField;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField1;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField2;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField3;
+    private com.webreach.mirth.client.ui.MirthTextField listenerPortField;
+    private com.webreach.mirth.client.ui.MirthTextField protocolHandlerField;
+    private com.webreach.mirth.client.ui.MirthTextField receiveTimeoutField;
+    private com.webreach.mirth.client.ui.MirthTextField recordSeparatorField;
     private javax.swing.ButtonGroup requireClientAuthenticationGroup;
-    private javax.swing.JRadioButton requireClientAuthenticationNoRadio;
-    private javax.swing.JRadioButton requireClientAuthenticationYesRadio;
-    private javax.swing.JTextField securityProviderField;
-    private javax.swing.JComboBox sendACKCombobox;
-    private javax.swing.JTextField startOfMessageCharacterField;
-    private javax.swing.JTextField trustKeystoreField;
-    private javax.swing.JTextField trustKeystorePasswordField;
+    private com.webreach.mirth.client.ui.MirthRadioButton requireClientAuthenticationNoRadio;
+    private com.webreach.mirth.client.ui.MirthRadioButton requireClientAuthenticationYesRadio;
+    private com.webreach.mirth.client.ui.MirthTextField securityProviderField;
+    private com.webreach.mirth.client.ui.MirthComboBox sendACKCombobox;
+    private com.webreach.mirth.client.ui.MirthTextField startOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.MirthTextField trustKeystoreField;
+    private com.webreach.mirth.client.ui.MirthTextField trustKeystorePasswordField;
     // End of variables declaration//GEN-END:variables
 }

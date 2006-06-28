@@ -486,14 +486,14 @@ public class ChannelSetup extends javax.swing.JPanel
         summary = new javax.swing.JPanel();
         summaryNameLabel = new javax.swing.JLabel();
         summaryDescriptionLabel = new javax.swing.JLabel();
-        summaryNameField = new javax.swing.JTextField();
+        summaryNameField = new com.webreach.mirth.client.ui.MirthTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        summaryDescriptionText = new javax.swing.JTextArea();
+        summaryDescriptionText = new com.webreach.mirth.client.ui.MirthTextArea();
         summaryDirectionLabel1 = new javax.swing.JLabel();
         summaryDirectionLabel2 = new javax.swing.JLabel();
         summaryPatternLabel1 = new javax.swing.JLabel();
         summaryPatternLabel2 = new javax.swing.JLabel();
-        summaryEnabledCheckbox = new javax.swing.JCheckBox();
+        summaryEnabledCheckbox = new com.webreach.mirth.client.ui.MirthCheckBox();
         source = new javax.swing.JPanel();
         sourceSourceDropdown = new javax.swing.JComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
@@ -532,8 +532,8 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryPatternLabel2.setText("Application Integration");
 
         summaryEnabledCheckbox.setBackground(new java.awt.Color(255, 255, 255));
-        summaryEnabledCheckbox.setText("Enabled");
         summaryEnabledCheckbox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        summaryEnabledCheckbox.setText("Enabled");
         summaryEnabledCheckbox.setFocusable(false);
         summaryEnabledCheckbox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
@@ -555,7 +555,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     .add(summaryLayout.createSequentialGroup()
                         .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(45, 45, 45)
-                        .add(summaryEnabledCheckbox))
+                        .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 287, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
@@ -565,7 +565,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 .addContainerGap()
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(summaryEnabledCheckbox)
+                    .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(summaryNameLabel))
                 .add(18, 18, 18)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -1083,11 +1083,11 @@ public class ChannelSetup extends javax.swing.JPanel
     private javax.swing.JLabel sourceSourceLabel;
     private javax.swing.JPanel summary;
     private javax.swing.JLabel summaryDescriptionLabel;
-    private javax.swing.JTextArea summaryDescriptionText;
+    private com.webreach.mirth.client.ui.MirthTextArea summaryDescriptionText;
     private javax.swing.JLabel summaryDirectionLabel1;
     private javax.swing.JLabel summaryDirectionLabel2;
-    private javax.swing.JCheckBox summaryEnabledCheckbox;
-    private javax.swing.JTextField summaryNameField;
+    private com.webreach.mirth.client.ui.MirthCheckBox summaryEnabledCheckbox;
+    private com.webreach.mirth.client.ui.MirthTextField summaryNameField;
     private javax.swing.JLabel summaryNameLabel;
     private javax.swing.JLabel summaryPatternLabel1;
     private javax.swing.JLabel summaryPatternLabel2;

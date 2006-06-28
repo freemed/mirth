@@ -128,23 +128,23 @@ public class LLPListener extends ConnectorClass
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        sendACKCombobox = new javax.swing.JComboBox();
-        bufferSizeField = new javax.swing.JTextField();
-        receiveTimeoutField = new javax.swing.JTextField();
-        listenerPortField = new javax.swing.JTextField();
-        recordSeparatorField = new javax.swing.JTextField();
-        startOfMessageCharacterField = new javax.swing.JTextField();
-        endOfMessageCharacterField = new javax.swing.JTextField();
-        fieldSeparatorField = new javax.swing.JTextField();
-        keepConnectionOpenYesRadio = new javax.swing.JRadioButton();
-        keepConnectionOpenNoRadio = new javax.swing.JRadioButton();
-        listenerIPAddressField3 = new javax.swing.JTextField();
+        sendACKCombobox = new com.webreach.mirth.client.ui.MirthComboBox();
+        bufferSizeField = new com.webreach.mirth.client.ui.MirthTextField();
+        receiveTimeoutField = new com.webreach.mirth.client.ui.MirthTextField();
+        listenerPortField = new com.webreach.mirth.client.ui.MirthTextField();
+        recordSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
+        startOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
+        endOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
+        fieldSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
+        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        listenerIPAddressField3 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel25 = new javax.swing.JLabel();
-        listenerIPAddressField2 = new javax.swing.JTextField();
+        listenerIPAddressField2 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel26 = new javax.swing.JLabel();
-        listenerIPAddressField1 = new javax.swing.JTextField();
+        listenerIPAddressField1 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel9 = new javax.swing.JLabel();
-        listenerIPAddressField = new javax.swing.JTextField();
+        listenerIPAddressField = new com.webreach.mirth.client.ui.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LLP Listener", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -171,15 +171,15 @@ public class LLPListener extends ConnectorClass
         sendACKCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Auto", "Yes", "No" }));
 
         keepConnectionOpenYesRadio.setBackground(new java.awt.Color(255, 255, 255));
+        keepConnectionOpenYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenGroup.add(keepConnectionOpenYesRadio);
         keepConnectionOpenYesRadio.setText("Yes");
-        keepConnectionOpenYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenYesRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         keepConnectionOpenNoRadio.setBackground(new java.awt.Color(255, 255, 255));
+        keepConnectionOpenNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenGroup.add(keepConnectionOpenNoRadio);
         keepConnectionOpenNoRadio.setText("No");
-        keepConnectionOpenNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenNoRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -211,9 +211,9 @@ public class LLPListener extends ConnectorClass
                 .add(15, 15, 15)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(keepConnectionOpenYesRadio)
+                        .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(keepConnectionOpenNoRadio))
+                        .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, receiveTimeoutField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, listenerPortField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, sendACKCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -268,8 +268,8 @@ public class LLPListener extends ConnectorClass
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(keepConnectionOpenYesRadio)
-                    .add(keepConnectionOpenNoRadio))
+                    .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(startOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -296,9 +296,9 @@ public class LLPListener extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bufferSizeField;
-    private javax.swing.JTextField endOfMessageCharacterField;
-    private javax.swing.JTextField fieldSeparatorField;
+    private com.webreach.mirth.client.ui.MirthTextField bufferSizeField;
+    private com.webreach.mirth.client.ui.MirthTextField endOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.MirthTextField fieldSeparatorField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel25;
@@ -313,17 +313,17 @@ public class LLPListener extends ConnectorClass
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.ButtonGroup keepConnectionOpenGroup;
-    private javax.swing.JRadioButton keepConnectionOpenNoRadio;
-    private javax.swing.JRadioButton keepConnectionOpenYesRadio;
-    private javax.swing.JTextField listenerIPAddressField;
-    private javax.swing.JTextField listenerIPAddressField1;
-    private javax.swing.JTextField listenerIPAddressField2;
-    private javax.swing.JTextField listenerIPAddressField3;
-    private javax.swing.JTextField listenerPortField;
-    private javax.swing.JTextField receiveTimeoutField;
-    private javax.swing.JTextField recordSeparatorField;
-    private javax.swing.JComboBox sendACKCombobox;
-    private javax.swing.JTextField startOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenNoRadio;
+    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenYesRadio;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField1;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField2;
+    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField3;
+    private com.webreach.mirth.client.ui.MirthTextField listenerPortField;
+    private com.webreach.mirth.client.ui.MirthTextField receiveTimeoutField;
+    private com.webreach.mirth.client.ui.MirthTextField recordSeparatorField;
+    private com.webreach.mirth.client.ui.MirthComboBox sendACKCombobox;
+    private com.webreach.mirth.client.ui.MirthTextField startOfMessageCharacterField;
     // End of variables declaration//GEN-END:variables
 
 }

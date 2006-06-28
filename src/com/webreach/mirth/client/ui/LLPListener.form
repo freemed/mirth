@@ -196,7 +196,7 @@
         <Property name="text" type="java.lang.String" value="Send ACK:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="sendACKCombobox">
+    <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="sendACKCombobox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -207,59 +207,59 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="bufferSizeField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="bufferSizeField">
     </Component>
-    <Component class="javax.swing.JTextField" name="receiveTimeoutField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="receiveTimeoutField">
     </Component>
-    <Component class="javax.swing.JTextField" name="listenerPortField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerPortField">
     </Component>
-    <Component class="javax.swing.JTextField" name="recordSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="recordSeparatorField">
     </Component>
-    <Component class="javax.swing.JTextField" name="startOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="startOfMessageCharacterField">
     </Component>
-    <Component class="javax.swing.JTextField" name="endOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="endOfMessageCharacterField">
     </Component>
-    <Component class="javax.swing.JTextField" name="fieldSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fieldSeparatorField">
     </Component>
-    <Component class="javax.swing.JRadioButton" name="keepConnectionOpenYesRadio">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenYesRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
         </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="keepConnectionOpenGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Yes"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="keepConnectionOpenNoRadio">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenNoRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
         </Property>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="keepConnectionOpenGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="No"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="listenerIPAddressField3">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField3">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel25">
       <Properties>
@@ -269,7 +269,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="listenerIPAddressField2">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField2">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel26">
       <Properties>
@@ -279,7 +279,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="listenerIPAddressField1">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField1">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -289,7 +289,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="listenerIPAddressField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField">
     </Component>
   </SubComponents>
 </Form>

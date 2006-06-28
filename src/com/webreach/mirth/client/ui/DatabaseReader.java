@@ -73,12 +73,12 @@ public class DatabaseReader extends ConnectorClass
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        databaseDriverCombobox = new javax.swing.JComboBox();
-        databaseURLField = new javax.swing.JTextField();
-        databaseUsernameField = new javax.swing.JTextField();
-        databasePasswordField = new javax.swing.JPasswordField();
+        databaseDriverCombobox = new com.webreach.mirth.client.ui.MirthComboBox();
+        databaseURLField = new com.webreach.mirth.client.ui.MirthTextField();
+        databaseUsernameField = new com.webreach.mirth.client.ui.MirthTextField();
+        databasePasswordField = new com.webreach.mirth.client.ui.MirthPasswordField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        databaseSQLTextPane = new javax.swing.JTextPane();
+        databaseSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Database Reader", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -114,8 +114,8 @@ public class DatabaseReader extends ConnectorClass
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(databaseDriverCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, databaseURLField)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, databaseUsernameField)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, databaseURLField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, databaseUsernameField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, databasePasswordField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 247, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -152,11 +152,11 @@ public class DatabaseReader extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox databaseDriverCombobox;
-    private javax.swing.JPasswordField databasePasswordField;
-    private javax.swing.JTextPane databaseSQLTextPane;
-    private javax.swing.JTextField databaseURLField;
-    private javax.swing.JTextField databaseUsernameField;
+    private com.webreach.mirth.client.ui.MirthComboBox databaseDriverCombobox;
+    private com.webreach.mirth.client.ui.MirthPasswordField databasePasswordField;
+    private com.webreach.mirth.client.ui.MirthTextPane databaseSQLTextPane;
+    private com.webreach.mirth.client.ui.MirthTextField databaseURLField;
+    private com.webreach.mirth.client.ui.MirthTextField databaseUsernameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

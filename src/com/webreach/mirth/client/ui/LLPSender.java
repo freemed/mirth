@@ -126,23 +126,23 @@ public class LLPSender extends ConnectorClass
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        hostPortField = new javax.swing.JTextField();
-        serverTimeoutField = new javax.swing.JTextField();
-        bufferSizeField = new javax.swing.JTextField();
-        maximumRetryCountField = new javax.swing.JTextField();
-        startOfMessageCharacterField = new javax.swing.JTextField();
-        endOfMessageCharacterField = new javax.swing.JTextField();
-        recordSeparatorField = new javax.swing.JTextField();
-        fieldSeparatorField = new javax.swing.JTextField();
-        keepConnectionOpenYesRadio = new javax.swing.JRadioButton();
-        keepConnectionOpenNoRadio = new javax.swing.JRadioButton();
-        hostIPAddressField3 = new javax.swing.JTextField();
-        hostIPAddressField2 = new javax.swing.JTextField();
+        hostPortField = new com.webreach.mirth.client.ui.MirthTextField();
+        serverTimeoutField = new com.webreach.mirth.client.ui.MirthTextField();
+        bufferSizeField = new com.webreach.mirth.client.ui.MirthTextField();
+        maximumRetryCountField = new com.webreach.mirth.client.ui.MirthTextField();
+        startOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
+        endOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
+        recordSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
+        fieldSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
+        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
+        hostIPAddressField3 = new com.webreach.mirth.client.ui.MirthTextField();
+        hostIPAddressField2 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        hostIPAddressField1 = new javax.swing.JTextField();
+        hostIPAddressField1 = new com.webreach.mirth.client.ui.MirthTextField();
         jLabel9 = new javax.swing.JLabel();
-        hostIPAddressField = new javax.swing.JTextField();
+        hostIPAddressField = new com.webreach.mirth.client.ui.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LLP Sender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -167,15 +167,15 @@ public class LLPSender extends ConnectorClass
         jLabel21.setText("Field Separator:");
 
         keepConnectionOpenYesRadio.setBackground(new java.awt.Color(255, 255, 255));
+        keepConnectionOpenYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenGroup.add(keepConnectionOpenYesRadio);
         keepConnectionOpenYesRadio.setText("Yes");
-        keepConnectionOpenYesRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenYesRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         keepConnectionOpenNoRadio.setBackground(new java.awt.Color(255, 255, 255));
+        keepConnectionOpenNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenGroup.add(keepConnectionOpenNoRadio);
         keepConnectionOpenNoRadio.setText("No");
-        keepConnectionOpenNoRadio.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keepConnectionOpenNoRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11));
@@ -211,9 +211,9 @@ public class LLPSender extends ConnectorClass
                         .add(serverTimeoutField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(bufferSizeField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(keepConnectionOpenYesRadio)
+                        .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(keepConnectionOpenNoRadio))
+                        .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, maximumRetryCountField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, startOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, endOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -264,8 +264,8 @@ public class LLPSender extends ConnectorClass
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel13)
-                    .add(keepConnectionOpenYesRadio)
-                    .add(keepConnectionOpenNoRadio))
+                    .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
@@ -292,14 +292,14 @@ public class LLPSender extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bufferSizeField;
-    private javax.swing.JTextField endOfMessageCharacterField;
-    private javax.swing.JTextField fieldSeparatorField;
-    private javax.swing.JTextField hostIPAddressField;
-    private javax.swing.JTextField hostIPAddressField1;
-    private javax.swing.JTextField hostIPAddressField2;
-    private javax.swing.JTextField hostIPAddressField3;
-    private javax.swing.JTextField hostPortField;
+    private com.webreach.mirth.client.ui.MirthTextField bufferSizeField;
+    private com.webreach.mirth.client.ui.MirthTextField endOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.MirthTextField fieldSeparatorField;
+    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField;
+    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField1;
+    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField2;
+    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField3;
+    private com.webreach.mirth.client.ui.MirthTextField hostPortField;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -314,12 +314,12 @@ public class LLPSender extends ConnectorClass
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.ButtonGroup keepConnectionOpenGroup;
-    private javax.swing.JRadioButton keepConnectionOpenNoRadio;
-    private javax.swing.JRadioButton keepConnectionOpenYesRadio;
-    private javax.swing.JTextField maximumRetryCountField;
-    private javax.swing.JTextField recordSeparatorField;
-    private javax.swing.JTextField serverTimeoutField;
-    private javax.swing.JTextField startOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenNoRadio;
+    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenYesRadio;
+    private com.webreach.mirth.client.ui.MirthTextField maximumRetryCountField;
+    private com.webreach.mirth.client.ui.MirthTextField recordSeparatorField;
+    private com.webreach.mirth.client.ui.MirthTextField serverTimeoutField;
+    private com.webreach.mirth.client.ui.MirthTextField startOfMessageCharacterField;
     // End of variables declaration//GEN-END:variables
 
 }

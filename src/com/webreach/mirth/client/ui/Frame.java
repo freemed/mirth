@@ -79,8 +79,6 @@ public class Frame extends JXFrame
         this.mirthClient = mirthClient;
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        statusUpdater = new Thread(new StatusUpdater());
-        statusUpdater.start();
         
         try
         {
@@ -132,6 +130,9 @@ public class Frame extends JXFrame
         {
             exception.printStackTrace();
         }
+        
+        statusUpdater = new Thread(new StatusUpdater());
+        statusUpdater.start();
     }
 
     private void jbInit() throws Exception

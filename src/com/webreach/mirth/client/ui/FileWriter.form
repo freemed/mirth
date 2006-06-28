@@ -79,9 +79,9 @@
         <Property name="text" type="java.lang.String" value="Contents:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="directoryField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="directoryField">
     </Component>
-    <Component class="javax.swing.JTextField" name="fileNameField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fileNameField">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -90,7 +90,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="fileContentsTextArea">
+        <Component class="com.webreach.mirth.client.ui.MirthTextArea" name="fileContentsTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>

@@ -58,10 +58,10 @@ public class FileWriter extends ConnectorClass
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        directoryField = new javax.swing.JTextField();
-        fileNameField = new javax.swing.JTextField();
+        directoryField = new com.webreach.mirth.client.ui.MirthTextField();
+        fileNameField = new com.webreach.mirth.client.ui.MirthTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        fileContentsTextArea = new javax.swing.JTextArea();
+        fileContentsTextArea = new com.webreach.mirth.client.ui.MirthTextArea();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Writer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -113,9 +113,9 @@ public class FileWriter extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField directoryField;
-    private javax.swing.JTextArea fileContentsTextArea;
-    private javax.swing.JTextField fileNameField;
+    private com.webreach.mirth.client.ui.MirthTextField directoryField;
+    private com.webreach.mirth.client.ui.MirthTextArea fileContentsTextArea;
+    private com.webreach.mirth.client.ui.MirthTextField fileNameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
