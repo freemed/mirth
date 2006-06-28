@@ -237,6 +237,7 @@ class MirthLoginService extends LoginService
                 //if(c.login(username,new String(pass)))
                 if(c.login(user,pw))
                 {
+                    UIConstants.USER_NAME = user;
                     UIConstants.SERVER_NAME = mirthServer;
                     return true;
                 }

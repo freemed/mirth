@@ -51,7 +51,7 @@ public class Frame extends JXFrame
     protected ActionManager manager = ActionManager.getInstance();
     protected JPanel contentPane;
     protected BorderLayout borderLayout1 = new BorderLayout();
-    protected JLabel statusBar = new JLabel();
+    protected StatusBar statusBar;
     protected JSplitPane jSplitPane1 = new JSplitPane();
     protected JScrollPane jScrollPane1 = new JScrollPane();
     protected JScrollPane jScrollPane2 = new JScrollPane();
@@ -141,8 +141,7 @@ public class Frame extends JXFrame
         contentPane.setBorder(null);
         setSize(new Dimension(800, 450));
         setTitle("Mirth Client Prototype");
-        statusBar.setText(UIConstants.SERVER_NAME);
-        statusBar.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/server.png")));
+        statusBar = new StatusBar();
         jSplitPane1.setDividerSize(3);
         contentPane.add(statusBar, BorderLayout.SOUTH);
         contentPane.add(jSplitPane1, java.awt.BorderLayout.CENTER);

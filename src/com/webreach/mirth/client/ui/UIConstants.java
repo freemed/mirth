@@ -26,5 +26,6 @@ public class UIConstants
         
     public static ImageIcon BACKGROUND_IMAGE;
     public static String SERVER_NAME;
+    public static String USER_NAME;
 	
 }
