@@ -20,15 +20,7 @@ public class StatusUpdater implements Runnable
                 Thread.sleep(refreshRate);
                 if(parent.jScrollPane2.getViewport().getComponent(0) == parent.statusListPage)
                 {
-                    try
-                    {
-                        parent.status = parent.mirthClient.getChannelStatusList();
-                        parent.statusListPage.makeStatusTable();
-                    }
-                    catch (ClientException ex)
-                    {
-                        ex.printStackTrace();
-                    }
+                    parent.doRefresh();
                 }
             }
         }

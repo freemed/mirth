@@ -81,7 +81,7 @@ public class Mirth
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
                 
                 panel.setBannerText("");
-                Constants.BACKGROUND_IMAGE = new ImageIcon(panel.getUI().getBanner());
+                UIConstants.BACKGROUND_IMAGE = new ImageIcon(panel.getUI().getBanner());
                 
                 panel.setBannerText("Login :: Mirth");
                 panel.setOpaque(true);
@@ -228,15 +228,16 @@ class MirthLoginService extends LoginService
             //String password =  String.valueOf(frm.getPanel().getPassword());  
             String user = "admin";
             String pw = "abc12345";
-            String svr = "http://127.0.0.1:8080";
-            String mirthServer = ((javax.swing.JTextField)p.getComponent(1)).getText();
+            String mirthServer = "http://127.0.0.1:8080";
+            //String mirthServer = ((javax.swing.JTextField)p.getComponent(1)).getText();
             //c = new Client(mirthServer);
-            c = new Client(svr);
+            c = new Client(mirthServer);
             try
             {
                 //if(c.login(username,new String(pass)))
                 if(c.login(user,pw))
                 {
+                    UIConstants.SERVER_NAME = mirthServer;
                     return true;
                 }
             }

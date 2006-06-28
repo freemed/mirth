@@ -141,7 +141,8 @@ public class Frame extends JXFrame
         contentPane.setBorder(null);
         setSize(new Dimension(800, 450));
         setTitle("Mirth Client Prototype");
-        statusBar.setText(" ");
+        statusBar.setText(UIConstants.SERVER_NAME);
+        statusBar.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/server.png")));
         jSplitPane1.setDividerSize(3);
         contentPane.add(statusBar, BorderLayout.SOUTH);
         contentPane.add(jSplitPane1, java.awt.BorderLayout.CENTER);
@@ -182,7 +183,7 @@ public class Frame extends JXFrame
     public void setupChannel(Channel channel)
     {
         setCurrentContentPage(channelEditPage);
-        setBold(viewPane,Constants.ERROR_CONSTANT);
+        setBold(viewPane,UIConstants.ERROR_CONSTANT);
         setFocus(channelEditTasks);
         setVisibleTasks(channelEditTasks, 0, -1, false);
         channelEditPage.addChannel(channel);
@@ -218,9 +219,9 @@ public class Frame extends JXFrame
         viewPane = new JXTaskPane();
         viewPane.setTitle("Mirth Views");
         viewPane.setFocusable(false);
-        viewPane.add(initActionCallback("doShowStatusPanel", "Click here to view the status panel.  This panel contains information about your currently deployed channels.", ActionFactory.createBoundAction("showStatusPanel","Status Panel","S"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/status.png"))));
-        viewPane.add(initActionCallback("doShowChannel", "Click here to view your current channels. It also gives you various operations to perform on your channels.", ActionFactory.createBoundAction("showChannelPannel","Channels","C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/channel.png"))));
-        viewPane.add(initActionCallback("doShowAdminPage", "Click here to view the administration page.  Here you will find user and system settings.", ActionFactory.createBoundAction("adminPage","Administration","A"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/admin.png"))));
+        viewPane.add(initActionCallback("doShowStatusPanel", "Contains information about your currently deployed channels.", ActionFactory.createBoundAction("showStatusPanel","Status","S"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/status.png"))));
+        viewPane.add(initActionCallback("doShowChannel", "Contains various operations to perform on your channels.", ActionFactory.createBoundAction("showChannelPannel","Channels","C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/channel.png"))));
+        viewPane.add(initActionCallback("doShowAdminPage", "Contains user and system settings.", ActionFactory.createBoundAction("adminPage","Administration","A"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/admin.png"))));
         setNonFocusable(viewPane);
         taskPaneContainer.add(viewPane);
 
@@ -228,7 +229,7 @@ public class Frame extends JXFrame
         settingsTasks = new JXTaskPane();
         settingsTasks.setTitle("Settings Tasks");
         settingsTasks.setFocusable(false);
-        settingsTasks.add(initActionCallback("doSaveSettings", "Click here to save your settings.", ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
+        settingsTasks.add(initActionCallback("doSaveSettings", "Save settings.", ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
         setNonFocusable(settingsTasks);
         taskPaneContainer.add(settingsTasks);
 
@@ -236,16 +237,17 @@ public class Frame extends JXFrame
         channelTasks = new JXTaskPane();
         channelTasks.setTitle("Channel Tasks");
         channelTasks.setFocusable(false);
-        channelTasks.add(initActionCallback("doRefreshChannels", "Click here to refresh the list of channels.", ActionFactory.createBoundAction("doRefreshChannels","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
-        channelTasks.add(initActionCallback("doDeployAll", "Click here to deploy all currently enabled channels.", ActionFactory.createBoundAction("doDeployAll","Deploy All", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/deployall.png"))));
-        channelTasks.add(initActionCallback("doNewChannel", "Click here to create a new channel.", ActionFactory.createBoundAction("doNewChannel","New Channel", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
-        channelTasks.add(initActionCallback("doImport", "Click here to import a channel from an XML file.", ActionFactory.createBoundAction("doImport","Import", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/import.png"))));
-        channelTasks.add(initActionCallback("doExport", "Click here to export the currently selected channel to an XML file.", ActionFactory.createBoundAction("doExport","Export", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/export.png"))));
-        channelTasks.add(initActionCallback("doEditChannel", "Click here to edit the currently selected channel.", ActionFactory.createBoundAction("doEditChannel","Edit Channel", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
-        channelTasks.add(initActionCallback("doDeleteChannel", "Click here to delete the currently selected channel.", ActionFactory.createBoundAction("doDeleteChannel","Delete Channel","D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
-        channelTasks.add(initActionCallback("doEnable", "Click here to enable the currently selected channel.", ActionFactory.createBoundAction("doEnable","Enable", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
-        channelTasks.add(initActionCallback("doDisable", "Click here to disable the currently selected channel.", ActionFactory.createBoundAction("doDisable","Disable", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
+        channelTasks.add(initActionCallback("doRefreshChannels", "Refresh the list of channels.", ActionFactory.createBoundAction("doRefreshChannels","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        channelTasks.add(initActionCallback("doDeployAll", "Deploy all currently enabled channels.", ActionFactory.createBoundAction("doDeployAll","Deploy All", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/deployall.png"))));
+        channelTasks.add(initActionCallback("doNewChannel", "Create a new channel.", ActionFactory.createBoundAction("doNewChannel","New Channel", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
+        channelTasks.add(initActionCallback("doImport", "Import a channel from an XML file.", ActionFactory.createBoundAction("doImport","Import Channel", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/import.png"))));
+        channelTasks.add(initActionCallback("doExport", "Export the currently selected channel to an XML file.", ActionFactory.createBoundAction("doExport","Export Channel", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/export.png"))));
+        channelTasks.add(initActionCallback("doEditChannel", "Edit the currently selected channel.", ActionFactory.createBoundAction("doEditChannel","Edit Channel", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        channelTasks.add(initActionCallback("doDeleteChannel", "Delete the currently selected channel.", ActionFactory.createBoundAction("doDeleteChannel","Delete Channel","D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
+        channelTasks.add(initActionCallback("doEnable", "Enable the currently selected channel.", ActionFactory.createBoundAction("doEnable","Enable Channel", "B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
+        channelTasks.add(initActionCallback("doDisable", "Disable the currently selected channel.", ActionFactory.createBoundAction("doDisable","Disable Channel", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         setNonFocusable(channelTasks);
+        setVisibleTasks(channelTasks, 1, 1, false);
         setVisibleTasks(channelTasks, 4, -1, false);
         taskPaneContainer.add(channelTasks);
 
@@ -253,11 +255,11 @@ public class Frame extends JXFrame
         channelEditTasks = new JXTaskPane();
         channelEditTasks.setTitle("Channel Tasks");
         channelEditTasks.setFocusable(false);
-        channelEditTasks.add(initActionCallback("doSaveChanges", "Click here to save all changes that you made to this channel.", ActionFactory.createBoundAction("doSaveChanges","Save Changes", "H"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
-        channelEditTasks.add(initActionCallback("doNewDestination", "Click here to create a new destination.", ActionFactory.createBoundAction("doNewDestination","New Destination", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
-        channelEditTasks.add(initActionCallback("doDeleteDestination", "Click here to delete the currently selected destination.", ActionFactory.createBoundAction("doDeleteDestination","Delete Destination", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
-        channelEditTasks.add(initActionCallback("doEditTransformer", "Click here to edit the transformer for the currently selected destination.", ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
-        channelEditTasks.add(initActionCallback("doEditFilter", "Click here to edit the filter for the currently selected destination.", ActionFactory.createBoundAction("doEditFilter","Edit Filter", "F"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        channelEditTasks.add(initActionCallback("doSaveChanges", "Save all changes made to this channel.", ActionFactory.createBoundAction("doSaveChanges","Save Changes", "H"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
+        channelEditTasks.add(initActionCallback("doNewDestination", "Create a new destination.", ActionFactory.createBoundAction("doNewDestination","New Destination", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
+        channelEditTasks.add(initActionCallback("doDeleteDestination", "Delete the currently selected destination.", ActionFactory.createBoundAction("doDeleteDestination","Delete Destination", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
+        channelEditTasks.add(initActionCallback("doEditTransformer", "Edit the transformer for the currently selected destination.", ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        channelEditTasks.add(initActionCallback("doEditFilter", "Edit the filter for the currently selected destination.", ActionFactory.createBoundAction("doEditFilter","Edit Filter", "F"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         setNonFocusable(channelEditTasks);
         setVisibleTasks(channelEditTasks, 0, -1, false);
         taskPaneContainer.add(channelEditTasks);
@@ -266,14 +268,15 @@ public class Frame extends JXFrame
         statusTasks = new JXTaskPane();
         statusTasks.setTitle("Status Tasks");
         statusTasks.setFocusable(false);
-        statusTasks.add(initActionCallback("doRefresh", "Click here to refresh the list of statuses.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
-        statusTasks.add(initActionCallback("doStartAll", "Click here to start all channels that are currently deployed.", ActionFactory.createBoundAction("doStartAll","Start All Channels", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start1.png"))));
-        statusTasks.add(initActionCallback("doShowEvents", "Click here to show the event logs for the system.", ActionFactory.createBoundAction("doShowEvents","Events", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
-        statusTasks.add(initActionCallback("doShowMessages", "Click here to show the messages for the currently selected channel.", ActionFactory.createBoundAction("doShowMessages","Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
-        statusTasks.add(initActionCallback("doStart", "Click here to start the currently selected channel.", ActionFactory.createBoundAction("doStart","Start Channel", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
-        statusTasks.add(initActionCallback("doPause", "Click here to pause the currently selected channel.", ActionFactory.createBoundAction("doPause","Pause Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/pause.png"))));
-        statusTasks.add(initActionCallback("doStop", "Click here to stop the currently selected channel.", ActionFactory.createBoundAction("doStop","Stop Channel", "O"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
+        statusTasks.add(initActionCallback("doRefresh", "Refresh the list of statuses.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        statusTasks.add(initActionCallback("doStartAll", "Start all channels that are currently deployed.", ActionFactory.createBoundAction("doStartAll","Start All Channels", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start1.png"))));
+        statusTasks.add(initActionCallback("doShowEvents", "Show the event logs for the system.", ActionFactory.createBoundAction("doShowEvents","Events", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
+        statusTasks.add(initActionCallback("doShowMessages", "Show the messages for the currently selected channel.", ActionFactory.createBoundAction("doShowMessages","Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
+        statusTasks.add(initActionCallback("doStart", "Start the currently selected channel.", ActionFactory.createBoundAction("doStart","Start Channel", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
+        statusTasks.add(initActionCallback("doPause", "Pause the currently selected channel.", ActionFactory.createBoundAction("doPause","Pause Channel", "P"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/pause.png"))));
+        statusTasks.add(initActionCallback("doStop", "Stop the currently selected channel.", ActionFactory.createBoundAction("doStop","Stop Channel", "O"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/stop.png"))));
         setNonFocusable(statusTasks);
+        setVisibleTasks(statusTasks, 1, 1, false);
         setVisibleTasks(statusTasks, 3, -1, false);
         taskPaneContainer.add(statusTasks);
         
@@ -281,7 +284,7 @@ public class Frame extends JXFrame
         eventTasks = new JXTaskPane();
         eventTasks.setTitle("Event Tasks");
         eventTasks.setFocusable(false);
-        eventTasks.add(initActionCallback("doRefresh", "Click here to refresh the list of events with the given filter.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        eventTasks.add(initActionCallback("doRefresh", "Refresh the list of events with the given filter.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         setNonFocusable(eventTasks);
         setVisibleTasks(eventTasks, 1, -1, false);
         taskPaneContainer.add(eventTasks);
@@ -290,7 +293,7 @@ public class Frame extends JXFrame
         messageTasks = new JXTaskPane();
         messageTasks.setTitle("Message Tasks");
         messageTasks.setFocusable(false);
-        messageTasks.add(initActionCallback("doRefresh", "Click here to refresh the list of messages with the given filter.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        messageTasks.add(initActionCallback("doRefresh", "Refresh the list of messages with the given filter.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         setNonFocusable(messageTasks);
         setVisibleTasks(messageTasks, 1, -1, false);
         taskPaneContainer.add(messageTasks);
@@ -299,10 +302,10 @@ public class Frame extends JXFrame
         userTasks = new JXTaskPane();
         userTasks.setTitle("User Tasks");
         userTasks.setFocusable(false);
-        userTasks.add(initActionCallback("doRefreshUser", "Click here to refresh the list of users.", ActionFactory.createBoundAction("doRefreshUser","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
-        userTasks.add(initActionCallback("doNewUser", "Click here to create a new user.", ActionFactory.createBoundAction("doNewChannel","New User", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
-        userTasks.add(initActionCallback("doEditUser", "Click here to edit the currently selected user.", ActionFactory.createBoundAction("doEditChannel","Edit User", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
-        userTasks.add(initActionCallback("doDeleteUser", "Click here to delete the currently selected user.", ActionFactory.createBoundAction("doDeleteChannel","Delete User","D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
+        userTasks.add(initActionCallback("doRefreshUser", "Refresh the list of users.", ActionFactory.createBoundAction("doRefreshUser","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        userTasks.add(initActionCallback("doNewUser", "Create a new user.", ActionFactory.createBoundAction("doNewChannel","New User", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/add.png"))));
+        userTasks.add(initActionCallback("doEditUser", "Edit the currently selected user.", ActionFactory.createBoundAction("doEditChannel","Edit User", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        userTasks.add(initActionCallback("doDeleteUser", "Delete the currently selected user.", ActionFactory.createBoundAction("doDeleteChannel","Delete User","D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         setNonFocusable(userTasks);
         setVisibleTasks(userTasks, 2, -1, false);
         taskPaneContainer.add(userTasks);
@@ -311,9 +314,9 @@ public class Frame extends JXFrame
         otherPane = new JXTaskPane();
         otherPane.setTitle("Other");
         otherPane.setFocusable(false);
-        otherPane.add(initActionCallback("doDisconnect", "Click here to disconnect back to the login screen.", ActionFactory.createBoundAction("doDisconnect","Disconnect","I"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
-        otherPane.add(initActionCallback("goToAbout", "Click here to view the about page for Mirth.", ActionFactory.createBoundAction("goToAbout","About Mirth","B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
-        otherPane.add(initActionCallback("goToMirth", "Click here to view Mirth's homepage.", ActionFactory.createBoundAction("goToMirth","Visit MirthProject.org","V"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/home.png"))));
+        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","I"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
+        otherPane.add(initActionCallback("goToAbout", "View the about page for Mirth.", ActionFactory.createBoundAction("goToAbout","About Mirth","B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
+        otherPane.add(initActionCallback("goToMirth", "View Mirth's homepage.", ActionFactory.createBoundAction("goToMirth","Visit MirthProject.org","V"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/home.png"))));
         setNonFocusable(otherPane);
         taskPaneContainer.add(otherPane);
 
@@ -387,7 +390,7 @@ public class Frame extends JXFrame
         adminPanel.showTasks();
     }
 
-    public void doDisconnect()
+    public void doLogout()
     {
         try
         {
@@ -417,7 +420,7 @@ public class Frame extends JXFrame
     {
         doRefreshChannels();
 
-        if (channelListPage.getSelectedChannel() == Constants.ERROR_CONSTANT)
+        if (channelListPage.getSelectedChannel() == UIConstants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
@@ -427,7 +430,7 @@ public class Frame extends JXFrame
     
     public void editChannel(int index)
     {
-        setBold(viewPane, Constants.ERROR_CONSTANT);
+        setBold(viewPane, UIConstants.ERROR_CONSTANT);
         setCurrentContentPage(channelEditPage);
         setFocus(channelEditTasks);
         setVisibleTasks(channelEditTasks, 0, -1, false);
@@ -455,10 +458,10 @@ public class Frame extends JXFrame
 
     public void doRefreshChannels()
     {
-        int channelId = Constants.ERROR_CONSTANT;
+        int channelId = UIConstants.ERROR_CONSTANT;
         String channelName = null;
 
-        if(channelListPage.getSelectedChannel() != Constants.ERROR_CONSTANT)
+        if(channelListPage.getSelectedChannel() != UIConstants.ERROR_CONSTANT)
             channelId = channels.get(channelListPage.getSelectedChannel()).getId();
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -467,6 +470,11 @@ public class Frame extends JXFrame
             channels = mirthClient.getChannels();
             channelListPage.makeChannelTable();
 
+            if(channels.size() > 0)
+                setVisibleTasks(channelTasks, 1, 1, true);
+            else
+                setVisibleTasks(channelTasks, 1, 1, false);
+            
             for(int i = 0; i<channels.size(); i++)
             {
                 if(channelId == channels.get(i).getId())
@@ -491,6 +499,10 @@ public class Frame extends JXFrame
         {
             status = mirthClient.getChannelStatusList();
             statusListPage.makeStatusTable();
+            if(status.size() > 0)
+                setVisibleTasks(statusTasks, 1, 1, true);
+            else
+                setVisibleTasks(statusTasks, 1, 1, false);
         }
         catch (ClientException ex)
         {
@@ -589,7 +601,7 @@ public class Frame extends JXFrame
     {
        doRefreshChannels();
        
-        if (channelListPage.getSelectedChannel() == Constants.ERROR_CONSTANT)
+        if (channelListPage.getSelectedChannel() == UIConstants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
@@ -605,7 +617,7 @@ public class Frame extends JXFrame
     {
         doRefreshChannels();
 
-        if (channelListPage.getSelectedChannel() == Constants.ERROR_CONSTANT)
+        if (channelListPage.getSelectedChannel() == UIConstants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Channel no longer exists.");
         else
         {
@@ -619,7 +631,7 @@ public class Frame extends JXFrame
 
     public void doNewUser()
     {
-        UserWizard userWizard = new UserWizard(this, Constants.ERROR_CONSTANT);
+        UserWizard userWizard = new UserWizard(this, UIConstants.ERROR_CONSTANT);
         Dimension userWizardSize = userWizard.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();
@@ -633,7 +645,7 @@ public class Frame extends JXFrame
     {
         doRefreshUser();
 
-        if (adminPanel.u.getUserIndex() == Constants.ERROR_CONSTANT)
+        if (adminPanel.u.getUserIndex() == UIConstants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "Users no longer exists.");
         else
         {
@@ -664,7 +676,7 @@ public class Frame extends JXFrame
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
-           if(userToDelete != Constants.ERROR_CONSTANT) 
+           if(userToDelete != UIConstants.ERROR_CONSTANT) 
            {
                 mirthClient.removeUser(users.get(userToDelete).getId());
                 users = mirthClient.getUsers();
@@ -681,10 +693,10 @@ public class Frame extends JXFrame
 
     public void doRefreshUser()
     {
-        int userId = Constants.ERROR_CONSTANT;
+        int userId = UIConstants.ERROR_CONSTANT;
         String userName = null;
 
-        if(adminPanel.u.getUserIndex() != Constants.ERROR_CONSTANT)
+        if(adminPanel.u.getUserIndex() != UIConstants.ERROR_CONSTANT)
             userId = users.get(adminPanel.u.getUserIndex()).getId();
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -718,6 +730,7 @@ public class Frame extends JXFrame
         try
         {
             mirthClient.deployChannels();
+            statusListPage.deselectRows();
         }
         catch (ClientException ex)
         {
@@ -734,7 +747,7 @@ public class Frame extends JXFrame
 
     public void doShowMessages()
     {
-        setBold(viewPane, Constants.ERROR_CONSTANT);
+        setBold(viewPane, UIConstants.ERROR_CONSTANT);
         messageBrowser.loadNew();
         setCurrentContentPage(messageBrowser);
         setFocus(messageTasks);
@@ -742,7 +755,7 @@ public class Frame extends JXFrame
 
     public void doShowEvents()
     {
-        setBold(viewPane, Constants.ERROR_CONSTANT);
+        setBold(viewPane, UIConstants.ERROR_CONSTANT);
         eventBrowser.loadNew();
         setCurrentContentPage(eventBrowser);
         setFocus(eventTasks);
@@ -753,7 +766,7 @@ public class Frame extends JXFrame
         for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
             pane.getContentPane().getComponent(i).setFont(new Font("Tahoma",Font.PLAIN,11));
         
-        if (index != Constants.ERROR_CONSTANT)
+        if (index != UIConstants.ERROR_CONSTANT)
             pane.getContentPane().getComponent(index).setFont(new Font("Tahoma",Font.BOLD,11));
     }
 
@@ -784,7 +797,7 @@ public class Frame extends JXFrame
         }
         else
         {
-            for (int i=startIndex; (i <= endIndex) || (i < pane.getContentPane().getComponentCount()); i++)
+            for (int i=startIndex; (i <= endIndex) && (i < pane.getContentPane().getComponentCount()); i++)
                 pane.getContentPane().getComponent(i).setVisible(visible);
         }
     }

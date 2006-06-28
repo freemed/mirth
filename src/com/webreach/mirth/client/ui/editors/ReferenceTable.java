@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 import org.jdesktop.swingx.JXTable;
-import com.webreach.mirth.client.ui.Constants;
+import com.webreach.mirth.client.ui.UIConstants;
 
 
 public class ReferenceTable extends JXTable {
@@ -47,7 +47,7 @@ public class ReferenceTable extends JXTable {
         this.setTransferHandler( new TableTransferHandler() );
 		this.setDragEnabled( true );
         this.setFocusable( false );
-        this.setRowHeight( Constants.ROW_HEIGHT );
+        this.setRowHeight( UIConstants.ROW_HEIGHT );
         this.setSelectionMode( 0 );
         
         this.addMouseMotionListener(new MouseMotionAdapter() {

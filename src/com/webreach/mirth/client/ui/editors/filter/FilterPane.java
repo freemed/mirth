@@ -29,7 +29,7 @@ import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
-import com.webreach.mirth.client.ui.Constants;
+import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
 
 
@@ -195,8 +195,8 @@ public class FilterPane extends JPanel {
 		filterTable.getColumnExt( RULE_OP_COL ).setCellEditor( comboBox );
 		
 		filterTable.setSortable( false );
-		filterTable.setRowHeight( Constants.ROW_HEIGHT );
-		filterTable.setColumnMargin( Constants.COL_MARGIN );
+		filterTable.setRowHeight( UIConstants.ROW_HEIGHT );
+		filterTable.setColumnMargin( UIConstants.COL_MARGIN );
 		filterTable.setOpaque( true );
 		filterTable.setRowSelectionAllowed( true );
 		HighlighterPipeline highlighter = new HighlighterPipeline();

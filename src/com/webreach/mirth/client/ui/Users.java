@@ -152,7 +152,7 @@ public class Users extends javax.swing.JScrollPane
                 }
             }
         }
-        return Constants.ERROR_CONSTANT;
+        return UIConstants.ERROR_CONSTANT;
     }
     
     public int getColumnNumber(String name)
@@ -162,6 +162,6 @@ public class Users extends javax.swing.JScrollPane
             if (usersTable.getColumnName(i).equalsIgnoreCase(name))
                 return i;
         }
-        return Constants.ERROR_CONSTANT;
+        return UIConstants.ERROR_CONSTANT;
     }
 }

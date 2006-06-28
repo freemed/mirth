@@ -26,7 +26,7 @@
  */
 package com.webreach.mirth.client.ui.editors;
 
-import com.webreach.mirth.client.ui.Constants;
+import com.webreach.mirth.client.ui.UIConstants;
 
 /**
  * @author chrisl, franciscos
@@ -36,7 +36,7 @@ public class ScriptPanel extends CardPanel {
 	
 	public ScriptPanel() {
 		super();
-		this.setBackground( Constants.BACKGROUND_COLOR );
+		this.setBackground( UIConstants.BACKGROUND_COLOR );
 	}
 				
 }

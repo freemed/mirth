@@ -174,7 +174,7 @@ public class StatusPanel extends javax.swing.JPanel
         }
     }
     
-    private void deselectRows()
+    public void deselectRows()
     {
         statusTable.clearSelection();
         parent.setVisibleTasks(parent.statusTasks, 3, -1, false);
@@ -187,7 +187,7 @@ public class StatusPanel extends javax.swing.JPanel
             if(((String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber("Name"))).equalsIgnoreCase(parent.status.get(i).getName()))
                 return i;
         }
-        return Constants.ERROR_CONSTANT;
+        return UIConstants.ERROR_CONSTANT;
     }
     
     public int getColumnNumber(String name)
@@ -197,6 +197,6 @@ public class StatusPanel extends javax.swing.JPanel
             if (statusTable.getColumnName(i).equalsIgnoreCase(name))
                 return i;
         }
-        return Constants.ERROR_CONSTANT;
+        return UIConstants.ERROR_CONSTANT;
     }
 }

@@ -29,7 +29,7 @@ import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.model.Step;
-import com.webreach.mirth.client.ui.Constants;
+import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
 
 
@@ -204,8 +204,8 @@ public class TransformerPane extends JPanel {
         transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
         
         transformerTable.setSortable( false );
-        transformerTable.setRowHeight( Constants.ROW_HEIGHT );
-        transformerTable.setColumnMargin( Constants.COL_MARGIN );
+        transformerTable.setRowHeight( UIConstants.ROW_HEIGHT );
+        transformerTable.setColumnMargin( UIConstants.COL_MARGIN );
         transformerTable.setOpaque( true );
         transformerTable.setRowSelectionAllowed( true );
         HighlighterPipeline highlighter = new HighlighterPipeline();
