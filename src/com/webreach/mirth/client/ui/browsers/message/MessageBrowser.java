@@ -2,10 +2,12 @@ package com.webreach.mirth.client.ui.browsers.message;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.MessageEvent;
 import com.webreach.mirth.model.filters.MessageEventFilter;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -35,6 +37,9 @@ public class MessageBrowser extends javax.swing.JPanel
         
         mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
         mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
+        
+        mirthDatePicker1.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
+        mirthDatePicker2.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
         
         String[] values = new String[MessageEvent.Status.values().length + 1];
         values[0] = "ALL";
@@ -393,6 +398,15 @@ public class MessageBrowser extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
+        if (mirthDatePicker1.getDate() != null && mirthDatePicker2.getDate() != null)
+        {
+            if (mirthDatePicker1.getDateInMillis() > mirthDatePicker2.getDateInMillis())
+            {
+                JOptionPane.showMessageDialog(parent, "Start date cannot be after the end date.");
+                return;
+            }
+        }
+        
         MessageEventFilter filter = new MessageEventFilter();
         if (!sendingFacilityField.getText().equals(""))
             filter.setSendingFacility(sendingFacilityField.getText());

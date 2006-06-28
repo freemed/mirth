@@ -8,6 +8,7 @@ import com.webreach.mirth.model.filters.SystemEventFilter;
 import java.awt.Font;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -31,8 +32,8 @@ public class EventBrowser extends javax.swing.JPanel
         mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
         mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
         
-        mirthDatePicker1.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT );
-        mirthDatePicker2.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT );
+        mirthDatePicker1.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
+        mirthDatePicker2.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
@@ -307,6 +308,15 @@ public class EventBrowser extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
+        if (mirthDatePicker1.getDate() != null && mirthDatePicker2.getDate() != null)
+        {
+            if (mirthDatePicker1.getDateInMillis() > mirthDatePicker2.getDateInMillis())
+            {
+                JOptionPane.showMessageDialog(parent, "Start date cannot be after the end date.");
+                return;
+            }
+        }
+        
         SystemEventFilter filter = new SystemEventFilter();
         if (!eventField.getText().equals(""))
             filter.setEvent(eventField.getText());
@@ -323,6 +333,7 @@ public class EventBrowser extends javax.swing.JPanel
             calendarEnd.setTimeInMillis(mirthDatePicker2.getDateInMillis());
             filter.setEndDate(calendarEnd);
         }
+        
         makeEventTable(filter);
     }//GEN-LAST:event_filterButtonActionPerformed
     
