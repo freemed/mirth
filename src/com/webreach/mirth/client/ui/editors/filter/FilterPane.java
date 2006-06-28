@@ -19,6 +19,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.JXTaskPaneContainer;
@@ -26,7 +27,10 @@ import org.jdesktop.swingx.action.ActionFactory;
 import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
+
+import com.sun.org.apache.xml.internal.utils.StopParseException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
 import com.webreach.mirth.client.ui.UIConstants;
@@ -40,11 +44,9 @@ public class FilterPane extends JPanel {
 	 *  Frame - the parent where this panel & its tasks will be loaded
 	 *  Filter - the data model
 	 */
-	public FilterPane( Frame p ) {
-		parent = p;
+	public FilterPane() {
+        parent = PlatformUI.MIRTH_FRAME;
 		initComponents();
-		
-		modified = false;
 	}
 	
 	/** load( Filter f )
@@ -145,32 +147,25 @@ public class FilterPane extends JPanel {
 		this.setBorder( BorderFactory.createEmptyBorder() );
 		// END LAYOUT
 		
-		parent.setCurrentContentPage( this );        
-		
-		// select the first row if there is one, and configure
-        // the task pane so that it shows only relevant tasks
-        int rowCount = filterTableModel.getRowCount();
-        
-        // select the first row if there is one
-		if ( rowCount > 0 ) {
-			filterTable.setRowSelectionInterval( 0, 0 );
-			prevSelRow = 0;
-			updateRuleNumbers();
-		}
+		parent.setCurrentContentPage( this );
         	
+		updateTaskPane();
 	}  // END initComponents()
 	
 	public void makeFilterTable() {
 		filterTable = new JXTable();
 		
-		filterTable.setModel(new DefaultTableModel( 
+		filterTable.setModel( new DefaultTableModel( 
 				new String [] { "#", "Operator", "Script" }, 0 ) {
 			boolean[] canEdit = new boolean [] {
 					false, true, false
 			};
 			
-			public boolean isCellEditable( int rowIndex, int columnIndex ) {
-				return canEdit[columnIndex];
+			public boolean isCellEditable( int row, int col ) {
+				if ( row == 0 && col == RULE_OP_COL )
+					return false;
+				
+				return canEdit[col];
 			}
 		});
 		
@@ -181,9 +176,9 @@ public class FilterPane extends JPanel {
 		
 		// Set the combobox editor on the operator column, and add action listener
 		MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
-		((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
+		((JXComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
 			public void itemStateChanged( ItemEvent evt ) {
-				updateRuleNumbers();
+				updateOperations();
 			}
 		}); 
 		
@@ -229,7 +224,7 @@ public class FilterPane extends JPanel {
 		int row = filterTable.getSelectedRow();
 		int last = evt.getLastIndex();
 
-		saveData();
+		saveData( prevSelRow );
 		
 		if( isValid( row ) ) {
 			loadData();
@@ -237,6 +232,7 @@ public class FilterPane extends JPanel {
 			filterTable.setRowSelectionInterval( row, row );
 			prevSelRow = row;
 		} else if ( isValid ( last ) ) {
+			rulePanel.showCard( JAVASCRIPT_TYPE );
         	filterTable.setRowSelectionInterval( last, last );
         	prevSelRow = last;
 		}
@@ -251,24 +247,26 @@ public class FilterPane extends JPanel {
 	
 	// sets the data from the previously used panel into the
 	// previously selected Rule object
-	private void saveData() {
+	private void saveData( int row ) {
 		if ( filterTable.isEditing() )
     		filterTable.getCellEditor( filterTable.getEditingRow(), 
     				filterTable.getEditingColumn() ).stopCellEditing();
     	
 		saving = true;
 		
-		if ( isValid( prevSelRow )) {
+		if ( isValid( row )) {
 			Map<Object,Object> m = new HashMap<Object,Object>();
 			m = jsPanel.getData();
+			
 			filterTableModel.setValueAt( 
-					m.get("Script"), prevSelRow, RULE_SCRIPT_COL );
+					m.get("Script"), row, RULE_SCRIPT_COL );
 		}
 		
 		saving = false;
 	}
 	
-	// loads the data object into the correct panel
+	// loads the data object from the currently selected row
+	// into the correct panel
     private void loadData() {
     	int row = filterTable.getSelectedRow();
     	
@@ -313,6 +311,10 @@ public class FilterPane extends JPanel {
 	 *  delete all selected rows
 	 */
 	public void deleteRule() {
+		if ( filterTable.isEditing() )
+    		filterTable.getCellEditor( filterTable.getEditingRow(), 
+    				filterTable.getEditingColumn() ).stopCellEditing();
+		
 		int row = filterTable.getSelectedRow();
 		if ( isValid( row ) )
 			filterTableModel.removeRow( row );
@@ -327,14 +329,13 @@ public class FilterPane extends JPanel {
 		updateRuleNumbers();
 	}
 	
-	public void moveRuleUp() { moveRule( -1 ); }
-	public void moveRuleDown() { moveRule( 1 ); }
-	
 	/** void moveRule( int i )
 	 *  move the selected row i places
 	 */
+	public void moveRuleUp() { moveRule( -1 ); }
+	public void moveRuleDown() { moveRule( 1 ); }
 	public void moveRule( int i ) {
-		saveData();
+		saveData( prevSelRow );
 		int selRow = filterTable.getSelectedRow();
 		int moveTo = selRow + i;
 		
@@ -351,7 +352,7 @@ public class FilterPane extends JPanel {
 	 *  returns a vector of vectors to the caller of this.
 	 */
 	public void accept() {
-		saveData();
+		saveData( prevSelRow );
 		List<Rule> list = new ArrayList<Rule>();
 		for ( int i = 0;  i < filterTable.getRowCount();  i++ ) {
 			Rule rule = new Rule();
@@ -385,10 +386,9 @@ public class FilterPane extends JPanel {
     	for ( int i = 0;  i < rowCount;  i++ )
     		filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );
 
-    	if ( rowCount > 0 )
-    		filterTableModel.setValueAt( Rule.Operator.NONE.toString(), 0, RULE_OP_COL );
+    	updateOperations();
     	
-        if ( rowCount <= 0 )
+    	if ( rowCount <= 0 )
         	parent.setVisibleTasks( filterTasks, 1, -1, false );
         else if ( rowCount == 1 ) {
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
@@ -415,9 +415,22 @@ public class FilterPane extends JPanel {
         } else 
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
     }
-    	
+    
+    /** updateOperations()
+     *  goes through all existing rules, enforcing rule 0 to be 
+     *  a Rule.Operator.NONE, and any other NONEs to ANDs.
+     */
+    private void updateOperations() {    	
+    	for ( int i = 0;  i < filterTableModel.getRowCount(); i++ ) {
+    		if ( i == 0 )
+    			filterTableModel.setValueAt( Rule.Operator.NONE, i, RULE_OP_COL );
+    		else if ( filterTableModel.getValueAt( i, RULE_OP_COL ).toString().equals(
+    				Rule.Operator.NONE.toString() ) )
+    			filterTableModel.setValueAt( Rule.Operator.AND, i, RULE_OP_COL );
+    	}
+    }
 	
-//	............................................................................\\
+//............................................................................\\
 	
 	// the passed arguments to the constructor
 	private Frame parent;

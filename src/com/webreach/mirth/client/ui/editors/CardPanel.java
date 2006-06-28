@@ -46,7 +46,7 @@ public class CardPanel extends JPanel {
 	}
 	
 	// Adds a new card to the panel.  
-	public void addCard( CardPanel panel, String type ){
+	public void addCard( JPanel panel, String type ){
 		this.add(panel, type);
 	}
 	

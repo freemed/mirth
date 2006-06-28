@@ -8,6 +8,7 @@
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.layout.*;
+
+import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
 import com.webreach.mirth.client.ui.util.HL7ReferenceLoader;
 
 import com.Ostermiller.Syntax.*;
@@ -56,7 +59,7 @@ public class MapperPanel extends CardPanel {
         		new Color( 0,0,0 ) ));
         this.setBorder( BorderFactory.createEmptyBorder() );
     	this.setPreferredSize( new Dimension( 1, 1 ) );
-       
+    	
     	hSplitPane.setDividerLocation( 450 );
         hSplitPane.setLeftComponent( mappingPanel );
         hSplitPane.setRightComponent( treeScrollPane );
@@ -138,8 +141,8 @@ public class MapperPanel extends CardPanel {
 	
 	public void setData( Map<Object, Object> data ) {
 		if ( data != null ) {
-			mappingTextField.setText( (String)data.get( "Variable" ) );
-			mappingTextPane.setText( (String)data.get( "Mapping" ) );
+				mappingTextField.setText( (String)data.get( "Variable" ) );
+				mappingTextPane.setText( (String)data.get( "Mapping" ) );
 		}
 	}    
     

@@ -1,14 +1,10 @@
 package com.webreach.mirth.client.ui.editors;
 
-import java.awt.Component;
-
 import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
+import org.jdesktop.swingx.JXComboBox;
 
-    public class MyComboBoxEditor extends DefaultCellEditor {
-        public MyComboBoxEditor(String[] items) {
-            super(new JComboBox(items));
-        }
+public class MyComboBoxEditor extends DefaultCellEditor {
+    public MyComboBoxEditor(String[] items) {
+        super(new JXComboBox(items));
     }
+}

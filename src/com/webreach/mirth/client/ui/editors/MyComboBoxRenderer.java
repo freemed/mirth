@@ -1,12 +1,11 @@
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.Component;
-
-import javax.swing.JComboBox;
+import org.jdesktop.swingx.JXComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-public class MyComboBoxRenderer extends JComboBox implements TableCellRenderer {
+public class MyComboBoxRenderer extends JXComboBox implements TableCellRenderer {
     public MyComboBoxRenderer(String[] items) {
         super(items);
     }
