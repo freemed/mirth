@@ -233,7 +233,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="sourceSourceDropdown">
+            <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="sourceSourceDropdown">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
@@ -329,7 +329,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="destinationSourceDropdown">
+            <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="destinationSourceDropdown">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
