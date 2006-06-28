@@ -2,8 +2,10 @@ package com.webreach.mirth.client.ui.browsers.event;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.SystemEvent;
 import com.webreach.mirth.model.filters.SystemEventFilter;
+import java.awt.Font;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JScrollPane;
@@ -28,6 +30,9 @@ public class EventBrowser extends javax.swing.JPanel
 
         mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
         mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
+        
+        mirthDatePicker1.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT );
+        mirthDatePicker2.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT );
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {

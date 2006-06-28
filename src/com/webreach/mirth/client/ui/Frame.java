@@ -764,10 +764,10 @@ public class Frame extends JXFrame
     public void setBold(JXTaskPane pane, int index)
     {
         for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
-            pane.getContentPane().getComponent(i).setFont(new Font("Tahoma",Font.PLAIN,11));
+            pane.getContentPane().getComponent(i).setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
         
         if (index != UIConstants.ERROR_CONSTANT)
-            pane.getContentPane().getComponent(index).setFont(new Font("Tahoma",Font.BOLD,11));
+            pane.getContentPane().getComponent(index).setFont(UIConstants.TEXTFIELD_BOLD_FONT);
     }
 
     public void setFocus(JXTaskPane pane)
