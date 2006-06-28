@@ -10,14 +10,13 @@ package com.webreach.mirth.client.ui.editors;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.table.DefaultTableModel;
 import org.jdesktop.layout.*;
-import org.jdesktop.swingx.JXTree;
+import com.webreach.mirth.client.ui.util.HL7ReferenceLoader;
 
 import com.Ostermiller.Syntax.*;
 
@@ -35,7 +34,7 @@ public class MapperPanel extends CardPanel {
      */
     private void initComponents() {
     	treeScrollPane = new JScrollPane();
-        helpTree = new JTree();
+    	refTable = new ReferenceTable();
         hSplitPane = new JSplitPane();
         mappingPanel = new JPanel();
         mappingLabel = new JLabel( "Variable: " );
@@ -60,9 +59,23 @@ public class MapperPanel extends CardPanel {
     	hSplitPane.setDividerLocation( 450 );
         hSplitPane.setLeftComponent( mappingPanel );
         hSplitPane.setRightComponent( treeScrollPane );
-         
+        
+        refTable.getColumnExt( "ID" ).setMaxWidth( 30 );
+        refTable.getColumnExt( "ID" ).setMinWidth( 30 );
+        refTable.getColumnExt( "Chapter" ).setMaxWidth( 55 );
+        refTable.getColumnExt( "Chapter" ).setMinWidth( 55 );
+        refTable.setModel( new DefaultTableModel(
+				(new HL7ReferenceLoader()).getReferenceTable(), 
+				new String[] {"ID","Description","Chapter"} ) {
+			boolean[] canEdit = new boolean [] { false, false, false };
+			
+			public boolean isCellEditable ( int row, int col ) {
+				return canEdit[row];
+			}
+		});
+        
         mappingScrollPane.setViewportView( mappingTextPane );
-        treeScrollPane.setViewportView( helpTree );
+        treeScrollPane.setViewportView( refTable );
 
         // BGN NetBeans LAYOUT
         GroupLayout mappingPanelLayout = new GroupLayout(mappingPanel);
@@ -126,7 +139,8 @@ public class MapperPanel extends CardPanel {
     protected JSplitPane hSplitPane;
     protected JTextPane mappingTextPane;
     private HighlightedDocument mappingDoc;
-    protected JTree helpTree;
+    protected ReferenceTable refTable;
+    protected HL7ReferenceLoader refLoader;
     protected JLabel mappingLabel;
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;

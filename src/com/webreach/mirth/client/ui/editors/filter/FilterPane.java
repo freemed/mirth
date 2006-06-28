@@ -10,8 +10,6 @@ package com.webreach.mirth.client.ui.editors.filter;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ListIterator;
@@ -31,8 +29,6 @@ import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
-import com.webreach.mirth.model.Step;
-import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.client.ui.Constants;
 import com.webreach.mirth.client.ui.editors.*;
 
@@ -73,7 +69,7 @@ public class FilterPane extends JPanel {
     	// select the first row if there is one
 		if ( rowCount > 0 ) {
 			filterTable.setRowSelectionInterval( 0, 0 );
-			prevSelectedRow = 0;
+			prevSelRow = 0;
 		} else
 			rulePanel.showCard( BLANK_TYPE );
     	
@@ -96,12 +92,7 @@ public class FilterPane extends JPanel {
 		rulePanel.addCard( blankPanel, BLANK_TYPE );
 		rulePanel.addCard( jsPanel, JAVASCRIPT_TYPE );
 		
-		filterTablePane = new JScrollPane();        
-		filterTablePane.addMouseListener( new MouseAdapter() {
-			public void mouseClicked( MouseEvent evt ) {
-				deselectRows();
-			}
-		});
+		filterTablePane = new JScrollPane();
 		
 		// make and place the task pane in the parent Frame
 		filterTaskPaneContainer = new JXTaskPaneContainer();
@@ -117,31 +108,27 @@ public class FilterPane extends JPanel {
 		
 		filterTasks = new JXTaskPane();
 		filterTasks.setTitle( "Filter Tasks" );
-		filterTasks.setFocusable( false );
-		
+		filterTasks.setFocusable( false );		
 		// add new rule task
 		filterTasks.add( initActionCallback( "addNewRule",
 				ActionFactory.createBoundAction( "addNewRule", "Add New Rule", "N" ),
-				new ImageIcon( Frame.class.getResource( "images/add.png" )) ));
-		
+				new ImageIcon( Frame.class.getResource( "images/add.png" )) ));		
 		// delete rule task
 		filterTasks.add( initActionCallback( "deleteRule",
 				ActionFactory.createBoundAction( "deleteRule", "Delete Rule", "X" ),
-				new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));
-		
+				new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));		
 		// move rule up task
 		filterTasks.add( initActionCallback( "moveRuleUp",
 				ActionFactory.createBoundAction( "moveRuleUp", "Move Rule Up", "U" ),
-				new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
-		
+				new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));		
 		// move rule down task
 		filterTasks.add( initActionCallback( "moveRuleDown",
 				ActionFactory.createBoundAction( "moveRuleDown", "Move Rule Down", "D" ),
-				new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
-		
+				new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));		
 		// add the tasks to the taskpane, and the taskpane to the mirth client
-		filterTaskPaneContainer.add( filterTasks );
 		parent.setNonFocusable( filterTasks );
+		filterTaskPaneContainer.add( filterTasks );
+		
 		parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
 		
 		makeFilterTable();
@@ -167,7 +154,7 @@ public class FilterPane extends JPanel {
         // select the first row if there is one
 		if ( rowCount > 0 ) {
 			filterTable.setRowSelectionInterval( 0, 0 );
-			prevSelectedRow = 0;
+			prevSelRow = 0;
 			updateRuleNumbers();
 		}
         	
@@ -198,13 +185,14 @@ public class FilterPane extends JPanel {
 		
 		filterTableModel = (DefaultTableModel)filterTable.getModel();
 		
-		String[] comboBoxValues = new String[] { Rule.Operator.NONE.toString(), 
+		String[] comboBoxValues = new String[] { //Rule.Operator.NONE.toString(), 
 				Rule.Operator.AND.toString(), Rule.Operator.OR.toString() };
 		
 		// Set the combobox editor on the operator column, and add action listener
 		MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
 		((JComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
 			public void itemStateChanged( ItemEvent evt ) {
+				updateRuleNumbers();
 			}
 		}); 
 		
@@ -234,16 +222,11 @@ public class FilterPane extends JPanel {
 						if ( !saving ) FilterListSelected(evt);
 					}
 				});
-		
-		filterTable.addMouseListener(new MouseAdapter() {
-			public void mouseClicked( MouseEvent evt ) {
-				if (evt.getClickCount() >= 1 ) ;	// ??? //
-			}
-		});
 	}    
 	
 	private void FilterListSelected( ListSelectionEvent evt ) {
 		int row = filterTable.getSelectedRow();
+		int last = evt.getLastIndex();
 
 		saveData();
 		
@@ -251,31 +234,33 @@ public class FilterPane extends JPanel {
 			loadData();
 			rulePanel.showCard( JAVASCRIPT_TYPE );
 			filterTable.setRowSelectionInterval( row, row );
+			prevSelRow = row;
+		} else if ( isValid ( last ) ) {
+        	filterTable.setRowSelectionInterval( last, last );
+        	prevSelRow = last;
 		}
 		
-		prevSelectedRow = row;
+		updateTaskPane();
 	}
 	
 	private boolean isValid( int row ) {
 		return ( row >= 0 && row < filterTableModel.getRowCount() );
 	}
 	
-	public void deselectRows() {
-		saveData();
-		filterTable.clearSelection();
-		rulePanel.showCard( BLANK_TYPE );
-	}
-	
 	// sets the data from the previously used panel into the
 	// previously selected Rule object
 	private void saveData() {
+		if ( filterTable.isEditing() )
+    		filterTable.getCellEditor( filterTable.getEditingRow(), 
+    				filterTable.getEditingColumn() ).stopCellEditing();
+    	
 		saving = true;
 		
-		if ( isValid( prevSelectedRow )) {
+		if ( isValid( prevSelRow )) {
 			Map<Object,Object> m = new HashMap<Object,Object>();
 			m = jsPanel.getData();
 			filterTableModel.setValueAt( 
-					m.get("Script"), prevSelectedRow, RULE_SCRIPT_COL );
+					m.get("Script"), prevSelRow, RULE_SCRIPT_COL );
 		}
 		
 		saving = false;
@@ -321,7 +306,7 @@ public class FilterPane extends JPanel {
 	public void addNewRule() {
 		int row = filterTable.getRowCount();
 		setRowData( null, row );
-		prevSelectedRow = row;
+		prevSelRow = row;
 		updateRuleNumbers();
 	}
 	
@@ -351,12 +336,12 @@ public class FilterPane extends JPanel {
 	 */
 	public void moveRule( int i ) {
 		saveData();
-		int selectedRow = filterTable.getSelectedRow();
-		int moveTo = selectedRow + i;
+		int selRow = filterTable.getSelectedRow();
+		int moveTo = selRow + i;
 		
 		// we can't move past the first or last row
 		if ( moveTo >= 0 && moveTo < filterTable.getRowCount() ) {
-			filterTableModel.moveRow( selectedRow, selectedRow, moveTo );
+			filterTableModel.moveRow( selRow, selRow, moveTo );
 			filterTable.setRowSelectionInterval( moveTo, moveTo );
 		}
 		
@@ -380,7 +365,6 @@ public class FilterPane extends JPanel {
 			list.add( rule );
 		}
 		
-		//modified = true;
 		filter.setRules( list );
 		filterTableModel.setDataVector( null, new String[] {} );
 		
@@ -389,7 +373,6 @@ public class FilterPane extends JPanel {
 		parent.channelEditPage.setDestinationVariableList();
 		parent.setCurrentContentPage( parent.channelEditPage );
 		parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
-		//if ( modified ) parent.showSaveButton();
 	}
 	
 	/** void updateRuleNumbers()
@@ -398,10 +381,14 @@ public class FilterPane extends JPanel {
 	 */
 	private void updateRuleNumbers() {    
 		int rowCount = filterTableModel.getRowCount();
-    	
+		int selRow = filterTable.getSelectedRow();
+		
     	for ( int i = 0;  i < rowCount;  i++ )
     		filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );
 
+    	if ( rowCount > 0 )
+    		filterTableModel.setValueAt( Rule.Operator.NONE.toString(), 0, RULE_OP_COL );
+    	
         if ( rowCount <= 0 )
         	parent.setVisibleTasks( filterTasks, 1, -1, false );
         else if ( rowCount == 1 ) {
@@ -409,9 +396,27 @@ public class FilterPane extends JPanel {
         	parent.setVisibleTasks( filterTasks, 2, -1, false );
         } else 
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
-        	
+     
+        if ( isValid( selRow ) )
+        	filterTable.setRowSelectionInterval( selRow, selRow );
+        else if ( rowCount > 0 )
+        	filterTable.setRowSelectionInterval( 0, 0 );
     }
 	
+	/** updateTaskPane()
+     *  configure the task pane so that it shows only relevant tasks
+     */
+    private void updateTaskPane() {
+    	int rowCount = filterTableModel.getRowCount();
+    	if ( rowCount <= 0 )
+        	parent.setVisibleTasks( filterTasks, 1, -1, false );
+        else if ( rowCount == 1 ) {
+        	parent.setVisibleTasks( filterTasks, 0, -1, true );
+        	parent.setVisibleTasks( filterTasks, 2, -1, false );
+        } else 
+        	parent.setVisibleTasks( filterTasks, 0, -1, true );
+    }
+    	
 	
 //	............................................................................\\
 	
@@ -433,7 +438,7 @@ public class FilterPane extends JPanel {
 	
 	// this little sucker is used to track the last row that had
 	// focus after a new row is selected
-	private int prevSelectedRow = -1;	// no row by default
+	private int prevSelRow = -1;	// no row by default
 	
 	// panels using CardLayout
 	protected CardPanel rulePanel;		// the card holder
