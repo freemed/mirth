@@ -3,7 +3,7 @@ package com.webreach.mirth.client.ui;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class Constants 
+public class UIConstants 
 {
     // for error checking
     public static final int ERROR_CONSTANT = -1;
@@ -15,10 +15,11 @@ public class Constants
 
     // background colors 
     public static final Color BACKGROUND_COLOR = new Color( 255,255,255 );
-
+    
     // for JSplitPane
     public static final int DIVIDER_SIZE = 12;
         
     public static ImageIcon BACKGROUND_IMAGE;
+    public static String SERVER_NAME;
 	
 }
