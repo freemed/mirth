@@ -1,6 +1,4 @@
 package com.webreach.mirth.client.ui;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.text.*;
 
 public class MirthTextFieldLimit extends PlainDocument

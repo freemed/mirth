@@ -11,7 +11,6 @@
 package com.webreach.mirth.client.ui;
 
 import java.lang.reflect.Method; 
-import java.util.Arrays;
 import javax.swing.JOptionPane; 
 
 public class BareBonesBrowserLaunch 

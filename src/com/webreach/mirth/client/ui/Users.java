@@ -1,13 +1,7 @@
 package com.webreach.mirth.client.ui;
 
-import com.webreach.mirth.client.core.ClientException;
-import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.User;
-import java.awt.Point;
-import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.swingx.JXTable;
