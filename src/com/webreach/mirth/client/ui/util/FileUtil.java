@@ -10,9 +10,13 @@ import java.io.IOException;
 public class FileUtil {
 	public static void write(File file, String data) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		writer.write(data);
-		writer.flush();
-		writer.close();
+		
+		try {
+			writer.write(data);
+			writer.flush();
+		} finally {
+			writer.close();
+		}
 	}
 
 	public static String read(File file) throws IOException {
@@ -20,11 +24,14 @@ public class FileUtil {
 		StringBuilder contents = new StringBuilder();
 		String line = null;
 
-		while ((line = reader.readLine()) != null) {
-			contents.append(line + "\n");
+		try {
+			while ((line = reader.readLine()) != null) {
+				contents.append(line + "\n");
+			}
+		} finally {
+			reader.close();	
 		}
 		
-		reader.close();
 		return contents.toString();
 	}
 }
