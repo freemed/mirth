@@ -35,16 +35,16 @@ public class ChannelSetup extends javax.swing.JPanel
 {
     public Channel currentChannel;
     public String lastIndex = "";
+    
     private int index;
     private Frame parent;
-    //private int lastIndex = -1;
     private boolean isDeleting = false;
     private boolean loadingChannel = false;
     private JXTable jTable1;
     private JScrollPane jScrollPane4;
-    Map<String,Transport> transports;
-    TransformerPane transformerPane;
-    FilterPane filterPane;
+    private Map<String,Transport> transports;
+    private TransformerPane transformerPane;
+    private FilterPane filterPane;
 
     public ChannelSetup(JFrame parent)
     {

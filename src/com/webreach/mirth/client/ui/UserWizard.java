@@ -8,8 +8,9 @@ import javax.swing.JOptionPane;
 
 public class UserWizard extends javax.swing.JDialog
 {
-    Frame parent;
-    int index = -1;
+    private Frame parent;
+    private int index = -1;
+    
     /** Creates new form UserDialog */
     public UserWizard(JFrame parent, int row)
     {

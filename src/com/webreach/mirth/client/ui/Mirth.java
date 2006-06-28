@@ -42,7 +42,6 @@ import org.jdesktop.swingx.plaf.windows.WindowsLookAndFeelAddons;
  */
 public class Mirth 
 {
-    boolean packFrame = false;
     public Client client;
     /**
      * Construct and show the application.
@@ -50,17 +49,6 @@ public class Mirth
     public Mirth(Client m) 
     {
         Frame frame = new Frame(m);
-        // Validate frames that have preset sizes
-        // Pack frames that have useful preferred size info, e.g. from their layout
-        if (packFrame) 
-        {
-            frame.pack();
-        } 
-        else 
-        {
-            frame.validate();
-        }
-
         frame.setSize(800,600);
         frame.setLocationRelativeTo(null);
         //frame.setExtendedState(frame.MAXIMIZED_BOTH);
