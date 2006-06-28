@@ -16,6 +16,6 @@ public class MirthComboBox extends javax.swing.JComboBox {
     
     public void comboBoxChanged(java.awt.event.ActionEvent evt)
     {
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        parent.enableSave();
     }
 }

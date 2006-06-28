@@ -14,7 +14,7 @@ public class MirthTextArea extends javax.swing.JTextArea
     
     public void processKeyEvent(KeyEvent ev)
     {
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        parent.enableSave();
         super.processKeyEvent(ev);
     }
 }

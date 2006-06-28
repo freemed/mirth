@@ -14,7 +14,7 @@ public class MirthPasswordField extends javax.swing.JPasswordField
     
     public void processKeyEvent(KeyEvent ev)
     {
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        parent.enableSave();
         super.processKeyEvent(ev);
     }
 }

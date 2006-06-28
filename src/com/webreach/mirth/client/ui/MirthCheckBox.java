@@ -16,6 +16,6 @@ public class MirthCheckBox extends javax.swing.JCheckBox {
     
     public void checkBoxChanged(java.awt.event.ActionEvent evt)
     {
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        parent.enableSave();
     }
 }

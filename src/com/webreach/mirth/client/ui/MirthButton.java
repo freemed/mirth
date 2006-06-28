@@ -16,6 +16,6 @@ public class MirthButton extends javax.swing.JButton {
     
     public void buttonPressed(java.awt.event.ActionEvent evt)
     {
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        parent.enableSave();
     }
 }

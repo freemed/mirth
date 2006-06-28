@@ -14,7 +14,7 @@ public class MirthTextField extends javax.swing.JTextField
     
     public void processKeyEvent(KeyEvent ev)
     {
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        parent.enableSave();
         super.processKeyEvent(ev);
     }
 }

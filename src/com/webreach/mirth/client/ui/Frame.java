@@ -969,5 +969,10 @@ public class Frame extends JXFrame
         else
             return false;
     }
+    
+    public void enableSave()
+    {
+        channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+    }
 }
 
