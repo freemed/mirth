@@ -10,6 +10,7 @@ package com.webreach.mirth.client.ui.editors;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
@@ -60,8 +61,17 @@ public class MapperPanel extends CardPanel {
         hSplitPane.setLeftComponent( mappingPanel );
         hSplitPane.setRightComponent( treeScrollPane );
         
+        
+        String[][] referenceData = null;
+        
+        try {
+        	referenceData = (new HL7ReferenceLoader()).getReferenceTable();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        
        refTable.setModel( new DefaultTableModel(
-				(new HL7ReferenceLoader()).getReferenceTable(), 
+				referenceData, 
 				new String[] {"ID","Description","Chapter"} ) {
 			boolean[] canEdit = new boolean [] { false, false, false };
 			
