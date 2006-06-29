@@ -182,8 +182,7 @@ public class MessageBrowser extends javax.swing.JPanel
         
         if(row >= 0)
         {
-            ER7TextArea.setText(messageEventList.get(row).getMessage());
-            System.out.println(messageEventList.get(row).getMessage());
+            ER7TextArea.setText(messageEventList.get(row).getMessage().replaceAll("\r", "\n"));
         }
     }
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
@@ -257,7 +256,7 @@ public class MessageBrowser extends javax.swing.JPanel
                         .add(org.jdesktop.layout.GroupLayout.LEADING, statusComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, controlIDField)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         filterPanelLayout.setVerticalGroup(
             filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -306,7 +305,7 @@ public class MessageBrowser extends javax.swing.JPanel
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -327,7 +326,7 @@ public class MessageBrowser extends javax.swing.JPanel
             ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, ER7PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ER7PanelLayout.setVerticalGroup(
@@ -352,7 +351,7 @@ public class MessageBrowser extends javax.swing.JPanel
             XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, XMLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addContainerGap())
         );
         XMLPanelLayout.setVerticalGroup(
@@ -369,7 +368,7 @@ public class MessageBrowser extends javax.swing.JPanel
         HL7Panel.setLayout(HL7PanelLayout);
         HL7PanelLayout.setHorizontalGroup(
             HL7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 521, Short.MAX_VALUE)
+            .add(0, 529, Short.MAX_VALUE)
         );
         HL7PanelLayout.setVerticalGroup(
             HL7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -381,7 +380,7 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionPanel.setLayout(descriptionPanelLayout);
         descriptionPanelLayout.setHorizontalGroup(
             descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
         );
         descriptionPanelLayout.setVerticalGroup(
             descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
