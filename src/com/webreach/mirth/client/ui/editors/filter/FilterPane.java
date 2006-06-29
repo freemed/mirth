@@ -376,6 +376,7 @@ public class FilterPane extends MirthEditorPane {
 		parent.channelEditPage.setDestinationVariableList();
 		parent.setCurrentContentPage( parent.channelEditPage );
 		parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
+		parent.setPanelName("Edit Channel :: " +  parent.channelEditPage.currentChannel.getName());
 		if ( modified ) parent.enableSave();
 	}
 	
