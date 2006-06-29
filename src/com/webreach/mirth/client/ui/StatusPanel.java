@@ -30,6 +30,12 @@ public class StatusPanel extends javax.swing.JPanel
     {
         statusPane = new JScrollPane();
         makeStatusTable();
+        statusPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                deselectRows();
+            }
+        });
         
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -128,10 +134,12 @@ public class StatusPanel extends javax.swing.JPanel
                 StatusListSelected(evt);
             }
         });
-        statusPane.addMouseListener(new java.awt.event.MouseAdapter() {
+        statusTable.addMouseListener(new java.awt.event.MouseAdapter()
+        {
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
-                deselectRows();
+                if (evt.getClickCount() >= 2)
+                    parent.doShowMessages();
             }
         });
          
