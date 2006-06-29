@@ -142,8 +142,11 @@ public class MapperPanel extends CardPanel {
 	
 	public void setData( Map<Object, Object> data ) {
 		if ( data != null ) {
-				mappingTextField.setText( (String)data.get( "Variable" ) );
-				mappingTextPane.setText( (String)data.get( "Mapping" ) );
+			mappingTextField.setText( (String)data.get( "Variable" ) );
+			mappingTextPane.setText( (String)data.get( "Mapping" ) );
+		} else {
+			mappingTextField.setText( "" );
+			mappingTextPane.setText( "" );
 		}
 	}    
     

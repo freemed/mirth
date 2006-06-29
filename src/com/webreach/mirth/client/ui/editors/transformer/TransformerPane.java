@@ -272,8 +272,8 @@ public class TransformerPane extends JPanel {
     }
     
     // returns true if the variable name is unique
-    // if an integer is provided, don't check agains the var
-    // in that row
+    // if an integer is provided, don't check against
+    // the var in that row
     public boolean isUnique( String var ) { return isUnique( var, -1 ); }
     public boolean isUnique( String var, int curRow ) {
     	boolean unique = true;
@@ -312,6 +312,8 @@ public class TransformerPane extends JPanel {
     		 transformerTable.getCellEditor( transformerTable.getEditingRow(), 
     				transformerTable.getEditingColumn() ).stopCellEditing();
     	
+    	updating = true;
+    	
     	if ( isValid( row ) ) {
 			Map<Object, Object> data = new HashMap<Object, Object>();
 			String type = (String)
@@ -335,28 +337,19 @@ public class TransformerPane extends JPanel {
 
     				JOptionPane.showMessageDialog( 
         						this, msg, "Variable Conflict", JOptionPane.ERROR_MESSAGE );
-    			}
+    			} else invalidVar = false;
     		} else if ( type == JAVASCRIPT_TYPE ) 
 	    		data = jsPanel.getData();
     		
     		transformerTableModel.setValueAt( data, row, STEP_DATA_COL );
     	}
-    }
-
-    /** swapData(int row1, int row2)
-     *  swap the data objects between two rows
-     */
-    private void swapData( int row1, int row2 ) {
-    	Map<Object, Object> d1 = (Map<Object,Object>)
-    			transformerTableModel.getValueAt( row1, STEP_DATA_COL );
-    	Map<Object, Object> d2 = (Map<Object,Object>)
-				transformerTableModel.getValueAt( row2, STEP_DATA_COL );
     	
-    	transformerTableModel.setValueAt( d1, row2, STEP_DATA_COL );
-    	transformerTableModel.setValueAt( d2, row1, STEP_DATA_COL );
+    	updating = false;
     }
     
-    // loads the data object into the correct panel
+    /** loadData()
+     *  loads the data object into the correct panel
+     */
     private void loadData() {
     	int row = transformerTable.getSelectedRow();
     	
@@ -368,6 +361,18 @@ public class TransformerPane extends JPanel {
 	    	if ( type == MAPPER_TYPE ) mapperPanel.setData( data );
 	    	else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( data );
     	}
+    }
+    
+    /** prepData( int row )
+     *  works to move the data in a panel for moves or deletes
+     */
+    private void prepData( int row ) {
+    	Map<Object,Object> d = (Map<Object,Object>)
+		transformerTableModel.getValueAt( row, STEP_DATA_COL );
+		String type = (String)transformerTableModel.getValueAt( row, STEP_TYPE_COL );
+		
+		if ( type == MAPPER_TYPE ) mapperPanel.setData( d );
+		else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( d );
     }
 
     private void setRowData( Step step, int row ) {
@@ -416,17 +421,15 @@ public class TransformerPane extends JPanel {
     	
     	int row = transformerTable.getSelectedRow();
     	
-    	if ( isValid( row + 1 ) ) {
-    		swapData( row, row + 1 );
-    		loadData();
-    		swapped = true;
-    	}
+    	if ( isValid( row + 1 ) ) 
+    		prepData( row + 1 );
     	
-    	if ( isValid( row ) )
-    		transformerTableModel.removeRow( row );
+    	if ( isValid ( row ) ) transformerTableModel.removeRow( row );
     	
+    	// we need a seperate if here for the same condition because
+    	// the row may no longer be valid after removal
     	if ( isValid ( row ) )
-    		transformerTable.setRowSelectionInterval( row, row );
+        	transformerTable.setRowSelectionInterval( row, row );
     	else if ( isValid( row - 1 ) )
     		transformerTable.setRowSelectionInterval( row - 1, row - 1 );
     	else 
@@ -448,17 +451,20 @@ public class TransformerPane extends JPanel {
     	modified = true;
     	int selRow = transformerTable.getSelectedRow();
     	int moveTo = selRow + i;
-    	
-    	saveData( prevSelRow );
+    	//String type = (String)transformerTableModel.getValueAt( selRow, STEP_TYPE_COL );
+    	saveData( selRow );
     	
     	// we can't move past the first or last row
     	if ( isValid( moveTo ) ) {
-    		Map<Object,Object> d = (Map<Object,Object>)
+    		/*Map<Object,Object> d = (Map<Object,Object>)
     				transformerTableModel.getValueAt( moveTo, STEP_DATA_COL );
+    		
+    		if ( type == MAPPER_TYPE ) mapperPanel.setData( d );
+    		else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( d );*/
+    		prepData(moveTo);
     		
     		transformerTableModel.moveRow( selRow, selRow, moveTo );
     		transformerTable.setRowSelectionInterval( moveTo, moveTo );
-    		transformerTableModel.setValueAt( d, selRow, STEP_DATA_COL );
     	}
     	
     	updateStepNumbers();
@@ -468,28 +474,31 @@ public class TransformerPane extends JPanel {
      *  returns a vector of vectors to the caller of this.
      */
     public void accept() {
-    	saveData( prevSelRow );
-    	List<Step> list = new ArrayList<Step>();
-    	for ( int i = 0;  i < transformerTable.getRowCount();  i++ ) {
-    		Step step = new Step();
-    		step.setSequenceNumber( Integer.parseInt(
-    				transformerTable.getValueAt( i, STEP_NUMBER_COL ).toString() ));
-    		step.setName( (String)transformerTableModel.getValueAt( i, STEP_NAME_COL ));
-    		step.setType( (String)transformerTableModel.getValueAt( i, STEP_TYPE_COL ));
-    		step.setData( (Object)transformerTableModel.getValueAt( i, STEP_DATA_COL ));
-    		
-    		list.add( step );
-    	}
+    	saveData( transformerTable.getSelectedRow() );
     	
-    	transformer.setSteps( list );
-    	transformerTableModel.setDataVector( null, new String[] {} );
-    
-    	// reset the task pane and content to channel edit page
-    	parent.channelEditPage.setSourceVariableList();
-    	parent.channelEditPage.setDestinationVariableList();
-    	parent.setCurrentContentPage( parent.channelEditPage );
-    	parent.setCurrentTaskPaneContainer( parent.taskPaneContainer );
-    	if ( modified ) parent.enableSave();
+    	if ( !invalidVar ) {
+	    	List<Step> list = new ArrayList<Step>();
+	    	for ( int i = 0;  i < transformerTable.getRowCount();  i++ ) {
+	    		Step step = new Step();
+	    		step.setSequenceNumber( Integer.parseInt(
+	    				transformerTable.getValueAt( i, STEP_NUMBER_COL ).toString() ));
+	    		step.setName( (String)transformerTableModel.getValueAt( i, STEP_NAME_COL ));
+	    		step.setType( (String)transformerTableModel.getValueAt( i, STEP_TYPE_COL ));
+	    		step.setData( (Object)transformerTableModel.getValueAt( i, STEP_DATA_COL ));
+	    		
+	    		list.add( step );
+	    	}
+	    	
+	    	transformer.setSteps( list );
+	    	transformerTableModel.setDataVector( null, new String[] {} );
+	    
+	    	// reset the task pane and content to channel edit page
+	    	parent.channelEditPage.setSourceVariableList();
+	    	parent.channelEditPage.setDestinationVariableList();
+	    	parent.setCurrentContentPage( parent.channelEditPage );
+	    	parent.setCurrentTaskPaneContainer( parent.taskPaneContainer );
+	    	if ( modified ) parent.enableSave();
+    	}
     }
     
     /** void updateStepNumbers()

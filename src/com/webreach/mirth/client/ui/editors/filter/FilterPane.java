@@ -355,7 +355,7 @@ public class FilterPane extends JPanel {
 	 *  returns a vector of vectors to the caller of this.
 	 */
 	public void accept() {
-		saveData( prevSelRow );
+		saveData( filterTable.getSelectedRow() );
 		List<Rule> list = new ArrayList<Rule>();
 		for ( int i = 0;  i < filterTable.getRowCount();  i++ ) {
 			Rule rule = new Rule();
