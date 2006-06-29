@@ -92,8 +92,8 @@ public class Frame extends JXFrame
     
     public void setupFrame(Client mirthClient)
     {
-        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 8, .5f, 12, false, true, true, true);
-        //leftContainer = new JXTitledPanel();
+        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 4, .3f, 12, true, true, true, true);
+        leftContainer = new JXTitledPanel();
         rightContainer = new JXTitledPanel();
         
         this.mirthClient = mirthClient;
@@ -167,9 +167,9 @@ public class Frame extends JXFrame
         contentPane.add(statusBar, BorderLayout.SOUTH);
         contentPane.add(jSplitPane1, java.awt.BorderLayout.CENTER);
         
-        //build(leftContainer, jScrollPane1, false, "Mirth Tasks");
+        ///build(leftContainer, jScrollPane1, false, "User Options");
         build(rightContainer, jScrollPane2, false, "Mirth");
-        
+
         jSplitPane1.add(rightContainer, JSplitPane.RIGHT);
         jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
         jScrollPane1.setMinimumSize(new Dimension(170,0));
