@@ -81,13 +81,17 @@ public class Frame extends JXFrame
     private Thread statusUpdater;     
     private DropShadowBorder dsb;
     
-    private void build(JXTitledPanel container, JScrollPane component, boolean opaque, String title) 
+    private void build(JXTitledPanel container, JScrollPane component, boolean opaque) 
     {
         container.getContentContainer().setLayout(new BorderLayout());
         container.setBorder(dsb);
-        container.setTitle(title);
         container.setTitleFont(new Font("Tahoma",Font.BOLD,12));
         container.getContentContainer().add(component);
+    }
+    
+    public void setPanelName(String name)
+    {
+        rightContainer.setTitle(name);
     }
     
     public void setupFrame(Client mirthClient)
@@ -168,8 +172,8 @@ public class Frame extends JXFrame
         contentPane.add(jSplitPane1, java.awt.BorderLayout.CENTER);
         
         ///build(leftContainer, jScrollPane1, false, "User Options");
-        build(rightContainer, jScrollPane2, false, "Mirth");
-
+        build(rightContainer, jScrollPane2, false);
+        
         jSplitPane1.add(rightContainer, JSplitPane.RIGHT);
         jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
         jScrollPane1.setMinimumSize(new Dimension(170,0));
@@ -393,6 +397,7 @@ public class Frame extends JXFrame
         
         doRefresh();
         setBold(viewPane, 0);
+        setPanelName("Channel Statuses");
         setCurrentContentPage(statusListPage);
         setFocus(statusTasks);
     }
@@ -404,6 +409,7 @@ public class Frame extends JXFrame
         
         doRefreshChannels();
         setBold(viewPane, 1);
+        setPanelName("Current Channels");
         setCurrentContentPage(channelListPage);
         setFocus(channelTasks);
         channelListPage.deselectRows();
@@ -415,6 +421,7 @@ public class Frame extends JXFrame
             return;
         
         setBold(viewPane, 2);
+        setPanelName("Administration");
         setCurrentContentPage(adminPanel);
         adminPanel.showTasks();
     }
@@ -455,6 +462,7 @@ public class Frame extends JXFrame
         else
         {
             editChannel(channelListPage.getSelectedChannel());
+            setPanelName("Edit Channel :: " +  channelEditPage.currentChannel.getName());
         }
     }
     
@@ -778,6 +786,7 @@ public class Frame extends JXFrame
     public void doShowMessages()
     {
         setBold(viewPane, UIConstants.ERROR_CONSTANT);
+        setPanelName("Channel Messages");
         messageBrowser.loadNew();
         setCurrentContentPage(messageBrowser);
         setFocus(messageTasks);
@@ -786,6 +795,7 @@ public class Frame extends JXFrame
     public void doShowEvents()
     {
         setBold(viewPane, UIConstants.ERROR_CONSTANT);
+        setPanelName("System Events");
         eventBrowser.loadNew();
         setCurrentContentPage(eventBrowser);
         setFocus(eventTasks);
@@ -889,11 +899,13 @@ public class Frame extends JXFrame
     
     public void doEditTransformer()
     {
+        setPanelName("Edit Transformer");
         channelEditPage.editTransformer();
     }
     
     public void doEditFilter()
     {
+        setPanelName("Edit Filter");
         channelEditPage.editFilter();
     }
     

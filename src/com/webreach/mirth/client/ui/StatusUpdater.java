@@ -18,7 +18,7 @@ public class StatusUpdater implements Runnable
             {
                 refreshRate = 5000;
                 Thread.sleep(refreshRate);
-                if(parent.jScrollPane2.getViewport().getComponent(0) == parent.statusListPage)
+                if(parent.jScrollPane2.getViewport().getComponents().length > 0 && parent.jScrollPane2.getViewport().getComponent(0) == parent.statusListPage)
                 {
                     parent.doRefresh();
                 }
