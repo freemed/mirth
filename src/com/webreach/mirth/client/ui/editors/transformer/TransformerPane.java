@@ -11,11 +11,13 @@ import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -33,6 +35,7 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.model.Step;
+import com.webreach.mirth.util.PropertyLoader;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
 
@@ -48,7 +51,8 @@ public class TransformerPane extends JPanel {
     public TransformerPane() {
         parent = PlatformUI.MIRTH_FRAME;
         prevSelRow = -1; 	// no row by default
-        modified = false;
+        modified = false;    
+        
         initComponents();
     }
     
@@ -97,7 +101,6 @@ public class TransformerPane extends JPanel {
         mapperPanel = new MapperPanel();
         jsPanel = new JavaScriptPanel();
         // 		establish the cards to use in the Transformer
-        //stepPanel.addCard( Class.forName(MapperPanel.class.getName())., "MapperPanel" );
         stepPanel.addCard( blankPanel, BLANK_TYPE );
         stepPanel.addCard( mapperPanel, MAPPER_TYPE );
         stepPanel.addCard( jsPanel, JAVASCRIPT_TYPE );
@@ -176,7 +179,7 @@ public class TransformerPane extends JPanel {
         
         transformerTableModel = (DefaultTableModel)transformerTable.getModel();
 
-        String[] comboBoxValues = new String[] { MAPPER_TYPE, JAVASCRIPT_TYPE };
+        String[] comboBoxValues = { MAPPER_TYPE, JAVASCRIPT_TYPE };
         
         // Set the combobox editor on the type column, and add action listener
 	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
@@ -319,10 +322,11 @@ public class TransformerPane extends JPanel {
 			String type = (String)
     				transformerTable.getValueAt( row, STEP_TYPE_COL );
     		
-    		if ( type == MAPPER_TYPE ) {
+    		if ( type == "Mapper" ) {
     			data = mapperPanel.getData();
     			String var = data.get( "Variable" ).toString();
     			
+    			// check for unique variable names
     			if ( var == null || var.equals( "" ) || !isUnique( var, row ) ) {
     				invalidVar = true;
     				String msg = "";
@@ -338,7 +342,7 @@ public class TransformerPane extends JPanel {
     				JOptionPane.showMessageDialog( 
         						this, msg, "Variable Conflict", JOptionPane.ERROR_MESSAGE );
     			} else invalidVar = false;
-    		} else if ( type == JAVASCRIPT_TYPE ) 
+    		} else if ( type == "JavaScript" ) 
 	    		data = jsPanel.getData();
     		
     		transformerTableModel.setValueAt( data, row, STEP_DATA_COL );
@@ -497,6 +501,7 @@ public class TransformerPane extends JPanel {
 	    	parent.channelEditPage.setDestinationVariableList();
 	    	parent.setCurrentContentPage( parent.channelEditPage );
 	    	parent.setCurrentTaskPaneContainer( parent.taskPaneContainer );
+	    	parent.setPanelName("Edit Channel :: " +  parent.channelEditPage.currentChannel.getName());
 	    	if ( modified ) parent.enableSave();
     	}
     }
@@ -562,7 +567,8 @@ public class TransformerPane extends JPanel {
     public static final int STEP_TYPE_COL  = 2;
     public static final int STEP_DATA_COL = 3;
     public static final int NUMBER_OF_COLUMNS = 4;
-    
+   
+    // a list of panels to load
     public static final String BLANK_TYPE = "";
     public static final String MAPPER_TYPE = "Mapper";
     public static final String JAVASCRIPT_TYPE = "JavaScript";
