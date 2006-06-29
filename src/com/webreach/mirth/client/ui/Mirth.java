@@ -54,9 +54,13 @@ public class Mirth
             public void componentResized(ComponentEvent e) 
             {
                Frame tmp = (Frame)e.getSource();
-               if (tmp.getWidth()<800 || tmp.getHeight()<600) 
+               if (tmp.getWidth()<800) 
                {
-                 tmp.setSize(800, 600);
+                 tmp.setSize(800, tmp.getHeight());
+               }
+               if (tmp.getHeight()<600) 
+               {
+                 tmp.setSize(tmp.getWidth(), 600);
                }
             }
         });
