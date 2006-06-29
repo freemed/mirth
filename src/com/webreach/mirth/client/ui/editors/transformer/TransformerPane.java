@@ -41,7 +41,7 @@ import com.webreach.mirth.client.ui.editors.*;
 
 
 
-public class TransformerPane extends MirthPane {	
+public class TransformerPane extends MirthEditorPane {	
 	
 	/** CONSTRUCTOR
      * 

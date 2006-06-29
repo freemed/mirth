@@ -35,7 +35,7 @@ import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
 
 
-public class FilterPane extends MirthPane {	
+public class FilterPane extends MirthEditorPane {	
 	
 	/** CONSTRUCTOR
 	 * 

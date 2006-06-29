@@ -44,7 +44,7 @@ import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
  */
 public class JavaScriptPanel extends CardPanel {
 
-	public JavaScriptPanel(MirthPane p) {
+	public JavaScriptPanel(MirthEditorPane p) {
 		super();
 		parent = p;
 		initComponents();
@@ -103,6 +103,6 @@ public class JavaScriptPanel extends CardPanel {
 	private JPanel mappingPane;
 	private HighlightedDocument mappingDoc;
 	private JTextPane mappingTextPane;
-	private MirthPane parent;
+	private MirthEditorPane parent;
 	
 }

@@ -30,7 +30,7 @@ import com.Ostermiller.Syntax.*;
 public class MapperPanel extends CardPanel {
     
     /** Creates new form MapperPanel */
-    public MapperPanel(MirthPane p) {
+    public MapperPanel(MirthEditorPane p) {
 		super();
 		parent = p;
         initComponents();
@@ -202,7 +202,7 @@ public class MapperPanel extends CardPanel {
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;
     protected JScrollPane mappingScrollPane;
-    private MirthPane parent;
+    private MirthEditorPane parent;
     // End of variables declaration
     
 }
