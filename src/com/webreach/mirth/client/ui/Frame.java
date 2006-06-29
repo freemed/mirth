@@ -23,14 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.UIManager;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
+import org.jdesktop.swingx.border.DropShadowBorder;
 
 public class Frame extends JXFrame
 {
@@ -69,13 +72,30 @@ public class Frame extends JXFrame
     protected JXTaskPane channelEditTasks;
     protected JXTaskPane userTasks;
     
+    protected JXTitledPanel rightContainer;
+    protected JXTitledPanel leftContainer;
+    
     protected ArrayList<ConnectorClass> sourceConnectors;
     protected ArrayList<ConnectorClass> destinationConnectors; 
     
     private Thread statusUpdater;     
+    private DropShadowBorder dsb;
+    
+    private void build(JXTitledPanel container, JScrollPane component, boolean opaque, String title) 
+    {
+        container.getContentContainer().setLayout(new BorderLayout());
+        container.setBorder(dsb);
+        container.setTitle(title);
+        container.setTitleFont(new Font("Tahoma",Font.BOLD,12));
+        container.getContentContainer().add(component);
+    }
     
     public void setupFrame(Client mirthClient)
     {
+        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 8, .5f, 12, false, true, true, true);
+        //leftContainer = new JXTitledPanel();
+        rightContainer = new JXTitledPanel();
+        
         this.mirthClient = mirthClient;
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -143,10 +163,14 @@ public class Frame extends JXFrame
         setSize(new Dimension(800, 450));
         setTitle("Mirth Client Prototype");
         statusBar = new StatusBar();
-        jSplitPane1.setDividerSize(3);
+        jSplitPane1.setDividerSize(0);
         contentPane.add(statusBar, BorderLayout.SOUTH);
         contentPane.add(jSplitPane1, java.awt.BorderLayout.CENTER);
-        jSplitPane1.add(jScrollPane2, JSplitPane.RIGHT);
+        
+        //build(leftContainer, jScrollPane1, false, "Mirth Tasks");
+        build(rightContainer, jScrollPane2, false, "Mirth");
+        
+        jSplitPane1.add(rightContainer, JSplitPane.RIGHT);
         jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
         jScrollPane1.setMinimumSize(new Dimension(170,0));
         jSplitPane1.setDividerLocation(170);
@@ -158,24 +182,7 @@ public class Frame extends JXFrame
         {
             public void windowClosing(WindowEvent e) 
             {
-                try
-                {
-                    statusUpdater.interrupt();
-                    statusUpdater.join();
-                } 
-                catch (InterruptedException ex)
-                {
-                    ex.printStackTrace();
-                }
-                
-                try
-                {
-                    mirthClient.logout();
-                } 
-                catch (ClientException ex)
-                {
-                    ex.printStackTrace();
-                }
+                endUpdater();
             }
         });
     }
@@ -211,6 +218,28 @@ public class Frame extends JXFrame
         
         jScrollPane1.getViewport().add(container);
         currentTaskPaneContainer = container;
+    }
+    
+    private void endUpdater()
+    {
+        try
+        {
+            statusUpdater.interrupt();
+            statusUpdater.join();
+        } 
+        catch (InterruptedException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        try
+        {
+            mirthClient.logout();
+        } 
+        catch (ClientException ex)
+        {
+            ex.printStackTrace();
+        }
     }
     
     private void makePaneContainer()
@@ -400,6 +429,7 @@ public class Frame extends JXFrame
         {
             ex.printStackTrace();
         }
+        endUpdater();
         this.dispose();
         Mirth.main(new String[0]);
     }

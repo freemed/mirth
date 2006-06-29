@@ -18,6 +18,10 @@ import org.jdesktop.swingx.JXLoginPanel;
 import org.jdesktop.swingx.auth.LoginEvent;
 import org.jdesktop.swingx.auth.LoginListener;
 import org.jdesktop.swingx.auth.LoginService;
+import org.jdesktop.swingx.plaf.LookAndFeelAddons;
+import org.jdesktop.swingx.plaf.aqua.AquaLookAndFeelAddons;
+import org.jdesktop.swingx.plaf.metal.MetalLookAndFeelAddons;
+import org.jdesktop.swingx.plaf.windows.WindowsLookAndFeelAddons;
 
 /**
  * <p>Title: Mirth Beta Prototype</p>
@@ -74,6 +78,7 @@ public class Mirth
                 try
                 {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    //LookAndFeelAddons.setAddon(AquaLookAndFeelAddons.class);                        
                 }
                 catch (Exception exception)
                 {
