@@ -41,7 +41,7 @@ import com.webreach.mirth.client.ui.editors.*;
 
 
 
-public class TransformerPane extends JPanel {	
+public class TransformerPane extends MirthPane {	
 	
 	/** CONSTRUCTOR
      * 
@@ -49,7 +49,6 @@ public class TransformerPane extends JPanel {
      *  Transformer - the data model
      */
     public TransformerPane() {
-        parent = PlatformUI.MIRTH_FRAME;
         prevSelRow = -1; 	// no row by default
         modified = false;    
         
@@ -98,8 +97,8 @@ public class TransformerPane extends JPanel {
         // the available panels (cards)
         stepPanel = new CardPanel();
         blankPanel = new BlankPanel();
-        mapperPanel = new MapperPanel();
-        jsPanel = new JavaScriptPanel();
+        mapperPanel = new MapperPanel(this);
+        jsPanel = new JavaScriptPanel(this);
         // 		establish the cards to use in the Transformer
         stepPanel.addCard( blankPanel, BLANK_TYPE );
         stepPanel.addCard( mapperPanel, MAPPER_TYPE );
@@ -339,8 +338,10 @@ public class TransformerPane extends JPanel {
     					msg = "'" + data.get("Variable") + "'" + " is not unique.";
     				msg += "\nPlease enter a new variable name.\n";
 
-    				JOptionPane.showMessageDialog( 
-        						this, msg, "Variable Conflict", JOptionPane.ERROR_MESSAGE );
+    				parent.alertWarning( msg );
+    				//JOptionPane.showMessageDialog( 
+        						//this, msg, "Variable Conflict", JOptionPane.WARNING_MESSAGE );
+    				
     			} else invalidVar = false;
     		} else if ( type == "JavaScript" ) 
 	    		data = jsPanel.getData();
@@ -533,8 +534,7 @@ public class TransformerPane extends JPanel {
     
 //............................................................................\\
     
-    // the passed arguments to the constructor
-    private Frame parent;
+    // used to load the pane
     private Transformer transformer;
     
     // fields
@@ -550,7 +550,6 @@ public class TransformerPane extends JPanel {
     private int prevSelRow;			// track the previously selected row
     private boolean updating;		// flow control
     private boolean invalidVar;		// selection control
-    private boolean modified;		// have we made any changes?
      
     // panels using CardLayout
     protected CardPanel stepPanel;			// the card holder

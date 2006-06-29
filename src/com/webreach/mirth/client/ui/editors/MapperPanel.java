@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.layout.*;
 
@@ -28,8 +30,9 @@ import com.Ostermiller.Syntax.*;
 public class MapperPanel extends CardPanel {
     
     /** Creates new form MapperPanel */
-    public MapperPanel() {
+    public MapperPanel(MirthPane p) {
 		super();
+		parent = p;
         initComponents();
     }
     
@@ -69,9 +72,12 @@ public class MapperPanel extends CardPanel {
         String[][] referenceData = null;
         
         try {
-        	referenceData = (new HL7ReferenceLoader()).getReferenceTable();
+        	referenceData = ( new HL7ReferenceLoader()).getReferenceTable();
         } catch (IOException e) {
-        	e.printStackTrace();
+        	parent.parent.alertError("Could not load HL7 Reference Table!\n\n"
+        			+ e.getMessage() );
+        	System.err.println( "Could not load HL& Reference Table!" );
+        	e.printStackTrace(); 
         }
         
        refTable.setModel( new DefaultTableModel(
@@ -91,6 +97,40 @@ public class MapperPanel extends CardPanel {
         mappingScrollPane.setViewportView( mappingTextPane );
         treeScrollPane.setViewportView( refTable );
 
+        // BGN listeners
+        mappingTextField.getDocument().addDocumentListener(
+        		new DocumentListener() {
+					public void changedUpdate(DocumentEvent arg0) {
+						parent.modified = true;
+					}
+
+					public void insertUpdate(DocumentEvent arg0) {
+						parent.modified = true;						
+					}
+
+					public void removeUpdate(DocumentEvent arg0) {
+						parent.modified = true;						
+					}
+        			
+        		});
+        
+        mappingTextPane.getDocument().addDocumentListener(
+        		new DocumentListener() {
+					public void changedUpdate(DocumentEvent arg0) {
+						parent.modified = true;
+					}
+
+					public void insertUpdate(DocumentEvent arg0) {
+						parent.modified = true;						
+					}
+
+					public void removeUpdate(DocumentEvent arg0) {
+						parent.modified = true;						
+					}
+        			
+        		});
+        // END listeners
+        
         // BGN NetBeans LAYOUT
         GroupLayout mappingPanelLayout = new GroupLayout(mappingPanel);
         mappingPanel.setLayout(mappingPanelLayout);
@@ -162,6 +202,7 @@ public class MapperPanel extends CardPanel {
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;
     protected JScrollPane mappingScrollPane;
+    private MirthPane parent;
     // End of variables declaration
     
 }

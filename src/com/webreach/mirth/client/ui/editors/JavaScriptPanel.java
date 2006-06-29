@@ -31,9 +31,12 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
 
 /**
  * @author chrisl
@@ -41,9 +44,13 @@ import com.Ostermiller.Syntax.HighlightedDocument;
  */
 public class JavaScriptPanel extends CardPanel {
 
-	public JavaScriptPanel() {
+	public JavaScriptPanel(MirthPane p) {
 		super();
-		
+		parent = p;
+		initComponents();
+	}
+	
+	private void initComponents() {
 		mappingPane = new JPanel();
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
@@ -55,6 +62,24 @@ public class JavaScriptPanel extends CardPanel {
         		new Color( 0,0,0 ) ));
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
+		
+		//BGN listeners
+		mappingTextPane.getDocument().addDocumentListener(
+        		new DocumentListener() {
+					public void changedUpdate(DocumentEvent arg0) {
+						parent.modified = true;
+					}
+
+					public void insertUpdate(DocumentEvent arg0) {
+						parent.modified = true;						
+					}
+
+					public void removeUpdate(DocumentEvent arg0) {
+						parent.modified = true;						
+					}
+        			
+        		});
+		//END listeners
 		
 		this.setLayout( new BorderLayout() );
 		this.add( mappingPane, BorderLayout.CENTER );
@@ -78,5 +103,6 @@ public class JavaScriptPanel extends CardPanel {
 	private JPanel mappingPane;
 	private HighlightedDocument mappingDoc;
 	private JTextPane mappingTextPane;
+	private MirthPane parent;
 	
 }

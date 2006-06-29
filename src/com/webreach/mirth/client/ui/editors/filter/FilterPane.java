@@ -35,7 +35,7 @@ import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
 
 
-public class FilterPane extends JPanel {	
+public class FilterPane extends MirthPane {	
 	
 	/** CONSTRUCTOR
 	 * 
@@ -89,7 +89,7 @@ public class FilterPane extends JPanel {
 		// the available panels (cards)
 		rulePanel = new CardPanel();
 		blankPanel = new BlankPanel();
-		jsPanel = new JavaScriptPanel();
+		jsPanel = new JavaScriptPanel(this);
 		// 		establish the cards to use in the Filter
 		rulePanel.addCard( blankPanel, BLANK_TYPE );
 		rulePanel.addCard( jsPanel, JAVASCRIPT_TYPE );
@@ -436,8 +436,7 @@ public class FilterPane extends JPanel {
 	
 //............................................................................\\
 	
-	// the passed arguments to the constructor
-	private Frame parent;
+	// used to load this pane
 	private Filter filter;
 	
 	// fields
@@ -454,7 +453,6 @@ public class FilterPane extends JPanel {
 	// this little sucker is used to track the last row that had
 	// focus after a new row is selected
 	private int prevSelRow = -1;	// no row by default
-	private boolean modified;		// did anything change?
 	
 	// panels using CardLayout
 	protected CardPanel rulePanel;		// the card holder
