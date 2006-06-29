@@ -410,6 +410,9 @@ public class MessageBrowser extends javax.swing.JPanel
         }
         
         MessageEventFilter filter = new MessageEventFilter();
+        
+        filter.setChannelId(parent.status.get(parent.statusListPage.getSelectedStatus()).getChannelId());
+        
         if (!sendingFacilityField.getText().equals(""))
             filter.setSendingFacility(sendingFacilityField.getText());
         
