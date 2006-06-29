@@ -98,7 +98,7 @@ public class MessageBrowser extends javax.swing.JPanel
         if (messageEventList == null)
             return;
                 
-        Object[][] tableData = new Object[messageEventList.size()][4];
+        Object[][] tableData = new Object[messageEventList.size()][7];
         
         for (int i=0; i < messageEventList.size(); i++)
         {
