@@ -786,7 +786,7 @@ public class Frame extends JXFrame
     public void doShowMessages()
     {
         setBold(viewPane, UIConstants.ERROR_CONSTANT);
-        setPanelName("Channel Messages");
+        setPanelName("Channel Messages :: " + status.get(statusListPage.getSelectedStatus()).getName());
         messageBrowser.loadNew();
         setCurrentContentPage(messageBrowser);
         setFocus(messageTasks);
@@ -899,13 +899,13 @@ public class Frame extends JXFrame
     
     public void doEditTransformer()
     {
-        setPanelName("Edit Transformer");
+        setPanelName("Edit Channel :: " + channelEditPage.currentChannel.getName() + " :: Edit Transformer");
         channelEditPage.editTransformer();
     }
     
     public void doEditFilter()
     {
-        setPanelName("Edit Filter");
+        setPanelName("Edit Channel :: " + channelEditPage.currentChannel.getName() + " :: Edit Filter");
         channelEditPage.editFilter();
     }
     

@@ -175,6 +175,7 @@ public class MessageBrowser extends javax.swing.JPanel
         if(row >= 0)
         {
             ER7TextArea.setText(messageEventList.get(row).getMessage());
+            System.out.println(messageEventList.get(row).getMessage());
         }
     }
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
