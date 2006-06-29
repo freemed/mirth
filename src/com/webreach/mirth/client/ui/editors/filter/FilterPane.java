@@ -27,8 +27,6 @@ import org.jdesktop.swingx.action.ActionFactory;
 import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
-
-import com.sun.org.apache.xml.internal.utils.StopParseException;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.model.Filter;
@@ -47,6 +45,7 @@ public class FilterPane extends JPanel {
 	public FilterPane() {
         parent = PlatformUI.MIRTH_FRAME;
 		initComponents();
+		modified = false;
 	}
 	
 	/** load( Filter f )
@@ -79,6 +78,7 @@ public class FilterPane extends JPanel {
     	parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
     	
     	updateRuleNumbers();
+    	modified = false;
     }
 	
 	/** This method is called from within the constructor to
@@ -292,6 +292,7 @@ public class FilterPane extends JPanel {
 	 *  add a new rule to the end of the list
 	 */
 	public void addNewRule() {
+		modified = true;
 		int row = filterTable.getRowCount();
 		Rule rule = new Rule();
 		
@@ -311,6 +312,7 @@ public class FilterPane extends JPanel {
 	 *  delete all selected rows
 	 */
 	public void deleteRule() {
+		modified = true;
 		if ( filterTable.isEditing() )
     		filterTable.getCellEditor( filterTable.getEditingRow(), 
     				filterTable.getEditingColumn() ).stopCellEditing();
@@ -335,6 +337,7 @@ public class FilterPane extends JPanel {
 	public void moveRuleUp() { moveRule( -1 ); }
 	public void moveRuleDown() { moveRule( 1 ); }
 	public void moveRule( int i ) {
+		modified = true;
 		saveData( prevSelRow );
 		int selRow = filterTable.getSelectedRow();
 		int moveTo = selRow + i;
@@ -373,6 +376,7 @@ public class FilterPane extends JPanel {
 		parent.channelEditPage.setDestinationVariableList();
 		parent.setCurrentContentPage( parent.channelEditPage );
 		parent.setCurrentTaskPaneContainer(parent.taskPaneContainer);
+		if ( modified ) parent.enableSave();
 	}
 	
 	/** void updateRuleNumbers()
@@ -442,7 +446,6 @@ public class FilterPane extends JPanel {
 	private JScrollPane filterTablePane;
 	private JSplitPane vSplitPane;
 	private boolean saving;				// allow the selection listener to breathe
-	private boolean modified;
 	JXTaskPaneContainer filterTaskPaneContainer = new JXTaskPaneContainer();
 	JXTaskPane viewTasks = new JXTaskPane();
 	JXTaskPane filterTasks = new JXTaskPane();
@@ -451,6 +454,7 @@ public class FilterPane extends JPanel {
 	// this little sucker is used to track the last row that had
 	// focus after a new row is selected
 	private int prevSelRow = -1;	// no row by default
+	private boolean modified;		// did anything change?
 	
 	// panels using CardLayout
 	protected CardPanel rulePanel;		// the card holder

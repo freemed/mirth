@@ -60,10 +60,11 @@ public class MapperPanel extends CardPanel {
         this.setBorder( BorderFactory.createEmptyBorder() );
     	this.setPreferredSize( new Dimension( 1, 1 ) );
     	
+    	hSplitPane.setOneTouchExpandable( true );
+    	hSplitPane.setDividerSize( 7 );
     	hSplitPane.setDividerLocation( 450 );
         hSplitPane.setLeftComponent( mappingPanel );
         hSplitPane.setRightComponent( treeScrollPane );
-        
         
         String[][] referenceData = null;
         

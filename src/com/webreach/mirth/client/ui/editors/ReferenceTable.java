@@ -1,14 +1,17 @@
 package com.webreach.mirth.client.ui.editors;
 
-import java.awt.datatransfer.DataFlavor;
+import java.awt.Color;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
+import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.UIConstants;
 
 
@@ -47,8 +50,16 @@ public class ReferenceTable extends JXTable {
         this.setTransferHandler( new TableTransferHandler() );
 		this.setDragEnabled( true );
         this.setFocusable( false );
-        this.setRowHeight( UIConstants.ROW_HEIGHT );
+        this.setSortable( false );
+		this.setOpaque( true );
+		this.setRowSelectionAllowed( true );
         this.setSelectionMode( 0 );
+		this.setRowHeight( UIConstants.ROW_HEIGHT );
+		this.setColumnMargin( UIConstants.COL_MARGIN );
+		this.setSelectionBackground( Color.yellow );
+		this.setSelectionForeground( Color.blue );
+		this.setShowVerticalLines( false );
+		this.setBorder( BorderFactory.createEtchedBorder() );
         
         this.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent evt) {

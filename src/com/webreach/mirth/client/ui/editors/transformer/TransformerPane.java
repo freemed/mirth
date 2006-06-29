@@ -16,12 +16,10 @@ import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
@@ -50,6 +48,7 @@ public class TransformerPane extends JPanel {
     public TransformerPane() {
         parent = PlatformUI.MIRTH_FRAME;
         prevSelRow = -1; 	// no row by default
+        modified = false;
         initComponents();
     }
     
@@ -84,6 +83,7 @@ public class TransformerPane extends JPanel {
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
     	
     	updateStepNumbers();
+    	modified = false;
     }
     
     /** This method is called from within the constructor to
@@ -227,7 +227,9 @@ public class TransformerPane extends JPanel {
 
     // called when a table row is (re)selected
     private void TransformerListSelected( EventObject evt ) {
-        int row = transformerTable.getSelectedRow();
+    	updating = true;
+    	
+    	int row = transformerTable.getSelectedRow();
         int last = -1;
         String type = "";
 
@@ -240,6 +242,11 @@ public class TransformerPane extends JPanel {
 		}
 
     	saveData( prevSelRow );
+    	
+    	if ( invalidVar ) {
+    		row = prevSelRow;
+    		invalidVar = false;
+    	}
     	
         if ( isValid( row ) ) {
         	type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
@@ -255,6 +262,8 @@ public class TransformerPane extends JPanel {
     	loadData();
     	
         updateTaskPane();
+        
+        updating = false;
     }
     
 	// returns true if the row is a valid index in the existing model
@@ -303,29 +312,35 @@ public class TransformerPane extends JPanel {
     		 transformerTable.getCellEditor( transformerTable.getEditingRow(), 
     				transformerTable.getEditingColumn() ).stopCellEditing();
     	
-    	updating = true;
-
-		Map<Object, Object> data = new HashMap<Object, Object>();
     	if ( isValid( row ) ) {
-    		String type = (String)
+			Map<Object, Object> data = new HashMap<Object, Object>();
+			String type = (String)
     				transformerTable.getValueAt( row, STEP_TYPE_COL );
     		
     		if ( type == MAPPER_TYPE ) {
     			data = mapperPanel.getData();
     			String var = data.get( "Variable" ).toString();
-    			while ( !isUnique( var, row ) ) {
+    			
+    			if ( var == null || var.equals( "" ) || !isUnique( var, row ) ) {
+    				invalidVar = true;
+    				String msg = "";
+    				
     				transformerTable.setRowSelectionInterval( row, row );
-    				var = JOptionPane.showInputDialog(data.get("Variable") + " is not unique.\n"
-    						+ "Please enter a new variable name:" );
+    				
+    				if ( var == null || var.equals( "" ) )
+    					msg = "The variable name cannot be blank.";
+    				else // var is not unique
+    					msg = "'" + data.get("Variable") + "'" + " is not unique.";
+    				msg += "\nPlease enter a new variable name.\n";
+
+    				JOptionPane.showMessageDialog( 
+        						this, msg, "Variable Conflict", JOptionPane.ERROR_MESSAGE );
     			}
-    		}
-	    	else if ( type == JAVASCRIPT_TYPE ) data = jsPanel.getData();
+    		} else if ( type == JAVASCRIPT_TYPE ) 
+	    		data = jsPanel.getData();
     		
-	    	// save the data to the the most recently selected Step
-	    	transformerTableModel.setValueAt( data, prevSelRow, STEP_DATA_COL );
+    		transformerTableModel.setValueAt( data, row, STEP_DATA_COL );
     	}
-    		
-    	updating = false;
     }
 
     /** swapData(int row1, int row2)
@@ -372,6 +387,7 @@ public class TransformerPane extends JPanel {
      *  add a new step to the end of the list
      */
     public void addNewStep() {
+    	modified = true;
     	int row = transformerTable.getRowCount();
     	Step step = new Step();
     	Map<Object,Object> data = new HashMap<Object,Object>();
@@ -391,7 +407,7 @@ public class TransformerPane extends JPanel {
      *  delete all selected rows
      */
     public void deleteStep() {
-    	updating = true;
+    	modified = true;
     	boolean swapped = false;
     	
     	if ( transformerTable.isEditing() )
@@ -417,8 +433,10 @@ public class TransformerPane extends JPanel {
     		stepPanel.showCard( BLANK_TYPE );
 
     	if ( !swapped ) loadData();
-    	updateStepNumbers();    	
-    	updating = false;
+    	
+    	if ( transformerTableModel.getRowCount() <= 0 )
+    		makeTransformerTable();
+    	updateStepNumbers();
     }
     
     /** void moveStep( int i )
@@ -427,6 +445,7 @@ public class TransformerPane extends JPanel {
     public void moveStepUp() { moveStep( -1 ); }
     public void moveStepDown() { moveStep( 1 ); }
     public void moveStep( int i ) {
+    	modified = true;
     	int selRow = transformerTable.getSelectedRow();
     	int moveTo = selRow + i;
     	
@@ -470,13 +489,14 @@ public class TransformerPane extends JPanel {
     	parent.channelEditPage.setDestinationVariableList();
     	parent.setCurrentContentPage( parent.channelEditPage );
     	parent.setCurrentTaskPaneContainer( parent.taskPaneContainer );
+    	if ( modified ) parent.enableSave();
     }
     
     /** void updateStepNumbers()
      *  traverses the table and updates all data numbers, both in the model
      *  and the view, after any change to the table
      */
-    private void updateStepNumbers() {    	
+    private void updateStepNumbers() {
     	int rowCount = transformerTableModel.getRowCount();
     	for ( int i = 0;  i < rowCount;  i++ )
     		transformerTableModel.setValueAt( i, i, STEP_NUMBER_COL );
@@ -513,8 +533,10 @@ public class TransformerPane extends JPanel {
     JXTaskPane viewTasks;
     
     // some helper guys
-    private int prevSelRow;		// track the previously selected row
-    private boolean updating;	// flow control
+    private int prevSelRow;			// track the previously selected row
+    private boolean updating;		// flow control
+    private boolean invalidVar;		// selection control
+    private boolean modified;		// have we made any changes?
      
     // panels using CardLayout
     protected CardPanel stepPanel;			// the card holder
@@ -535,5 +557,4 @@ public class TransformerPane extends JPanel {
     public static final String BLANK_TYPE = "";
     public static final String MAPPER_TYPE = "Mapper";
     public static final String JAVASCRIPT_TYPE = "JavaScript";
-    
 }
