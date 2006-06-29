@@ -133,8 +133,8 @@ public class MapperPanel extends CardPanel {
     
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
-		m.put( "Variable", mappingTextField.getText() );
-		m.put( "Mapping", mappingTextPane.getText() );
+		m.put( "Variable", mappingTextField.getText().trim() );
+		m.put( "Mapping", mappingTextPane.getText().trim() );
 		
 		return m;
 	}

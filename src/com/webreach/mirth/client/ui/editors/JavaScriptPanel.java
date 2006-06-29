@@ -64,7 +64,7 @@ public class JavaScriptPanel extends CardPanel {
 	
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
-		m.put( "Script", mappingTextPane.getText() );
+		m.put( "Script", mappingTextPane.getText().trim() );
 		return m;
 	}
 	
