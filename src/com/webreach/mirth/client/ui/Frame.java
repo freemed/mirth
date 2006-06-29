@@ -23,9 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -96,7 +94,7 @@ public class Frame extends JXFrame
     
     public void setupFrame(Client mirthClient)
     {
-        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 4, .3f, 12, true, true, true, true);
+        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 6, .3f, 12, true, true, true, true);
         leftContainer = new JXTitledPanel();
         rightContainer = new JXTitledPanel();
         
@@ -477,7 +475,7 @@ public class Frame extends JXFrame
     
     public void doDeleteChannel()
     {
-        if(!alertUser("Are you sure you want to delete this channel?"))
+        if(!alertOption("Are you sure you want to delete this channel?"))
             return;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
@@ -629,7 +627,7 @@ public class Frame extends JXFrame
     
     public void doDeleteDestination()
     {
-        if(!alertUser("Are you sure you want to delete this destination?"))
+        if(!alertOption("Are you sure you want to delete this destination?"))
             return;
         
         channelEditPage.deleteDestination();
@@ -640,7 +638,7 @@ public class Frame extends JXFrame
        doRefreshChannels();
        
         if (channelListPage.getSelectedChannel() == UIConstants.ERROR_CONSTANT)
-            JOptionPane.showMessageDialog(this, "Channel no longer exists.");
+            alertWarning("Channel no longer exists.");
         else
         {
             Channel channel = channels.get(channelListPage.getSelectedChannel());
@@ -656,7 +654,7 @@ public class Frame extends JXFrame
         doRefreshChannels();
 
         if (channelListPage.getSelectedChannel() == UIConstants.ERROR_CONSTANT)
-            JOptionPane.showMessageDialog(this, "Channel no longer exists.");
+            alertWarning("Channel no longer exists.");
         else
         {
             Channel channel = channels.get(channelListPage.getSelectedChannel());
@@ -699,7 +697,7 @@ public class Frame extends JXFrame
 
     public void doDeleteUser()
     {
-        if(!alertUser("Are you sure you want to delete this user?"))
+        if(!alertOption("Are you sure you want to delete this user?"))
             return;
         
         int userToDelete = adminPanel.u.getUserIndex();
@@ -707,7 +705,7 @@ public class Frame extends JXFrame
         
         if(userName.equalsIgnoreCase("admin")) 
         {
-           JOptionPane.showMessageDialog(this, "You cannot delete the admin.");
+           alertWarning("You cannot delete the admin.");
            return;
         }
         
@@ -866,7 +864,7 @@ public class Frame extends JXFrame
         {
             if(!mirthClient.updateChannel(curr, false))
             {
-                if(alertUser("This channel has been modified since you first opened it.  Would you like to overwrite it?"))
+                if(alertOption("This channel has been modified since you first opened it.  Would you like to overwrite it?"))
                     mirthClient.updateChannel(curr, true);
                 else
                     return;
@@ -932,7 +930,7 @@ public class Frame extends JXFrame
             } 
             catch (IOException ex)
             {
-                JOptionPane.showMessageDialog(this, "File could not be read.");
+                alertError("File could not be read.");
                     return;
             }
             
@@ -960,7 +958,7 @@ public class Frame extends JXFrame
             }
             catch (Exception e)
             {
-                JOptionPane.showMessageDialog(this, "Bad input file.");
+                alertError("Bad input file.");
             }
         }
     }
@@ -971,7 +969,7 @@ public class Frame extends JXFrame
         {
             if (channels.get(i).getName().equalsIgnoreCase(name))
             {
-                JOptionPane.showMessageDialog(this, "Channel name already exists. Please choose a unique name.");
+                alertWarning("Channel name already exists. Please choose a unique name.");
                 return false;
             }
         }
@@ -995,22 +993,37 @@ public class Frame extends JXFrame
             try
             {
                 FileUtil.write(exportFile, channelXML);
-                JOptionPane.showMessageDialog(this, channel.getName() + " was written to " + exportFile.getPath() + ".");
+                alertInformation(channel.getName() + " was written to " + exportFile.getPath() + ".");
             } 
             catch (IOException ex)
             {
-                JOptionPane.showMessageDialog(this, "File could not be written.");
+                alertError("File could not be written.");
             }
         }
     }
     
-    public boolean alertUser(String message)
+    public boolean alertOption(String message)
     {
         int option = JOptionPane.showConfirmDialog(this, message , "Select an Option", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION)
             return true;
         else
             return false;
+    }
+    
+    public void alertInformation(String message)
+    {
+        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void alertWarning(String message)
+    {
+        JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    public void alertError(String message)
+    {
+        JOptionPane.showMessageDialog(this, message, "Critical Error", JOptionPane.ERROR_MESSAGE);
     }
     
     public void enableSave()

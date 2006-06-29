@@ -753,7 +753,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     currentChannel.getSourceConnector().getFilter().getRules().size() > 0 ||
                     currentChannel.getSourceConnector().getTransformer().getSteps().size() > 0)
             {
-                boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                boolean changeType = parent.alertOption("Are you sure you would like to change this connector type and lose all of the current connector data?");
                 if (!changeType)
                 {
                     sourceSourceDropdown.setSelectedItem(connectorClass1.getProperties().get("DataType"));
@@ -844,7 +844,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getFilter().getRules().size() > 0 ||
                     currentChannel.getDestinationConnectors().get(getDestinationConnector((String)jTable1.getValueAt(getSelectedDestination(),getColumnNumber("Destination")))).getTransformer().getSteps().size() > 0))
                 {
-                    boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                    boolean changeType = parent.alertOption("Are you sure you would like to change this connector type and lose all of the current connector data?");
                     if (!changeType)
                     {
                         destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));
@@ -864,7 +864,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     currentChannel.getDestinationConnectors().get(0).getFilter().getRules().size() > 0 ||
                     currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps().size() > 0)
                 {
-                    boolean changeType = parent.alertUser("Are you sure you would like to change this connector type and lose all of the current connector data?");
+                    boolean changeType = parent.alertOption("Are you sure you would like to change this connector type and lose all of the current connector data?");
                     if (!changeType)
                     {
                         destinationSourceDropdown.setSelectedItem(connectorClass2.getProperties().get("DataType"));

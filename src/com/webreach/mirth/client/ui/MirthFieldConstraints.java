@@ -40,7 +40,6 @@ public class MirthFieldConstraints extends PlainDocument
                 }
                 catch(Exception e)
                 {
-                    //JOptionPane.showMessageDialog(null,"Numbers Only","TextField",1,new ImageIcon("Images/warnDel.gif"));
                     return;
                 }
             }
