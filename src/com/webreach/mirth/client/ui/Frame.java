@@ -8,7 +8,7 @@ import com.webreach.mirth.client.ui.util.FileUtil;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.User;
-import com.webreach.mirth.model.converters.ObjectSerializer;
+import com.webreach.mirth.model.converters.ObjectXMLSerializer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -924,10 +924,10 @@ public class Frame extends JXFrame
                     return;
             }
             
-            ObjectSerializer serializer = new ObjectSerializer();
+            ObjectXMLSerializer serializer = new ObjectXMLSerializer();
             try
             {
-                Channel importChannel = (Channel)serializer.fromXML(channelXML);
+                Channel importChannel = (Channel)serializer.deserialize(channelXML);
                 
                 if(!checkChannelName(importChannel.getName()))
                     return;            
@@ -976,8 +976,8 @@ public class Frame extends JXFrame
         if(returnVal == JFileChooser.APPROVE_OPTION) 
         {
             Channel channel = channels.get(channelListPage.getSelectedChannel());
-            ObjectSerializer serializer = new ObjectSerializer();
-            String channelXML = serializer.toXML(channel);
+            ObjectXMLSerializer serializer = new ObjectXMLSerializer();
+            String channelXML = serializer.serialize(channel);
             exportFile = exportFileChooser.getSelectedFile();
             
             try
