@@ -46,10 +46,10 @@ public class Frame extends JXFrame
     public EventBrowser eventBrowser;
     public MessageBrowser messageBrowser;
     public JXTaskPaneContainer taskPaneContainer;
+    public List<ChannelStatus> status;
     
     protected List<Channel> channels;
     protected List<User> users;
-    protected List<ChannelStatus> status;
     
     protected ActionManager manager = ActionManager.getInstance();
     protected JPanel contentPane;
