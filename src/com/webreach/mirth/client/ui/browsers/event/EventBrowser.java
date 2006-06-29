@@ -66,6 +66,7 @@ public class EventBrowser extends javax.swing.JPanel
     {
         // use the start filters and make the table.
         filterButtonActionPerformed(null);
+        clearDescription();
     }
     
     public void makeEventTable(SystemEventFilter filter) {
@@ -144,6 +145,11 @@ public class EventBrowser extends javax.swing.JPanel
     public void deselectRows()
     {
         eventTable.clearSelection();
+    }
+    
+    public void clearDescription()
+    {
+        description.setText("");
     }
     
     private void EventListSelected(ListSelectionEvent evt)

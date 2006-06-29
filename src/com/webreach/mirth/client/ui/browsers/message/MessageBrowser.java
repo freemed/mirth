@@ -81,6 +81,7 @@ public class MessageBrowser extends javax.swing.JPanel
     {
         // use the start filters and make the table.
         filterButtonActionPerformed(null);
+        clearDescription();
     }
     
     public void makeEventTable(MessageEventFilter filter) {
@@ -166,6 +167,13 @@ public class MessageBrowser extends javax.swing.JPanel
     public void deselectRows()
     {
         eventTable.clearSelection();
+        clearDescription();
+    }
+    
+    public void clearDescription()
+    {
+        ER7TextArea.setText("");
+        XMLTextArea.setText("");
     }
     
     private void EventListSelected(ListSelectionEvent evt)
