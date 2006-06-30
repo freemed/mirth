@@ -74,7 +74,7 @@ public class ChannelSetup extends javax.swing.JPanel
         }
         catch(ClientException e)
         {
-            e.printStackTrace();
+            parent.alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -447,9 +447,9 @@ public class ChannelSetup extends javax.swing.JPanel
             currentChannel = parent.channels.get(index);
             parent.channelListPage.makeChannelTable();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            parent.alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         
