@@ -41,7 +41,7 @@ public class MapperPanel extends CardPanel {
      */
     private void initComponents() {
     	treeScrollPane = new JScrollPane();
-    	refTable = new ReferenceTable();
+    	refTable = new HL7ReferenceTable();
         hSplitPane = new JSplitPane();
         mappingPanel = new JPanel();
         mappingLabel = new JLabel( "Variable: " );
@@ -62,40 +62,16 @@ public class MapperPanel extends CardPanel {
         		new Color( 0,0,0 ) ));
         this.setBorder( BorderFactory.createEmptyBorder() );
     	this.setPreferredSize( new Dimension( 1, 1 ) );
-    	
+        
+    	treeScrollPane.setViewportView( refTable );
+    	mappingScrollPane.setViewportView( mappingTextPane );
+        
     	hSplitPane.setOneTouchExpandable( true );
     	hSplitPane.setDividerSize( 7 );
     	hSplitPane.setDividerLocation( 450 );
         hSplitPane.setLeftComponent( mappingPanel );
-        hSplitPane.setRightComponent( treeScrollPane );
-        
-        String[][] referenceData = null;
-        
-        try {
-        	referenceData = ( new HL7ReferenceLoader()).getReferenceTable();
-        } catch (IOException e) {
-        	parent.parent.alertError("Could not load HL7 Reference Table!\n\n"
-        			+ e.getMessage() );
-        	System.err.println( "Could not load HL& Reference Table!" );
-        	e.printStackTrace(); 
-        }
-        
-       refTable.setModel( new DefaultTableModel(
-				referenceData, 
-				new String[] {"ID","Description","Chapter"} ) {
-			boolean[] canEdit = new boolean [] { false, false, false };
-			
-			public boolean isCellEditable ( int row, int col ) {
-				return canEdit[col];
-			}
-		});
-       refTable.getColumnExt( "ID" ).setMaxWidth( 30 );
-       refTable.getColumnExt( "ID" ).setMinWidth( 30 );
-       refTable.getColumnExt( "Chapter" ).setMaxWidth( 55 );
-       refTable.getColumnExt( "Chapter" ).setMinWidth( 55 );
-       
-        mappingScrollPane.setViewportView( mappingTextPane );
-        treeScrollPane.setViewportView( refTable );
+        hSplitPane.setRightComponent( treeScrollPane );        
+
 
         // BGN listeners
         mappingTextField.getDocument().addDocumentListener(
@@ -196,8 +172,7 @@ public class MapperPanel extends CardPanel {
     protected JSplitPane hSplitPane;
     protected JTextPane mappingTextPane;
     private HighlightedDocument mappingDoc;
-    protected ReferenceTable refTable;
-    protected HL7ReferenceLoader refLoader;
+    protected HL7ReferenceTable refTable;
     protected JLabel mappingLabel;
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;

@@ -38,9 +38,6 @@ import com.webreach.mirth.client.ui.editors.*;
 public class FilterPane extends MirthEditorPane {	
 	
 	/** CONSTRUCTOR
-	 * 
-	 *  Frame - the parent where this panel & its tasks will be loaded
-	 *  Filter - the data model
 	 */
 	public FilterPane() {
         parent = PlatformUI.MIRTH_FRAME;
@@ -49,7 +46,6 @@ public class FilterPane extends MirthEditorPane {
 	}
 	
 	/** load( Filter f )
-     *  now that the components have been initialized...
      */
     public void load( Filter f ) {
     	filter = f;
@@ -102,6 +98,7 @@ public class FilterPane extends MirthEditorPane {
 		viewTasks = new JXTaskPane();
 		viewTasks.setTitle("Mirth Views");
 		viewTasks.setFocusable(false);
+		
 		viewTasks.add(initActionCallback( "accept",
 				ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
 				new ImageIcon( Frame.class.getResource( "images/resultset_previous.png" )) ));
@@ -157,30 +154,28 @@ public class FilterPane extends MirthEditorPane {
 		
 		filterTable.setModel( new DefaultTableModel( 
 				new String [] { "#", "Operator", "Script" }, 0 ) {
-			boolean[] canEdit = new boolean [] {
-					false, true, false
-			};
-			
-			public boolean isCellEditable( int row, int col ) {
-				if ( row == 0 && col == RULE_OP_COL )
-					return false;
-				
-				return canEdit[col];
-			}
-		});
+					boolean[] canEdit = new boolean [] { false, true, false };
+					
+					public boolean isCellEditable( int row, int col ) {
+						if ( row == 0 && col == RULE_OP_COL )
+							return false;				
+						return canEdit[col];
+				}
+			});
 		
 		filterTableModel = (DefaultTableModel)filterTable.getModel();
 		
-		String[] comboBoxValues = new String[] { //Rule.Operator.NONE.toString(), 
+		String[] comboBoxValues = new String[] { 
 				Rule.Operator.AND.toString(), Rule.Operator.OR.toString() };
 		
 		// Set the combobox editor on the operator column, and add action listener
 		MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
-		((JXComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
-			public void itemStateChanged( ItemEvent evt ) {
-				updateOperations();
-			}
-		}); 
+		((JXComboBox)comboBox.getComponent()).addItemListener( 
+				new ItemListener() {
+					public void itemStateChanged( ItemEvent evt ) {
+						updateOperations();
+					}
+				});	
 		
 		filterTable.setSelectionMode( 0 );		// only select one row at a time        
 		filterTable.getColumnExt( RULE_NUMBER_COL ).setMaxWidth( 30 );
@@ -205,7 +200,7 @@ public class FilterPane extends MirthEditorPane {
 		filterTable.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged( ListSelectionEvent evt ) {
-						if ( !saving ) FilterListSelected(evt);
+						if ( !updating ) FilterListSelected(evt);
 					}
 				});
 	}    
@@ -215,12 +210,14 @@ public class FilterPane extends MirthEditorPane {
 			String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
 		
 		if(icon != null) boundAction.putValue(Action.SMALL_ICON, icon);
-		boundAction.registerCallback(this,callbackMethod);
+		boundAction.registerCallback( this, callbackMethod );
 		return boundAction;
 	}
 	
 	// called whenever a table row is (re)selected
 	private void FilterListSelected( ListSelectionEvent evt ) {
+		updating = true;
+		
 		int row = filterTable.getSelectedRow();
 		int last = evt.getLastIndex();
 
@@ -238,6 +235,8 @@ public class FilterPane extends MirthEditorPane {
 		}
 		
 		updateTaskPane();
+		
+		updating = false;
 	}
 	
 	// returns true if the row is a valid index in the existing model
@@ -252,7 +251,7 @@ public class FilterPane extends MirthEditorPane {
     		filterTable.getCellEditor( filterTable.getEditingRow(), 
     				filterTable.getEditingColumn() ).stopCellEditing();
     	
-		saving = true;
+		updating = true;
 		
 		if ( isValid( row )) {
 			Map<Object,Object> m = new HashMap<Object,Object>();
@@ -262,7 +261,7 @@ public class FilterPane extends MirthEditorPane {
 					m.get("Script"), row, RULE_SCRIPT_COL );
 		}
 		
-		saving = false;
+		updating = false;
 	}
 	
 	// loads the data object from the currently selected row
@@ -385,26 +384,23 @@ public class FilterPane extends MirthEditorPane {
 	 *  and the view, after any change to the table
 	 */
 	private void updateRuleNumbers() {    
+		updating = true;
+		
 		int rowCount = filterTableModel.getRowCount();
 		int selRow = filterTable.getSelectedRow();
 		
     	for ( int i = 0;  i < rowCount;  i++ )
-    		filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );
+    		filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );	
 
     	updateOperations();
-    	
-    	if ( rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, 1, -1, false );
-        else if ( rowCount == 1 ) {
-        	parent.setVisibleTasks( filterTasks, 0, -1, true );
-        	parent.setVisibleTasks( filterTasks, 2, -1, false );
-        } else 
-        	parent.setVisibleTasks( filterTasks, 0, -1, true );
+    	updateTaskPane();
      
         if ( isValid( selRow ) )
         	filterTable.setRowSelectionInterval( selRow, selRow );
         else if ( rowCount > 0 )
         	filterTable.setRowSelectionInterval( 0, 0 );
+        
+        updating = false;
     }
 	
 	/** updateTaskPane()
@@ -425,7 +421,9 @@ public class FilterPane extends MirthEditorPane {
      *  goes through all existing rules, enforcing rule 0 to be 
      *  a Rule.Operator.NONE, and any other NONEs to ANDs.
      */
-    private void updateOperations() {    	
+    private void updateOperations() {
+    	updating = true;
+    	
     	for ( int i = 0;  i < filterTableModel.getRowCount(); i++ ) {
     		if ( i == 0 )
     			filterTableModel.setValueAt( Rule.Operator.NONE, i, RULE_OP_COL );
@@ -433,6 +431,8 @@ public class FilterPane extends MirthEditorPane {
     				Rule.Operator.NONE.toString() ) )
     			filterTableModel.setValueAt( Rule.Operator.AND, i, RULE_OP_COL );
     	}
+    	
+    	updating = false;
     }
 	
 //............................................................................\\
@@ -445,7 +445,7 @@ public class FilterPane extends MirthEditorPane {
 	private DefaultTableModel filterTableModel;
 	private JScrollPane filterTablePane;
 	private JSplitPane vSplitPane;
-	private boolean saving;				// allow the selection listener to breathe
+	private boolean updating;				// allow the selection listener to breathe
 	JXTaskPaneContainer filterTaskPaneContainer = new JXTaskPaneContainer();
 	JXTaskPane viewTasks = new JXTaskPane();
 	JXTaskPane filterTasks = new JXTaskPane();

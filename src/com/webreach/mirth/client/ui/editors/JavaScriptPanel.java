@@ -37,6 +37,7 @@ import javax.swing.text.BadLocationException;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
+import com.webreach.mirth.client.ui.util.HL7ReferenceLoader;
 
 /**
  * @author chrisl
@@ -51,6 +52,9 @@ public class JavaScriptPanel extends CardPanel {
 	}
 	
 	private void initComponents() {
+		hSplitPane = new JSplitPane();
+		refTable = new HL7ReferenceTable();
+		treeScrollPane = new JScrollPane();
 		mappingPane = new JPanel();
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
@@ -60,6 +64,14 @@ public class JavaScriptPanel extends CardPanel {
         		BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
         		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
         		new Color( 0,0,0 ) ));
+		treeScrollPane.setBorder( BorderFactory.createEmptyBorder() );
+        treeScrollPane.setViewportView( refTable );
+		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
+		hSplitPane.setOneTouchExpandable( true );
+    	hSplitPane.setDividerSize( 7 );
+    	hSplitPane.setDividerLocation( 450 );
+        hSplitPane.setLeftComponent( mappingPane );
+        hSplitPane.setRightComponent( treeScrollPane );
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		
@@ -82,7 +94,7 @@ public class JavaScriptPanel extends CardPanel {
 		//END listeners
 		
 		this.setLayout( new BorderLayout() );
-		this.add( mappingPane, BorderLayout.CENTER );
+		this.add( hSplitPane, BorderLayout.CENTER );
 		
 	}
 	
@@ -103,6 +115,9 @@ public class JavaScriptPanel extends CardPanel {
 	private JPanel mappingPane;
 	private HighlightedDocument mappingDoc;
 	private JTextPane mappingTextPane;
+	protected JSplitPane hSplitPane;
+    protected JScrollPane treeScrollPane;
+	protected HL7ReferenceTable refTable;
 	private MirthEditorPane parent;
 	
 }
