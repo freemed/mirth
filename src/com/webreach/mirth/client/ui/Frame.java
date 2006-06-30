@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -82,6 +83,7 @@ public class Frame extends JXFrame
 
     private Thread statusUpdater;
     private DropShadowBorder dsb;
+    private static Preferences userPreferences; 
 
     private void build(JXTitledPanel container, JScrollPane component, boolean opaque)
     {
@@ -100,7 +102,7 @@ public class Frame extends JXFrame
 
     public void setupFrame(Client mirthClient)
     {
-        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 6, .3f, 12, true, true, true, true);
+        dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 3, .3f, 12, true, true, true, true);
         leftContainer = new JXTitledPanel();
         rightContainer = new JXTitledPanel();
 
@@ -190,6 +192,10 @@ public class Frame extends JXFrame
         {
             public void windowClosing(WindowEvent e)
             {
+                userPreferences = Preferences.systemNodeForPackage(Mirth.class);
+                userPreferences.putInt("maximizedState", getExtendedState());
+                userPreferences.putInt("width", getWidth());
+                userPreferences.putInt("height", getHeight());
                 endUpdater();
             }
         });
@@ -268,6 +274,7 @@ public class Frame extends JXFrame
         settingsTasks.setFocusable(false);
         settingsTasks.add(initActionCallback("doSaveSettings", "Save settings.", ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
         setNonFocusable(settingsTasks);
+        setVisibleTasks(settingsTasks, 0, 0, false);
         taskPaneContainer.add(settingsTasks);
 
         // Create Channel Tasks Pane
@@ -915,7 +922,7 @@ public class Frame extends JXFrame
 
     public void doSaveSettings()
     {
-
+        adminPanel.saveSettings();
     }
 
     public void doImport()
@@ -1051,7 +1058,10 @@ public class Frame extends JXFrame
 
     public void enableSave()
     {
-        channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        if(currentContentPage == channelEditTasks)
+            channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        else
+            settingsTasks.getContentPane().getComponent(0).setVisible(true);
     }
 }
 

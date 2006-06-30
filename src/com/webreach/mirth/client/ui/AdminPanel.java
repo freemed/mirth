@@ -1,11 +1,15 @@
 package com.webreach.mirth.client.ui;
 
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 
 public class AdminPanel extends javax.swing.JPanel
 {
-    Frame parent;
-    Users u;
+    public Users u;
+
+    private static Preferences userPreferences;
+    private Frame parent;
+
     /** Creates new form AdminPanel */
     public AdminPanel()
     {
@@ -22,8 +26,13 @@ public class AdminPanel extends javax.swing.JPanel
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(u, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
+
+        userPreferences = Preferences.systemNodeForPackage(Mirth.class);
+        int interval = userPreferences.getInt("intervalTime", 20);
+        intervalTime.setText(interval + "");
+        intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -36,7 +45,7 @@ public class AdminPanel extends javax.swing.JPanel
         users = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        intervalTime = new com.webreach.mirth.client.ui.MirthTextField();
 
         users.addComponentListener(new java.awt.event.ComponentAdapter()
         {
@@ -67,7 +76,7 @@ public class AdminPanel extends javax.swing.JPanel
             }
         });
 
-        jLabel1.setText("Refresh Interval Time (s):");
+        jLabel1.setText("Refresh Interval Time (seconds):");
 
         org.jdesktop.layout.GroupLayout settingsLayout = new org.jdesktop.layout.GroupLayout(settings);
         settings.setLayout(settingsLayout);
@@ -77,8 +86,8 @@ public class AdminPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 89, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         settingsLayout.setVerticalGroup(
             settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -86,7 +95,7 @@ public class AdminPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .add(settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(242, Short.MAX_VALUE))
         );
         adminPanel.addTab("Settings", settings);
@@ -112,7 +121,7 @@ public class AdminPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_usersComponentShown
         parent.setFocus(parent.userTasks);
     }//GEN-LAST:event_usersComponentShown
-    
+
     public void showTasks()
     {
         if(settings.isVisible())
@@ -122,15 +131,21 @@ public class AdminPanel extends javax.swing.JPanel
         else
         {
             parent.setFocus(parent.userTasks);
-        }    
+        }
     }
-    
+
+    public void saveSettings()
+    {
+        userPreferences.putInt("intervalTime",Integer.parseInt(intervalTime.getText()));
+        parent.settingsTasks.getContentPane().getComponent(0).setVisible(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane adminPanel;
+    private com.webreach.mirth.client.ui.MirthTextField intervalTime;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel settings;
     private javax.swing.JPanel users;
     // End of variables declaration//GEN-END:variables
-    
+
 }

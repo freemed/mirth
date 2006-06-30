@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,16 +39,22 @@ import org.jdesktop.swingx.plaf.windows.WindowsLookAndFeelAddons;
 public class Mirth 
 {
     public Client client;
+    private static Preferences userPreferences; 
     /**
      * Construct and show the application.
      */
     public Mirth(Client m) 
     {
         PlatformUI.MIRTH_FRAME = new Frame();
+        userPreferences = Preferences.systemNodeForPackage(Mirth.class);
+        
         PlatformUI.MIRTH_FRAME.setupFrame(m);
-        PlatformUI.MIRTH_FRAME.setSize(900,700);
+        int width = userPreferences.getInt("width", 900);    
+        int height = userPreferences.getInt("height", 700);
+        PlatformUI.MIRTH_FRAME.setSize(width,height);
         PlatformUI.MIRTH_FRAME.setLocationRelativeTo(null);
-        //PlatformUI.MIRTH_FRAME.setExtendedState(frame.MAXIMIZED_BOTH);
+        if(userPreferences.getInt("maximizedState", PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH) == PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH)
+            PlatformUI.MIRTH_FRAME.setExtendedState(PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH);
         PlatformUI.MIRTH_FRAME.setVisible(true);
         PlatformUI.MIRTH_FRAME.addComponentListener(new java.awt.event.ComponentAdapter() 
         {
@@ -64,8 +71,6 @@ public class Mirth
                }
             }
         });
-        
-        
     }
     
     /**
@@ -118,7 +123,7 @@ public class Mirth
                 GridBagConstraints gridBagConstraints = new GridBagConstraints();  
                 gridBagConstraints.gridx = 0;  
                 gridBagConstraints.gridy = 0;  
-                gridBagConstraints.anchor = GridBagConstraints.WEST;  
+                gridBagConstraints.anchor = GridBagConstraints.EAST;  
                 gridBagConstraints.insets = new Insets(0, 0, 5, 11);  
                 loginInfo.add(serverLabel, gridBagConstraints);  
 
@@ -135,7 +140,7 @@ public class Mirth
                 gridBagConstraints = new GridBagConstraints();  
                 gridBagConstraints.gridx = 0;  
                 gridBagConstraints.gridy = 1;  
-                gridBagConstraints.anchor = GridBagConstraints.WEST;  
+                gridBagConstraints.anchor = GridBagConstraints.EAST;  
                 gridBagConstraints.insets = new Insets(0, 0, 5, 11);  
                 loginInfo.add(nameLabel, gridBagConstraints);  
 
@@ -152,7 +157,7 @@ public class Mirth
                 gridBagConstraints = new GridBagConstraints();  
                 gridBagConstraints.gridx = 0;  
                 gridBagConstraints.gridy = 2;  
-                gridBagConstraints.anchor = GridBagConstraints.WEST;  
+                gridBagConstraints.anchor = GridBagConstraints.EAST;  
                 gridBagConstraints.insets = new Insets(0, 0, 11, 11);  
                 loginInfo.add(passwordLabel, gridBagConstraints);  
 
