@@ -10,6 +10,7 @@ import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.User;
 import com.webreach.mirth.model.converters.ObjectXMLSerializer;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -85,6 +86,8 @@ public class Frame extends JXFrame
         container.setBorder(dsb);
         container.setTitleFont(new Font("Tahoma",Font.BOLD,12));
         container.getContentContainer().add(component);
+        container.setTitleDarkBackground(new Color(122,161,230));
+        container.setTitleLightBackground(new Color(115,154,223));
     }
     
     public void setPanelName(String name)

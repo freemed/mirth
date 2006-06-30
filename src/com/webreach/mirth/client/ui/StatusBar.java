@@ -8,6 +8,7 @@ package com.webreach.mirth.client.ui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.border.BevelBorder;
 
 /**
  *
@@ -25,6 +26,7 @@ public class StatusBar extends javax.swing.JPanel
         right.setText("Logged in as: " + PlatformUI.USER_NAME);
         right.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/user.png")));
         right.setHorizontalTextPosition(JLabel.LEADING);
+        this.setBorder(new BevelBorder(BevelBorder.LOWERED));
     }
     
     /** This method is called from within the constructor to
