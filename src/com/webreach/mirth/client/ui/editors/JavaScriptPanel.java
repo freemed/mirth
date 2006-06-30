@@ -139,7 +139,7 @@ public class JavaScriptPanel extends CardPanel {
     private JScrollPane treeScrollPane;
 	private HL7ReferenceTable refTable;
 	private MirthEditorPane parent;
-	String header = "Start {\n";
-	String footer = "\n} End";
+	private String header = "doTransform {\n";
+	private String footer = "\n}";
 	
 }
