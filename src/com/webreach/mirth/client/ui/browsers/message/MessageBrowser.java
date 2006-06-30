@@ -97,6 +97,7 @@ public class MessageBrowser extends javax.swing.JPanel
         // use the start filters and make the table.
         filterButtonActionPerformed(null);
         clearDescription();
+        descriptionTabbedPane.setSelectedIndex(0);
     }
     
     public void makeEventTable(MessageEventFilter filter) {
@@ -187,8 +188,9 @@ public class MessageBrowser extends javax.swing.JPanel
     
     public void clearDescription()
     {
-        ER7TextArea.setText("");
-        XMLTextArea.setText("");
+        ER7TextArea.setText("Select a message to see the ER7.");
+        XMLTextArea.setText("Select a message to see the XML.");
+        HL7Panel.clearMessage();
     }
     
     private void EventListSelected(ListSelectionEvent evt)
@@ -200,10 +202,7 @@ public class MessageBrowser extends javax.swing.JPanel
             if(row >= 0)
             {
                 String message = messageEventList.get(row).getMessage();
-                
-                //HL7Panel = new HL7TreePanel();
                 HL7Panel.setMessage(message);
-                
                 ER7TextArea.setText(message.replaceAll("\r", "\n"));
             }
         }

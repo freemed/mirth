@@ -149,7 +149,7 @@ public class EventBrowser extends javax.swing.JPanel
     
     public void clearDescription()
     {
-        description.setText("");
+        description.setText("Select an event to see its description.");
     }
     
     private void EventListSelected(ListSelectionEvent evt)

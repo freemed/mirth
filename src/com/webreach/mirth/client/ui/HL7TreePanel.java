@@ -27,6 +27,7 @@
 
 package com.webreach.mirth.client.ui;
 
+import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -52,6 +53,7 @@ public class HL7TreePanel extends JPanel {
 		System.setProperty("ca.uhn.hl7v2.model.primitive.CommonTN.validate", "false");
 		parser = new PipeParser();
 		encodingChars = new EncodingCharacters('|', null);
+                this.setLayout(new GridLayout(1,1));
 	}
 	
     /**
@@ -74,6 +76,15 @@ public class HL7TreePanel extends JPanel {
 		add(tree);
 		revalidate();
     }	
+    
+    public void clearMessage()
+    {
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to see the HL7 Tree.");
+        JTree tree = new JTree(top);
+        removeAll();
+        add(tree);
+        revalidate();
+    }
 
 	/**
 	 * Adds the children of the given group under the given tree node.
