@@ -2,7 +2,7 @@ package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.model.ChannelStatus;
-import com.webreach.mirth.model.Statistics;
+import com.webreach.mirth.model.ChannelStatistics;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -64,7 +64,7 @@ public class StatusPanel extends javax.swing.JPanel
             ChannelStatus tempStatus = parent.status.get(i); 
             try
             {
-                Statistics tempStats = parent.mirthClient.getStatistics(tempStatus.getChannelId());
+                ChannelStatistics tempStats = parent.mirthClient.getStatistics(tempStatus.getChannelId());
                 tableData[i][2] = tempStats.getSentCount();
                 tableData[i][3] = tempStats.getReceivedCount();
                 tableData[i][4] = tempStats.getErrorCount();
