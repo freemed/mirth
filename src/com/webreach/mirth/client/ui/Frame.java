@@ -398,11 +398,7 @@ public class Frame extends JXFrame
 
         doRefresh();
         setBold(viewPane, 0);
-<<<<<<< .mine
         setPanelName("Status");
-=======
-        setPanelName("Channel Status");
->>>>>>> .r364
         setCurrentContentPage(statusListPage);
         setFocus(statusTasks);
     }
