@@ -65,7 +65,7 @@ public class HL7TreePanel extends JPanel {
 		try {
 			message = parser.parse(source);
 		} catch (Exception e) {
-			e.printStackTrace();
+			PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
 		}
 
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
@@ -113,7 +113,7 @@ public class HL7TreePanel extends JPanel {
 					treeParent.insert(newNode, currentChild++);
 				}
 			} catch (HL7Exception e) {
-				e.printStackTrace();
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class HL7TreePanel extends JPanel {
 					treeParent.insert(newNode, currentChild++);
 				}
 			} catch (HL7Exception e) {
-				e.printStackTrace();
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
 			}
 		}
 	}

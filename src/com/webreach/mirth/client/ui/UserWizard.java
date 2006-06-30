@@ -244,9 +244,9 @@ public class UserWizard extends javax.swing.JDialog
                 temp.setPassword(String.valueOf(password1.getPassword()));
                 parent.updateUser(temp);
             } 
-            catch (ClientException ex)
+            catch (ClientException e)
             {
-                ex.printStackTrace();
+                parent.alertException(e.getStackTrace());
             }
             this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             this.dispose();

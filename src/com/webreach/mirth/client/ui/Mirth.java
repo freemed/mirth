@@ -89,9 +89,9 @@ public class Mirth
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     //LookAndFeelAddons.setAddon(AquaLookAndFeelAddons.class);                        
                 }
-                catch (Exception exception)
+                catch (Exception e)
                 {
-                    exception.printStackTrace();
+                    e.printStackTrace();
                 }
                 
                 String userDefault = "admin";
