@@ -10,8 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 import org.jdesktop.swingx.JXTable;
-import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
-import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.UIConstants;
 
 

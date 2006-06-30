@@ -55,26 +55,43 @@ public class JavaScriptPanel extends CardPanel {
 		hSplitPane = new JSplitPane();
 		refTable = new HL7ReferenceTable();
 		treeScrollPane = new JScrollPane();
+		headerLabel = new JLabel( header );
+		footerLabel = new JLabel( footer );
 		mappingPane = new JPanel();
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
+		mappingScrollPane = new JScrollPane();
 		mappingTextPane = new JTextPane( mappingDoc );
-		mappingTextPane.setBorder( BorderFactory.createEtchedBorder() );
-		mappingPane.setBorder( BorderFactory.createTitledBorder( 
-        		BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
-        		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
-        		new Color( 0,0,0 ) ));
+		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
+		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
+		mappingPane.setBackground( new Color( 255, 255, 224 ) );
 		treeScrollPane.setBorder( BorderFactory.createEmptyBorder() );
         treeScrollPane.setViewportView( refTable );
+		
+        headerLabel.setForeground( Color.blue );
+        headerLabel.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
+        headerLabel.setBorder( BorderFactory.createEmptyBorder() );
+        footerLabel.setForeground( Color.blue );
+        footerLabel.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
+        footerLabel.setBorder( BorderFactory.createEmptyBorder() );
+		
+        mappingPane.setLayout( new BorderLayout() );
+		mappingPane.add( headerLabel, BorderLayout.NORTH );
+		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
+		mappingPane.add( footerLabel, BorderLayout.SOUTH );
+		mappingScrollPane.setViewportView( mappingPane );
+		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
+        		BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
+        		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
+        		Color.black ));
+		
 		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
 		hSplitPane.setOneTouchExpandable( true );
     	hSplitPane.setDividerSize( 7 );
     	hSplitPane.setDividerLocation( 450 );
-        hSplitPane.setLeftComponent( mappingPane );
+        hSplitPane.setLeftComponent( mappingScrollPane );
         hSplitPane.setRightComponent( treeScrollPane );
-		mappingPane.setLayout( new BorderLayout() );
-		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
-		
+        
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(
         		new DocumentListener() {
@@ -112,12 +129,17 @@ public class JavaScriptPanel extends CardPanel {
 	}
 
 	
+	private JLabel headerLabel;
+	private JLabel footerLabel;
 	private JPanel mappingPane;
 	private HighlightedDocument mappingDoc;
 	private JTextPane mappingTextPane;
-	protected JSplitPane hSplitPane;
-    protected JScrollPane treeScrollPane;
-	protected HL7ReferenceTable refTable;
+	private JScrollPane mappingScrollPane;
+	private JSplitPane hSplitPane;
+    private JScrollPane treeScrollPane;
+	private HL7ReferenceTable refTable;
 	private MirthEditorPane parent;
+	String header = "Start {\n";
+	String footer = "\n} End";
 	
 }
