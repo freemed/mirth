@@ -49,6 +49,7 @@ public class HL7TreePanel extends JPanel {
 	private EncodingCharacters encodingChars;
 
 	public HL7TreePanel() {
+		System.setProperty("ca.uhn.hl7v2.model.primitive.CommonTN.validate", "false");
 		parser = new PipeParser();
 		encodingChars = new EncodingCharacters('|', null);
 	}
