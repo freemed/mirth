@@ -89,6 +89,10 @@ public class Mirth
                     exception.printStackTrace();
                 }
                 
+                String userDefault = "admin";
+                String passwordDefault = "abc12345";
+                String mirthServerDefault = "http://127.0.0.1:8080";
+                
                 final MirthLoginService svc = new MirthLoginService(); 
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
                 
@@ -103,11 +107,11 @@ public class Mirth
                 
                 String CLASS_NAME = JXLoginPanel.class.getCanonicalName(); 
                 JLabel serverLabel = new JLabel("Server");
-                javax.swing.JTextField serverName = new javax.swing.JTextField("", 30); 
+                javax.swing.JTextField serverName = new javax.swing.JTextField(mirthServerDefault, 30); 
                 JLabel nameLabel = new JLabel("Login"); 
                 JLabel passwordLabel = new JLabel("Password");  
-                javax.swing.JTextField nameField = new javax.swing.JTextField("", 15); 
-                JPasswordField passwordField = new JPasswordField("", 15);  
+                javax.swing.JTextField nameField = new javax.swing.JTextField(userDefault, 15); 
+                JPasswordField passwordField = new JPasswordField(passwordDefault, 15);  
                                
                 loginInfo.setLayout(new GridBagLayout());  
                 
@@ -236,17 +240,12 @@ class MirthLoginService extends LoginService
         
         public boolean authenticate(final String username, char[] pass, String server) throws Exception 
         {
-            //String username = String.valueOf(frm.getPanel().getUserName());
-            //String password =  String.valueOf(frm.getPanel().getPassword());  
-            String user = "admin";
-            String pw = "abc12345";
-            String mirthServer = "http://127.0.0.1:8080";
-            //String mirthServer = ((javax.swing.JTextField)p.getComponent(1)).getText();
-            //c = new Client(mirthServer);
+            String user = ((javax.swing.JTextField)p.getComponent(3)).getText();
+            String pw =  ((javax.swing.JTextField)p.getComponent(5)).getText();
+            String mirthServer = ((javax.swing.JTextField)p.getComponent(1)).getText();
             c = new Client(mirthServer);
             try
             {
-                //if(c.login(username,new String(pass)))
                 if(c.login(user,pw))
                 {
                     PlatformUI.USER_NAME = user;

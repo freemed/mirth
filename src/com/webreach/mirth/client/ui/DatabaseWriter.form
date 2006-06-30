@@ -114,11 +114,12 @@
     <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="databaseDriverCombobox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Sun JDBC-ODBC Bridge"/>
+            <StringItem index="1" value="ODBC - MySQL"/>
+            <StringItem index="2" value="ODBC - PostgreSQL"/>
+            <StringItem index="3" value="ODBC - SQL Server/Sybase"/>
+            <StringItem index="4" value="ODBC - Oracle 10g Release 2"/>
           </StringArray>
         </Property>
       </Properties>

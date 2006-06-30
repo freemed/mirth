@@ -21,7 +21,7 @@ public class StatusBar extends javax.swing.JPanel
     public StatusBar()
     {
         initComponents();
-        left.setText(PlatformUI.SERVER_NAME);
+        left.setText("Connected to: " + PlatformUI.SERVER_NAME);
         left.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/server.png")));
         right.setText("Logged in as: " + PlatformUI.USER_NAME);
         right.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/user.png")));
