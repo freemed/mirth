@@ -351,11 +351,8 @@ public class ChannelWizard extends javax.swing.JDialog
     {
         for (int i = 0; i < parent.channels.size(); i++)
         {
-            if (parent.channels.get(i).getName().equals(channelName.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Channel name already exists.");
+            if (!parent.checkChannelName(channelName.getText()))
                 return;
-            }
         }
         channel = new Channel();
         channel.setName(channelName.getText());
@@ -403,11 +400,8 @@ public class ChannelWizard extends javax.swing.JDialog
         parent.doRefreshChannels();
         for (int i = 0; i < parent.channels.size(); i++)
         {
-            if (parent.channels.get(i).getName().equals(channelName.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Channel name already exists.");
+            if (!parent.checkChannelName(channelName.getText()))
                 return;
-            }
         }
         
         if(this.nextButton.getText().equals("Next"))

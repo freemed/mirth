@@ -104,8 +104,8 @@ public class Mirth
                 String CLASS_NAME = JXLoginPanel.class.getCanonicalName(); 
                 JLabel serverLabel = new JLabel("Server");
                 javax.swing.JTextField serverName = new javax.swing.JTextField("", 30); 
-                JLabel nameLabel = new JLabel(UIManager.getString(CLASS_NAME + ".nameString")); 
-                JLabel passwordLabel = new JLabel(UIManager.getString(CLASS_NAME + ".passwordString"));  
+                JLabel nameLabel = new JLabel("Login"); 
+                JLabel passwordLabel = new JLabel("Password");  
                 javax.swing.JTextField nameField = new javax.swing.JTextField("", 15); 
                 JPasswordField passwordField = new JPasswordField("", 15);  
                                

@@ -221,13 +221,13 @@ public class UserWizard extends javax.swing.JDialog
         {
             if (parent.users.get(i).getUsername().equals(username.getText()))
             {
-                JOptionPane.showMessageDialog(this, "Username already exists.");
+                parent.alertWarning("Username already exists.");
                 return;
             }
         }
         if(!String.valueOf(password1.getPassword()).equals(String.valueOf(password2.getPassword())))
         {
-            JOptionPane.showMessageDialog(this, "Passwords must be the same.");
+            parent.alertWarning("Passwords must be the same.");
             return;
         }
         else

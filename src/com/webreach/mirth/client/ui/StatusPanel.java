@@ -1,8 +1,8 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
-import com.webreach.mirth.model.ChannelStatus;
 import com.webreach.mirth.model.ChannelStatistics;
+import com.webreach.mirth.model.ChannelStatus;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;

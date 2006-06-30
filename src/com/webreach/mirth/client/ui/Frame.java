@@ -102,6 +102,7 @@ public class Frame extends JXFrame
         rightContainer = new JXTitledPanel();
         
         this.mirthClient = mirthClient;
+        this.setIconImage(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/emoticon_smile.png")).getImage());
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         
@@ -960,7 +961,7 @@ public class Frame extends JXFrame
             }
             catch (Exception e)
             {
-                alertError("Bad input file.");
+                alertError("Invalid channel file.");
             }
         }
     }
