@@ -117,9 +117,9 @@ public class Frame extends JXFrame
             users = this.mirthClient.getUsers();
             status = this.mirthClient.getChannelStatusList();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -157,9 +157,9 @@ public class Frame extends JXFrame
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             jbInit();
         }
-        catch (Exception exception)
+        catch (Exception e)
         {
-            exception.printStackTrace();
+            alertException(e.getStackTrace());
         }
 
         statusUpdater = new Thread(new StatusUpdater());
@@ -241,18 +241,18 @@ public class Frame extends JXFrame
             statusUpdater.interrupt();
             statusUpdater.join();
         }
-        catch (InterruptedException ex)
+        catch (InterruptedException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
 
         try
         {
             mirthClient.logout();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
     }
 
@@ -443,9 +443,9 @@ public class Frame extends JXFrame
         {
             mirthClient.logout();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         endUpdater();
         this.dispose();
@@ -499,7 +499,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            e.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         doShowChannel();
@@ -530,9 +530,9 @@ public class Frame extends JXFrame
                     channelName = channels.get(i).getName();
             }
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -553,9 +553,9 @@ public class Frame extends JXFrame
             else
                 setVisibleTasks(statusTasks, 1, 1, false);
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -573,9 +573,9 @@ public class Frame extends JXFrame
                     mirthClient.resumeChannel(status.get(i).getChannelId());
             }
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -592,9 +592,9 @@ public class Frame extends JXFrame
             else if(status.get(statusListPage.getSelectedStatus()).getState() == ChannelStatus.State.PAUSED)
                 mirthClient.resumeChannel(status.get(statusListPage.getSelectedStatus()).getChannelId());
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -608,9 +608,9 @@ public class Frame extends JXFrame
         {
             mirthClient.stopChannel(status.get(statusListPage.getSelectedStatus()).getChannelId());
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -624,9 +624,9 @@ public class Frame extends JXFrame
         {
             mirthClient.pauseChannel(status.get(statusListPage.getSelectedStatus()).getChannelId());
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -733,9 +733,9 @@ public class Frame extends JXFrame
                 adminPanel.u.deselectRows();
            }
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -760,9 +760,9 @@ public class Frame extends JXFrame
                     userName = users.get(i).getUsername();
             }
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -781,9 +781,9 @@ public class Frame extends JXFrame
             mirthClient.deployChannels();
             statusListPage.deselectRows();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -885,9 +885,9 @@ public class Frame extends JXFrame
             channels = mirthClient.getChannels();
             channelListPage.makeChannelTable();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -901,9 +901,9 @@ public class Frame extends JXFrame
             users = mirthClient.getUsers();
             adminPanel.u.makeUsersTable();
         }
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            alertException(e.getStackTrace());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -961,9 +961,9 @@ public class Frame extends JXFrame
                 {
                     importChannel.setId(mirthClient.getNextId());
                 }
-                catch (ClientException ex)
+                catch (ClientException e)
                 {
-                    ex.printStackTrace();
+                    alertException(e.getStackTrace());
                 }
 
                 editChannel(channels.size()-1);
