@@ -24,11 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
@@ -931,7 +934,7 @@ public class Frame extends JXFrame
             {
                 channelXML = FileUtil.read(importFile);
             }
-            catch (IOException ex)
+            catch (IOException e)
             {
                 alertError("File could not be read.");
                     return;
@@ -1023,10 +1026,27 @@ public class Frame extends JXFrame
     {
         JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
     }
-
+    
     public void alertError(String message)
     {
-        JOptionPane.showMessageDialog(this, message, "Critical Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void alertException(StackTraceElement[] strace)
+    {
+        String stackTrace = "";
+        for (int i = 0; i < strace.length; i++)
+            stackTrace += strace[i].toString() + "\n";
+        
+        JScrollPane errorScrollPane = new JScrollPane();
+        JTextArea errorTextArea = new JTextArea();
+        errorTextArea.setBackground(UIManager.getColor("Control"));
+        errorTextArea.setColumns(50);
+        errorTextArea.setRows(10);
+        errorTextArea.setText(stackTrace);
+        errorTextArea.setEditable(false);
+        errorScrollPane.setViewportView(errorTextArea);
+        JOptionPane.showMessageDialog(this, errorScrollPane, "Critical Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void enableSave()
