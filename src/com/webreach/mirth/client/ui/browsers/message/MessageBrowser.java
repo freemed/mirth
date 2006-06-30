@@ -51,12 +51,6 @@ public class MessageBrowser extends javax.swing.JPanel
         HL7ScrollPane.setViewportView(HL7Panel);
         descriptionTabbedPane.addTab("HL7", HL7ScrollPane);
         
-        mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
-        mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
-        
-        mirthDatePicker1.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
-        mirthDatePicker2.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
-        
         String[] values = new String[MessageEvent.Status.values().length + 1];
         values[0] = "ALL";
         for (int i = 1; i < values.length; i++)

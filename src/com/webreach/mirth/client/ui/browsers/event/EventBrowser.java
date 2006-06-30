@@ -29,12 +29,6 @@ public class EventBrowser extends javax.swing.JPanel
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         eventPane = new JScrollPane();
-
-        mirthDatePicker1.setFormats(new String[] { "EEE MM-dd-yyyy" });
-        mirthDatePicker2.setFormats(new String[] { "EEE MM-dd-yyyy" });
-        
-        mirthDatePicker1.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
-        mirthDatePicker2.getEditor().setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
