@@ -45,7 +45,7 @@ public class Mirth
     {
         PlatformUI.MIRTH_FRAME = new Frame();
         PlatformUI.MIRTH_FRAME.setupFrame(m);
-        PlatformUI.MIRTH_FRAME.setSize(800,600);
+        PlatformUI.MIRTH_FRAME.setSize(900,700);
         PlatformUI.MIRTH_FRAME.setLocationRelativeTo(null);
         //PlatformUI.MIRTH_FRAME.setExtendedState(frame.MAXIMIZED_BOTH);
         PlatformUI.MIRTH_FRAME.setVisible(true);
@@ -54,13 +54,13 @@ public class Mirth
             public void componentResized(ComponentEvent e) 
             {
                Frame tmp = (Frame)e.getSource();
-               if (tmp.getWidth()<800) 
+               if (tmp.getWidth()<900) 
                {
-                 tmp.setSize(800, tmp.getHeight());
+                 tmp.setSize(900, tmp.getHeight());
                }
-               if (tmp.getHeight()<600) 
+               if (tmp.getHeight()<700) 
                {
-                 tmp.setSize(tmp.getWidth(), 600);
+                 tmp.setSize(tmp.getWidth(), 700);
                }
             }
         });

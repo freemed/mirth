@@ -154,11 +154,14 @@ public class EventBrowser extends javax.swing.JPanel
     
     private void EventListSelected(ListSelectionEvent evt)
     {
-        int row = eventTable.getSelectedRow();
-        
-        if(row >= 0)
+        if (!evt.getValueIsAdjusting())
         {
-            description.setText(systemEventList.get(row).getDescription() + "\n" + systemEventList.get(row).getAttributes());
+            int row = eventTable.getSelectedRow();
+
+            if(row >= 0)
+            {
+                description.setText(systemEventList.get(row).getDescription() + "\n" + systemEventList.get(row).getAttributes());
+            }
         }
     }
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents

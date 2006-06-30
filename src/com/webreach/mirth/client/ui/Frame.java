@@ -165,7 +165,6 @@ public class Frame extends JXFrame
         contentPane = (JPanel) getContentPane();
         contentPane.setLayout(new BorderLayout());
         contentPane.setBorder(null);
-        setSize(new Dimension(800, 450));
         setTitle("Mirth Client Prototype");
         statusBar = new StatusBar();
         jSplitPane1.setDividerSize(0);
