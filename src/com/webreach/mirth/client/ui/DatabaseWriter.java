@@ -21,7 +21,18 @@ public class DatabaseWriter extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put("DataType", name);
-        properties.put("Driver", databaseDriverCombobox.getSelectedItem());
+        
+        if(databaseDriverCombobox.getSelectedItem().equals("Sun JDBC-ODBC Bridge"))
+            properties.put("Driver", "sun.jdbc.odbc.JdbcOdbcDriver");
+        else if(databaseDriverCombobox.getSelectedItem().equals("ODBC - MySQL"))
+            properties.put("Driver", "com.mysql.jdbc.Driver");
+        else if(databaseDriverCombobox.getSelectedItem().equals("ODBC - PostgresSQL"))
+            properties.put("Driver", "org.postgresql.Driver");
+        else if(databaseDriverCombobox.getSelectedItem().equals("ODBC - SQL Server/Sybase"))
+            properties.put("Driver", "net.sourceforge.jtds.jdbc.Driver");
+        else if(databaseDriverCombobox.getSelectedItem().equals("ODBC - Oracle 10g Release 2"))
+            properties.put("Driver", "oracle.jdbc.OracleDriver");
+        
         properties.put("URL", databaseURLField.getText());
         properties.put("Username", databaseUsernameField.getText());
         properties.put("Password", new String(databasePasswordField.getPassword()));
@@ -32,7 +43,18 @@ public class DatabaseWriter extends ConnectorClass
     public void setProperties(Properties props)
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        databaseDriverCombobox.setSelectedItem(props.get("Driver"));
+        
+        if(props.get("Driver").equals("sun.jdbc.odbc.JdbcOdbcDriver"))
+            databaseDriverCombobox.setSelectedItem("Sun JDBC-ODBC Bridge");
+        else if(props.get("Driver").equals("com.mysql.jdbc.Driver"))
+            databaseDriverCombobox.setSelectedItem("ODBC - MySQL");
+        else if(props.get("Driver").equals("org.postgresql.Driver"))
+            databaseDriverCombobox.setSelectedItem("ODBC - PostgresSQL");
+        else if(props.get("Driver").equals("net.sourceforge.jtds.jdbc.Driver"))
+            databaseDriverCombobox.setSelectedItem("ODBC - SQL Server/Sybase");
+        else if(props.get("Driver").equals("oracle.jdbc.OracleDriver"))
+            databaseDriverCombobox.setSelectedItem("ODBC - Oracle 10g Release 2");
+        
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
         databaseURLField.setText((String)props.get("URL"));
         databaseUsernameField.setText((String)props.get("Username"));
