@@ -278,7 +278,7 @@ public class MessageBrowser extends javax.swing.JPanel
                         .add(org.jdesktop.layout.GroupLayout.LEADING, statusComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, controlIDField)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         filterPanelLayout.setVerticalGroup(
             filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -337,9 +337,9 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
         ER7Panel.setBackground(new java.awt.Color(255, 255, 255));
         ER7TextArea.setColumns(20);
+        ER7TextArea.setEditable(false);
         ER7TextArea.setRows(5);
         ER7TextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        ER7TextArea.setEnabled(false);
         jScrollPane2.setViewportView(ER7TextArea);
 
         org.jdesktop.layout.GroupLayout ER7PanelLayout = new org.jdesktop.layout.GroupLayout(ER7Panel);
@@ -362,9 +362,9 @@ public class MessageBrowser extends javax.swing.JPanel
 
         XMLPanel.setBackground(new java.awt.Color(255, 255, 255));
         XMLTextArea.setColumns(20);
+        XMLTextArea.setEditable(false);
         XMLTextArea.setRows(5);
         XMLTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        XMLTextArea.setEnabled(false);
         jScrollPane3.setViewportView(XMLTextArea);
 
         org.jdesktop.layout.GroupLayout XMLPanelLayout = new org.jdesktop.layout.GroupLayout(XMLPanel);

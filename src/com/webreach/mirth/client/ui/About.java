@@ -52,7 +52,7 @@ public class About extends JDialog implements ActionListener
     private void jbInit() throws Exception {
         image1 = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/aboutmirth.png")); 
         imageLabel.setIcon(image1);
-        setTitle("About");
+        setTitle("About Mirth");
         panel1.setLayout(borderLayout1);
         panel2.setLayout(borderLayout2);
         insetsPanel1.setLayout(flowLayout1);
