@@ -26,11 +26,12 @@ public class AdminPanel extends javax.swing.JPanel
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(u, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
-
+        
+        intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         int interval = userPreferences.getInt("intervalTime", 20);
         intervalTime.setText(interval + "");
-        intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
+        
     }
 
     /** This method is called from within the constructor to
@@ -41,11 +42,17 @@ public class AdminPanel extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents()
     {
+        buttonGroup1 = new javax.swing.ButtonGroup();
         adminPanel = new javax.swing.JTabbedPane();
         users = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         intervalTime = new com.webreach.mirth.client.ui.MirthTextField();
+        mirthRadioButton1 = new com.webreach.mirth.client.ui.MirthRadioButton();
+        mirthRadioButton2 = new com.webreach.mirth.client.ui.MirthRadioButton();
 
         users.addComponentListener(new java.awt.event.ComponentAdapter()
         {
@@ -59,11 +66,11 @@ public class AdminPanel extends javax.swing.JPanel
         users.setLayout(usersLayout);
         usersLayout.setHorizontalGroup(
             usersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 395, Short.MAX_VALUE)
+            .add(0, 631, Short.MAX_VALUE)
         );
         usersLayout.setVerticalGroup(
             usersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 272, Short.MAX_VALUE)
+            .add(0, 566, Short.MAX_VALUE)
         );
         adminPanel.addTab("Users", users);
 
@@ -76,27 +83,92 @@ public class AdminPanel extends javax.swing.JPanel
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Server", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 595, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 248, Short.MAX_VALUE)
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
         jLabel1.setText("Refresh Interval Time (seconds):");
+
+        jLabel2.setText("Alternate Row Highlighting in Tables:");
+
+        mirthRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
+        mirthRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(mirthRadioButton1);
+        mirthRadioButton1.setSelected(true);
+        mirthRadioButton1.setText("Yes");
+        mirthRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        mirthRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
+        mirthRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(mirthRadioButton2);
+        mirthRadioButton2.setText("No");
+        mirthRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(28, 28, 28)
+                        .add(jLabel1))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel2)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(mirthRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(mirthRadioButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(327, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(mirthRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(mirthRadioButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2))
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
 
         org.jdesktop.layout.GroupLayout settingsLayout = new org.jdesktop.layout.GroupLayout(settings);
         settings.setLayout(settingsLayout);
         settingsLayout.setHorizontalGroup(
             settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(settingsLayout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, settingsLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .add(settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         settingsLayout.setVerticalGroup(
             settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(settingsLayout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, settingsLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(21, 21, 21)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         adminPanel.addTab("Settings", settings);
 
@@ -104,11 +176,11 @@ public class AdminPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, adminPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, adminPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(adminPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .add(adminPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,14 +208,28 @@ public class AdminPanel extends javax.swing.JPanel
 
     public void saveSettings()
     {
-        userPreferences.putInt("intervalTime",Integer.parseInt(intervalTime.getText()));
-        parent.settingsTasks.getContentPane().getComponent(0).setVisible(false);
+        int interval = Integer.parseInt(intervalTime.getText());
+        if(intervalTime.getText().length() == 0)
+            parent.alertWarning("Please enter a valid interval time.");
+        else if(interval < 5)
+            parent.alertWarning("Please enter an interval time that is larger than 5.");
+        else
+        {
+            userPreferences.putInt("intervalTime",Integer.parseInt(intervalTime.getText()));
+            parent.settingsTasks.getContentPane().getComponent(0).setVisible(false);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane adminPanel;
+    private javax.swing.ButtonGroup buttonGroup1;
     private com.webreach.mirth.client.ui.MirthTextField intervalTime;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton1;
+    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton2;
     private javax.swing.JPanel settings;
     private javax.swing.JPanel users;
     // End of variables declaration//GEN-END:variables
