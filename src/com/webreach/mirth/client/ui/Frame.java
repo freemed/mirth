@@ -398,7 +398,7 @@ public class Frame extends JXFrame
         
         doRefresh();
         setBold(viewPane, 0);
-        setPanelName("Channel Statuses");
+        setPanelName("Channel Status");
         setCurrentContentPage(statusListPage);
         setFocus(statusTasks);
     }
@@ -410,7 +410,7 @@ public class Frame extends JXFrame
         
         doRefreshChannels();
         setBold(viewPane, 1);
-        setPanelName("Current Channels");
+        setPanelName("Channels");
         setCurrentContentPage(channelListPage);
         setFocus(channelTasks);
         channelListPage.deselectRows();
