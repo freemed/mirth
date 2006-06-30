@@ -10,6 +10,9 @@ package com.webreach.mirth.client.ui.editors.transformer;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.EventObject;
@@ -22,7 +25,10 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
 import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTaskPane;
@@ -178,17 +184,16 @@ public class TransformerPane extends MirthEditorPane {
         
         transformerTableModel = (DefaultTableModel)transformerTable.getModel();
 
-        String[] comboBoxValues = { MAPPER_TYPE, JAVASCRIPT_TYPE };
-        
         // Set the combobox editor on the type column, and add action listener
 	    MyComboBoxEditor comboBox = new MyComboBoxEditor( comboBoxValues );
+	    
 	    ((JXComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
             public void itemStateChanged( ItemEvent evt ) {  
             	String type = evt.getItem().toString();
             	stepPanel.showCard( type );
             }
         });
-	    
+	    	    
 	    transformerTable.setSelectionMode( 0 );		// only select one row at a time
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setMaxWidth( 30 );
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setMinWidth( 30 );
@@ -571,4 +576,6 @@ public class TransformerPane extends MirthEditorPane {
     public static final String BLANK_TYPE = "";
     public static final String MAPPER_TYPE = "Mapper";
     public static final String JAVASCRIPT_TYPE = "JavaScript";
+    private String[] comboBoxValues = { MAPPER_TYPE, JAVASCRIPT_TYPE };
+        
 }

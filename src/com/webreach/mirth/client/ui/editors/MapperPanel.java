@@ -7,6 +7,7 @@
 
 package com.webreach.mirth.client.ui.editors;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,6 +34,8 @@ public class MapperPanel extends CardPanel {
     public MapperPanel(MirthEditorPane p) {
 		super();
 		parent = p;
+		this.setBorder( BorderFactory.createEmptyBorder() );
+    	this.setPreferredSize( new Dimension( 0, 0 ) );
         initComponents();
     }
     
@@ -44,28 +47,37 @@ public class MapperPanel extends CardPanel {
     	refTable = new HL7ReferenceTable();
         hSplitPane = new JSplitPane();
         mappingPanel = new JPanel();
-        mappingLabel = new JLabel( "Variable: " );
+        labelPanel = new JPanel();
+        mappingLabel = new JLabel( "   Variable: " );
         mappingTextField = new JTextField();
         mappingScrollPane = new JScrollPane();
         mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
         mappingTextPane = new JTextPane( mappingDoc );
-        
         treeScrollPane.setBorder( BorderFactory.createEmptyBorder() );
         hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
         mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
         mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
-        mappingScrollPane.setBorder( BorderFactory.createLoweredBevelBorder() );
-        mappingTextPane.setBorder( BorderFactory.createTitledBorder( 
+        mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
+        mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
         		BorderFactory.createEtchedBorder(), "Mapping", TitledBorder.LEFT,
         		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
-        		new Color( 0,0,0 ) ));
-        this.setBorder( BorderFactory.createEmptyBorder() );
-    	this.setPreferredSize( new Dimension( 1, 1 ) );
+        		Color.black ));
         
     	treeScrollPane.setViewportView( refTable );
     	mappingScrollPane.setViewportView( mappingTextPane );
-        
+    	
+    	JLabel padding = new JLabel( " " );
+    	padding.setFont( new Font( null, Font.PLAIN, 8 ) );
+    	labelPanel.setLayout( new BorderLayout() );
+    	labelPanel.add( padding, BorderLayout.NORTH );
+    	labelPanel.add( mappingLabel, BorderLayout.LINE_START );
+    	labelPanel.add( mappingTextField, BorderLayout.CENTER );
+    	padding = new JLabel( "                             " );
+    	labelPanel.add( padding, BorderLayout.LINE_END );
+    	mappingPanel.setLayout( new BorderLayout() );
+    	mappingPanel.add( labelPanel, BorderLayout.NORTH );
+    	mappingPanel.add( mappingScrollPane, BorderLayout.CENTER );
     	hSplitPane.setOneTouchExpandable( true );
     	hSplitPane.setDividerSize( 7 );
     	hSplitPane.setDividerLocation( 450 );
@@ -107,44 +119,10 @@ public class MapperPanel extends CardPanel {
         		});
         // END listeners
         
-        // BGN NetBeans LAYOUT
-        GroupLayout mappingPanelLayout = new GroupLayout(mappingPanel);
-        mappingPanel.setLayout(mappingPanelLayout);
-        mappingPanelLayout.setHorizontalGroup(
-            mappingPanelLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(mappingPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(mappingPanelLayout.createParallelGroup(GroupLayout.LEADING)
-                    .add(mappingScrollPane, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                    .add(mappingPanelLayout.createSequentialGroup()
-                        .add(mappingLabel)
-                        .addPreferredGap(LayoutStyle.RELATED)
-                        .add(mappingTextField, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        mappingPanelLayout.setVerticalGroup(
-            mappingPanelLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(mappingPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(mappingPanelLayout.createParallelGroup(GroupLayout.BASELINE)
-                    .add(mappingLabel)
-                    .add(mappingTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(mappingScrollPane, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.LEADING)
-            .add(hSplitPane, GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.LEADING)
-            .add(hSplitPane, GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-        );        
-    } // END NetBeans LAYOUT
+        this.setLayout( new BorderLayout() );
+        this.add( hSplitPane, BorderLayout.CENTER );
+    } 
+        
     
     
 	public Map<Object, Object> getData() {
@@ -174,6 +152,7 @@ public class MapperPanel extends CardPanel {
     private HighlightedDocument mappingDoc;
     protected HL7ReferenceTable refTable;
     protected JLabel mappingLabel;
+    protected JPanel labelPanel;
     protected JPanel mappingPanel;
     protected JTextField mappingTextField;
     protected JScrollPane mappingScrollPane;
