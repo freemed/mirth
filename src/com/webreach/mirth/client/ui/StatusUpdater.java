@@ -29,7 +29,7 @@ public class StatusUpdater implements Runnable
         }
         catch(InterruptedException e)
         {
-            parent.alertException(e.getStackTrace());
+            // should happen when closed.
         }
     }
 }

@@ -1,11 +1,13 @@
 package com.webreach.mirth.client.ui.browsers.message;
 
+import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.HL7TreePanel;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.MessageEvent;
+import com.webreach.mirth.model.converters.ER7Serializer;
 import com.webreach.mirth.model.filters.MessageEventFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.Document;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
@@ -39,11 +42,17 @@ public class MessageBrowser extends javax.swing.JPanel
     private List<MessageEvent> messageEventList;
     private HL7TreePanel HL7Panel;
     private JScrollPane HL7ScrollPane;
+    private HighlightedDocument mappingDoc;
+    private Document normalDoc;
     
     public MessageBrowser()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
+        
+        mappingDoc = new HighlightedDocument();
+        mappingDoc.setHighlightStyle(HighlightedDocument.HTML_STYLE);
+        normalDoc = XMLTextPane.getDocument();
         
         HL7Panel = new HL7TreePanel();
         HL7Panel.setBackground(Color.white);
@@ -182,8 +191,9 @@ public class MessageBrowser extends javax.swing.JPanel
     
     public void clearDescription()
     {
-        ER7TextArea.setText("Select a message to see the ER7.");
-        XMLTextArea.setText("Select a message to see the XML.");
+        ER7TextPane.setText("Select a message to see the ER7.");
+        XMLTextPane.setDocument(normalDoc);
+        XMLTextPane.setText("Select a message to see the XML.");
         HL7Panel.clearMessage();
     }
     
@@ -196,8 +206,13 @@ public class MessageBrowser extends javax.swing.JPanel
             if(row >= 0)
             {
                 String message = messageEventList.get(row).getMessage();
+                ER7TextPane.setText(message.replaceAll("\r", "\n"));
+                
+                ER7Serializer serializer = new ER7Serializer();
+                XMLTextPane.setDocument(mappingDoc);
+                XMLTextPane.setText(serializer.serialize(message));
+                
                 HL7Panel.setMessage(message);
-                ER7TextArea.setText(message.replaceAll("\r", "\n"));
             }
         }
     }
@@ -222,10 +237,10 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionTabbedPane = new javax.swing.JTabbedPane();
         ER7Panel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ER7TextArea = new javax.swing.JTextArea();
+        ER7TextPane = new javax.swing.JTextPane();
         XMLPanel = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        XMLTextArea = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        XMLTextPane = new javax.swing.JTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -329,24 +344,21 @@ public class MessageBrowser extends javax.swing.JPanel
 
         descriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
         ER7Panel.setBackground(new java.awt.Color(255, 255, 255));
-        ER7TextArea.setColumns(20);
-        ER7TextArea.setEditable(false);
-        ER7TextArea.setRows(5);
-        ER7TextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jScrollPane2.setViewportView(ER7TextArea);
+        ER7TextPane.setEditable(false);
+        jScrollPane2.setViewportView(ER7TextPane);
 
         org.jdesktop.layout.GroupLayout ER7PanelLayout = new org.jdesktop.layout.GroupLayout(ER7Panel);
         ER7Panel.setLayout(ER7PanelLayout);
         ER7PanelLayout.setHorizontalGroup(
             ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, ER7PanelLayout.createSequentialGroup()
+            .add(ER7PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ER7PanelLayout.setVerticalGroup(
             ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, ER7PanelLayout.createSequentialGroup()
+            .add(ER7PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addContainerGap())
@@ -354,26 +366,23 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionTabbedPane.addTab("ER7", ER7Panel);
 
         XMLPanel.setBackground(new java.awt.Color(255, 255, 255));
-        XMLTextArea.setColumns(20);
-        XMLTextArea.setEditable(false);
-        XMLTextArea.setRows(5);
-        XMLTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jScrollPane3.setViewportView(XMLTextArea);
+        XMLTextPane.setEditable(false);
+        jScrollPane4.setViewportView(XMLTextPane);
 
         org.jdesktop.layout.GroupLayout XMLPanelLayout = new org.jdesktop.layout.GroupLayout(XMLPanel);
         XMLPanel.setLayout(XMLPanelLayout);
         XMLPanelLayout.setHorizontalGroup(
             XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, XMLPanelLayout.createSequentialGroup()
+            .add(XMLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addContainerGap())
         );
         XMLPanelLayout.setVerticalGroup(
             XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, XMLPanelLayout.createSequentialGroup()
+            .add(XMLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addContainerGap())
         );
         descriptionTabbedPane.addTab("XML", XMLPanel);
@@ -455,9 +464,9 @@ public class MessageBrowser extends javax.swing.JPanel
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ER7Panel;
-    private javax.swing.JTextArea ER7TextArea;
+    private javax.swing.JTextPane ER7TextPane;
     private javax.swing.JPanel XMLPanel;
-    private javax.swing.JTextArea XMLTextArea;
+    private javax.swing.JTextPane XMLTextPane;
     private javax.swing.JTextField controlIDField;
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JTabbedPane descriptionTabbedPane;
@@ -470,7 +479,7 @@ public class MessageBrowser extends javax.swing.JPanel
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker1;
     private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker2;
