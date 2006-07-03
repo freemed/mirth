@@ -85,7 +85,7 @@ public class FilterPane extends MirthEditorPane {
 		// the available panels (cards)
 		rulePanel = new CardPanel();
 		blankPanel = new BlankPanel();
-		jsPanel = new JavaScriptPanel(this);
+		jsPanel = new JavaScriptPanel(this, "some more notes..." );
 		// 		establish the cards to use in the Filter
 		rulePanel.addCard( blankPanel, BLANK_TYPE );
 		rulePanel.addCard( jsPanel, JAVASCRIPT_TYPE );
@@ -296,7 +296,7 @@ public class FilterPane extends MirthEditorPane {
 		Rule rule = new Rule();
 		
 		rule.setSequenceNumber( row );
-		rule.setScript( "return null;" );
+		rule.setScript( "" );
 		if ( row == 0 )
 			rule.setOperator( Rule.Operator.NONE );	// NONE operator by default on row 0
 		else
@@ -360,8 +360,13 @@ public class FilterPane extends MirthEditorPane {
 			Rule rule = new Rule();
 			rule.setSequenceNumber( Integer.parseInt(
 					filterTable.getValueAt( i, RULE_NUMBER_COL ).toString() ));
-			rule.setOperator( Rule.Operator.valueOf(
-					filterTableModel.getValueAt( i, RULE_OP_COL ).toString() )); 
+			
+			if ( i == 0 )
+				rule.setOperator( Rule.Operator.NONE );
+			else
+				rule.setOperator( Rule.Operator.valueOf(
+						filterTableModel.getValueAt( i, RULE_OP_COL ).toString() )); 
+			
 			rule.setScript( (String)filterTableModel.getValueAt( i, RULE_SCRIPT_COL ));
 			
 			list.add( rule );
@@ -426,10 +431,10 @@ public class FilterPane extends MirthEditorPane {
     	
     	for ( int i = 0;  i < filterTableModel.getRowCount(); i++ ) {
     		if ( i == 0 )
-    			filterTableModel.setValueAt( Rule.Operator.NONE, i, RULE_OP_COL );
+    			filterTableModel.setValueAt( "", i, RULE_OP_COL );
     		else if ( filterTableModel.getValueAt( i, RULE_OP_COL ).toString().equals(
     				Rule.Operator.NONE.toString() ) )
-    			filterTableModel.setValueAt( Rule.Operator.AND, i, RULE_OP_COL );
+    			filterTableModel.setValueAt( Rule.Operator.AND.toString(), i, RULE_OP_COL );
     	}
     	
     	updating = false;

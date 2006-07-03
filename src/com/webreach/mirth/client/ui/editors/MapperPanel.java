@@ -60,18 +60,18 @@ public class MapperPanel extends CardPanel {
         mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
         mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
         mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
-        		BorderFactory.createEtchedBorder(), "Mapping", TitledBorder.LEFT,
+        		BorderFactory.createEtchedBorder(), "Mapping: ", TitledBorder.LEFT,
         		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
         		Color.black ));
         
     	treeScrollPane.setViewportView( refTable );
     	mappingScrollPane.setViewportView( mappingTextPane );
     	
-    	JLabel padding = new JLabel( " " );
+    	JLabel padding = new JLabel( "  " );
     	padding.setFont( new Font( null, Font.PLAIN, 8 ) );
     	labelPanel.setLayout( new BorderLayout() );
-    	labelPanel.add( padding, BorderLayout.NORTH );
-    	labelPanel.add( mappingLabel, BorderLayout.LINE_START );
+    	labelPanel.add( mappingLabel, BorderLayout.NORTH );
+    	labelPanel.add( padding, BorderLayout.WEST );
     	labelPanel.add( mappingTextField, BorderLayout.CENTER );
     	padding = new JLabel( "                             " );
     	labelPanel.add( padding, BorderLayout.LINE_END );

@@ -54,8 +54,8 @@ public class ReferenceTable extends JXTable {
         this.setSelectionMode( 0 );
 		this.setRowHeight( UIConstants.ROW_HEIGHT );
 		this.setColumnMargin( UIConstants.COL_MARGIN );
-		this.setSelectionBackground( Color.yellow );
-		this.setSelectionForeground( Color.blue );
+		//this.setSelectionBackground( Color.yellow );
+		//this.setSelectionForeground( Color.blue );
 		this.setShowVerticalLines( false );
 		this.setBorder( BorderFactory.createEtchedBorder() );
         
