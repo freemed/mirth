@@ -49,12 +49,21 @@ public class Mirth
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         
         PlatformUI.MIRTH_FRAME.setupFrame(m);
-        int width = userPreferences.getInt("width", 900);    
-        int height = userPreferences.getInt("height", 700);
+        int width = 900;
+        int height = 700;
+        
+        if(userPreferences.getInt("maximizedState", PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH) != PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH)
+        {
+            width = userPreferences.getInt("width", 900);    
+            height = userPreferences.getInt("height", 700);
+        }
+        
         PlatformUI.MIRTH_FRAME.setSize(width,height);
         PlatformUI.MIRTH_FRAME.setLocationRelativeTo(null);
+        
         if(userPreferences.getInt("maximizedState", PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH) == PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH)
             PlatformUI.MIRTH_FRAME.setExtendedState(PlatformUI.MIRTH_FRAME.MAXIMIZED_BOTH);
+        
         PlatformUI.MIRTH_FRAME.setVisible(true);
         PlatformUI.MIRTH_FRAME.addComponentListener(new java.awt.event.ComponentAdapter() 
         {
