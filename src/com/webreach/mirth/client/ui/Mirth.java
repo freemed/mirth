@@ -2,6 +2,8 @@ package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,9 +12,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXLoginPanel;
@@ -48,7 +52,16 @@ public class Mirth
         PlatformUI.MIRTH_FRAME = new Frame();
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         
+        JWindow splashWindow = new JWindow();
+        splashWindow.getContentPane().add(new JLabel(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/mirthlogo.gif"))), BorderLayout.CENTER);
+        splashWindow.pack();
+        splashWindow.setLocationRelativeTo(null);
+        splashWindow.setVisible(true);
+ 
         PlatformUI.MIRTH_FRAME.setupFrame(m);
+        
+        splashWindow.dispose();
+        
         int width = 900;
         int height = 700;
         

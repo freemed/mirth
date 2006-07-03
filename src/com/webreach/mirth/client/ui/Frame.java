@@ -1058,7 +1058,7 @@ public class Frame extends JXFrame
 
     public void enableSave()
     {
-        if(currentContentPage == channelEditTasks)
+        if(currentContentPage == channelEditPage)
             channelEditTasks.getContentPane().getComponent(0).setVisible(true);
         else
             settingsTasks.getContentPane().getComponent(0).setVisible(true);
