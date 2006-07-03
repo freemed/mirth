@@ -79,7 +79,7 @@ public class HL7TreePanel extends JPanel {
     
     public void clearMessage()
     {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to see the HL7 Tree.");
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
         JTree tree = new JTree(top);
         removeAll();
         add(tree);

@@ -199,9 +199,9 @@ public class MessageBrowser extends javax.swing.JPanel
     
     public void clearDescription()
     {
-        ER7TextPane.setText("Select a message to see the ER7.");
+        ER7TextPane.setText("Select a message to view ER7-encoded HL7 message.");
         XMLTextPane.setDocument(normalDoc);
-        XMLTextPane.setText("Select a message to see the XML.");
+        XMLTextPane.setText("Select a message to view XML-encoded HL7 message.");
         HL7Panel.clearMessage();
     }
     
