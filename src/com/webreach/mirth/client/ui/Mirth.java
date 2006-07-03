@@ -96,7 +96,7 @@ public class Mirth
                 
                 String userDefault = "admin";
                 String passwordDefault = "abc12345";
-                String mirthServerDefault = "http://127.0.0.1:8080";
+                String mirthServerDefault = "https://127.0.0.1:8443";
                 
                 final MirthLoginService svc = new MirthLoginService(); 
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
