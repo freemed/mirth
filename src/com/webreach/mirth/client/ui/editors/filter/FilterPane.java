@@ -324,8 +324,10 @@ public class FilterPane extends MirthEditorPane {
 			filterTable.setRowSelectionInterval( row, row );
 		else if ( isValid( row - 1 ) )
 			filterTable.setRowSelectionInterval( row - 1, row - 1 );
-		else
+		else {
 			rulePanel.showCard( BLANK_TYPE );
+			jsPanel.setData( new HashMap<Object,Object>() );
+		}
 		
 		updateRuleNumbers();
 	}
@@ -418,8 +420,15 @@ public class FilterPane extends MirthEditorPane {
         else if ( rowCount == 1 ) {
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
         	parent.setVisibleTasks( filterTasks, 2, -1, false );
-        } else 
+        } else {
         	parent.setVisibleTasks( filterTasks, 0, -1, true );
+        	
+        	int selRow = filterTable.getSelectedRow();
+        	if ( selRow == 0 ) // hide move up
+        		parent.setVisibleTasks( filterTasks, 2, 2, false );
+        	else if ( selRow == rowCount - 1 ) // hide move down
+        		parent.setVisibleTasks( filterTasks, 3, 3, false );
+        }
     }
     
     /** updateOperations()

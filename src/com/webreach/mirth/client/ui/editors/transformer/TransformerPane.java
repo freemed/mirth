@@ -416,6 +416,7 @@ public class TransformerPane extends MirthEditorPane {
 
 		setRowData( step, row );
     	prevSelRow = row;
+    	
     }
     
     /** void deleteStep(MouseEvent evt)
@@ -442,8 +443,13 @@ public class TransformerPane extends MirthEditorPane {
         	transformerTable.setRowSelectionInterval( row, row );
     	else if ( isValid( row - 1 ) )
     		transformerTable.setRowSelectionInterval( row - 1, row - 1 );
-    	else 
+    	else {
     		stepPanel.showCard( BLANK_TYPE );
+    		Map<Object,Object> data = new HashMap<Object,Object>();
+        	data.put("Variable", getUniqueName() );
+    		mapperPanel.setData( data );
+    		jsPanel.setData( new HashMap<Object,Object>() );
+    	}
 
     	if ( !swapped ) loadData();
     	
@@ -532,8 +538,15 @@ public class TransformerPane extends MirthEditorPane {
         else if ( rowCount == 1 ) {
         	parent.setVisibleTasks( transformerTasks, 0, -1, true );
         	parent.setVisibleTasks( transformerTasks, 2, -1, false );
-        } else 
+        } else {
         	parent.setVisibleTasks( transformerTasks, 0, -1, true );
+        	
+        	int selRow = transformerTable.getSelectedRow();
+        	if ( selRow == 0 ) // hide move up
+        		parent.setVisibleTasks( transformerTasks, 2, 2, false );
+        	else if ( selRow == rowCount - 1 ) // hide move down
+        		parent.setVisibleTasks( transformerTasks, 3, 3, false );
+        }
     }
     
     

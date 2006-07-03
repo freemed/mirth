@@ -36,11 +36,11 @@ import com.Ostermiller.Syntax.HighlightedDocument;
 
 
 /**
- * @author chrisl
+ * @author franciscos
  *
  */
 public class JavaScriptPanel extends CardPanel {
-
+	
 	public JavaScriptPanel(MirthEditorPane p, String notes) {
 		super();
 		parent = p;
@@ -51,11 +51,11 @@ public class JavaScriptPanel extends CardPanel {
 	public JavaScriptPanel(MirthEditorPane p) {
 		this(p, null);
 	}
-
+	
 	private void initComponents() {
 		hSplitPane = new JSplitPane();
-		refTable = new HL7ReferenceTable();
-		treeScrollPane = new JScrollPane();
+		//refPanel = new HL7ReferenceTable();
+		referenceScrollPane = new JScrollPane();
 		notesArea = new JTextArea( "\n" + notes + "\n" );
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
@@ -65,70 +65,73 @@ public class JavaScriptPanel extends CardPanel {
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
 		mappingTextPane = new JTextPane( mappingDoc );
+		refPanel = new ReferenceComboBoxes( mappingTextPane );
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
-		treeScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-        treeScrollPane.setViewportView( refTable );
+		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
+		referenceScrollPane.setViewportView( refPanel );
 		
-        headerArea.setForeground( Color.blue );
-        headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
-        headerArea.setBorder( BorderFactory.createEmptyBorder() );
-        headerArea.setBackground( new Color( 255, 255, 224 ) );
-        
-        footerArea.setForeground( Color.blue );
-        footerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
-        footerArea.setBorder( BorderFactory.createEmptyBorder() );
-        footerArea.setBackground( new Color( 255, 255, 224 ) );
-        
-        notesArea.setBackground( new Color( 224, 255, 224 ) );
-        notesArea.setForeground( new Color( 0, 100, 0 ) );
+		headerArea.setForeground( Color.blue );
+		headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
+		headerArea.setBorder( BorderFactory.createEmptyBorder() );
+		headerArea.setBackground( new Color( 255, 255, 224 ) );
+		headerArea.setEditable(false);
+		
+		footerArea.setForeground( Color.blue );
+		footerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
+		footerArea.setBorder( BorderFactory.createEmptyBorder() );
+		footerArea.setBackground( new Color( 255, 255, 224 ) );
+		footerArea.setEditable(false);
+		
+		notesArea.setBackground( new Color( 224, 255, 224 ) );
+		notesArea.setForeground( new Color( 0, 160, 0 ) );
 		notesArea.setFont( new Font( "SansSerif", Font.PLAIN, 11 ) );
-        //notesArea.setBorder( BorderFactory.createLineBorder( new Color( 0, 100, 0 ) ) );
-		notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
-        notesArea.setEditable(false);
-        notesArea.setLineWrap(true);
-        
-        mappingPane.setLayout( new BorderLayout() );
+		notesArea.setBorder( BorderFactory.createTitledBorder( "Available Variables"  ));
+		//notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
+		notesArea.setEditable(false);
+		notesArea.setLineWrap(true);
+		
+		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( headerArea, BorderLayout.NORTH );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		mappingPane.add( footerArea, BorderLayout.SOUTH );
 		
 		mappingScrollPane.setViewportView( mappingPane );
 		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
-        		BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
-        		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
-        		Color.black ));
+				BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
+				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
+				Color.black ));
 		
 		topPane.setBorder( BorderFactory.createEmptyBorder() );
-        topPane.setLayout( new BorderLayout() );
-        if ( notes != null )
-        	topPane.add( notesArea, BorderLayout.NORTH );
-        topPane.add( mappingScrollPane, BorderLayout.CENTER );
-        
+		topPane.setLayout( new BorderLayout() );
+		if ( notes != null )
+			topPane.add( notesArea, BorderLayout.NORTH );
+		topPane.add( mappingScrollPane, BorderLayout.CENTER );
+		
 		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
 		hSplitPane.setOneTouchExpandable( true );
-    	hSplitPane.setDividerSize( 7 );
-    	hSplitPane.setDividerLocation( 450 );
-        hSplitPane.setLeftComponent( topPane );
-        hSplitPane.setRightComponent( treeScrollPane );
-        
+		hSplitPane.setDividerSize( 7 );
+		hSplitPane.setDividerLocation( 450 );
+		hSplitPane.setLeftComponent( topPane );
+		hSplitPane.setRightComponent( referenceScrollPane );
+		
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(
-        		new DocumentListener() {
+				new DocumentListener() {
 					public void changedUpdate(DocumentEvent arg0) {
 						parent.modified = true;
 					}
-
+					
 					public void insertUpdate(DocumentEvent arg0) {
 						parent.modified = true;						
 					}
-
+					
 					public void removeUpdate(DocumentEvent arg0) {
 						parent.modified = true;						
 					}
-        			
-        		});
+					
+				});
 		//END listeners
 		
 		this.setLayout( new BorderLayout() );
@@ -148,7 +151,10 @@ public class JavaScriptPanel extends CardPanel {
 		if ( m != null )
 			mappingTextPane.setText( (String)m.get( "Script" ) );	
 	}
-
+	
+	public JTextPane getDocument() {
+		return mappingTextPane;
+	}
 	
 	String notes;
 	private JPanel topPane;
@@ -160,8 +166,9 @@ public class JavaScriptPanel extends CardPanel {
 	private JTextPane mappingTextPane;
 	private JScrollPane mappingScrollPane;
 	private JSplitPane hSplitPane;
-    private JScrollPane treeScrollPane;
-	private HL7ReferenceTable refTable;
+	private JScrollPane referenceScrollPane;
+	//private HL7ReferenceTable refPanel;
+	private ReferenceComboBoxes refPanel;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";

@@ -1,6 +1,5 @@
 package com.webreach.mirth.client.ui.editors;
 
-import java.awt.Color;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
