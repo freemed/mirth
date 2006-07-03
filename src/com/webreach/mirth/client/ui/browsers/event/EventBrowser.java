@@ -59,6 +59,11 @@ public class EventBrowser extends javax.swing.JPanel
     public void loadNew()
     {
         // use the start filters and make the table.
+        eventField.setText("");
+        long currentTime = System.currentTimeMillis();
+        mirthDatePicker1.setDateInMillis(currentTime);
+        mirthDatePicker2.setDateInMillis(currentTime);
+        
         filterButtonActionPerformed(null);
         clearDescription();
     }

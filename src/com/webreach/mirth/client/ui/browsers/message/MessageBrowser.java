@@ -99,6 +99,13 @@ public class MessageBrowser extends javax.swing.JPanel
     public void loadNew()
     {
         // use the start filters and make the table.
+        sendingFacilityField.setText("");
+        controlIDField.setText("");
+        statusComboBox.setSelectedIndex(0);
+        long currentTime = System.currentTimeMillis();
+        mirthDatePicker1.setDateInMillis(currentTime);
+        mirthDatePicker2.setDateInMillis(currentTime);
+        
         filterButtonActionPerformed(null);
         clearDescription();
         descriptionTabbedPane.setSelectedIndex(0);
