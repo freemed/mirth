@@ -155,6 +155,7 @@ public class EventBrowser extends javax.swing.JPanel
             if(row >= 0)
             {
                 description.setText(systemEventList.get(row).getDescription() + "\n" + systemEventList.get(row).getAttributes());
+                description.setCaretPosition(0);
             }
         }
     }

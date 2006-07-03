@@ -11,6 +11,7 @@ import com.webreach.mirth.model.converters.ER7Serializer;
 import com.webreach.mirth.model.filters.MessageEventFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Calendar;
@@ -205,14 +206,20 @@ public class MessageBrowser extends javax.swing.JPanel
 
             if(row >= 0)
             {
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                
                 String message = messageEventList.get(row).getMessage();
                 ER7TextPane.setText(message.replaceAll("\r", "\n"));
+                ER7TextPane.setCaretPosition(0);
                 
                 ER7Serializer serializer = new ER7Serializer();
                 XMLTextPane.setDocument(mappingDoc);
                 XMLTextPane.setText(serializer.serialize(message));
+                XMLTextPane.setCaretPosition(0);
                 
                 HL7Panel.setMessage(message);
+                
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         }
     }
