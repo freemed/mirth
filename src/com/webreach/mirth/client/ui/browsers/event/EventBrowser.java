@@ -104,7 +104,9 @@ public class EventBrowser extends javax.swing.JPanel
             Calendar calendar = systemEvent.getDate();
             
             tableData[i][1] = String.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS", calendar);
-            tableData[i][2] = systemEvent.getEvent();
+            
+            tableData[i][2] = systemEvent.getLevel().toString();
+            tableData[i][3] = systemEvent.getEvent();
         }
                 
         
@@ -112,12 +114,12 @@ public class EventBrowser extends javax.swing.JPanel
                 tableData,
                 new String []
         {
-            "Event ID", "Date", "Event"
+            "Event ID", "Date", "Level", "Event"
         }
         ) {
             boolean[] canEdit = new boolean []
             {
-                false, false, false
+                false, false, false, false
             };
             
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -126,10 +128,12 @@ public class EventBrowser extends javax.swing.JPanel
         });
         
         eventTable.setSelectionMode(0);
-        eventTable.getColumnExt("Event ID").setMaxWidth(90);
-        eventTable.getColumnExt("Event ID").setMinWidth(90);
-        eventTable.getColumnExt("Date").setMaxWidth(120);
-        eventTable.getColumnExt("Date").setMinWidth(120);
+
+        eventTable.getColumnExt("Event ID").setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt("Date").setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt("Level").setMaxWidth(UIConstants.MAX_WIDTH);
+
+        eventTable.packTable(UIConstants.COL_MARGIN);
         
         eventTable.setRowHeight(20);
         eventTable.setColumnMargin(2);
