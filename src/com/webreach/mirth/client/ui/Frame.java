@@ -1067,6 +1067,7 @@ public class Frame extends JXFrame
         errorTextArea.setRows(10);
         errorTextArea.setText(stackTrace);
         errorTextArea.setEditable(false);
+        errorTextArea.setCaretPosition(0);
         errorScrollPane.setViewportView(errorTextArea);
         JOptionPane.showMessageDialog(this, errorScrollPane, "Critical Error", JOptionPane.ERROR_MESSAGE);
     }
