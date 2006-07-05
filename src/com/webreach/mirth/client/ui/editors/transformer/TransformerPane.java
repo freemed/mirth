@@ -7,6 +7,7 @@
 
 package com.webreach.mirth.client.ui.editors.transformer;
 
+import com.webreach.mirth.client.ui.Mirth;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -21,6 +22,7 @@ import java.util.ListIterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -207,9 +209,14 @@ public class TransformerPane extends MirthEditorPane {
         transformerTable.setColumnMargin( UIConstants.COL_MARGIN );
         transformerTable.setOpaque( true );
         transformerTable.setRowSelectionAllowed( true );
-        HighlighterPipeline highlighter = new HighlighterPipeline();
-        highlighter.addHighlighter( AlternateRowHighlighter.beige );
-        transformerTable.setHighlighters( highlighter );
+        
+        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+        {
+            HighlighterPipeline highlighter = new HighlighterPipeline();
+            highlighter.addHighlighter( AlternateRowHighlighter.beige );
+            transformerTable.setHighlighters( highlighter );
+        }
+        
         transformerTable.setBorder( BorderFactory.createEmptyBorder() );
         transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
         
