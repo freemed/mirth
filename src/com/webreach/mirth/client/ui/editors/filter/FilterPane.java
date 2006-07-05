@@ -441,8 +441,7 @@ public class FilterPane extends MirthEditorPane {
     	for ( int i = 0;  i < filterTableModel.getRowCount(); i++ ) {
     		if ( i == 0 )
     			filterTableModel.setValueAt( "", i, RULE_OP_COL );
-    		else if ( filterTableModel.getValueAt( i, RULE_OP_COL ).toString().equals(
-    				Rule.Operator.NONE.toString() ) )
+    		else if ( filterTableModel.getValueAt( i, RULE_OP_COL ).toString().equals( "" ) )
     			filterTableModel.setValueAt( Rule.Operator.AND.toString(), i, RULE_OP_COL );
     	}
     	

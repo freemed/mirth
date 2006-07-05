@@ -87,8 +87,10 @@ public class JavaScriptPanel extends CardPanel {
 		notesArea.setBackground( new Color( 224, 255, 224 ) );
 		notesArea.setForeground( new Color( 0, 160, 0 ) );
 		notesArea.setFont( new Font( "SansSerif", Font.PLAIN, 11 ) );
-		notesArea.setBorder( BorderFactory.createTitledBorder( "Available Variables"  ));
-		//notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
+		//notesArea.setBorder( BorderFactory.createTitledBorder( 
+		//		BorderFactory.createEtchedBorder(), "Available Variables", TitledBorder.LEFT,
+		//		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), Color.black ));
+		notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
 		notesArea.setEditable(false);
 		notesArea.setLineWrap(true);
 		
@@ -107,14 +109,14 @@ public class JavaScriptPanel extends CardPanel {
 		topPane.setLayout( new BorderLayout() );
 		if ( notes != null )
 			topPane.add( notesArea, BorderLayout.NORTH );
-		topPane.add( mappingScrollPane, BorderLayout.CENTER );
+		topPane.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
 		hSplitPane.setOneTouchExpandable( true );
 		hSplitPane.setDividerSize( 7 );
 		hSplitPane.setDividerLocation( 450 );
-		hSplitPane.setLeftComponent( topPane );
-		hSplitPane.setRightComponent( referenceScrollPane );
+		hSplitPane.setLeftComponent( mappingScrollPane );
+		hSplitPane.setRightComponent( topPane );
 		
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(

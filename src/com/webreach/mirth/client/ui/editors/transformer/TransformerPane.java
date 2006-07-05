@@ -540,7 +540,7 @@ public class TransformerPane extends MirthEditorPane {
         	parent.setVisibleTasks( transformerTasks, 2, -1, false );
         } else {
         	parent.setVisibleTasks( transformerTasks, 0, -1, true );
-        	
+     
         	int selRow = transformerTable.getSelectedRow();
         	if ( selRow == 0 ) // hide move up
         		parent.setVisibleTasks( transformerTasks, 2, 2, false );
@@ -548,7 +548,6 @@ public class TransformerPane extends MirthEditorPane {
         		parent.setVisibleTasks( transformerTasks, 3, 3, false );
         }
     }
-    
     
 //............................................................................\\
     
