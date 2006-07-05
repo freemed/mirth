@@ -44,6 +44,7 @@ import ca.uhn.hl7v2.model.Type;
 import ca.uhn.hl7v2.model.Varies;
 import ca.uhn.hl7v2.parser.EncodingCharacters;
 import ca.uhn.hl7v2.parser.PipeParser;
+import ca.uhn.hl7v2.validation.impl.NoValidation;
 
 public class HL7TreePanel extends JPanel {
 	private PipeParser parser;
@@ -52,14 +53,15 @@ public class HL7TreePanel extends JPanel {
 	public HL7TreePanel() {
 		System.setProperty("ca.uhn.hl7v2.model.primitive.CommonTN.validate", "false");
 		parser = new PipeParser();
+		parser.setValidationContext(new NoValidation());
 		encodingChars = new EncodingCharacters('|', null);
-                this.setLayout(new GridLayout(1,1));
+		this.setLayout(new GridLayout(1, 1));
 	}
-	
-    /**
-     * Updates the panel with a new Message.
-     */
-    public void setMessage(String source) {
+
+	/**
+	 * Updates the panel with a new Message.
+	 */
+	public void setMessage(String source) {
 		Message message = null;
 
 		try {
@@ -75,16 +77,15 @@ public class HL7TreePanel extends JPanel {
 		removeAll();
 		add(tree);
 		revalidate();
-    }	
-    
-    public void clearMessage()
-    {
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
-        JTree tree = new JTree(top);
-        removeAll();
-        add(tree);
-        revalidate();
-    }
+	}
+
+	public void clearMessage() {
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
+		JTree tree = new JTree(top);
+		removeAll();
+		add(tree);
+		revalidate();
+	}
 
 	/**
 	 * Adds the children of the given group under the given tree node.
@@ -92,14 +93,14 @@ public class HL7TreePanel extends JPanel {
 	private void addChildren(Group messageParent, MutableTreeNode treeParent) {
 		String[] childNames = messageParent.getNames();
 		int currentChild = 0;
-		
+
 		for (int i = 0; i < childNames.length; i++) {
 			try {
 				Structure[] childReps = messageParent.getAll(childNames[i]);
-				
+
 				for (int j = 0; j < childReps.length; j++) {
 					DefaultMutableTreeNode newNode = null;
-					
+
 					if (childReps[j] instanceof Group) {
 						String groupName = childReps[j].getClass().getName();
 						groupName = groupName.substring(groupName.lastIndexOf('.') + 1, groupName.length());
@@ -109,7 +110,7 @@ public class HL7TreePanel extends JPanel {
 						newNode = new DefaultMutableTreeNode(parser.encode((Segment) childReps[j], encodingChars));
 						addChildren((Segment) childReps[j], newNode);
 					}
-					
+
 					treeParent.insert(newNode, currentChild++);
 				}
 			} catch (HL7Exception e) {
@@ -177,7 +178,7 @@ public class HL7TreePanel extends JPanel {
 	 */
 	private void addChildren(Composite messageParent, MutableTreeNode treeParent) {
 		Type[] components = messageParent.getComponents();
-		
+
 		for (int i = 0; i < components.length; i++) {
 			DefaultMutableTreeNode newNode;
 			newNode = new DefaultMutableTreeNode(getLabel(components[i]));
