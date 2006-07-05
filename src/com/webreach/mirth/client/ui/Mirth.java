@@ -4,12 +4,14 @@ import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXLoginPanel;
 import org.jdesktop.swingx.auth.LoginEvent;
@@ -108,8 +111,7 @@ public class Mirth
             {
                 try
                 {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    //LookAndFeelAddons.setAddon(AquaLookAndFeelAddons.class);                        
+                   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 }
                 catch (Exception e)
                 {
@@ -119,6 +121,9 @@ public class Mirth
                 String userDefault = "admin";
                 String passwordDefault = "abc12345";
                 String mirthServerDefault = "https://127.0.0.1:8443";
+                
+                UIManager.put("JXLoginPanel.banner.darkBackground", UIManager.getColor("InternalFrame.activeTitleBackground"));
+                UIManager.put("JXLoginPanel.banner.lightBackground", UIManager.getColor("InternalFrame.inactiveTitleBackground").brighter());
                 
                 final MirthLoginService svc = new MirthLoginService(); 
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);

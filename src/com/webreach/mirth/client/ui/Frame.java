@@ -91,8 +91,9 @@ public class Frame extends JXFrame
         container.setBorder(dsb);
         container.setTitleFont(new Font("Tahoma",Font.BOLD,12));
         container.getContentContainer().add(component);
-        container.setTitleDarkBackground(new Color(122,161,230));
-        container.setTitleLightBackground(new Color(115,154,223));
+        
+        container.setTitleDarkBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientStart"));
+        container.setTitleLightBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientEnd"));
     }
 
     public void setPanelName(String name)
@@ -267,7 +268,7 @@ public class Frame extends JXFrame
         viewPane.add(initActionCallback("doShowAdminPage", "Contains user and system settings.", ActionFactory.createBoundAction("adminPage","Administration","A"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/admin.png"))));
         setNonFocusable(viewPane);
         taskPaneContainer.add(viewPane);
-
+        
         // Create Settings Tasks Pane
         settingsTasks = new JXTaskPane();
         settingsTasks.setTitle("Settings Tasks");
