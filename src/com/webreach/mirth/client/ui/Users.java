@@ -69,12 +69,12 @@ public class Users extends javax.swing.JScrollPane
         });
         
         usersTable.setSelectionMode(0);
-                
-        usersTable.getColumnExt("ID").setMaxWidth(90);
-        usersTable.getColumnExt("ID").setMinWidth(90);
+        
+        usersTable.getColumnExt("ID").setMaxWidth(UIConstants.MAX_WIDTH);
+        
+        usersTable.packTable(UIConstants.COL_MARGIN);
         
         usersTable.setRowHeight(20);
-        usersTable.setColumnMargin(2);
         usersTable.setOpaque(true);
         
         usersTable.setCellSelectionEnabled(false);
