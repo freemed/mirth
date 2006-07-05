@@ -4,6 +4,7 @@ import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -122,10 +123,11 @@ public class Mirth
                 String passwordDefault = "abc12345";
                 String mirthServerDefault = "https://127.0.0.1:8443";
                 
+                UIManager.put("JXLoginPanel.banner.foreground", UIManager.getColor("windowText"));
                 UIManager.put("JXLoginPanel.banner.darkBackground", UIManager.getColor("InternalFrame.activeTitleBackground"));
                 UIManager.put("JXLoginPanel.banner.lightBackground", UIManager.getColor("InternalFrame.inactiveTitleBackground").brighter());
                 
-                final MirthLoginService svc = new MirthLoginService(); 
+                final MirthLoginService svc = new MirthLoginService();
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
                 
                 panel.setBannerText("");
@@ -134,7 +136,16 @@ public class Mirth
                 panel.setBannerText("Login :: Mirth");
                 panel.setOpaque(true);
                 JPanel loginInfo = (JPanel)((JPanel)panel.getComponent(1)).getComponent(1);
-                
+                 /*UIDefaults uiDefaults = UIManager.getDefaults();
+                    Enumeration enum1 = uiDefaults.keys();
+                    while (enum1.hasMoreElements())
+                    {
+                        Object key = enum1.nextElement();
+                        Object val = uiDefaults.get(key);
+                        System.out.println("[" + key.toString() + "]:[" +
+                            (null != val ? val.toString() : "(null)") +
+                            "]");
+                    } */
                 loginInfo.removeAll();
                 
                 String CLASS_NAME = JXLoginPanel.class.getCanonicalName(); 
@@ -207,7 +218,8 @@ public class Mirth
                 */
                 
                 final JXLoginPanel.JXLoginFrame frm = JXLoginPanel.showLoginFrame(panel);
-
+                frm.setIconImage(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/emoticon_smile.png")).getImage());
+                
                 frm.addWindowListener(new WindowAdapter()
                 {
                     public void windowClosed(WindowEvent e)

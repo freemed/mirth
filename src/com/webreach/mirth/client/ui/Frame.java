@@ -90,8 +90,8 @@ public class Frame extends JXFrame
         container.getContentContainer().setLayout(new BorderLayout());
         container.setBorder(dsb);
         container.setTitleFont(new Font("Tahoma",Font.BOLD,12));
+        container.setTitleForeground(UIManager.getColor("windowText"));
         container.getContentContainer().add(component);
-        
         container.setTitleDarkBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientStart"));
         container.setTitleLightBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientEnd"));
     }
@@ -359,7 +359,7 @@ public class Frame extends JXFrame
         otherPane = new JXTaskPane();
         otherPane.setTitle("Other");
         otherPane.setFocusable(false);
-        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","I"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
+        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","U"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
         otherPane.add(initActionCallback("goToAbout", "View the about page for Mirth.", ActionFactory.createBoundAction("goToAbout","About Mirth","B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
         otherPane.add(initActionCallback("goToMirth", "View Mirth's homepage.", ActionFactory.createBoundAction("goToMirth","Visit MirthProject.org","V"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/home.png"))));
         setNonFocusable(otherPane);

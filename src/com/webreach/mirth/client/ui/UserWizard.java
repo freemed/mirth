@@ -5,6 +5,7 @@ import com.webreach.mirth.model.User;
 import java.awt.Cursor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class UserWizard extends javax.swing.JDialog
 {
@@ -22,13 +23,17 @@ public class UserWizard extends javax.swing.JDialog
         if(row != -1)
         {
             jLabel2.setText("Edit User");
+            jLabel2.setForeground(UIManager.getColor("windowText"));
             index = this.parent.adminPanel.u.getUserIndex();
             username.setText(this.parent.users.get(index).getUsername());     
             password1.setText(this.parent.users.get(index).getPassword());
             password2.setText(this.parent.users.get(index).getPassword());
         }
         else
+        {
             jLabel2.setText("New User");
+            jLabel2.setForeground(UIManager.getColor("windowText"));
+        }
         
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }

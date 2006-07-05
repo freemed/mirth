@@ -1,5 +1,7 @@
 package com.webreach.mirth.client.ui;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 
 public class PlatformUI 

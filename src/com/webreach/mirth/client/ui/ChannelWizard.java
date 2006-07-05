@@ -3,6 +3,7 @@ package com.webreach.mirth.client.ui;
 import com.webreach.mirth.model.Channel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class ChannelWizard extends javax.swing.JDialog
 {
@@ -19,6 +20,10 @@ public class ChannelWizard extends javax.swing.JDialog
         nextButton.setEnabled(false);
         channelPattern.setVisible(false);
         channelOverview.setVisible(true);
+        broadcastActionPerformed(null);
+        inboundActionPerformed(null);
+        jLabel2.setForeground(UIManager.getColor("windowText"));
+        jLabel5.setForeground(UIManager.getColor("windowText"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
@@ -43,6 +48,8 @@ public class ChannelWizard extends javax.swing.JDialog
         jLabel3 = new javax.swing.JLabel();
         mirthHeadingPanel2 = new com.webreach.mirth.client.ui.MirthHeadingPanel();
         jLabel2 = new javax.swing.JLabel();
+        helpTextPane1 = new javax.swing.JScrollPane();
+        helpText1 = new javax.swing.JTextPane();
         channelPattern = new javax.swing.JPanel();
         finishButton = new javax.swing.JButton();
         cancelButton2 = new javax.swing.JButton();
@@ -54,6 +61,8 @@ public class ChannelWizard extends javax.swing.JDialog
         mirthHeadingPanel1 = new com.webreach.mirth.client.ui.MirthHeadingPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        helpTextPane2 = new javax.swing.JScrollPane();
+        helpText2 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Channel Wizard");
@@ -137,6 +146,9 @@ public class ChannelWizard extends javax.swing.JDialog
                 .addContainerGap())
         );
 
+        helpText1.setEditable(false);
+        helpTextPane1.setViewportView(helpText1);
+
         org.jdesktop.layout.GroupLayout channelOverviewLayout = new org.jdesktop.layout.GroupLayout(channelOverview);
         channelOverview.setLayout(channelOverviewLayout);
         channelOverviewLayout.setHorizontalGroup(
@@ -150,20 +162,27 @@ public class ChannelWizard extends javax.swing.JDialog
                         .add(nextButton)
                         .addContainerGap())
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, channelOverviewLayout.createSequentialGroup()
-                        .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabel1)
-                            .add(jLabel3))
+                        .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(inbound)
-                            .add(channelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(outbound))
+                        .add(channelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 167, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(53, 53, 53))))
             .add(channelOverviewLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 351, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(mirthHeadingPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+            .add(channelOverviewLayout.createSequentialGroup()
+                .add(99, 99, 99)
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(inbound)
+                    .add(outbound))
+                .addContainerGap(157, Short.MAX_VALUE))
+            .add(channelOverviewLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(helpTextPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         channelOverviewLayout.linkSize(new java.awt.Component[] {cancelButton, nextButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -176,13 +195,15 @@ public class ChannelWizard extends javax.swing.JDialog
                 .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(channelName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(inbound)
                     .add(jLabel3))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(outbound)
-                .add(100, 100, 100)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
+                .add(helpTextPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(14, 14, 14)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -225,18 +246,39 @@ public class ChannelWizard extends javax.swing.JDialog
         broadcast.setText("Broadcast");
         broadcast.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         broadcast.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        broadcast.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                broadcastActionPerformed(evt);
+            }
+        });
 
         router.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup2.add(router);
         router.setText("Router");
         router.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         router.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        router.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                routerActionPerformed(evt);
+            }
+        });
 
         applicationIntegration.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup2.add(applicationIntegration);
         applicationIntegration.setText("Application Integration");
         applicationIntegration.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         applicationIntegration.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        applicationIntegration.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                applicationIntegrationActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -261,6 +303,10 @@ public class ChannelWizard extends javax.swing.JDialog
 
         jLabel4.setText("Channel Type:");
 
+        helpText2.setBorder(null);
+        helpText2.setEditable(false);
+        helpTextPane2.setViewportView(helpText2);
+
         org.jdesktop.layout.GroupLayout channelPatternLayout = new org.jdesktop.layout.GroupLayout(channelPattern);
         channelPattern.setLayout(channelPatternLayout);
         channelPatternLayout.setHorizontalGroup(
@@ -277,6 +323,7 @@ public class ChannelWizard extends javax.swing.JDialog
                 .addContainerGap()
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 351, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(mirthHeadingPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
             .add(channelPatternLayout.createSequentialGroup()
                 .add(77, 77, 77)
                 .add(jLabel4)
@@ -286,7 +333,10 @@ public class ChannelWizard extends javax.swing.JDialog
                     .add(router)
                     .add(applicationIntegration))
                 .addContainerGap(93, Short.MAX_VALUE))
-            .add(mirthHeadingPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+            .add(channelPatternLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(helpTextPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         channelPatternLayout.linkSize(new java.awt.Component[] {backButton, cancelButton2, finishButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -303,7 +353,9 @@ public class ChannelWizard extends javax.swing.JDialog
                 .add(router)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(applicationIntegration)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 111, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                .add(helpTextPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(14, 14, 14)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(channelPatternLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -328,6 +380,21 @@ public class ChannelWizard extends javax.swing.JDialog
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void applicationIntegrationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_applicationIntegrationActionPerformed
+    {//GEN-HEADEREND:event_applicationIntegrationActionPerformed
+        helpText2.setText("Single HL7 data feed that will be filtered and transformed into another data type to be used by an application. The application response is sent back as a formatted and validated HL7 message. This pattern would be used with synchronous responses such as web services or remote procedure calls.");
+    }//GEN-LAST:event_applicationIntegrationActionPerformed
+
+    private void routerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_routerActionPerformed
+    {//GEN-HEADEREND:event_routerActionPerformed
+        helpText2.setText("Single HL7 data feed that will be routed to several systems which require their own unique filtering and transformation. Data may also be also transformed and written to a data source such as a database or a file system.");
+    }//GEN-LAST:event_routerActionPerformed
+
+    private void broadcastActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_broadcastActionPerformed
+    {//GEN-HEADEREND:event_broadcastActionPerformed
+        helpText2.setText("Single HL7 data feed that will be filtered, transformed, and broadcast to several systems.");
+    }//GEN-LAST:event_broadcastActionPerformed
+
     private void channelNameKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_channelNameKeyReleased
     {//GEN-HEADEREND:event_channelNameKeyReleased
         if(channelName.getText().trim().equals(""))
@@ -339,6 +406,7 @@ public class ChannelWizard extends javax.swing.JDialog
 
     private void outboundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_outboundActionPerformed
     {//GEN-HEADEREND:event_outboundActionPerformed
+        helpText1.setText("The server will read data from a database and create HL7 messages.");
         this.nextButton.setText("Finish");
     }//GEN-LAST:event_outboundActionPerformed
 
@@ -376,6 +444,7 @@ public class ChannelWizard extends javax.swing.JDialog
     
     private void inboundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_inboundActionPerformed
     {//GEN-HEADEREND:event_inboundActionPerformed
+        helpText1.setText("The server will listen for HL7 messages or read them from a file and transform them for use by other systems, or into different HL7 messages.");
         this.nextButton.setText("Next");
     }//GEN-LAST:event_inboundActionPerformed
 
@@ -427,6 +496,10 @@ public class ChannelWizard extends javax.swing.JDialog
     private javax.swing.JPanel channelOverview;
     private javax.swing.JPanel channelPattern;
     private javax.swing.JButton finishButton;
+    private javax.swing.JTextPane helpText1;
+    private javax.swing.JTextPane helpText2;
+    private javax.swing.JScrollPane helpTextPane1;
+    private javax.swing.JScrollPane helpTextPane2;
     private javax.swing.JRadioButton inbound;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
