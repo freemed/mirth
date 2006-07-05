@@ -89,14 +89,12 @@ public class ChannelPanel extends javax.swing.JPanel {
         
         channelTable.setSelectionMode(0);        
         
-        channelTable.getColumnExt("Status").setMaxWidth(90);
-        channelTable.getColumnExt("Status").setMinWidth(90);
-
-        channelTable.getColumnExt("Direction").setMaxWidth(90);
-        channelTable.getColumnExt("Direction").setMinWidth(90);
+        channelTable.getColumnExt("Status").setMaxWidth(UIConstants.MAX_WIDTH);
+        channelTable.getColumnExt("Direction").setMaxWidth(UIConstants.MAX_WIDTH);
         
+        channelTable.packTable(UIConstants.COL_MARGIN);
+
         channelTable.setRowHeight(20);
-        channelTable.setColumnMargin(2);
         channelTable.setOpaque(true);
         channelTable.setRowSelectionAllowed(true);
         

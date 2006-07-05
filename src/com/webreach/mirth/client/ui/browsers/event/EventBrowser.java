@@ -3,6 +3,7 @@ package com.webreach.mirth.client.ui.browsers.event;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.Mirth;
+import com.webreach.mirth.client.ui.MyRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.SystemEvent;
@@ -13,13 +14,16 @@ import java.util.List;
 import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.ConditionalHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
+import org.jdesktop.swingx.table.ColumnHeaderRenderer;
 
 public class EventBrowser extends javax.swing.JPanel
 {
@@ -134,11 +138,16 @@ public class EventBrowser extends javax.swing.JPanel
         eventTable.getColumnExt("Event ID").setMaxWidth(UIConstants.MAX_WIDTH);
         eventTable.getColumnExt("Date").setMaxWidth(UIConstants.MAX_WIDTH);
         eventTable.getColumnExt("Level").setMaxWidth(UIConstants.MAX_WIDTH);
-
+        eventTable.getColumnExt("Event ID").setCellRenderer(new MyRenderer());
+        eventTable.getColumnExt("Date").setCellRenderer(new MyRenderer());
+        eventTable.getColumnExt("Level").setCellRenderer(new MyRenderer());
+        
         eventTable.packTable(UIConstants.COL_MARGIN);
         
+        //((ColumnHeaderRenderer)eventTable.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+        
+        
         eventTable.setRowHeight(20);
-        eventTable.setColumnMargin(2);
         eventTable.setOpaque(true);
         eventTable.setRowSelectionAllowed(true);
         

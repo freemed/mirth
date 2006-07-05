@@ -105,22 +105,19 @@ public class StatusPanel extends javax.swing.JPanel
             }
         });
         
-        statusTable.setSelectionMode(0);
-                
-        statusTable.getColumnExt("Status").setMaxWidth(90);
-        statusTable.getColumnExt("Status").setMinWidth(90);
+        statusTable.setSelectionMode(0);  
         
-        statusTable.getColumnExt("Transformed").setMaxWidth(90);
-        statusTable.getColumnExt("Transformed").setMinWidth(90);
+        statusTable.getColumnExt("Status").setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt("Transformed").setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt("Received").setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt("Errors").setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt("Transformed").setCellRenderer(new MyRenderer());
+        statusTable.getColumnExt("Received").setCellRenderer(new MyRenderer());
+        statusTable.getColumnExt("Errors").setCellRenderer(new MyRenderer());
         
-        statusTable.getColumnExt("Received").setMaxWidth(90);
-        statusTable.getColumnExt("Received").setMinWidth(90);
-        
-        statusTable.getColumnExt("Errors").setMaxWidth(90);
-        statusTable.getColumnExt("Errors").setMinWidth(90);    
+        statusTable.packTable(UIConstants.COL_MARGIN);
         
         statusTable.setRowHeight(20);
-        statusTable.setColumnMargin(2);
         statusTable.setOpaque(true);
         statusTable.setRowSelectionAllowed(true);
         

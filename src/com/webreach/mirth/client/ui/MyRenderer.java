@@ -6,11 +6,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class MyRenderer extends DefaultTableCellRenderer {
+public class MyRenderer extends DefaultTableCellRenderer
+{
 
   /*
    * @see TableCellRenderer#getTableCellRendererComponent(JTable, Object, boolean, boolean, int, int)
-   */
   ImageIcon icon;
   public MyRenderer(String img)
   {
@@ -22,4 +22,22 @@ public class MyRenderer extends DefaultTableCellRenderer {
     setIcon(icon);
     return this;
   }
+   */
+
+    public MyRenderer()
+    {
+        super();
+        this.setHorizontalAlignment(CENTER);
+    }
+    
+    /*
+    public void setValue(Object value)
+    {
+        if (format == null) {
+        setText((value == null) ? "" : value.toString());
+        } else {
+        setText((value == null) ? "" : format.format(value));
+        }
+    }
+     */
 }
