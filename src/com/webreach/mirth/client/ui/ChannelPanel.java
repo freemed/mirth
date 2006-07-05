@@ -1,6 +1,7 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.Channel;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -98,9 +99,13 @@ public class ChannelPanel extends javax.swing.JPanel {
         channelTable.setColumnMargin(2);
         channelTable.setOpaque(true);
         channelTable.setRowSelectionAllowed(true);
-        HighlighterPipeline highlighter = new HighlighterPipeline();
-        highlighter.addHighlighter(AlternateRowHighlighter.beige);
-        channelTable.setHighlighters(highlighter);
+        
+        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+        {
+            HighlighterPipeline highlighter = new HighlighterPipeline();
+            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            channelTable.setHighlighters(highlighter);
+        }
         
         channelPane.setViewportView(channelTable);
         

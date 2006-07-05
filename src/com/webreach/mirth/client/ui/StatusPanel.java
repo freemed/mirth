@@ -3,6 +3,7 @@ package com.webreach.mirth.client.ui;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.model.ChannelStatistics;
 import com.webreach.mirth.model.ChannelStatus;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -122,9 +123,14 @@ public class StatusPanel extends javax.swing.JPanel
         statusTable.setColumnMargin(2);
         statusTable.setOpaque(true);
         statusTable.setRowSelectionAllowed(true);
-        HighlighterPipeline highlighter = new HighlighterPipeline();
-        highlighter.addHighlighter(AlternateRowHighlighter.beige);
-        statusTable.setHighlighters(highlighter);
+        
+        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+        {
+            HighlighterPipeline highlighter = new HighlighterPipeline();
+            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            statusTable.setHighlighters(highlighter);
+        }
+        
         statusPane.setViewportView(statusTable);
         
         statusTable.getSelectionModel().addListSelectionListener(new ListSelectionListener()

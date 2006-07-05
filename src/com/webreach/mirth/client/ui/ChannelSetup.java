@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -177,9 +178,13 @@ public class ChannelSetup extends javax.swing.JPanel
         
         ((JXTable)jTable1).setColumnMargin(2);
         jTable1.setOpaque(true);
-        HighlighterPipeline highlighter = new HighlighterPipeline();
-        highlighter.addHighlighter(AlternateRowHighlighter.beige);
-        ((JXTable)jTable1).setHighlighters(highlighter);
+        
+        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+        {
+            HighlighterPipeline highlighter = new HighlighterPipeline();
+            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            ((JXTable)jTable1).setHighlighters(highlighter);
+        }
 
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener()
         {

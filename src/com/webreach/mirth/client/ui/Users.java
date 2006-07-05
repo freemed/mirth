@@ -1,6 +1,7 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.User;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -78,9 +79,13 @@ public class Users extends javax.swing.JScrollPane
         
         usersTable.setCellSelectionEnabled(false);
         usersTable.setRowSelectionAllowed(true);
-        HighlighterPipeline highlighter = new HighlighterPipeline();
-        highlighter.addHighlighter(AlternateRowHighlighter.beige);
-        usersTable.setHighlighters(highlighter);
+        
+        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+        {
+            HighlighterPipeline highlighter = new HighlighterPipeline();
+            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            usersTable.setHighlighters(highlighter);
+        }
         
         this.setViewportView(usersTable);
         

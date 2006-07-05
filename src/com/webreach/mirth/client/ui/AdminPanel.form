@@ -155,9 +155,9 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="mirthRadioButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rowHighlightYes" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="mirthRadioButton2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rowHighlightNo" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="intervalTime" min="-2" pref="78" max="-2" attributes="0"/>
                           </Group>
@@ -174,8 +174,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="mirthRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="mirthRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rowHighlightYes" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rowHighlightNo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="175" max="32767" attributes="0"/>
@@ -196,7 +196,7 @@
                 </Component>
                 <Component class="com.webreach.mirth.client.ui.MirthTextField" name="intervalTime">
                 </Component>
-                <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="mirthRadioButton1">
+                <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="rowHighlightYes">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -216,7 +216,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="mirthRadioButton2">
+                <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="rowHighlightNo">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>

@@ -2,6 +2,7 @@ package com.webreach.mirth.client.ui.browsers.event;
 
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.Mirth;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.SystemEvent;
@@ -9,6 +10,7 @@ import com.webreach.mirth.model.filters.SystemEventFilter;
 import java.awt.Font;
 import java.util.Calendar;
 import java.util.List;
+import java.util.prefs.Preferences;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -139,9 +141,13 @@ public class EventBrowser extends javax.swing.JPanel
         eventTable.setColumnMargin(2);
         eventTable.setOpaque(true);
         eventTable.setRowSelectionAllowed(true);
-        HighlighterPipeline highlighter = new HighlighterPipeline();
-        highlighter.addHighlighter(AlternateRowHighlighter.beige);
-        eventTable.setHighlighters(highlighter);
+        
+        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+        {
+            HighlighterPipeline highlighter = new HighlighterPipeline();
+            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            eventTable.setHighlighters(highlighter);
+        }
         
         eventPane.setViewportView(eventTable);
         

@@ -7,6 +7,7 @@
 
 package com.webreach.mirth.client.ui.editors.filter;
 
+import com.webreach.mirth.client.ui.Mirth;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -189,9 +191,14 @@ public class FilterPane extends MirthEditorPane {
 		filterTable.setColumnMargin( UIConstants.COL_MARGIN );
 		filterTable.setOpaque( true );
 		filterTable.setRowSelectionAllowed( true );
-		HighlighterPipeline highlighter = new HighlighterPipeline();
-		highlighter.addHighlighter( AlternateRowHighlighter.beige );
-		filterTable.setHighlighters( highlighter );
+                
+                if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
+                {
+                    HighlighterPipeline highlighter = new HighlighterPipeline();
+                    highlighter.addHighlighter( AlternateRowHighlighter.beige );
+                    filterTable.setHighlighters( highlighter );
+                }
+                
 		filterTable.setBorder( BorderFactory.createEmptyBorder() );
 		filterTablePane.setBorder( BorderFactory.createEmptyBorder() );
 		

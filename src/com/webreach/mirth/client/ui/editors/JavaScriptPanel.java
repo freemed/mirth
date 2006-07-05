@@ -65,12 +65,12 @@ public class JavaScriptPanel extends CardPanel {
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
 		mappingTextPane = new JTextPane( mappingDoc );
-		refPanel = new ReferenceComboBoxes( mappingTextPane );
+		//refPanel = new ReferenceComboBoxes( mappingTextPane );
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
 		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		referenceScrollPane.setViewportView( refPanel );
+		//referenceScrollPane.setViewportView( refPanel );
 		
 		headerArea.setForeground( Color.blue );
 		headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
@@ -170,7 +170,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JSplitPane hSplitPane;
 	private JScrollPane referenceScrollPane;
 	//private HL7ReferenceTable refPanel;
-	private ReferenceComboBoxes refPanel;
+	//private ReferenceComboBoxes refPanel;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";

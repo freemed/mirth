@@ -47,8 +47,8 @@ public class AdminPanel extends javax.swing.JPanel
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         intervalTime = new com.webreach.mirth.client.ui.MirthTextField();
-        mirthRadioButton1 = new com.webreach.mirth.client.ui.MirthRadioButton();
-        mirthRadioButton2 = new com.webreach.mirth.client.ui.MirthRadioButton();
+        rowHighlightYes = new com.webreach.mirth.client.ui.MirthRadioButton();
+        rowHighlightNo = new com.webreach.mirth.client.ui.MirthRadioButton();
 
         users.addComponentListener(new java.awt.event.ComponentAdapter()
         {
@@ -98,18 +98,18 @@ public class AdminPanel extends javax.swing.JPanel
 
         jLabel2.setText("Alternate Row Highlighting in Tables:");
 
-        mirthRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
-        mirthRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup1.add(mirthRadioButton1);
-        mirthRadioButton1.setSelected(true);
-        mirthRadioButton1.setText("Yes");
-        mirthRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        rowHighlightYes.setBackground(new java.awt.Color(255, 255, 255));
+        rowHighlightYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(rowHighlightYes);
+        rowHighlightYes.setSelected(true);
+        rowHighlightYes.setText("Yes");
+        rowHighlightYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        mirthRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        mirthRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup1.add(mirthRadioButton2);
-        mirthRadioButton2.setText("No");
-        mirthRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        rowHighlightNo.setBackground(new java.awt.Color(255, 255, 255));
+        rowHighlightNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(rowHighlightNo);
+        rowHighlightNo.setText("No");
+        rowHighlightNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -126,9 +126,9 @@ public class AdminPanel extends javax.swing.JPanel
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(mirthRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(rowHighlightYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(mirthRadioButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(rowHighlightNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(327, Short.MAX_VALUE))
         );
@@ -140,8 +140,8 @@ public class AdminPanel extends javax.swing.JPanel
                     .add(intervalTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(mirthRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(mirthRadioButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(rowHighlightYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(rowHighlightNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
@@ -196,6 +196,12 @@ public class AdminPanel extends javax.swing.JPanel
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         int interval = userPreferences.getInt("intervalTime", 20);
         intervalTime.setText(interval + "");
+        
+        if(userPreferences.getBoolean("highlightRows", true))
+            rowHighlightYes.setSelected(true);
+        else
+            rowHighlightNo.setSelected(true);
+        
     }
     
     public void showTasks()
@@ -221,6 +227,7 @@ public class AdminPanel extends javax.swing.JPanel
         {
             userPreferences.putInt("intervalTime",Integer.parseInt(intervalTime.getText()));
             parent.settingsTasks.getContentPane().getComponent(0).setVisible(false);
+            userPreferences.putBoolean("highlightRows", rowHighlightYes.isSelected());
         }
     }
 
@@ -232,8 +239,8 @@ public class AdminPanel extends javax.swing.JPanel
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton1;
-    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton2;
+    private com.webreach.mirth.client.ui.MirthRadioButton rowHighlightNo;
+    private com.webreach.mirth.client.ui.MirthRadioButton rowHighlightYes;
     private javax.swing.JPanel settings;
     private javax.swing.JPanel users;
     // End of variables declaration//GEN-END:variables
