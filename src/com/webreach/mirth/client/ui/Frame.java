@@ -403,7 +403,7 @@ public class Frame extends JXFrame
 
     public void doShowStatusPanel()
     {
-        if (!confirmLeaveChannelEditor())
+        if (!confirmLeave())
             return;
 
         doRefresh();
@@ -415,7 +415,7 @@ public class Frame extends JXFrame
 
     public void doShowChannel()
     {
-        if (!confirmLeaveChannelEditor())
+        if (!confirmLeave())
             return;
 
         doRefreshChannels();
@@ -428,7 +428,7 @@ public class Frame extends JXFrame
 
     public void doShowAdminPage()
     {
-        if (!confirmLeaveChannelEditor())
+        if (!confirmLeave())
             return;
 
         setBold(viewPane, 2);
@@ -853,7 +853,7 @@ public class Frame extends JXFrame
         }
     }
 
-    public boolean confirmLeaveChannelEditor()
+    public boolean confirmLeave()
     {
         if (channelEditTasks.getContentPane().getComponent(0).isVisible())
         {
@@ -865,8 +865,22 @@ public class Frame extends JXFrame
             }
             else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
                 return false;
+            
+            channelEditTasks.getContentPane().getComponent(0).setVisible(false);
         }
-        channelEditTasks.getContentPane().getComponent(0).setVisible(false);
+        else if (settingsTasks.getContentPane().getComponent(0).isVisible())
+        {
+            int option = JOptionPane.showConfirmDialog(this, "Would you like to save the settings?");
+           
+            if (option == JOptionPane.YES_OPTION)
+                adminPanel.saveSettings();
+            else if (option == JOptionPane.NO_OPTION)
+                adminPanel.loadSettings();
+            else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
+                return false;
+            
+            settingsTasks.getContentPane().getComponent(0).setVisible(false);
+        }
         return true;
     }
 

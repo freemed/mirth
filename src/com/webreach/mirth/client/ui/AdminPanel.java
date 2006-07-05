@@ -27,11 +27,7 @@ public class AdminPanel extends javax.swing.JPanel
             .add(u, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         
-        intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
-        userPreferences = Preferences.systemNodeForPackage(Mirth.class);
-        int interval = userPreferences.getInt("intervalTime", 20);
-        intervalTime.setText(interval + "");
-        
+        loadSettings();
     }
 
     /** This method is called from within the constructor to
@@ -193,7 +189,15 @@ public class AdminPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_usersComponentShown
         parent.setFocus(parent.userTasks);
     }//GEN-LAST:event_usersComponentShown
-
+    
+    public void loadSettings()
+    {
+        intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
+        userPreferences = Preferences.systemNodeForPackage(Mirth.class);
+        int interval = userPreferences.getInt("intervalTime", 20);
+        intervalTime.setText(interval + "");
+    }
+    
     public void showTasks()
     {
         if(settings.isVisible())
