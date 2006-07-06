@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.webreach.mirth.client.ui.Frame;
-import com.webreach.mirth.client.ui.MirthCellRenderer;
+import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.util.HL7ReferenceLoader;
@@ -42,7 +42,7 @@ public class HL7ReferenceTable extends ReferenceTable {
        this.getColumnExt( "ID" ).setPreferredWidth( 35 );
        this.getColumnExt( "Chapter" ).setPreferredWidth( 55 );
        
-       DefaultTableCellRenderer highlightColumn = new MirthCellRenderer();
+       DefaultTableCellRenderer highlightColumn = new CenterCellRenderer();
        highlightColumn.setBackground( UIConstants.HIGHLIGHTER_COLOR );
        this.getColumnExt( "ID" ).setCellRenderer( highlightColumn );
        

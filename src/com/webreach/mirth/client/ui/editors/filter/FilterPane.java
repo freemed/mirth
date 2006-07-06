@@ -30,7 +30,7 @@ import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
-import com.webreach.mirth.client.ui.MirthCellRenderer;
+import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
@@ -184,7 +184,7 @@ public class FilterPane extends MirthEditorPane {
 		filterTable.getColumnExt( RULE_NUMBER_COL ).setPreferredWidth( 30 );
 		filterTable.getColumnExt( RULE_OP_COL ).setPreferredWidth( 60 );
 		
-		filterTable.getColumnExt( RULE_NUMBER_COL ).setCellRenderer( new MirthCellRenderer() );
+		filterTable.getColumnExt( RULE_NUMBER_COL ).setCellRenderer( new CenterCellRenderer() );
 		filterTable.getColumnExt( RULE_OP_COL ).setCellEditor( comboBox );
 		
 		filterTable.getColumnExt( RULE_NUMBER_COL ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );

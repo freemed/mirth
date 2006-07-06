@@ -7,15 +7,13 @@
 
 package com.webreach.mirth.client.ui.editors.transformer;
 
+import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.Mirth;
-import com.webreach.mirth.client.ui.MirthCellRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
-
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
@@ -24,7 +22,6 @@ import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
@@ -191,9 +188,9 @@ public class TransformerPane extends MirthEditorPane {
         transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( UIConstants.MAX_WIDTH );
         
         transformerTable.getColumnExt( STEP_NUMBER_COL ).setPreferredWidth( 30 );
-        transformerTable.getColumnExt( STEP_TYPE_COL ).setPreferredWidth( 100 );
+        transformerTable.getColumnExt( STEP_TYPE_COL ).setPreferredWidth( 120 );
 
-        transformerTable.getColumnExt( STEP_NUMBER_COL ).setCellRenderer( new MirthCellRenderer() );
+        transformerTable.getColumnExt( STEP_NUMBER_COL ).setCellRenderer( new CenterCellRenderer() );
         transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
         
         transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
