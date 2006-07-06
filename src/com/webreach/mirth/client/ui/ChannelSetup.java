@@ -176,7 +176,6 @@ public class ChannelSetup extends javax.swing.JPanel
         jTable1.setRowHeight(20);
         jTable1.setFocusable(false); // Need to figure a way to make the arrows work here because the pane that shows up steals the focus
         
-        ((JXTable)jTable1).setColumnMargin(2);
         jTable1.setOpaque(true);
         
         if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))

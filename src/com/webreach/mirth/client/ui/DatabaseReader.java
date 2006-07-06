@@ -76,7 +76,7 @@ public class DatabaseReader extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put("DataType", name);
-        properties.put("Driver", databaseDriverCombobox.getItemAt(0));
+        properties.put("Driver", "sun.jdbc.odbc.JdbcOdbcDriver");
         properties.put("URL", "");
         properties.put("Username", "");
         properties.put("Password", "");

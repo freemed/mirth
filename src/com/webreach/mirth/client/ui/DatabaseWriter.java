@@ -33,6 +33,7 @@ public class DatabaseWriter extends ConnectorClass
         else if(databaseDriverCombobox.getSelectedItem().equals("ODBC - Oracle 10g Release 2"))
             properties.put("Driver", "oracle.jdbc.OracleDriver");
         
+        properties.put("Driver", databaseDriverCombobox.getSelectedItem());
         properties.put("URL", databaseURLField.getText());
         properties.put("Username", databaseUsernameField.getText());
         properties.put("Password", new String(databasePasswordField.getPassword()));
@@ -64,7 +65,7 @@ public class DatabaseWriter extends ConnectorClass
 
     public void setDefaults()
     {
-        databaseDriverCombobox.setSelectedIndex(0);
+        databaseDriverCombobox.setSelectedItem(0);
         databaseURLField.setText("");
         databaseUsernameField.setText("");
         databasePasswordField.setText("");
@@ -75,7 +76,7 @@ public class DatabaseWriter extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put("DataType", name);
-        properties.put("Driver", databaseDriverCombobox.getItemAt(0));
+        properties.put("Driver", "sun.jdbc.odbc.JdbcOdbcDriver");
         properties.put("URL", "");
         properties.put("Username", "");
         properties.put("Password", "");
