@@ -24,16 +24,21 @@
  * ***** END LICENSE BLOCK ***** */
 package com.webreach.mirth.client.ui.editors;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.Ostermiller.Syntax.HighlightedDocument;
-import com.Ostermiller.Syntax.Lexer.HL7Lexer;
 import com.webreach.mirth.client.ui.UIConstants;
 
 
