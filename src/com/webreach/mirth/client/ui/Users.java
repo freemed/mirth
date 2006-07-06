@@ -72,7 +72,7 @@ public class Users extends javax.swing.JScrollPane
         
         usersTable.getColumnExt("User ID").setMaxWidth(UIConstants.MAX_WIDTH);
         
-        usersTable.getColumnExt("User ID").setCellRenderer(new MyRenderer());
+        usersTable.getColumnExt("User ID").setCellRenderer(new MirthCellRenderer());
         usersTable.getColumnExt("User ID").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER); 
         
         usersTable.packTable(UIConstants.COL_MARGIN);

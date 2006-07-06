@@ -12,4 +12,5 @@ public class PlatformUI
     public static String SERVER_NAME;
     public static String USER_NAME;
     public static ColumnHeaderRenderer CENTER_COLUMN_HEADER_RENDERER = ColumnHeaderRenderer.createColumnHeaderRenderer();
+    public static MirthCellRenderer CENTER_CELL_RENDERER = new MirthCellRenderer();
 }
