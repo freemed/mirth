@@ -53,7 +53,7 @@ public class Users extends javax.swing.JScrollPane
             tableData,
             new String []
             {
-                "ID", "Username"
+                "User ID", "Username"
             }
         )
         {
@@ -70,7 +70,10 @@ public class Users extends javax.swing.JScrollPane
         
         usersTable.setSelectionMode(0);
         
-        usersTable.getColumnExt("ID").setMaxWidth(UIConstants.MAX_WIDTH);
+        usersTable.getColumnExt("User ID").setMaxWidth(UIConstants.MAX_WIDTH);
+        
+        usersTable.getColumnExt("User ID").setCellRenderer(new MyRenderer());
+        usersTable.getColumnExt("User ID").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER); 
         
         usersTable.packTable(UIConstants.COL_MARGIN);
         

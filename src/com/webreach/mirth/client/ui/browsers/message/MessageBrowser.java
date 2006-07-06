@@ -5,6 +5,7 @@ import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.HL7TreePanel;
 import com.webreach.mirth.client.ui.Mirth;
+import com.webreach.mirth.client.ui.MyRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.MessageEvent;
@@ -167,15 +168,22 @@ public class MessageBrowser extends javax.swing.JPanel
         
         eventTable.setSelectionMode(0);        
         
-        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setMaxWidth(90);
-        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setMinWidth(90);
-        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setMaxWidth(90);
-        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setMinWidth(90);
-        eventTable.getColumnExt(DATE_TABLE_NAME).setMaxWidth(120);
-        eventTable.getColumnExt(DATE_TABLE_NAME).setMinWidth(120);
+        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(DATE_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(SENDING_FACILITY_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        
+        eventTable.getColumnExt(CONTROL_ID_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(STATUS_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        
+        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setCellRenderer(new MyRenderer());
+        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setCellRenderer(new MyRenderer());
+        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);  
+        
+        eventTable.packTable(UIConstants.COL_MARGIN);    
         
         eventTable.setRowHeight(20);
-        eventTable.setColumnMargin(2);
         eventTable.setOpaque(true);
         eventTable.setRowSelectionAllowed(true);
         

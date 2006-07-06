@@ -6,11 +6,14 @@ import com.webreach.mirth.model.ChannelStatus;
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
+import org.jdesktop.swingx.table.ColumnHeaderRenderer;
 
 public class StatusPanel extends javax.swing.JPanel 
 {
@@ -111,9 +114,14 @@ public class StatusPanel extends javax.swing.JPanel
         statusTable.getColumnExt("Transformed").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Received").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Errors").setMaxWidth(UIConstants.MAX_WIDTH);
+        
         statusTable.getColumnExt("Transformed").setCellRenderer(new MyRenderer());
         statusTable.getColumnExt("Received").setCellRenderer(new MyRenderer());
         statusTable.getColumnExt("Errors").setCellRenderer(new MyRenderer());
+        
+        statusTable.getColumnExt("Transformed").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        statusTable.getColumnExt("Received").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        statusTable.getColumnExt("Errors").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
         
         statusTable.packTable(UIConstants.COL_MARGIN);
         
