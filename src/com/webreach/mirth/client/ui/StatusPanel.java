@@ -4,6 +4,7 @@ import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.model.ChannelStatistics;
 import com.webreach.mirth.model.ChannelStatus;
 import java.util.prefs.Preferences;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -79,11 +80,11 @@ public class StatusPanel extends javax.swing.JPanel
             }
             
             if (tempStatus.getState() == ChannelStatus.State.STARTED)
-                tableData[i][0] = "Started";
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png")), "Started");
             else if (tempStatus.getState() == ChannelStatus.State.STOPPED)
-                tableData[i][0] = "Stopped";
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_red.png")), "Stopped");
             else if (tempStatus.getState() == ChannelStatus.State.PAUSED)
-                tableData[i][0] = "Paused";
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_yellow.png")), "Paused");
             
             tableData[i][1] = tempStatus.getName();
                 
@@ -114,6 +115,8 @@ public class StatusPanel extends javax.swing.JPanel
         statusTable.getColumnExt("Transformed").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Received").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Errors").setMaxWidth(UIConstants.MAX_WIDTH);
+        
+        statusTable.getColumnExt("Status").setCellRenderer(new ImageCellRenderer());
         
         statusTable.getColumnExt("Transformed").setCellRenderer(new CenterCellRenderer());
         statusTable.getColumnExt("Received").setCellRenderer(new CenterCellRenderer());
@@ -172,13 +175,13 @@ public class StatusPanel extends javax.swing.JPanel
             parent.setVisibleTasks(parent.statusTasks, 3, -1, true);
             
             int columnNumber = getColumnNumber("Status");
-            if (((String)statusTable.getValueAt(row, columnNumber)).equals("Started"))
+            if (((CellData)statusTable.getValueAt(row, columnNumber)).getText().equals("Started"))
             {
                 parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
                 parent.statusTasks.getContentPane().getComponent(5).setVisible(true);
                 parent.statusTasks.getContentPane().getComponent(6).setVisible(true);
             }
-            else if (((String)statusTable.getValueAt(row, columnNumber)).equals("Paused"))
+            else if (((CellData)statusTable.getValueAt(row, columnNumber)).getText().equals("Paused"))
             {
                 parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
                 parent.statusTasks.getContentPane().getComponent(5).setVisible(false);

@@ -2,6 +2,7 @@ package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.Channel;
 import java.util.prefs.Preferences;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -58,9 +59,9 @@ public class ChannelPanel extends javax.swing.JPanel {
             Channel temp = parent.channels.get(i);
             
             if (temp.isEnabled())
-                tableData[i][0] = "Enabled";
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png")),"Enabled");
             else
-                tableData[i][0] = "Disabled";
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_red.png")),"Disabled");
             
             if (temp.getDirection().equals(Channel.Direction.INBOUND))
                 tableData[i][1] = "Inbound";
@@ -93,6 +94,7 @@ public class ChannelPanel extends javax.swing.JPanel {
         channelTable.getColumnExt("Status").setMaxWidth(UIConstants.MAX_WIDTH);
         channelTable.getColumnExt("Direction").setMaxWidth(UIConstants.MAX_WIDTH);
         
+        channelTable.getColumnExt("Status").setCellRenderer(new ImageCellRenderer());
         channelTable.packTable(UIConstants.COL_MARGIN);
 
         channelTable.setRowHeight(20);
@@ -134,7 +136,7 @@ public class ChannelPanel extends javax.swing.JPanel {
             parent.setVisibleTasks(parent.channelTasks, 4, -1, true);
 
             int columnNumber = getColumnNumber("Status");
-            if (((String)channelTable.getValueAt(row, columnNumber)).equals("Enabled"))
+            if (((CellData)channelTable.getValueAt(row, columnNumber)).getText().equals("Enabled"))
                 parent.channelTasks.getContentPane().getComponent(7).setVisible(false);
             else
                 parent.channelTasks.getContentPane().getComponent(8).setVisible(false);
