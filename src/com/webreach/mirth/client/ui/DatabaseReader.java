@@ -33,7 +33,6 @@ public class DatabaseReader extends ConnectorClass
         else if(databaseDriverCombobox.getSelectedItem().equals("ODBC - Oracle 10g Release 2"))
             properties.put("Driver", "oracle.jdbc.OracleDriver");
         
-        properties.put("Driver", databaseDriverCombobox.getSelectedItem());
         properties.put("URL", databaseURLField.getText());
         properties.put("Username", databaseUsernameField.getText());
         properties.put("Password", new String(databasePasswordField.getPassword()));
