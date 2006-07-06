@@ -124,6 +124,18 @@ public class Mirth
                 {
                     PlasticLookAndFeel.setPlasticTheme(new Silver());
                     UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
+                    
+                    UIDefaults uiDefaults = UIManager.getDefaults();
+                    Enumeration enum1 = uiDefaults.keys();
+                    while (enum1.hasMoreElements())
+                    {
+                        Object key = enum1.nextElement();
+                        Object val = uiDefaults.get(key);
+                        System.out.println("[" + key.toString() + "]:[" +
+                            (null != val ? val.toString() : "(null)") +
+                            "]");
+                    } 
+                    
                     UIManager.put("win.xpstyle.name", "metallic");
                     LookAndFeelAddons.setAddon(WindowsLookAndFeelAddons.class);
                 }
@@ -139,8 +151,7 @@ public class Mirth
                 UIManager.put("JXLoginPanel.banner.foreground", UIConstants.TITLE_TEXT_COLOR);
                 UIManager.put("JXLoginPanel.banner.darkBackground", UIConstants.BANNER_DARK_BACKGROUND);
                 UIManager.put("JXLoginPanel.banner.lightBackground", UIConstants.BANNER_LIGHT_BACKGROUND);
-                
-                
+
                 final MirthLoginService svc = new MirthLoginService();
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
                 

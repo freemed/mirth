@@ -25,6 +25,7 @@ public class AboutMirth extends javax.swing.JDialog
         initComponents();
         loadContent();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
     }
     
     public void loadContent()
