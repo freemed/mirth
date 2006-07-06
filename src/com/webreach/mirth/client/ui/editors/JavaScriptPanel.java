@@ -58,7 +58,6 @@ public class JavaScriptPanel extends CardPanel {
 		hSplitPane = new JSplitPane();
 		refTable = new HL7ReferenceTable();
 		referenceScrollPane = new JScrollPane();
-		notesArea = new JTextArea( notes + "\n" );
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		refPanel = new JPanel();
@@ -86,14 +85,6 @@ public class JavaScriptPanel extends CardPanel {
 		footerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		footerArea.setEditable(false);
 		
-		notesArea.setBackground( Color.WHITE );
-		notesArea.setForeground( Color.BLUE );
-		notesArea.setFont( new Font( "SansSerif", Font.PLAIN, 11 ) );
-		notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
-		notesArea.setEditable(false);
-		notesArea.setLineWrap(true);
-		notesArea.setTabSize( 4 );
-		
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( headerArea, BorderLayout.NORTH );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
@@ -108,7 +99,7 @@ public class JavaScriptPanel extends CardPanel {
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
 		if ( notes != null )
-			refPanel.add( notesArea, BorderLayout.NORTH );
+			refPanel.add( new NotesPanel( notes ), BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
@@ -162,7 +153,6 @@ public class JavaScriptPanel extends CardPanel {
 	
 	String notes;
 	private JPanel refPanel;
-	private JTextArea notesArea;
 	private JTextArea headerArea;
 	private JTextArea footerArea;
 	private JPanel mappingPane;

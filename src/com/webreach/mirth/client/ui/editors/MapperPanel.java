@@ -45,7 +45,6 @@ public class MapperPanel extends CardPanel {
 	 */
 	private void initComponents() {
 		referenceScrollPane = new JScrollPane();
-		notesArea = new JTextArea( notes + "\n" );
 		refTable = new HL7ReferenceTable();
 		refPanel = new JPanel();
 		hSplitPane = new JSplitPane();
@@ -71,18 +70,12 @@ public class MapperPanel extends CardPanel {
 		referenceScrollPane.setViewportView( refTable );
 		mappingScrollPane.setViewportView( mappingTextPane );
 		
-		notesArea.setBackground( Color.WHITE );
-		notesArea.setForeground( Color.BLUE );
-		notesArea.setFont( new Font( "SansSerif", Font.PLAIN, 11 ) );
-		notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
-		notesArea.setEditable(false);
-		notesArea.setLineWrap(true);
-		notesArea.setTabSize( 4 );
+		
 		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
 		if ( notes != null )
-			refPanel.add( notesArea, BorderLayout.NORTH );
+			refPanel.add( new NotesPanel( notes ), BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		JLabel padding = new JLabel( "  " );
@@ -167,7 +160,6 @@ public class MapperPanel extends CardPanel {
 	
 	String notes;
 	private JScrollPane referenceScrollPane;
-	private JTextArea notesArea;
 	private JPanel refPanel;
 	private JSplitPane hSplitPane;
 	private JTextPane mappingTextPane;
