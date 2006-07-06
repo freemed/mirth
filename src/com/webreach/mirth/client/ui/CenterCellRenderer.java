@@ -6,13 +6,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class MirthCellRenderer extends DefaultTableCellRenderer
+public class CenterCellRenderer extends DefaultTableCellRenderer
 {
 
   /*
    * @see TableCellRenderer#getTableCellRendererComponent(JTable, Object, boolean, boolean, int, int)
   ImageIcon icon;
-  public MirthCellRenderer(String img)
+  public CenterCellRenderer(String img)
   {
       icon = new ImageIcon(getClass().getResource(img));
       setHorizontalAlignment( CENTER );
@@ -24,7 +24,7 @@ public class MirthCellRenderer extends DefaultTableCellRenderer
   }
    */
 
-    public MirthCellRenderer()
+    public CenterCellRenderer()
     {
         super();
         this.setHorizontalAlignment(CENTER);

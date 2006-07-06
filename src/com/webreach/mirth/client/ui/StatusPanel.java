@@ -115,9 +115,9 @@ public class StatusPanel extends javax.swing.JPanel
         statusTable.getColumnExt("Received").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Errors").setMaxWidth(UIConstants.MAX_WIDTH);
         
-        statusTable.getColumnExt("Transformed").setCellRenderer(new MirthCellRenderer());
-        statusTable.getColumnExt("Received").setCellRenderer(new MirthCellRenderer());
-        statusTable.getColumnExt("Errors").setCellRenderer(new MirthCellRenderer());
+        statusTable.getColumnExt("Transformed").setCellRenderer(new CenterCellRenderer());
+        statusTable.getColumnExt("Received").setCellRenderer(new CenterCellRenderer());
+        statusTable.getColumnExt("Errors").setCellRenderer(new CenterCellRenderer());
         
         statusTable.getColumnExt("Transformed").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
         statusTable.getColumnExt("Received").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);

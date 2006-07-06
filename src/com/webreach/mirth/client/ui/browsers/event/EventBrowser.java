@@ -3,7 +3,7 @@ package com.webreach.mirth.client.ui.browsers.event;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.Mirth;
-import com.webreach.mirth.client.ui.MirthCellRenderer;
+import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.SystemEvent;
@@ -138,7 +138,7 @@ public class EventBrowser extends javax.swing.JPanel
         eventTable.getColumnExt("Event ID").setMaxWidth(UIConstants.MAX_WIDTH);
         eventTable.getColumnExt("Date").setMaxWidth(UIConstants.MAX_WIDTH);
         eventTable.getColumnExt("Level").setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt("Event ID").setCellRenderer(new MirthCellRenderer());
+        eventTable.getColumnExt("Event ID").setCellRenderer(new CenterCellRenderer());
         eventTable.getColumnExt("Event ID").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);        
         
         eventTable.packTable(UIConstants.COL_MARGIN);
