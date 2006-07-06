@@ -558,7 +558,7 @@ public class ChannelSetup extends javax.swing.JPanel
 
         xmlPreEncoded.setBackground(new java.awt.Color(255, 255, 255));
         xmlPreEncoded.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        xmlPreEncoded.setText("Channel will received XML pre-encoded HL7 messages.");
+        xmlPreEncoded.setText("Channel will receive XML pre-encoded HL7 messages.");
         xmlPreEncoded.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.jdesktop.layout.GroupLayout summaryLayout = new org.jdesktop.layout.GroupLayout(summary);

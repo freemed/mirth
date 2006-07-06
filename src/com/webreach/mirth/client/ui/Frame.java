@@ -133,23 +133,17 @@ public class Frame extends JXFrame
 
         sourceConnectors = new ArrayList<ConnectorClass>();
         sourceConnectors.add(new DatabaseReader());
-        sourceConnectors.add(new DatabaseWriter());
-        sourceConnectors.add(new EmailSender());
-        sourceConnectors.add(new FileWriter());
         sourceConnectors.add(new HTTPListener());
         sourceConnectors.add(new HTTPSListener());
         sourceConnectors.add(new LLPListener());
-        sourceConnectors.add(new LLPSender());
+        sourceConnectors.add(new FileReader());
 
         destinationConnectors = new ArrayList<ConnectorClass>();
-        destinationConnectors.add(new DatabaseReader());
         destinationConnectors.add(new DatabaseWriter());
         destinationConnectors.add(new EmailSender());
         destinationConnectors.add(new FileWriter());
-        destinationConnectors.add(new HTTPListener());
-        destinationConnectors.add(new HTTPSListener());
-        destinationConnectors.add(new LLPListener());
         destinationConnectors.add(new LLPSender());
+        destinationConnectors.add(new JMSWriter());
 
         taskPaneContainer = new JXTaskPaneContainer();
 
