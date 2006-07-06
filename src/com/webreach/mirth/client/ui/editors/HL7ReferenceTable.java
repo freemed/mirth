@@ -27,7 +27,7 @@ public class HL7ReferenceTable extends ReferenceTable {
         	e.printStackTrace(); 
         }
         
-       this.setModel( new DefaultTableModel( referenceData, 
+        this.setModel( new DefaultTableModel( referenceData, 
 				new String[] {"ID","Description","Chapter"} ) {
 					boolean[] canEdit = new boolean [] { false, false, false };
 					

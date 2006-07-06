@@ -33,6 +33,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.Ostermiller.Syntax.Lexer.HL7Lexer;
 import com.webreach.mirth.client.ui.UIConstants;
 
 
@@ -55,14 +56,15 @@ public class JavaScriptPanel extends CardPanel {
 	
 	private void initComponents() {
 		hSplitPane = new JSplitPane();
-		refPanel = new HL7ReferenceTable();
+		refTable = new HL7ReferenceTable();
 		referenceScrollPane = new JScrollPane();
 		notesArea = new JTextArea( notes + "\n" );
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
-		topPane = new JPanel();
+		refPanel = new JPanel();
 		mappingPane = new JPanel();
 		mappingDoc = new HighlightedDocument();
+		//mappingDoc.setHighlightStyle( HL7Lexer.class );
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
 		mappingTextPane = new JTextPane( mappingDoc );
@@ -70,7 +72,7 @@ public class JavaScriptPanel extends CardPanel {
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
 		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		referenceScrollPane.setViewportView( refPanel );
+		referenceScrollPane.setViewportView( refTable );
 		
 		headerArea.setForeground( Color.blue );
 		headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
@@ -90,6 +92,7 @@ public class JavaScriptPanel extends CardPanel {
 		notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
 		notesArea.setEditable(false);
 		notesArea.setLineWrap(true);
+		notesArea.setTabSize( 4 );
 		
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( headerArea, BorderLayout.NORTH );
@@ -102,18 +105,18 @@ public class JavaScriptPanel extends CardPanel {
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		
-		topPane.setBorder( BorderFactory.createEmptyBorder() );
-		topPane.setLayout( new BorderLayout() );
+		refPanel.setBorder( BorderFactory.createEmptyBorder() );
+		refPanel.setLayout( new BorderLayout() );
 		if ( notes != null )
-			topPane.add( notesArea, BorderLayout.NORTH );
-		topPane.add( referenceScrollPane, BorderLayout.CENTER );
+			refPanel.add( notesArea, BorderLayout.NORTH );
+		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
 		hSplitPane.setOneTouchExpandable( true );
 		hSplitPane.setDividerSize( 7 );
 		hSplitPane.setDividerLocation( 450 );
 		hSplitPane.setLeftComponent( mappingScrollPane );
-		hSplitPane.setRightComponent( topPane );
+		hSplitPane.setRightComponent( refPanel );
 		
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(
@@ -158,7 +161,7 @@ public class JavaScriptPanel extends CardPanel {
 	}
 	
 	String notes;
-	private JPanel topPane;
+	private JPanel refPanel;
 	private JTextArea notesArea;
 	private JTextArea headerArea;
 	private JTextArea footerArea;
@@ -168,7 +171,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JScrollPane mappingScrollPane;
 	private JSplitPane hSplitPane;
 	private JScrollPane referenceScrollPane;
-	private HL7ReferenceTable refPanel;
+	private HL7ReferenceTable refTable;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";
