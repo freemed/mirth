@@ -8,29 +8,24 @@
 package com.webreach.mirth.client.ui.editors.transformer;
 
 import com.webreach.mirth.client.ui.Mirth;
+import com.webreach.mirth.client.ui.MirthCellRenderer;
+import com.webreach.mirth.client.ui.PlatformUI;
+
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.ListIterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.prefs.Preferences;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-
 import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTaskPane;
@@ -40,10 +35,8 @@ import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import com.webreach.mirth.client.ui.Frame;
-import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.model.Step;
-import com.webreach.mirth.util.PropertyLoader;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
 
@@ -52,14 +45,10 @@ import com.webreach.mirth.client.ui.editors.*;
 public class TransformerPane extends MirthEditorPane {	
 	
 	/** CONSTRUCTOR
-     * 
-     *  Frame - the parent where this panel & its tasks will be loaded
-     *  Transformer - the data model
      */
     public TransformerPane() {
-        prevSelRow = -1; 	// no row by default
-        modified = false;    
-        
+        prevSelRow = -1;
+        modified = false;            
         initComponents();
     }
     
@@ -82,18 +71,21 @@ public class TransformerPane extends MirthEditorPane {
         }
         
     	int rowCount = transformerTableModel.getRowCount();
-
         // select the first row if there is one
 		if ( rowCount > 0 ) {
 			transformerTable.setRowSelectionInterval( 0, 0 );
 			prevSelRow = 0;
-		} else
+		} else {
 			stepPanel.showCard( BLANK_TYPE );
+			mapperPanel.setData( null );
+			jsPanel.setData( null );
+		}
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
     	
     	updateStepNumbers();
+    	updateTaskPane();
     	modified = false;
     }
     
@@ -118,13 +110,13 @@ public class TransformerPane extends MirthEditorPane {
 	    transformerTaskPaneContainer = new JXTaskPaneContainer();
 	    
 	    viewTasks = new JXTaskPane();
-        viewTasks.setTitle("Mirth Views");
+        viewTasks.setTitle( "Mirth Views" );
         viewTasks.setFocusable(false);
         viewTasks.add(initActionCallback( "accept",
         		ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
         		new ImageIcon( Frame.class.getResource( "images/resultset_previous.png" )) ));
-        parent.setNonFocusable(viewTasks);
-        transformerTaskPaneContainer.add(viewTasks);
+        parent.setNonFocusable( viewTasks );
+        transformerTaskPaneContainer.add( viewTasks );
 	    
 	    transformerTasks = new JXTaskPane();
 	    transformerTasks.setTitle( "Transformer Tasks" );
@@ -147,9 +139,8 @@ public class TransformerPane extends MirthEditorPane {
         		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
         		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         // add the tasks to the taskpane, and the taskpane to the mirth client
-        transformerTaskPaneContainer.add( transformerTasks );
         parent.setNonFocusable( transformerTasks );
-        parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
+        transformerTaskPaneContainer.add( transformerTasks );
         
         makeTransformerTable();
 
@@ -165,9 +156,6 @@ public class TransformerPane extends MirthEditorPane {
         this.setBorder( BorderFactory.createEmptyBorder() );
         // END LAYOUT
         
-        parent.setCurrentContentPage( this );
-        
-        updateTaskPane();
     }  // END initComponents()
     
     public void makeTransformerTable() {
@@ -196,17 +184,25 @@ public class TransformerPane extends MirthEditorPane {
             }
         });
 	    	    
+	    
 	    transformerTable.setSelectionMode( 0 );		// only select one row at a time
-        transformerTable.getColumnExt( STEP_NUMBER_COL ).setMaxWidth( 30 );
-        transformerTable.getColumnExt( STEP_NUMBER_COL ).setMinWidth( 30 );
-        transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( 150 );
-        transformerTable.getColumnExt( STEP_TYPE_COL ).setMinWidth( 80 );
-        transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
-        transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
         
-        transformerTable.setSortable( false );
-        transformerTable.setRowHeight( UIConstants.ROW_HEIGHT );
-        transformerTable.setColumnMargin( UIConstants.COL_MARGIN );
+	    transformerTable.getColumnExt( STEP_NUMBER_COL ).setMaxWidth( UIConstants.MAX_WIDTH );
+        transformerTable.getColumnExt( STEP_TYPE_COL ).setMaxWidth( UIConstants.MAX_WIDTH );
+        
+        transformerTable.getColumnExt( STEP_NUMBER_COL ).setPreferredWidth( 30 );
+        transformerTable.getColumnExt( STEP_TYPE_COL ).setPreferredWidth( 100 );
+
+        transformerTable.getColumnExt( STEP_NUMBER_COL ).setCellRenderer( new MirthCellRenderer() );
+        transformerTable.getColumnExt( STEP_TYPE_COL ).setCellEditor( comboBox );
+        
+        transformerTable.getColumnExt( STEP_DATA_COL ).setVisible( false );
+        transformerTable.getColumnExt( STEP_NUMBER_COL ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
+		transformerTable.getColumnExt( STEP_TYPE_COL ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
+		
+		transformerTable.setRowHeight( UIConstants.ROW_HEIGHT );
+        transformerTable.packTable( UIConstants.COL_MARGIN );
+		transformerTable.setSortable( false );
         transformerTable.setOpaque( true );
         transformerTable.setRowSelectionAllowed( true );
         
@@ -225,7 +221,8 @@ public class TransformerPane extends MirthEditorPane {
         transformerTable.getSelectionModel().addListSelectionListener(
         		new ListSelectionListener() {
         			public void valueChanged( ListSelectionEvent evt ) {
-        				if ( !updating ) TransformerListSelected( evt );
+        				if ( !updating && !evt.getValueIsAdjusting() ) 
+        					TransformerListSelected( evt );
         			}
         		});
     }    
@@ -240,20 +237,11 @@ public class TransformerPane extends MirthEditorPane {
     }
 
     // called when a table row is (re)selected
-    private void TransformerListSelected( EventObject evt ) {
+    private void TransformerListSelected( ListSelectionEvent evt ) {
     	updating = true;
     	
     	int row = transformerTable.getSelectedRow();
-        int last = -1;
-        String type = "";
-
-        if ( evt instanceof ListSelectionEvent ) {
-			ListSelectionEvent lsevt = (ListSelectionEvent) evt;
-			last = lsevt.getLastIndex();
-		} else if ( evt instanceof TableModelEvent ) {
-			TableModelEvent tmevt = (TableModelEvent) evt;
-			last = tmevt.getLastRow();
-		}
+        int last = evt.getLastIndex();
 
     	saveData( prevSelRow );
     	
@@ -262,20 +250,18 @@ public class TransformerPane extends MirthEditorPane {
     		invalidVar = false;
     	}
     	
-        if ( isValid( row ) ) {
-        	type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
-        	transformerTable.setRowSelectionInterval( row, row );
-        	prevSelRow = row;
-        } else if ( isValid ( last ) ) {
-        	type = (String)transformerTable.getValueAt( last, STEP_TYPE_COL );
-        	transformerTable.setRowSelectionInterval( last, last );
-        	prevSelRow = last;
+        if ( isValid( row ) )
+        	loadData( row );
+        else if ( isValid ( last ) ) {
+        	loadData( last );
+        	row = last;
         }
 
+        String type = (String)transformerTable.getValueAt( row, STEP_TYPE_COL );
         stepPanel.showCard( type );
-    	loadData();
-    	
-        updateTaskPane();
+        transformerTable.setRowSelectionInterval( row, row );
+    	prevSelRow = row;
+    	updateTaskPane();
         
         updating = false;
     }
@@ -367,9 +353,7 @@ public class TransformerPane extends MirthEditorPane {
     /** loadData()
      *  loads the data object into the correct panel
      */
-    private void loadData() {
-    	int row = transformerTable.getSelectedRow();
-    	
+    private void loadData( int row ) {
     	if ( isValid( row ) ) {
     		String type = (String)transformerTableModel.getValueAt( row, STEP_TYPE_COL );
 	    	Map<Object, Object> data = (Map<Object, Object>)
@@ -400,9 +384,10 @@ public class TransformerPane extends MirthEditorPane {
     	tableData[STEP_TYPE_COL] = step.getType();
     	tableData[STEP_DATA_COL] = step.getData();
 
+    	updating = true;
     	transformerTableModel.addRow( tableData );
     	transformerTable.setRowSelectionInterval( row, row );
-        
+        updating = false;
     }
     
     /** void addNewStep()
@@ -410,58 +395,56 @@ public class TransformerPane extends MirthEditorPane {
      */
     public void addNewStep() {
     	modified = true;
-    	int row = transformerTable.getRowCount();
+    	int rowCount = transformerTable.getRowCount();
     	Step step = new Step();
-    	Map<Object,Object> data = new HashMap<Object,Object>();
     	
+    	saveData( transformerTable.getSelectedRow() );
+    	Map<Object,Object> data = new HashMap<Object,Object>();
     	data.put("Variable", getUniqueName() );
     	
-    	step.setSequenceNumber( row );
-		step.setName( "New Step" );
+    	step.setSequenceNumber( rowCount );
+    	step.setData( data );
+    	step.setName( "New Step" );
 		step.setType( MAPPER_TYPE );	// mapper type by default
-		step.setData( data );
-
-		setRowData( step, row );
-    	prevSelRow = row;
-    	
+		
+		setRowData( step, rowCount );
+    	prevSelRow = rowCount;
+    	updateStepNumbers();
     }
     
     /** void deleteStep(MouseEvent evt)
      *  delete all selected rows
      */
     public void deleteStep() {
-    	modified = true;
-    	boolean swapped = false;
-    	
+    	modified = true;    	
     	if ( transformerTable.isEditing() )
     		transformerTable.getCellEditor( transformerTable.getEditingRow(), 
     				transformerTable.getEditingColumn() ).stopCellEditing();
     	
-    	int row = transformerTable.getSelectedRow();
+    	updating = true;
     	
+    	int row = transformerTable.getSelectedRow();
     	if ( isValid( row + 1 ) ) 
     		prepData( row + 1 );
     	
-    	if ( isValid ( row ) ) transformerTableModel.removeRow( row );
+    	if ( isValid ( row ) ) {
+    		transformerTableModel.removeRow( row );
+    		mapperPanel.setData( null );
+    		jsPanel.setData( null );
+    	}
     	
-    	// we need a seperate if here for the same condition because
-    	// the row may no longer be valid after removal
+    	updating = false;
+    	
     	if ( isValid ( row ) )
         	transformerTable.setRowSelectionInterval( row, row );
     	else if ( isValid( row - 1 ) )
     		transformerTable.setRowSelectionInterval( row - 1, row - 1 );
     	else {
     		stepPanel.showCard( BLANK_TYPE );
-    		Map<Object,Object> data = new HashMap<Object,Object>();
-        	data.put("Variable", getUniqueName() );
-    		mapperPanel.setData( data );
-    		jsPanel.setData( new HashMap<Object,Object>() );
+    		mapperPanel.setData( null );
+    		jsPanel.setData( null );
     	}
 
-    	if ( !swapped ) loadData();
-    	
-    	if ( transformerTableModel.getRowCount() <= 0 )
-    		makeTransformerTable();
     	updateStepNumbers();
     }
     
@@ -474,18 +457,11 @@ public class TransformerPane extends MirthEditorPane {
     	modified = true;
     	int selRow = transformerTable.getSelectedRow();
     	int moveTo = selRow + i;
-    	//String type = (String)transformerTableModel.getValueAt( selRow, STEP_TYPE_COL );
-    	saveData( selRow );
     	
     	// we can't move past the first or last row
     	if ( isValid( moveTo ) ) {
-    		/*Map<Object,Object> d = (Map<Object,Object>)
-    				transformerTableModel.getValueAt( moveTo, STEP_DATA_COL );
-    		
-    		if ( type == MAPPER_TYPE ) mapperPanel.setData( d );
-    		else if ( type == JAVASCRIPT_TYPE ) jsPanel.setData( d );*/
-    		prepData(moveTo);
-    		
+    		saveData( selRow );
+    		loadData( moveTo );
     		transformerTableModel.moveRow( selRow, selRow, moveTo );
     		transformerTable.setRowSelectionInterval( moveTo, moveTo );
     	}
@@ -513,7 +489,6 @@ public class TransformerPane extends MirthEditorPane {
 	    	}
 	    	
 	    	transformer.setSteps( list );
-	    	transformerTableModel.setDataVector( null, new String[] {} );
 	    
 	    	// reset the task pane and content to channel edit page
 	    	parent.channelEditPage.setSourceVariableList();
@@ -530,9 +505,26 @@ public class TransformerPane extends MirthEditorPane {
      *  and the view, after any change to the table
      */
     private void updateStepNumbers() {
+    	updating = true;
+    	
     	int rowCount = transformerTableModel.getRowCount();
+    	int selRow = transformerTable.getSelectedRow();
+    	
     	for ( int i = 0;  i < rowCount;  i++ )
     		transformerTableModel.setValueAt( i, i, STEP_NUMBER_COL );
+    	
+    	if ( isValid( selRow ) ) {
+    		transformerTable.setRowSelectionInterval( selRow, selRow );
+    		loadData( selRow );
+    		stepPanel.showCard( transformerTableModel.getValueAt( selRow, STEP_TYPE_COL ).toString() );
+    	} else if ( rowCount > 0 ) {
+    		transformerTable.setRowSelectionInterval( 0, 0 );
+    		loadData( 0 );
+    		stepPanel.showCard( transformerTableModel.getValueAt( 0, STEP_TYPE_COL ).toString() );
+    	}
+    	
+    	updateTaskPane();
+    	updating = false;
     }
     
     /** updateTaskPane()
