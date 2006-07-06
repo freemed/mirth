@@ -70,8 +70,8 @@ public class StatusPanel extends javax.swing.JPanel
             try
             {
                 ChannelStatistics tempStats = parent.mirthClient.getStatistics(tempStatus.getChannelId());
-                tableData[i][2] = tempStats.getSentCount();
-                tableData[i][3] = tempStats.getReceivedCount();
+                tableData[i][2] = tempStats.getReceivedCount();
+                tableData[i][3] = tempStats.getSentCount();
                 tableData[i][4] = tempStats.getErrorCount();
             } 
             catch (ClientException ex)
@@ -94,7 +94,7 @@ public class StatusPanel extends javax.swing.JPanel
             tableData,
             new String []
             {
-                "Status", "Name", "Transformed", "Received", "Errors"
+                "Status", "Name", "Received", "Sent", "Errors"
             }
         )
         {
@@ -112,18 +112,18 @@ public class StatusPanel extends javax.swing.JPanel
         statusTable.setSelectionMode(0);  
         
         statusTable.getColumnExt("Status").setMaxWidth(UIConstants.MAX_WIDTH);
-        statusTable.getColumnExt("Transformed").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Received").setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt("Sent").setMaxWidth(UIConstants.MAX_WIDTH);
         statusTable.getColumnExt("Errors").setMaxWidth(UIConstants.MAX_WIDTH);
         
         statusTable.getColumnExt("Status").setCellRenderer(new ImageCellRenderer());
         
-        statusTable.getColumnExt("Transformed").setCellRenderer(new CenterCellRenderer());
         statusTable.getColumnExt("Received").setCellRenderer(new CenterCellRenderer());
+        statusTable.getColumnExt("Sent").setCellRenderer(new CenterCellRenderer());
         statusTable.getColumnExt("Errors").setCellRenderer(new CenterCellRenderer());
         
-        statusTable.getColumnExt("Transformed").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
         statusTable.getColumnExt("Received").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        statusTable.getColumnExt("Sent").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
         statusTable.getColumnExt("Errors").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
         
         statusTable.packTable(UIConstants.COL_MARGIN);
