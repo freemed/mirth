@@ -33,6 +33,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.UIConstants;
 
 
 /**
@@ -54,9 +55,9 @@ public class JavaScriptPanel extends CardPanel {
 	
 	private void initComponents() {
 		hSplitPane = new JSplitPane();
-		//refPanel = new HL7ReferenceTable();
+		refPanel = new HL7ReferenceTable();
 		referenceScrollPane = new JScrollPane();
-		notesArea = new JTextArea( "\n" + notes + "\n" );
+		notesArea = new JTextArea( notes + "\n" );
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		topPane = new JPanel();
@@ -65,31 +66,27 @@ public class JavaScriptPanel extends CardPanel {
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
 		mappingTextPane = new JTextPane( mappingDoc );
-		//refPanel = new ReferenceComboBoxes( mappingTextPane );
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
 		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		//referenceScrollPane.setViewportView( refPanel );
+		referenceScrollPane.setViewportView( refPanel );
 		
 		headerArea.setForeground( Color.blue );
 		headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
 		headerArea.setBorder( BorderFactory.createEmptyBorder() );
-		headerArea.setBackground( new Color( 255, 255, 224 ) );
+		headerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		headerArea.setEditable(false);
 		
 		footerArea.setForeground( Color.blue );
 		footerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
 		footerArea.setBorder( BorderFactory.createEmptyBorder() );
-		footerArea.setBackground( new Color( 255, 255, 224 ) );
+		footerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		footerArea.setEditable(false);
 		
-		notesArea.setBackground( new Color( 224, 255, 224 ) );
-		notesArea.setForeground( new Color( 0, 160, 0 ) );
+		notesArea.setBackground( Color.WHITE );
+		notesArea.setForeground( Color.BLUE );
 		notesArea.setFont( new Font( "SansSerif", Font.PLAIN, 11 ) );
-		//notesArea.setBorder( BorderFactory.createTitledBorder( 
-		//		BorderFactory.createEtchedBorder(), "Available Variables", TitledBorder.LEFT,
-		//		TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), Color.black ));
 		notesArea.setBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ) );
 		notesArea.setEditable(false);
 		notesArea.setLineWrap(true);
@@ -152,6 +149,8 @@ public class JavaScriptPanel extends CardPanel {
 	public void setData( Map<Object, Object> m ) {
 		if ( m != null )
 			mappingTextPane.setText( (String)m.get( "Script" ) );	
+		else
+			mappingTextPane.setText( "" );
 	}
 	
 	public JTextPane getDocument() {
@@ -169,8 +168,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JScrollPane mappingScrollPane;
 	private JSplitPane hSplitPane;
 	private JScrollPane referenceScrollPane;
-	//private HL7ReferenceTable refPanel;
-	//private ReferenceComboBoxes refPanel;
+	private HL7ReferenceTable refPanel;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";
