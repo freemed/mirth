@@ -15,7 +15,7 @@ import com.webreach.mirth.client.ui.UIConstants;
 public class ReferenceTable extends JXTable {
 	
 	public class TableTransferHandler extends TransferHandler {
-	    int row = -1;
+	    int row;
 	    
 	    protected String exportString(JComponent c) {
 	        JXTable table = (JXTable)c;
