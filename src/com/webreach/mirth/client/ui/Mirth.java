@@ -136,9 +136,9 @@ public class Mirth
                 String passwordDefault = "abc12345";
                 String mirthServerDefault = "https://127.0.0.1:8443";
                 
-                UIManager.put("JXLoginPanel.banner.foreground", UIManager.getColor("windowText"));
-                //UIManager.put("JXLoginPanel.banner.darkBackground", UIManager.getColor("InternalFrame.activeTitleBackground"));
-                //UIManager.put("JXLoginPanel.banner.lightBackground", UIManager.getColor("InternalFrame.inactiveTitleBackground").brighter());
+                UIManager.put("JXLoginPanel.banner.foreground", UIConstants.TITLE_TEXT_COLOR);
+                UIManager.put("JXLoginPanel.banner.darkBackground", UIConstants.BANNER_DARK_BACKGROUND);
+                UIManager.put("JXLoginPanel.banner.lightBackground", UIConstants.BANNER_LIGHT_BACKGROUND);
                 
                 
                 final MirthLoginService svc = new MirthLoginService();

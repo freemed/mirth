@@ -13,9 +13,13 @@ public class UIConstants
     public static final int COL_MARGIN = 10;
     public static final Color GRID_COLOR = new Color( 224,224,224 );
     public static final int MAX_WIDTH = 200;
+    public static final Color HIGHLIGHTER_COLOR = new Color(240,240,240);
 
     // background colors 
     public static final Color BACKGROUND_COLOR = new Color( 255,255,255 );
+    public static final Color TITLE_TEXT_COLOR = new Color(0,0,0);
+    public static final Color BANNER_DARK_BACKGROUND = new Color(170,170,170);
+    public static final Color BANNER_LIGHT_BACKGROUND = new Color(220,220,220);
     
     // for JSplitPane
     public static final int DIVIDER_SIZE = 12;

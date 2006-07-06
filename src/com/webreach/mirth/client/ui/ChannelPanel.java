@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.Highlighter;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
@@ -101,7 +102,7 @@ public class ChannelPanel extends javax.swing.JPanel {
         if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
         {
             HighlighterPipeline highlighter = new HighlighterPipeline();
-            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            highlighter.addHighlighter(new AlternateRowHighlighter(UIConstants.HIGHLIGHTER_COLOR, UIConstants.BACKGROUND_COLOR, UIConstants.TITLE_TEXT_COLOR));
             channelTable.setHighlighters(highlighter);
         }
         
