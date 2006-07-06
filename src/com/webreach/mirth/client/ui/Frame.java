@@ -398,7 +398,7 @@ public class Frame extends JXFrame
 
     public void goToAbout()
     {
-        About dlg = new About();
+        AboutMirth dlg = new AboutMirth();
         Dimension dlgSize = dlg.getPreferredSize();
         Dimension frmSize = getSize();
         Point loc = getLocation();

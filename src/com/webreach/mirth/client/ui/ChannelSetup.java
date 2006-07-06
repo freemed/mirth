@@ -399,6 +399,11 @@ public class ChannelSetup extends javax.swing.JPanel
             summaryEnabledCheckbox.setSelected(true);
         else
             summaryEnabledCheckbox.setSelected(false);
+        
+        if(((String)currentChannel.getProperties().get("recv_pre_encoded")) != null && ((String)currentChannel.getProperties().get("recv_pre_encoded")).equalsIgnoreCase("true"))
+            xmlPreEncoded.setSelected(true);
+        else
+            xmlPreEncoded.setSelected(false);
 
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
 
@@ -438,6 +443,11 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel.setName(summaryNameField.getText());
         currentChannel.setDescription(summaryDescriptionText.getText());
         currentChannel.setEnabled(summaryEnabledCheckbox.isSelected());
+        
+        if(xmlPreEncoded.isSelected())
+            currentChannel.getProperties().put("recv_pre_encoded", "true");
+        else
+            currentChannel.getProperties().put("recv_pre_encoded", "false");
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
@@ -484,7 +494,8 @@ public class ChannelSetup extends javax.swing.JPanel
     }
 
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         filterButtonGroup = new javax.swing.ButtonGroup();
         validationButtonGroup = new javax.swing.ButtonGroup();
         channelView = new javax.swing.JTabbedPane();
@@ -499,6 +510,7 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryPatternLabel1 = new javax.swing.JLabel();
         summaryPatternLabel2 = new javax.swing.JLabel();
         summaryEnabledCheckbox = new com.webreach.mirth.client.ui.MirthCheckBox();
+        xmlPreEncoded = new com.webreach.mirth.client.ui.MirthCheckBox();
         source = new javax.swing.JPanel();
         sourceSourceDropdown = new com.webreach.mirth.client.ui.MirthComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
@@ -513,8 +525,10 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.setFocusable(false);
         summary.setBackground(new java.awt.Color(255, 255, 255));
         summary.setFocusable(false);
-        summary.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
+        summary.addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
                 summaryComponentShown(evt);
             }
         });
@@ -542,6 +556,11 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryEnabledCheckbox.setFocusable(false);
         summaryEnabledCheckbox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
+        xmlPreEncoded.setBackground(new java.awt.Color(255, 255, 255));
+        xmlPreEncoded.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        xmlPreEncoded.setText("Channel will received XML pre-encoded HL7 messages.");
+        xmlPreEncoded.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
         org.jdesktop.layout.GroupLayout summaryLayout = new org.jdesktop.layout.GroupLayout(summary);
         summary.setLayout(summaryLayout);
         summaryLayout.setHorizontalGroup(
@@ -555,6 +574,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     .add(summaryPatternLabel1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(summaryDirectionLabel2)
                     .add(summaryPatternLabel2)
                     .add(summaryLayout.createSequentialGroup()
@@ -584,21 +604,27 @@ public class ChannelSetup extends javax.swing.JPanel
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(summaryDescriptionLabel))
-                .addContainerGap(335, Short.MAX_VALUE))
+                .add(24, 24, 24)
+                .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         channelView.addTab("Summary", summary);
 
         source.setBackground(new java.awt.Color(255, 255, 255));
         source.setFocusable(false);
-        source.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
+        source.addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
                 sourceComponentShown(evt);
             }
         });
 
         sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TCP/IP", "Database", "Email" }));
-        sourceSourceDropdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        sourceSourceDropdown.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 sourceSourceDropdownActionPerformed(evt);
             }
         });
@@ -650,15 +676,19 @@ public class ChannelSetup extends javax.swing.JPanel
 
         destination.setBackground(new java.awt.Color(255, 255, 255));
         destination.setFocusable(false);
-        destination.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
+        destination.addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
                 destinationComponentShown(evt);
             }
         });
 
         destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TCP/IP", "Database", "Email" }));
-        destinationSourceDropdown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        destinationSourceDropdown.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 destinationSourceDropdownActionPerformed(evt);
             }
         });
@@ -1099,6 +1129,7 @@ public class ChannelSetup extends javax.swing.JPanel
     private javax.swing.ButtonGroup validationButtonGroup;
     private com.webreach.mirth.client.ui.VariableList variableList1;
     private com.webreach.mirth.client.ui.VariableList variableList2;
+    private com.webreach.mirth.client.ui.MirthCheckBox xmlPreEncoded;
     // End of variables declaration//GEN-END:variables
 
 }
