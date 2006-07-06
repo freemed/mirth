@@ -480,8 +480,19 @@ public class TransformerPane extends MirthEditorPane {
 	    				transformerTable.getValueAt( i, STEP_NUMBER_COL ).toString() ));
 	    		step.setName( (String)transformerTableModel.getValueAt( i, STEP_NAME_COL ));
 	    		step.setType( (String)transformerTableModel.getValueAt( i, STEP_TYPE_COL ));
-	    		step.setData( (Object)transformerTableModel.getValueAt( i, STEP_DATA_COL ));
+	    		step.setData( (Map)transformerTableModel.getValueAt( i, STEP_DATA_COL ));
 	    		
+				HashMap map = (HashMap) step.getData();
+				if (step.getType().equals(TransformerPane.MAPPER_TYPE)) {
+					StringBuilder script = new StringBuilder();
+					script.append("map.put(");
+					script.append("'" + map.get("Variable") + "', ");
+					script.append("'" + map.get("Mapping") + "');");
+					step.setScript(script.toString());
+				} else if (step.getType().equals(TransformerPane.JAVASCRIPT_TYPE)) {
+					step.setScript(map.get("Script").toString());
+				}
+
 	    		list.add( step );
 	    	}
 	    	
