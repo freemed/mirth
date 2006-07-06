@@ -1,5 +1,10 @@
 package com.webreach.mirth.client.ui;
 
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
+import com.jgoodies.looks.plastic.theme.DesertBlue;
+import com.jgoodies.looks.plastic.theme.Silver;
 import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import java.awt.BorderLayout;
@@ -117,7 +122,10 @@ public class Mirth
             {
                 try
                 {
-                   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    PlasticLookAndFeel.setPlasticTheme(new Silver());
+                    UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
+                    UIManager.put("win.xpstyle.name", "metallic");
+                    LookAndFeelAddons.setAddon(WindowsLookAndFeelAddons.class);
                 }
                 catch (Exception e)
                 {
@@ -129,8 +137,9 @@ public class Mirth
                 String mirthServerDefault = "https://127.0.0.1:8443";
                 
                 UIManager.put("JXLoginPanel.banner.foreground", UIManager.getColor("windowText"));
-                UIManager.put("JXLoginPanel.banner.darkBackground", UIManager.getColor("InternalFrame.activeTitleBackground"));
-                UIManager.put("JXLoginPanel.banner.lightBackground", UIManager.getColor("InternalFrame.inactiveTitleBackground").brighter());
+                //UIManager.put("JXLoginPanel.banner.darkBackground", UIManager.getColor("InternalFrame.activeTitleBackground"));
+                //UIManager.put("JXLoginPanel.banner.lightBackground", UIManager.getColor("InternalFrame.inactiveTitleBackground").brighter());
+                
                 
                 final MirthLoginService svc = new MirthLoginService();
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
@@ -141,16 +150,7 @@ public class Mirth
                 panel.setBannerText("Login :: Mirth");
                 panel.setOpaque(true);
                 JPanel loginInfo = (JPanel)((JPanel)panel.getComponent(1)).getComponent(1);
-                 /*UIDefaults uiDefaults = UIManager.getDefaults();
-                    Enumeration enum1 = uiDefaults.keys();
-                    while (enum1.hasMoreElements())
-                    {
-                        Object key = enum1.nextElement();
-                        Object val = uiDefaults.get(key);
-                        System.out.println("[" + key.toString() + "]:[" +
-                            (null != val ? val.toString() : "(null)") +
-                            "]");
-                    } */
+
                 loginInfo.removeAll();
                 
                 String CLASS_NAME = JXLoginPanel.class.getCanonicalName(); 

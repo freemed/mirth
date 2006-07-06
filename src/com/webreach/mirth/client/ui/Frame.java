@@ -92,8 +92,15 @@ public class Frame extends JXFrame
         container.setTitleFont(new Font("Tahoma",Font.BOLD,12));
         container.setTitleForeground(UIManager.getColor("windowText"));
         container.getContentContainer().add(component);
-        container.setTitleDarkBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientStart"));
-        container.setTitleLightBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientEnd"));
+        if(UIManager.getColor("TaskPaneContainer.backgroundGradientStart") != null)
+            container.setTitleDarkBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientStart"));
+        else
+            container.setTitleDarkBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
+        
+        if(UIManager.getColor("TaskPaneContainer.backgroundGradientEnd") != null)
+            container.setTitleLightBackground(UIManager.getColor("TaskPaneContainer.backgroundGradientEnd"));
+        else
+            container.setTitleDarkBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
     }
 
     public void setPanelName(String name)
