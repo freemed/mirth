@@ -751,13 +751,13 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void summaryComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_summaryComponentShown
     {//GEN-HEADEREND:event_summaryComponentShown
-        parent.setVisibleTasks(parent.channelEditTasks, 1, -1, false);
+        parent.setVisibleTasks(parent.channelEditTasks, 1, 4, false);
     }//GEN-LAST:event_summaryComponentShown
 
     private void sourceComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_sourceComponentShown
     {//GEN-HEADEREND:event_sourceComponentShown
         parent.setVisibleTasks(parent.channelEditTasks, 1, 2, false);
-        parent.setVisibleTasks(parent.channelEditTasks, 3, -1, true);
+        parent.setVisibleTasks(parent.channelEditTasks, 3, 4, true);
     }//GEN-LAST:event_sourceComponentShown
 
     private void destinationComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_destinationComponentShown
@@ -765,15 +765,15 @@ public class ChannelSetup extends javax.swing.JPanel
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
         {
             parent.setVisibleTasks(parent.channelEditTasks, 1, 2, false);
-            parent.setVisibleTasks(parent.channelEditTasks, 3, -1, true);
+            parent.setVisibleTasks(parent.channelEditTasks, 3, 4, true);
         }
         else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
         {
             parent.setVisibleTasks(parent.channelEditTasks, 1, 2, true);
-            parent.setVisibleTasks(parent.channelEditTasks, 3, -1, false);
+            parent.setVisibleTasks(parent.channelEditTasks, 3, 4, false);
         }
         else
-            parent.setVisibleTasks(parent.channelEditTasks, 1, -1, true);
+            parent.setVisibleTasks(parent.channelEditTasks, 1, 4, true);
     }//GEN-LAST:event_destinationComponentShown
 
     private void sourceSourceDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSourceDropdownActionPerformed

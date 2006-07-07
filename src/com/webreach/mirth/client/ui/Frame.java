@@ -306,8 +306,10 @@ public class Frame extends JXFrame
         channelEditTasks.add(initActionCallback("doDeleteDestination", "Delete the currently selected destination.", ActionFactory.createBoundAction("doDeleteDestination","Delete Destination", "D"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         channelEditTasks.add(initActionCallback("doEditTransformer", "Edit the transformer for the currently selected destination.", ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         channelEditTasks.add(initActionCallback("doEditFilter", "Edit the filter for the currently selected destination.", ActionFactory.createBoundAction("doEditFilter","Edit Filter", "F"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        channelEditTasks.add(initActionCallback("doExport", "Export the currently selected channel to an XML file.", ActionFactory.createBoundAction("doExport","Export Channel", "X"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/export.png"))));
         setNonFocusable(channelEditTasks);
-        setVisibleTasks(channelEditTasks, 0, -1, false);
+        setVisibleTasks(channelEditTasks, 0, 4, false);
+        setVisibleTasks(channelEditTasks, 5, 5, true);
         taskPaneContainer.add(channelEditTasks);
 
         // Create Status Tasks Pane
@@ -484,7 +486,7 @@ public class Frame extends JXFrame
         setBold(viewPane, UIConstants.ERROR_CONSTANT);
         setCurrentContentPage(channelEditPage);
         setFocus(channelEditTasks);
-        setVisibleTasks(channelEditTasks, 0, -1, false);
+        setVisibleTasks(channelEditTasks, 0, 4, false);
         channelEditPage.editChannel(index);
     }
 
@@ -1007,6 +1009,19 @@ public class Frame extends JXFrame
 
     public void doExport()
     {
+        if (channelEditTasks.getContentPane().getComponent(0).isVisible())
+        {
+            if(alertOption("This channel has been modified. You must save the channel changes before you can export. Would you like to save them now?"))
+            {
+                if (!channelEditPage.saveChanges())
+                    return;
+            }
+            else
+                return;
+            
+            channelEditTasks.getContentPane().getComponent(0).setVisible(false);
+        }
+        
         JFileChooser exportFileChooser = new JFileChooser();
         exportFileChooser.setFileFilter(new XMLFileFilter());
         int returnVal = exportFileChooser.showSaveDialog(this);

@@ -17,24 +17,80 @@ public class JMSWriter extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
+        properties.put("DataType", name);
+        properties.put("AckMode", ackMode.getText());
+        properties.put("Specification", specDropDown.getSelectedIndex());
         
+        if(deliveryNo.isSelected())
+            properties.put("Delivery", "false");
+        else
+            properties.put("Delivery", "true");
+        
+        if(durableNo.isSelected())
+            properties.put("Durable", "false");
+        else
+            properties.put("Durable", "true");
+        
+        properties.put("ClientID", cliendId.getText());
+        properties.put("JNDIInitialFactory", JNDIInitialFactory.getText());
+        properties.put("JNDIProviderURL", JNDIProviderURL.getText());
+        properties.put("JNDIConnectionName", JNDIConnectionName.getText());
+        properties.put("redeliveryHandler", redeliveryHandler.getText());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
+        boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
         
+        ackMode.setText((String)props.get("AckMode"));
+        specDropDown.setSelectedItem(props.get("Specification"));
+        
+        if(((String)props.get("Delivery")).equalsIgnoreCase("false"))
+            deliveryNo.setSelected(true);
+        else
+            deliveryYes.setSelected(true);
+        
+        if(((String)props.get("Delivery")).equalsIgnoreCase("false"))
+            durableNo.setSelected(true);
+        else
+            durableYes.setSelected(true);
+        
+        cliendId.setText((String)props.get("ClientID"));
+        JNDIInitialFactory.setText((String)props.get("JNDIInitialFactory"));
+        JNDIProviderURL.setText((String)props.get("JNDIProviderURL"));
+        JNDIConnectionName.setText((String)props.get("JNDIConnectionName"));
+        redeliveryHandler.setText((String)props.get("redeliveryHandler"));
+        
+        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
 
     public void setDefaults()
     {
-
+        ackMode.setText("0");
+        specDropDown.setSelectedIndex(0);
+        deliveryNo.setSelected(true);
+        durableNo.setSelected(true);
+        cliendId.setText("");
+        JNDIInitialFactory.setText("");
+        JNDIProviderURL.setText("");
+        JNDIConnectionName.setText("");
+        redeliveryHandler.setText("");
     }
     
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-
+        properties.put("DataType", name);
+        properties.put("AckMode", "1");
+        properties.put("Specification", specDropDown.getSelectedIndex());
+        properties.put("Delivery", "false");
+        properties.put("Durable", "false");
+        properties.put("ClientID", "");
+        properties.put("JNDIInitialFactory", "");
+        properties.put("JNDIProviderURL", "");
+        properties.put("JNDIConnectionName", "");
+        properties.put("redeliveryHandler", "org.mule.proivders.jms.DefaultRedeliveryHandler");
         return properties;
     }
 
@@ -46,26 +102,28 @@ public class JMSWriter extends ConnectorClass
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents()
     {
+        deliveryButtonGroup = new javax.swing.ButtonGroup();
+        durableButtonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        directoryField = new com.webreach.mirth.client.ui.MirthTextField();
-        mirthComboBox1 = new com.webreach.mirth.client.ui.MirthComboBox();
+        ackMode = new com.webreach.mirth.client.ui.MirthTextField();
+        specDropDown = new com.webreach.mirth.client.ui.MirthComboBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        mirthRadioButton1 = new com.webreach.mirth.client.ui.MirthRadioButton();
-        mirthRadioButton2 = new com.webreach.mirth.client.ui.MirthRadioButton();
-        mirthRadioButton3 = new com.webreach.mirth.client.ui.MirthRadioButton();
-        mirthRadioButton4 = new com.webreach.mirth.client.ui.MirthRadioButton();
-        mirthTextField1 = new com.webreach.mirth.client.ui.MirthTextField();
-        mirthTextField2 = new com.webreach.mirth.client.ui.MirthTextField();
-        mirthTextField3 = new com.webreach.mirth.client.ui.MirthTextField();
-        mirthTextField4 = new com.webreach.mirth.client.ui.MirthTextField();
-        mirthTextField5 = new com.webreach.mirth.client.ui.MirthTextField();
+        deliveryYes = new com.webreach.mirth.client.ui.MirthRadioButton();
+        deliveryNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        durableNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        durableYes = new com.webreach.mirth.client.ui.MirthRadioButton();
+        cliendId = new com.webreach.mirth.client.ui.MirthTextField();
+        JNDIInitialFactory = new com.webreach.mirth.client.ui.MirthTextField();
+        JNDIProviderURL = new com.webreach.mirth.client.ui.MirthTextField();
+        JNDIConnectionName = new com.webreach.mirth.client.ui.MirthTextField();
+        redeliveryHandler = new com.webreach.mirth.client.ui.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "JMS Writer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -75,7 +133,7 @@ public class JMSWriter extends ConnectorClass
 
         jLabel3.setText("Specification:");
 
-        mirthComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        specDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("Durable:");
 
@@ -89,34 +147,38 @@ public class JMSWriter extends ConnectorClass
 
         jLabel9.setText("Redelivery Handler:");
 
-        mirthRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
-        mirthRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        mirthRadioButton1.setText("Yes");
-        mirthRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        deliveryYes.setBackground(new java.awt.Color(255, 255, 255));
+        deliveryYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        deliveryButtonGroup.add(deliveryYes);
+        deliveryYes.setText("Yes");
+        deliveryYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        mirthRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        mirthRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        mirthRadioButton2.setSelected(true);
-        mirthRadioButton2.setText("No");
-        mirthRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        deliveryNo.setBackground(new java.awt.Color(255, 255, 255));
+        deliveryNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        deliveryButtonGroup.add(deliveryNo);
+        deliveryNo.setSelected(true);
+        deliveryNo.setText("No");
+        deliveryNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        mirthRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
-        mirthRadioButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        mirthRadioButton3.setSelected(true);
-        mirthRadioButton3.setText("No");
-        mirthRadioButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        durableNo.setBackground(new java.awt.Color(255, 255, 255));
+        durableNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        durableButtonGroup.add(durableNo);
+        durableNo.setSelected(true);
+        durableNo.setText("No");
+        durableNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        mirthRadioButton4.setBackground(new java.awt.Color(255, 255, 255));
-        mirthRadioButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        mirthRadioButton4.setText("Yes");
-        mirthRadioButton4.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        durableYes.setBackground(new java.awt.Color(255, 255, 255));
+        durableYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        durableButtonGroup.add(durableYes);
+        durableYes.setText("Yes");
+        durableYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(20, 20, 20)
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel9)
                     .add(jLabel8)
@@ -128,23 +190,23 @@ public class JMSWriter extends ConnectorClass
                     .add(jLabel4)
                     .add(jLabel2))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(mirthTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                    .add(mirthTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(layout.createSequentialGroup()
-                        .add(mirthRadioButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(durableYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(mirthRadioButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(directoryField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .add(durableNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
-                        .add(mirthRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(deliveryYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(mirthRadioButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(mirthTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                    .add(mirthTextField5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                    .add(mirthTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                    .add(mirthComboBox1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
-                .add(93, 93, 93))
+                        .add(deliveryNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(JNDIConnectionName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(JNDIProviderURL, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(JNDIInitialFactory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(ackMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(specDropDown, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(cliendId, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                    .add(redeliveryHandler, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -152,48 +214,58 @@ public class JMSWriter extends ConnectorClass
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(directoryField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(ackMode, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(mirthComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(specDropDown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(mirthRadioButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(mirthRadioButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(deliveryYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(deliveryNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(mirthRadioButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(mirthRadioButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(durableYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(durableNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(mirthTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(cliendId, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
-                    .add(mirthTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(JNDIInitialFactory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
-                    .add(mirthTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(JNDIProviderURL, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel8)
-                    .add(mirthTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(JNDIConnectionName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel9)
-                    .add(mirthTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(redeliveryHandler, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthTextField directoryField;
+    private com.webreach.mirth.client.ui.MirthTextField JNDIConnectionName;
+    private com.webreach.mirth.client.ui.MirthTextField JNDIInitialFactory;
+    private com.webreach.mirth.client.ui.MirthTextField JNDIProviderURL;
+    private com.webreach.mirth.client.ui.MirthTextField ackMode;
+    private com.webreach.mirth.client.ui.MirthTextField cliendId;
+    private javax.swing.ButtonGroup deliveryButtonGroup;
+    private com.webreach.mirth.client.ui.MirthRadioButton deliveryNo;
+    private com.webreach.mirth.client.ui.MirthRadioButton deliveryYes;
+    private javax.swing.ButtonGroup durableButtonGroup;
+    private com.webreach.mirth.client.ui.MirthRadioButton durableNo;
+    private com.webreach.mirth.client.ui.MirthRadioButton durableYes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -203,16 +275,8 @@ public class JMSWriter extends ConnectorClass
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private com.webreach.mirth.client.ui.MirthComboBox mirthComboBox1;
-    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton1;
-    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton2;
-    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton3;
-    private com.webreach.mirth.client.ui.MirthRadioButton mirthRadioButton4;
-    private com.webreach.mirth.client.ui.MirthTextField mirthTextField1;
-    private com.webreach.mirth.client.ui.MirthTextField mirthTextField2;
-    private com.webreach.mirth.client.ui.MirthTextField mirthTextField3;
-    private com.webreach.mirth.client.ui.MirthTextField mirthTextField4;
-    private com.webreach.mirth.client.ui.MirthTextField mirthTextField5;
+    private com.webreach.mirth.client.ui.MirthTextField redeliveryHandler;
+    private com.webreach.mirth.client.ui.MirthComboBox specDropDown;
     // End of variables declaration//GEN-END:variables
 
 }

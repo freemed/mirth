@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="deliveryButtonGroup">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="durableButtonGroup">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -24,7 +30,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -37,26 +43,26 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="mirthTextField3" pref="131" max="32767" attributes="1"/>
-                  <Component id="mirthTextField2" pref="131" max="32767" attributes="1"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="mirthRadioButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="durableYes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mirthRadioButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="durableNo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="directoryField" alignment="0" pref="131" max="32767" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="mirthRadioButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="deliveryYes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="mirthRadioButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="deliveryNo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="mirthTextField1" alignment="0" pref="131" max="32767" attributes="1"/>
-                  <Component id="mirthTextField5" alignment="0" pref="131" max="32767" attributes="1"/>
-                  <Component id="mirthTextField4" alignment="0" pref="131" max="32767" attributes="1"/>
-                  <Component id="mirthComboBox1" alignment="0" pref="131" max="32767" attributes="1"/>
+                  <Component id="JNDIConnectionName" alignment="0" max="32767" attributes="1"/>
+                  <Component id="JNDIProviderURL" alignment="0" max="32767" attributes="1"/>
+                  <Component id="JNDIInitialFactory" alignment="0" max="32767" attributes="1"/>
+                  <Component id="ackMode" alignment="0" max="32767" attributes="1"/>
+                  <Component id="specDropDown" alignment="0" max="32767" attributes="1"/>
+                  <Component id="cliendId" alignment="0" pref="136" max="32767" attributes="1"/>
+                  <Component id="redeliveryHandler" alignment="0" max="32767" attributes="1"/>
               </Group>
-              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,49 +72,49 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="directoryField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ackMode" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="specDropDown" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="deliveryYes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="deliveryNo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="durableYes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="durableNo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cliendId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="JNDIInitialFactory" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="JNDIProviderURL" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="JNDIConnectionName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="mirthTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="redeliveryHandler" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
@@ -131,9 +137,9 @@
         <Property name="text" type="java.lang.String" value="Specification:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="directoryField">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="ackMode">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="mirthComboBox1">
+    <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="specDropDown">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -175,7 +181,7 @@
         <Property name="text" type="java.lang.String" value="Redelivery Handler:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="mirthRadioButton1">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="deliveryYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -184,6 +190,9 @@
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
             <EmptyBorder bottom="0" left="0" right="0" top="0"/>
           </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="deliveryButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Yes"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -191,7 +200,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="mirthRadioButton2">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="deliveryNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -200,6 +209,9 @@
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
             <EmptyBorder bottom="0" left="0" right="0" top="0"/>
           </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="deliveryButtonGroup"/>
         </Property>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="No"/>
@@ -208,7 +220,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="mirthRadioButton3">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="durableNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -217,6 +229,9 @@
           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
             <EmptyBorder bottom="0" left="0" right="0" top="0"/>
           </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="durableButtonGroup"/>
         </Property>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="No"/>
@@ -225,7 +240,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="mirthRadioButton4">
+    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="durableYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -235,21 +250,24 @@
             <EmptyBorder bottom="0" left="0" right="0" top="0"/>
           </Border>
         </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="durableButtonGroup"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Yes"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="mirthTextField1">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="cliendId">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="mirthTextField2">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIInitialFactory">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="mirthTextField3">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIProviderURL">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="mirthTextField4">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIConnectionName">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="mirthTextField5">
+    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="redeliveryHandler">
     </Component>
   </SubComponents>
 </Form>

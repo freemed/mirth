@@ -1,41 +1,31 @@
 package com.webreach.mirth.client.ui;
 
-import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
-import com.jgoodies.looks.plastic.theme.DesertBlue;
 import com.jgoodies.looks.plastic.theme.Silver;
 import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXLoginPanel;
 import org.jdesktop.swingx.auth.LoginEvent;
 import org.jdesktop.swingx.auth.LoginListener;
 import org.jdesktop.swingx.auth.LoginService;
 import org.jdesktop.swingx.plaf.LookAndFeelAddons;
-import org.jdesktop.swingx.plaf.aqua.AquaLookAndFeelAddons;
-import org.jdesktop.swingx.plaf.metal.MetalLookAndFeelAddons;
 import org.jdesktop.swingx.plaf.windows.WindowsLookAndFeelAddons;
 
 /**
@@ -127,19 +117,9 @@ public class Mirth
                 try
                 {
                     PlasticLookAndFeel.setPlasticTheme(new Silver());
-                    UIManager.setLookAndFeel(new PlasticXPLookAndFeel());
-                    
-                    UIDefaults uiDefaults = UIManager.getDefaults();
-                    Enumeration enum1 = uiDefaults.keys();
-                    while (enum1.hasMoreElements())
-                    {
-                        Object key = enum1.nextElement();
-                        Object val = uiDefaults.get(key);
-                        System.out.println("[" + key.toString() + "]:[" +
-                            (null != val ? val.toString() : "(null)") +
-                            "]");
-                    } 
-                    
+                    PlasticXPLookAndFeel look = new PlasticXPLookAndFeel();
+                    look.set3DEnabled(true);
+                    UIManager.setLookAndFeel(look);  
                     UIManager.put("win.xpstyle.name", "metallic");
                     LookAndFeelAddons.setAddon(WindowsLookAndFeelAddons.class);
                 }
