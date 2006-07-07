@@ -785,6 +785,7 @@ public class Frame extends JXFrame
         {
             mirthClient.deployChannels();
             statusListPage.deselectRows();
+            doShowStatusPanel();
         }
         catch (ClientException e)
         {

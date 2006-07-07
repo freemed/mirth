@@ -1,5 +1,7 @@
 package com.webreach.mirth.client.ui;
 
+import com.webreach.mirth.client.core.ClientException;
+import java.util.Properties;
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 
@@ -43,6 +45,15 @@ public class AdminPanel extends javax.swing.JPanel
         users = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        smtpPassword = new com.webreach.mirth.client.ui.MirthPasswordField();
+        smtpUsername = new com.webreach.mirth.client.ui.MirthTextField();
+        smtpPort = new com.webreach.mirth.client.ui.MirthTextField();
+        smtpHost = new com.webreach.mirth.client.ui.MirthTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,7 +77,7 @@ public class AdminPanel extends javax.swing.JPanel
         );
         usersLayout.setVerticalGroup(
             usersLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 566, Short.MAX_VALUE)
+            .add(0, 575, Short.MAX_VALUE)
         );
         adminPanel.addTab("Users", users);
 
@@ -81,15 +92,64 @@ public class AdminPanel extends javax.swing.JPanel
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Server", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
+        jLabel3.setText("Alerts:");
+
+        jLabel4.setText("SMTP Host:");
+
+        jLabel5.setText("SMTP Port:");
+
+        jLabel6.setText("Username:");
+
+        jLabel7.setText("Password:");
+
+        smtpPassword.setFont(new java.awt.Font("Tahoma", 0, 11));
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 595, Short.MAX_VALUE)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel3))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(72, 72, 72)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel6)
+                            .add(jLabel5)
+                            .add(jLabel4)
+                            .add(jLabel7))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(smtpUsername, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(smtpPassword, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(smtpPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(smtpHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 117, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(347, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 248, Short.MAX_VALUE)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(smtpHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(smtpPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel6)
+                    .add(smtpUsername, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(smtpPassword, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -143,7 +203,7 @@ public class AdminPanel extends javax.swing.JPanel
                     .add(rowHighlightYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(rowHighlightNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2))
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout settingsLayout = new org.jdesktop.layout.GroupLayout(settings);
@@ -176,7 +236,7 @@ public class AdminPanel extends javax.swing.JPanel
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(adminPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .add(adminPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,13 +254,41 @@ public class AdminPanel extends javax.swing.JPanel
     {
         intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
-        int interval = userPreferences.getInt("intervalTime", 20);
+        int interval = userPreferences.getInt("intervalTime", 10);
         intervalTime.setText(interval + "");
         
         if(userPreferences.getBoolean("highlightRows", true))
             rowHighlightYes.setSelected(true);
         else
             rowHighlightNo.setSelected(true);
+        try
+        {
+            Properties serverProperties = parent.mirthClient.getServerProperties();
+            System.out.println(serverProperties);
+            if(serverProperties.getProperty("smtp.host") != null)
+                smtpHost.setText((String)serverProperties.getProperty("smtp.host"));
+            else
+                smtpHost.setText("");
+            
+            if(serverProperties.getProperty("smtp.port") != null)
+                smtpPort.setText((String)serverProperties.getProperty("smtp.port"));
+            else
+                smtpPort.setText("");
+            
+            if(serverProperties.getProperty("smtp.username") != null)
+                smtpUsername.setText((String)serverProperties.getProperty("smtp.username"));
+            else
+                smtpUsername.setText("");
+            
+            if(serverProperties.getProperty("smtp.password") != null)
+                smtpPassword.setText((String)serverProperties.getProperty("smtp.password"));
+            else
+                smtpPassword.setText("");
+        } 
+        catch (ClientException ex)
+        {
+            ex.printStackTrace();
+        }
         
     }
     
@@ -219,15 +307,31 @@ public class AdminPanel extends javax.swing.JPanel
     public void saveSettings()
     {
         int interval = Integer.parseInt(intervalTime.getText());
+        
         if(intervalTime.getText().length() == 0)
             parent.alertWarning("Please enter a valid interval time.");
-        else if(interval < 5)
-            parent.alertWarning("Please enter an interval time that is larger than 5.");
+        else if(interval <= 0)
+            parent.alertWarning("Please enter an interval time that is larger than 0.");
         else
         {
             userPreferences.putInt("intervalTime",Integer.parseInt(intervalTime.getText()));
             parent.settingsTasks.getContentPane().getComponent(0).setVisible(false);
             userPreferences.putBoolean("highlightRows", rowHighlightYes.isSelected());
+            
+            Properties serverProperties = new Properties();
+            serverProperties.put("smtp.host", smtpHost.getText());
+            serverProperties.put("smtp.port", smtpPort.getText());
+            serverProperties.put("smtp.username", smtpUsername.getText());
+            serverProperties.put("smtp.password", new String(smtpPassword.getPassword()));
+            
+            try
+            {
+                parent.mirthClient.updateServerProperties(serverProperties);
+            } 
+            catch (ClientException ex)
+            {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -237,11 +341,20 @@ public class AdminPanel extends javax.swing.JPanel
     private com.webreach.mirth.client.ui.MirthTextField intervalTime;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private com.webreach.mirth.client.ui.MirthRadioButton rowHighlightNo;
     private com.webreach.mirth.client.ui.MirthRadioButton rowHighlightYes;
     private javax.swing.JPanel settings;
+    private com.webreach.mirth.client.ui.MirthTextField smtpHost;
+    private com.webreach.mirth.client.ui.MirthPasswordField smtpPassword;
+    private com.webreach.mirth.client.ui.MirthTextField smtpPort;
+    private com.webreach.mirth.client.ui.MirthTextField smtpUsername;
     private javax.swing.JPanel users;
     // End of variables declaration//GEN-END:variables
 

@@ -33,4 +33,9 @@ public class CellData
         this.text = text;
     }
     
+    public String toString()
+    {
+        return text;
+    }
+    
 }

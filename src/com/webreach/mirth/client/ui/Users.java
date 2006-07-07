@@ -2,6 +2,7 @@ package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.User;
 import java.util.prefs.Preferences;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -46,7 +47,7 @@ public class Users extends javax.swing.JScrollPane
             User temp = parent.users.get(i);
 
             tableData[i][0] = "" + temp.getId();
-            tableData[i][1] = temp.getUsername();
+            tableData[i][1] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/user.png")), temp.getUsername());
         } 
         
         usersTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -70,6 +71,7 @@ public class Users extends javax.swing.JScrollPane
         
         usersTable.setSelectionMode(0);
         
+        usersTable.getColumnExt("Username").setCellRenderer(new ImageCellRenderer());        
         usersTable.getColumnExt("User ID").setMaxWidth(UIConstants.MAX_WIDTH);
         
         usersTable.getColumnExt("User ID").setCellRenderer(new CenterCellRenderer());
@@ -86,7 +88,7 @@ public class Users extends javax.swing.JScrollPane
         if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
         {
             HighlighterPipeline highlighter = new HighlighterPipeline();
-            highlighter.addHighlighter(AlternateRowHighlighter.beige);
+            highlighter.addHighlighter(new AlternateRowHighlighter(UIConstants.HIGHLIGHTER_COLOR, UIConstants.BACKGROUND_COLOR, UIConstants.TITLE_TEXT_COLOR));
             usersTable.setHighlighters(highlighter);
         }
         

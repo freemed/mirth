@@ -19,7 +19,7 @@ public class JMSWriter extends ConnectorClass
         Properties properties = new Properties();
         properties.put("DataType", name);
         properties.put("AckMode", ackMode.getText());
-        properties.put("Specification", specDropDown.getSelectedIndex());
+        properties.put("Specification", (String)specDropDown.getSelectedItem());
         
         if(deliveryNo.isSelected())
             properties.put("Delivery", "false");
@@ -83,7 +83,7 @@ public class JMSWriter extends ConnectorClass
         Properties properties = new Properties();
         properties.put("DataType", name);
         properties.put("AckMode", "1");
-        properties.put("Specification", specDropDown.getSelectedIndex());
+        properties.put("Specification", (String)specDropDown.getItemAt(0));
         properties.put("Delivery", "false");
         properties.put("Durable", "false");
         properties.put("ClientID", "");
@@ -173,6 +173,8 @@ public class JMSWriter extends ConnectorClass
         durableYes.setText("Yes");
         durableYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
+        redeliveryHandler.setAutoscrolls(false);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,14 +201,14 @@ public class JMSWriter extends ConnectorClass
                         .add(deliveryYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(deliveryNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(JNDIConnectionName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(JNDIProviderURL, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(JNDIInitialFactory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(cliendId, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(JNDIConnectionName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(ackMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(specDropDown, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(cliendId, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                    .add(redeliveryHandler, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .add(redeliveryHandler, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

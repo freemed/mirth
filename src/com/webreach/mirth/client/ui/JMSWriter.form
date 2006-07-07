@@ -54,15 +54,15 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="deliveryNo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="JNDIConnectionName" alignment="0" max="32767" attributes="1"/>
                   <Component id="JNDIProviderURL" alignment="0" max="32767" attributes="1"/>
                   <Component id="JNDIInitialFactory" alignment="0" max="32767" attributes="1"/>
+                  <Component id="cliendId" alignment="0" max="32767" attributes="1"/>
+                  <Component id="JNDIConnectionName" alignment="0" max="32767" attributes="1"/>
                   <Component id="ackMode" alignment="0" max="32767" attributes="1"/>
                   <Component id="specDropDown" alignment="0" max="32767" attributes="1"/>
-                  <Component id="cliendId" alignment="0" pref="136" max="32767" attributes="1"/>
-                  <Component id="redeliveryHandler" alignment="0" max="32767" attributes="1"/>
+                  <Component id="redeliveryHandler" alignment="0" min="-2" pref="87" max="-2" attributes="1"/>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="162" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -268,6 +268,9 @@
     <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIConnectionName">
     </Component>
     <Component class="com.webreach.mirth.client.ui.MirthTextField" name="redeliveryHandler">
+      <Properties>
+        <Property name="autoscrolls" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
