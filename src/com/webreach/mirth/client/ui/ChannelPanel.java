@@ -59,9 +59,9 @@ public class ChannelPanel extends javax.swing.JPanel {
             Channel temp = parent.channels.get(i);
             
             if (temp.isEnabled())
-                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png")),"Enabled");
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_blue.png")),"Enabled");
             else
-                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_red.png")),"Disabled");
+                tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_black.png")),"Disabled");
             
             if (temp.getDirection().equals(Channel.Direction.INBOUND))
                 tableData[i][1] = "Inbound";

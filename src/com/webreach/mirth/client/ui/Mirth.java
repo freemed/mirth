@@ -64,17 +64,21 @@ public class Mirth
         PlatformUI.CENTER_COLUMN_HEADER_RENDERER.setDownIcon(UIManager.getIcon("ColumnHeaderRenderer.downIcon"));
         PlatformUI.CENTER_COLUMN_HEADER_RENDERER.setUpIcon(UIManager.getIcon("ColumnHeaderRenderer.upIcon"));
         
+        UIManager.put("Tree.leafIcon", UIConstants.LEAF_ICON);
+        UIManager.put("Tree.openIcon", UIConstants.OPEN_ICON);
+        UIManager.put("Tree.closedIcon", UIConstants.CLOSED_ICON);
+        
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         
         JWindow splashWindow = new JWindow();
         splashWindow.getContentPane().add(new JLabel(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/mirthlogo.gif"))), BorderLayout.CENTER);
+        //splashWindow.getContentPane().add(new JLabel("lkamsdlfmasldfm"), BorderLayout.CENTER);
         splashWindow.pack();
         splashWindow.setLocationRelativeTo(null);
         splashWindow.setVisible(true);
- 
         PlatformUI.MIRTH_FRAME.setupFrame(m);
         
-        splashWindow.dispose();
+        //splashWindow.dispose();
         
         int width = 900;
         int height = 700;

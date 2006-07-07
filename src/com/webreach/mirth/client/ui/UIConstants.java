@@ -2,6 +2,7 @@ package com.webreach.mirth.client.ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class UIConstants 
 {
@@ -28,4 +29,9 @@ public class UIConstants
     // fonts
     public static final Font TEXTFIELD_PLAIN_FONT = new Font("Tahoma",Font.PLAIN,11);
     public static final Font TEXTFIELD_BOLD_FONT = new Font("Tahoma",Font.BOLD,11);
+    
+    // for JTrees
+    public static final ImageIcon LEAF_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png"));
+    public static final ImageIcon OPEN_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_yellow.png"));
+    public static final ImageIcon CLOSED_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_yellow.png"));
 }
