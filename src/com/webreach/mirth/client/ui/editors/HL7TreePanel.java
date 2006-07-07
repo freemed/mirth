@@ -25,13 +25,15 @@
  *
  */
 
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.editors;
 
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+
+import com.webreach.mirth.client.ui.PlatformUI;
 
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Composite;
@@ -43,6 +45,7 @@ import ca.uhn.hl7v2.model.Structure;
 import ca.uhn.hl7v2.model.Type;
 import ca.uhn.hl7v2.model.Varies;
 import ca.uhn.hl7v2.parser.EncodingCharacters;
+import ca.uhn.hl7v2.parser.EncodingNotSupportedException;
 import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.validation.impl.NoValidation;
 
@@ -63,19 +66,31 @@ public class HL7TreePanel extends JPanel {
 	public void setMessage(String source) {
 		Message message = null;
 
-		try {
-			message = parser.parse(source);
-		} catch (Exception e) {
-			PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
+		if (source != null) {
+			try {
+				message = parser.parse(source);
+			} catch (EncodingNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (HL7Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
+				e.printStackTrace();
+			}
+			//System.out.println(source);
+			
+			if (message != null) {
+				DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
+				addChildren(message, top);
+	
+				JTree tree = new JTree(top);
+				removeAll();
+				add(tree);
+				revalidate();
+			}
 		}
-
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
-		addChildren(message, top);
-
-		JTree tree = new JTree(top);
-		removeAll();
-		add(tree);
-		revalidate();
 	}
 
 	public void clearMessage() {

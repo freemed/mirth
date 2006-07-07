@@ -92,7 +92,7 @@ public class FilterPane extends MirthEditorPane {
 		// the available panels (cards)
 		rulePanel = new CardPanel();
 		blankPanel = new BlankPanel();
-		jsPanel = new JavaScriptPanel( this, "some more notes..." );
+		jsPanel = new JavaScriptPanel( this, notes  );
 		// 		establish the cards to use in the Filter
 		rulePanel.addCard( blankPanel, BLANK_TYPE );
 		rulePanel.addCard( jsPanel, JAVASCRIPT_TYPE );

@@ -9,23 +9,21 @@ package com.webreach.mirth.client.ui.editors;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
-import org.jdesktop.layout.*;
-
-import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
-import com.webreach.mirth.client.ui.util.HL7ReferenceLoader;
-
-import com.Ostermiller.Syntax.*;
+import com.Ostermiller.Syntax.HighlightedDocument;
 
 
 public class MapperPanel extends CardPanel {
@@ -63,7 +61,7 @@ public class MapperPanel extends CardPanel {
 		mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
-				BorderFactory.createEtchedBorder(), "Mapping: ", TitledBorder.LEFT,
+				BorderFactory.createLoweredBevelBorder(), "Mapping: ", TitledBorder.LEFT,
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		

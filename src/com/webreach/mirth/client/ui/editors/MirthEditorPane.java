@@ -8,6 +8,9 @@ import com.webreach.mirth.client.ui.PlatformUI;
 public class MirthEditorPane extends JPanel {
 	public boolean modified = false;
     public Frame parent = PlatformUI.MIRTH_FRAME;
+    public String notes = "Variables:\n\n" +
+    		"localMap: The local variable map that will be sent to the connector.\n" +
+    		"globalMap: The global variable map that persists values between channels.";
     
     public MirthEditorPane() {
     	super();

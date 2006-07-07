@@ -62,22 +62,22 @@ public class JavaScriptPanel extends CardPanel {
 	
 	private void initComponents() {
 		hSplitPane = new JSplitPane();
-		refTable = new HL7ReferenceTable();
+		refTree = new HL7ReferenceTree();
 		referenceScrollPane = new JScrollPane();
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		refPanel = new JPanel();
 		mappingPane = new JPanel();
 		mappingDoc = new HighlightedDocument();
-		//mappingDoc.setHighlightStyle( HL7Lexer.class );
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
+		editor = new JPanel();
 		mappingTextPane = new JTextPane( mappingDoc );
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
 		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		referenceScrollPane.setViewportView( refTable );
+		referenceScrollPane.setViewportView( refTree );
 		
 		headerArea.setForeground( Color.blue );
 		headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
@@ -96,24 +96,22 @@ public class JavaScriptPanel extends CardPanel {
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		mappingPane.add( footerArea, BorderLayout.SOUTH );
 		
-		JTextArea lineNumbers = new JTextArea();
+		lineCount = 1;
+		lineNumbers = new JTextArea( Integer.toString(lineCount) );
 		Font lineNumbersFont = new Font("Monospaced", Font.PLAIN, 12);
+		lineNumbers.setEditable( false );
 		lineNumbers.setFont( lineNumbersFont );
 		lineNumbers.setForeground( Color.DARK_GRAY );
 		lineNumbers.setBackground( UIConstants.GRID_COLOR );
 		lineNumbers.setSize( lineNumbersFont.getSize() * 3, mappingTextPane.getHeight() );
-		String numbers = "";
-		for ( int i = 1;  i < 1000;  i++ ) numbers += i + "\n";
-		lineNumbers.setText( numbers );
 		
-		JPanel editor = new JPanel();
 		editor.setLayout( new BorderLayout() );
 		editor.add( lineNumbers, BorderLayout.WEST );
 		editor.add( mappingPane, BorderLayout.CENTER );
 
 		mappingScrollPane.setViewportView( editor );
 		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
-				BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
+				BorderFactory.createLoweredBevelBorder(), "JavaScript", TitledBorder.LEFT,
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		
@@ -133,16 +131,31 @@ public class JavaScriptPanel extends CardPanel {
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(
 				new DocumentListener() {
+					String numbers = "";
+					
 					public void changedUpdate(DocumentEvent arg0) {
-						parent.modified = true;
+						updateDoc();
 					}
 					
 					public void insertUpdate(DocumentEvent arg0) {
-						parent.modified = true;						
+						//updateDoc();				
 					}
 					
 					public void removeUpdate(DocumentEvent arg0) {
-						parent.modified = true;						
+						//updateDoc();
+					}
+					
+					private void updateDoc() {
+						parent.modified = true;
+						int currLineCount = 
+							mappingTextPane.getDocument().getDefaultRootElement().getElementCount();
+						
+						if ( lineCount < currLineCount ) {
+							for ( int i = 1;  i < currLineCount;  i++ )
+								numbers += i + "\n";
+							lineCount = currLineCount;
+							lineNumbers.setText( numbers );
+						}
 					}
 					
 				});
@@ -180,9 +193,12 @@ public class JavaScriptPanel extends CardPanel {
 	private HighlightedDocument mappingDoc;
 	private JTextPane mappingTextPane;
 	private JScrollPane mappingScrollPane;
+	private JTextArea lineNumbers;
+	private int lineCount;
+	private JPanel editor;
 	private JSplitPane hSplitPane;
 	private JScrollPane referenceScrollPane;
-	private HL7ReferenceTable refTable;
+	private HL7ReferenceTree refTree;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";
