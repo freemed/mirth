@@ -37,7 +37,7 @@ public class HL7ReferenceTree extends JPanel {
 
 					public void actionPerformed(ActionEvent arg0) {
 						System.out.println(pasteBox.getText());
-						HL7Tree.setMessage( pasteBox.getText() );
+						HL7Tree.setMessage( pasteBox.getText().replaceAll("\\n","\r\n") );
 						
 						
 					}
