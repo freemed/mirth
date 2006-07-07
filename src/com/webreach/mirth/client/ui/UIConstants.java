@@ -30,6 +30,13 @@ public class UIConstants
     public static final Font TEXTFIELD_PLAIN_FONT = new Font("Tahoma",Font.PLAIN,11);
     public static final Font TEXTFIELD_BOLD_FONT = new Font("Tahoma",Font.BOLD,11);
     
+    // help link
+    public static final String HELP_LOCATION = "http://www.mirthproject.org/help/";
+    public static final String CHANNEL_HELP_LOCATION = "channel.html";
+    public static final String CHANNELS_HELP_LOCATION = "channels.html";
+    public static final String STATUS_HELP_LOCATION = "status.html";
+    public static final String ADMIN_HELP_LOCATION = "admin.html";
+    
     // for JTrees
     public static final ImageIcon LEAF_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png"));
     public static final ImageIcon OPEN_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_yellow.png"));

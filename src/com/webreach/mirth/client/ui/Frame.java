@@ -362,9 +362,10 @@ public class Frame extends JXFrame
         otherPane = new JXTaskPane();
         otherPane.setTitle("Other");
         otherPane.setFocusable(false);
-        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","U"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
+        otherPane.add(initActionCallback("doHelp", "Open browser for help on this page.", ActionFactory.createBoundAction("doHelp","Help on this page","G"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/help.png"))));
         otherPane.add(initActionCallback("goToAbout", "View the about page for Mirth.", ActionFactory.createBoundAction("goToAbout","About Mirth","B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
         otherPane.add(initActionCallback("goToMirth", "View Mirth's homepage.", ActionFactory.createBoundAction("goToMirth","Visit MirthProject.org","V"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/home.png"))));
+        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","U"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
         setNonFocusable(otherPane);
         taskPaneContainer.add(otherPane);
 
@@ -1094,6 +1095,20 @@ public class Frame extends JXFrame
             channelEditTasks.getContentPane().getComponent(0).setVisible(true);
         else
             settingsTasks.getContentPane().getComponent(0).setVisible(true);
+    }
+    
+    public void doHelp()
+    {
+        if(currentContentPage == channelEditPage)
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.CHANNEL_HELP_LOCATION);
+        else if(currentContentPage == channelListPage)
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.CHANNELS_HELP_LOCATION);
+        else if(currentContentPage == statusListPage)
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.STATUS_HELP_LOCATION);
+        else if(currentContentPage == adminPanel)
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.ADMIN_HELP_LOCATION);
+        else
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION);
     }
 }
 
