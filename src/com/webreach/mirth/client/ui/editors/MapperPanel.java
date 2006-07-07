@@ -67,11 +67,6 @@ public class MapperPanel extends CardPanel {
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		
-		referenceScrollPane.setViewportView( refTable );
-		mappingScrollPane.setViewportView( mappingTextPane );
-		
-		
-		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
 		if ( notes != null )
@@ -86,6 +81,9 @@ public class MapperPanel extends CardPanel {
 		labelPanel.add( mappingTextField, BorderLayout.CENTER );
 		padding = new JLabel( "                             " );
 		labelPanel.add( padding, BorderLayout.LINE_END );
+		
+		referenceScrollPane.setViewportView( refTable );
+		mappingScrollPane.setViewportView( mappingTextPane );
 		
 		mappingPanel.setLayout( new BorderLayout() );
 		mappingPanel.add( labelPanel, BorderLayout.NORTH );

@@ -38,6 +38,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.UIConstants;
 
@@ -95,7 +96,22 @@ public class JavaScriptPanel extends CardPanel {
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		mappingPane.add( footerArea, BorderLayout.SOUTH );
 		
-		mappingScrollPane.setViewportView( mappingPane );
+		JTextArea lineNumbers = new JTextArea();
+		Font lineNumbersFont = new Font("Monospaced", Font.PLAIN, 12);
+		lineNumbers.setFont( lineNumbersFont );
+		lineNumbers.setForeground( Color.DARK_GRAY );
+		lineNumbers.setBackground( UIConstants.GRID_COLOR );
+		lineNumbers.setSize( lineNumbersFont.getSize() * 3, mappingTextPane.getHeight() );
+		String numbers = "";
+		for ( int i = 1;  i < 1000;  i++ ) numbers += i + "\n";
+		lineNumbers.setText( numbers );
+		
+		JPanel editor = new JPanel();
+		editor.setLayout( new BorderLayout() );
+		editor.add( lineNumbers, BorderLayout.WEST );
+		editor.add( mappingPane, BorderLayout.CENTER );
+
+		mappingScrollPane.setViewportView( editor );
 		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
 				BorderFactory.createEtchedBorder(), "JavaScript", TitledBorder.LEFT,
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
