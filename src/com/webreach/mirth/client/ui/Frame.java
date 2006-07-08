@@ -274,9 +274,11 @@ public class Frame extends JXFrame
         settingsTasks = new JXTaskPane();
         settingsTasks.setTitle("Settings Tasks");
         settingsTasks.setFocusable(false);
+        settingsTasks.add(initActionCallback("doRefreshSettings", "Refresh settings.", ActionFactory.createBoundAction("doRefreshSettings","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         settingsTasks.add(initActionCallback("doSaveSettings", "Save settings.", ActionFactory.createBoundAction("doSaveSettings","Save Settings", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
         setNonFocusable(settingsTasks);
-        setVisibleTasks(settingsTasks, 0, 0, false);
+        setVisibleTasks(settingsTasks, 0, 0, true);
+        setVisibleTasks(settingsTasks, 1, 1, false);
         taskPaneContainer.add(settingsTasks);
 
         // Create Channel Tasks Pane
@@ -700,7 +702,7 @@ public class Frame extends JXFrame
         doRefreshUser();
 
         if (adminPanel.u.getUserIndex() == UIConstants.ERROR_CONSTANT)
-            JOptionPane.showMessageDialog(this, "Users no longer exists.");
+            JOptionPane.showMessageDialog(this, "User no longer exists.");
         else
         {
             UserWizard userDialog = new UserWizard(adminPanel.u.getSelectedRow());
@@ -719,7 +721,7 @@ public class Frame extends JXFrame
             return;
 
         int userToDelete = adminPanel.u.getUserIndex();
-        String userName = (String) adminPanel.u.usersTable.getValueAt(adminPanel.u.getSelectedRow(), adminPanel.u.getColumnNumber("Username"));
+        String userName = ((CellData)adminPanel.u.usersTable.getValueAt(adminPanel.u.getSelectedRow(), adminPanel.u.getColumnNumber("Username"))).getText();
 
         if(userName.equalsIgnoreCase("admin"))
         {
@@ -874,7 +876,7 @@ public class Frame extends JXFrame
             
             channelEditTasks.getContentPane().getComponent(0).setVisible(false);
         }
-        else if (settingsTasks.getContentPane().getComponent(0).isVisible())
+        else if (settingsTasks.getContentPane().getComponent(1).isVisible())
         {
             int option = JOptionPane.showConfirmDialog(this, "Would you like to save the settings?");
            
@@ -885,7 +887,7 @@ public class Frame extends JXFrame
             else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
                 return false;
             
-            settingsTasks.getContentPane().getComponent(0).setVisible(false);
+            settingsTasks.getContentPane().getComponent(1).setVisible(false);
         }
         return true;
     }
@@ -1095,7 +1097,12 @@ public class Frame extends JXFrame
         if(currentContentPage == channelEditPage)
             channelEditTasks.getContentPane().getComponent(0).setVisible(true);
         else
-            settingsTasks.getContentPane().getComponent(0).setVisible(true);
+            settingsTasks.getContentPane().getComponent(1).setVisible(true);
+    }
+    
+    public void doRefreshSettings()
+    {
+        adminPanel.loadSettings();
     }
     
     public void doHelp()

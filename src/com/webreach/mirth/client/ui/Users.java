@@ -137,7 +137,7 @@ public class Users extends javax.swing.JScrollPane
         int columnNumber = getColumnNumber("Username");
         for (int i = 0; i < parent.users.size(); i++)
         {
-            if (userName.equals(usersTable.getValueAt(i, columnNumber)))
+            if (userName.equals((String)(((CellData)usersTable.getValueAt(i, columnNumber)).getText())))
             {
                 usersTable.setRowSelectionInterval(i,i);
                 return true;
@@ -152,7 +152,7 @@ public class Users extends javax.swing.JScrollPane
          
         if (usersTable.getSelectedRow() != -1)
         {
-            String userName = (String) usersTable.getValueAt(getSelectedRow(), columnNumber);
+            String userName = ((CellData)usersTable.getValueAt(getSelectedRow(), columnNumber)).getText();
 
             for (int i=0; i < parent.users.size(); i++)
             {

@@ -315,7 +315,7 @@ public class AdminPanel extends javax.swing.JPanel
         else
         {
             userPreferences.putInt("intervalTime",Integer.parseInt(intervalTime.getText()));
-            parent.settingsTasks.getContentPane().getComponent(0).setVisible(false);
+            parent.settingsTasks.getContentPane().getComponent(1).setVisible(false);
             userPreferences.putBoolean("highlightRows", rowHighlightYes.isSelected());
             
             Properties serverProperties = new Properties();
