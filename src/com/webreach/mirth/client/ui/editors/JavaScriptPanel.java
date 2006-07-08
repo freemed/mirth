@@ -61,7 +61,6 @@ public class JavaScriptPanel extends CardPanel {
 	}
 	
 	private void initComponents() {
-		hSplitPane = new JSplitPane();
 		refTree = new HL7ReferenceTree();
 		referenceScrollPane = new JScrollPane();
 		headerArea = new JTextArea( header );
@@ -121,12 +120,10 @@ public class JavaScriptPanel extends CardPanel {
 			refPanel.add( new NotesPanel( notes ), BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
-		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
-		hSplitPane.setOneTouchExpandable( true );
-		hSplitPane.setDividerSize( 7 );
+		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
+				mappingScrollPane, refPanel );
+		hSplitPane.setContinuousLayout( true );
 		hSplitPane.setDividerLocation( 450 );
-		hSplitPane.setLeftComponent( mappingScrollPane );
-		hSplitPane.setRightComponent( refPanel );
 		
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(

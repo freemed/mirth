@@ -335,8 +335,6 @@ public class TransformerPane extends MirthEditorPane {
     				msg += "\nPlease enter a new variable name.\n";
 
     				parent.alertWarning( msg );
-    				//JOptionPane.showMessageDialog( 
-        						//this, msg, "Variable Conflict", JOptionPane.WARNING_MESSAGE );
     				
     			} else invalidVar = false;
     		} else if ( type == "JavaScript" ) 

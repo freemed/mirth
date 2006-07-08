@@ -3,11 +3,11 @@ package com.webreach.mirth.client.ui.browsers.message;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.HL7TreePanel;
 import com.webreach.mirth.client.ui.Mirth;
 import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
-import com.webreach.mirth.client.ui.editors.HL7TreePanel;
 import com.webreach.mirth.model.MessageEvent;
 import com.webreach.mirth.model.converters.ER7Serializer;
 import com.webreach.mirth.model.filters.MessageEventFilter;
@@ -59,7 +59,6 @@ public class MessageBrowser extends javax.swing.JPanel
         normalDoc = XMLTextPane.getDocument();
         
         HL7Panel = new HL7TreePanel();
-        HL7Panel.setBackground(Color.white);
         HL7ScrollPane = new JScrollPane();
         HL7ScrollPane.setViewportView(HL7Panel);
         descriptionTabbedPane.addTab("HL7", HL7ScrollPane);

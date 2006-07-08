@@ -25,15 +25,15 @@
  *
  */
 
-package com.webreach.mirth.client.ui.editors;
+package com.webreach.mirth.client.ui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
-
-import com.webreach.mirth.client.ui.PlatformUI;
 
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Composite;
@@ -58,6 +58,7 @@ public class HL7TreePanel extends JPanel {
 		parser.setValidationContext(new NoValidation());
 		encodingChars = new EncodingCharacters('|', null);
 		this.setLayout(new GridLayout(1, 1));
+		this.setBackground( Color.white );
 	}
 
 	/**
@@ -70,16 +71,17 @@ public class HL7TreePanel extends JPanel {
 			try {
 				message = parser.parse(source);
 			} catch (EncodingNotSupportedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				PlatformUI.MIRTH_FRAME.alertWarning( "Encoding not supported.\n" +
+						"Please check the syntax of your message\n" +
+						"and try again.");
 			} catch (HL7Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				PlatformUI.MIRTH_FRAME.alertError( "HL7 Error!\n" +
+						"Please check the syntax of your message\n" +
+						"and try again.");
 			} catch (Exception e) {
 				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
 				e.printStackTrace();
 			}
-			//System.out.println(source);
 			
 			if (message != null) {
 				DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());

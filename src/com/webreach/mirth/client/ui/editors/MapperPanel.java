@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 import com.Ostermiller.Syntax.HighlightedDocument;
 
 
@@ -43,9 +45,8 @@ public class MapperPanel extends CardPanel {
 	 */
 	private void initComponents() {
 		referenceScrollPane = new JScrollPane();
-		refTable = new HL7ReferenceTable();
+		refTree = new HL7ReferenceTree();
 		refPanel = new JPanel();
-		hSplitPane = new JSplitPane();
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
 		mappingLabel = new JLabel( "   Variable: " );
@@ -56,7 +57,6 @@ public class MapperPanel extends CardPanel {
 		mappingTextPane = new JTextPane( mappingDoc );
 		
 		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		hSplitPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
 		mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
@@ -80,19 +80,17 @@ public class MapperPanel extends CardPanel {
 		padding = new JLabel( "                             " );
 		labelPanel.add( padding, BorderLayout.LINE_END );
 		
-		referenceScrollPane.setViewportView( refTable );
+		referenceScrollPane.setViewportView( refTree );
 		mappingScrollPane.setViewportView( mappingTextPane );
 		
 		mappingPanel.setLayout( new BorderLayout() );
 		mappingPanel.add( labelPanel, BorderLayout.NORTH );
 		mappingPanel.add( mappingScrollPane, BorderLayout.CENTER );
 		
-		hSplitPane.setOneTouchExpandable( true );
-		hSplitPane.setDividerSize( 7 );
+		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
+				mappingPanel, refPanel );
+		hSplitPane.setContinuousLayout( true );
 		hSplitPane.setDividerLocation( 450 );
-		hSplitPane.setLeftComponent( mappingPanel );
-		hSplitPane.setRightComponent( refPanel );        
-		
 		
 		// BGN listeners
 		mappingTextField.getDocument().addDocumentListener(
@@ -160,7 +158,7 @@ public class MapperPanel extends CardPanel {
 	private JSplitPane hSplitPane;
 	private JTextPane mappingTextPane;
 	private HighlightedDocument mappingDoc;
-	private HL7ReferenceTable refTable;
+	private HL7ReferenceTree refTree;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPanel;
