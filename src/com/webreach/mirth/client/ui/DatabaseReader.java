@@ -14,7 +14,10 @@ public class DatabaseReader extends ConnectorClass
         initComponents();
         HighlightedDocument mappingDoc = new HighlightedDocument();
         mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
+        HighlightedDocument mappingDoc2 = new HighlightedDocument();
+        mappingDoc2.setHighlightStyle(HighlightedDocument.SQL_STYLE);
         databaseSQLTextPane.setDocument(mappingDoc);
+        databaseUpdateSQLTextPane.setDocument(mappingDoc2);
     }
 
     public Properties getProperties()
@@ -37,6 +40,7 @@ public class DatabaseReader extends ConnectorClass
         properties.put("Username", databaseUsernameField.getText());
         properties.put("Password", new String(databasePasswordField.getPassword()));
         properties.put("SQLStatement", databaseSQLTextPane.getText());
+        properties.put("SQLUpdateStatement", databaseUpdateSQLTextPane.getText());
         return properties;
     }
 
@@ -60,6 +64,7 @@ public class DatabaseReader extends ConnectorClass
         databaseUsernameField.setText((String)props.get("Username"));
         databasePasswordField.setText((String)props.get("Password"));
         databaseSQLTextPane.setText((String)props.get("SQLStatement"));
+        databaseUpdateSQLTextPane.setText((String)props.get("SQLUpdateStatement"));
     }
 
     public void setDefaults()
@@ -69,6 +74,7 @@ public class DatabaseReader extends ConnectorClass
         databaseUsernameField.setText("");
         databasePasswordField.setText("");
         databaseSQLTextPane.setText("");
+        databaseUpdateSQLTextPane.setText("");
     }
     
     public Properties getDefaults()
@@ -80,6 +86,7 @@ public class DatabaseReader extends ConnectorClass
         properties.put("Username", "");
         properties.put("Password", "");
         properties.put("SQLStatement", "");
+        properties.put("SQLUpdateStatement", "");
         return properties;
     }
 
@@ -102,6 +109,9 @@ public class DatabaseReader extends ConnectorClass
         databasePasswordField = new com.webreach.mirth.client.ui.MirthPasswordField();
         jScrollPane2 = new javax.swing.JScrollPane();
         databaseSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        databaseUpdateSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Database Reader", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -121,6 +131,10 @@ public class DatabaseReader extends ConnectorClass
 
         jScrollPane2.setViewportView(databaseSQLTextPane);
 
+        jScrollPane3.setViewportView(databaseUpdateSQLTextPane);
+
+        jLabel6.setText("On-Update Statement:");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,24 +146,29 @@ public class DatabaseReader extends ConnectorClass
                     .add(jLabel1)
                     .add(jLabel5)
                     .add(jLabel3)
-                    .add(jLabel4))
+                    .add(jLabel4)
+                    .add(jLabel6))
                 .add(16, 16, 16)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(databaseDriverCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                    .add(databasePasswordField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, databaseURLField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, databaseUsernameField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, databasePasswordField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 247, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, databaseURLField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                    .add(databaseDriverCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 175, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        layout.linkSize(new java.awt.Component[] {databaseDriverCombobox, databasePasswordField, databaseURLField, databaseUsernameField}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
+
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(databaseDriverCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel1))
+                    .add(jLabel1)
+                    .add(databaseDriverCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
@@ -166,10 +185,14 @@ public class DatabaseReader extends ConnectorClass
                             .add(jLabel4)
                             .add(databasePasswordField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel5)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -178,14 +201,18 @@ public class DatabaseReader extends ConnectorClass
     private com.webreach.mirth.client.ui.MirthComboBox databaseDriverCombobox;
     private com.webreach.mirth.client.ui.MirthPasswordField databasePasswordField;
     private com.webreach.mirth.client.ui.MirthTextPane databaseSQLTextPane;
+    private com.webreach.mirth.client.ui.MirthTextPane databaseSQLTextPane1;
     private com.webreach.mirth.client.ui.MirthTextField databaseURLField;
+    private com.webreach.mirth.client.ui.MirthTextPane databaseUpdateSQLTextPane;
     private com.webreach.mirth.client.ui.MirthTextField databaseUsernameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
 }

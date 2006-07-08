@@ -208,7 +208,7 @@ public class Frame extends JXFrame
         setCurrentContentPage(channelEditPage);
         setBold(viewPane,UIConstants.ERROR_CONSTANT);
         setFocus(channelEditTasks);
-        setVisibleTasks(channelEditTasks, 0, -1, false);
+        setVisibleTasks(channelEditTasks, 0, 0, false);
         channelEditPage.addChannel(channel);
     }
 
