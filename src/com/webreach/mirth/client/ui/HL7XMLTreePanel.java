@@ -172,6 +172,8 @@ public class HL7XMLTreePanel extends JPanel {
 		         TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
 		         if ( tp == null )
 		            return null;
+		         if (!tp.isLeaf())
+		        	 return null;
 		         String leaf = tp.toString();
 		        // if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
 		         //   return null;
