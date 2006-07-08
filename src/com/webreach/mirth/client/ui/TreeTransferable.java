@@ -1,6 +1,10 @@
 package com.webreach.mirth.client.ui;
 
 import java.awt.datatransfer.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+
 import javax.swing.tree.TreeNode;
 
 /**
@@ -44,15 +48,25 @@ public class TreeTransferable implements Transferable {
    public Object getTransferData( DataFlavor df ) {
       if ( df == null )
          return null;
-      StringBuffer sb = new StringBuffer();
+   
       if ( data != null ){
-         sb.append("msg.");
-         sb.append(data.toString()+ ".");
+         
+        StringBuilder sb = new StringBuilder();
+        sb.insert(0, "msg");
     	 TreeNode parent = data.getParent();
+    	 LinkedList<String> nodeQ = new LinkedList<String>();
          while(parent != null){
-        	 sb.append(parent.toString() + ".");
+        	 nodeQ.add(parent.toString());
         	 parent = parent.getParent();
          }
+         if (!nodeQ.isEmpty())
+        	 nodeQ.removeLast();
+         if (!nodeQ.isEmpty())
+        	 nodeQ.removeLast();
+         while(!nodeQ.isEmpty()) {
+        	 sb.append("['" + nodeQ.removeLast() + "']");
+         }
+
          return sb.toString();
       }
       return null;

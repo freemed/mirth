@@ -8,6 +8,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import org.jdesktop.layout.GroupLayout;
 import com.webreach.mirth.client.ui.HL7TreePanel;
+import com.webreach.mirth.client.ui.HL7XMLTreePanel;
 
 
 public class HL7ReferenceTree extends JPanel {
@@ -27,7 +28,7 @@ public class HL7ReferenceTree extends JPanel {
         pasteScrollPane = new JScrollPane();
         pasteBox = new JTextArea();
         treeScrollPane = new JScrollPane();
-        treePanel = new HL7TreePanel();
+        treePanel = new HL7XMLTreePanel();
 
         pasteBox.setColumns(20);
         pasteBox.setRows(5);
@@ -96,6 +97,6 @@ public class HL7ReferenceTree extends JPanel {
 	private JScrollPane pasteScrollPane;
 	private JTextArea pasteBox;
 	private JScrollPane treeScrollPane;
-	private HL7TreePanel treePanel;
+	private HL7XMLTreePanel treePanel;
 
 }

@@ -34,6 +34,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.io.StringReader;
+import java.util.Iterator;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -42,6 +44,16 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Attr;
+import org.xml.sax.InputSource;
 
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Composite;
@@ -52,18 +64,23 @@ import ca.uhn.hl7v2.model.Segment;
 import ca.uhn.hl7v2.model.Structure;
 import ca.uhn.hl7v2.model.Type;
 import ca.uhn.hl7v2.model.Varies;
+import ca.uhn.hl7v2.parser.DefaultXMLParser;
 import ca.uhn.hl7v2.parser.EncodingCharacters;
 import ca.uhn.hl7v2.parser.EncodingNotSupportedException;
 import ca.uhn.hl7v2.parser.PipeParser;
+import ca.uhn.hl7v2.parser.XMLParser;
 import ca.uhn.hl7v2.validation.impl.NoValidation;
 
-public class HL7TreePanel extends JPanel {
+public class HL7XMLTreePanel extends JPanel {
 	private PipeParser parser;
+	private XMLParser xmlParser;
 	private EncodingCharacters encodingChars;
+	private Logger logger = Logger.getLogger(this.getClass());
 
-	public HL7TreePanel() {
+	public HL7XMLTreePanel() {
 		parser = new PipeParser();
 		parser.setValidationContext(new NoValidation());
+		xmlParser = new DefaultXMLParser();
 		encodingChars = new EncodingCharacters('|', null);
 		this.setLayout(new GridLayout(1, 1));
 		this.setBackground( Color.white );
@@ -74,9 +91,15 @@ public class HL7TreePanel extends JPanel {
 	 */
 	public void setMessage(String source) {
 		Message message = null;
-
+		Document xmlDoc = null;
+		logger.debug("encoding HL7 message to XML:\n" + message);
+		
 		if (source != null) {
 			try {
+				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+				xmlDoc = docBuilder.parse(new InputSource(new StringReader(xmlParser.encode(parser.parse(source)))));
+				
 				message = parser.parse(source);
 			} catch (EncodingNotSupportedException e) {
 				PlatformUI.MIRTH_FRAME.alertWarning( "Encoding not supported.\n" +
@@ -91,19 +114,82 @@ public class HL7TreePanel extends JPanel {
 				e.printStackTrace();
 			}
 			
-			if (message != null) {
+			if (xmlDoc != null) {
 				DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
-				addChildren(message, top);
+				processElement(xmlDoc.getDocumentElement(), top);
+				//addChildren(message, top);
 	
 				JTree tree = new JTree(top);
 				tree.setDragEnabled( true ); //XXXX
+				tree.setTransferHandler(new TreeTransferHandler());
 				removeAll();
 				add(tree);
 				revalidate();
 			}
 		}
 	}
+		 private void processElement(Object elo, DefaultMutableTreeNode dmtn) {
+			 if (elo instanceof Element) {
+				 Element el = (Element)elo;
+				 DefaultMutableTreeNode currentNode =
+				 	new DefaultMutableTreeNode(el.getNodeName());
+				 String text = "";
+				 if (el.hasChildNodes()) {
+					 text = el.getFirstChild().getNodeValue();
+				 }
+				 else {
+					 text = el.getTextContent();
+				 }
+				 text = text.trim();
+				 if((text != null) && (!text.equals("")))
+				 	currentNode.add(new DefaultMutableTreeNode(text));
 	
+				 //processAttributes(el, currentNode);
+	
+				 NodeList children = el.getChildNodes();
+				 for (int i = 0; i < children.getLength(); i++) {
+				 	processElement(children.item(i), currentNode);
+				 }
+				 dmtn.add(currentNode);
+			 }
+		 }
+
+		 private void processAttributes(Element el, DefaultMutableTreeNode dmtn) {
+			 NamedNodeMap atts = el.getAttributes();
+			 for (int i = 0; i < atts.getLength(); i++) {
+				 Attr att = (Attr) atts.item(i);
+				 DefaultMutableTreeNode attNode =
+				 	new DefaultMutableTreeNode("@"+att.getName());
+				 attNode.add(new DefaultMutableTreeNode(att.getValue()));
+				 dmtn.add(attNode);
+			 }
+		 }
+	
+	public class TreeTransferHandler extends TransferHandler {
+
+		   protected Transferable createTransferable( JComponent c ) {
+		      try {
+		         TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
+		         if ( tp == null )
+		            return null;
+		         String leaf = tp.toString();
+		        // if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
+		         //   return null;
+		         return new TreeTransferable( tp );
+		      }
+		      catch ( ClassCastException cce ) {
+		         return null;
+		      }
+		   }
+
+		   public int getSourceActions( JComponent c ) {
+		      return COPY_OR_MOVE;
+		   }
+
+		   public boolean canImport( JComponent c, DataFlavor[] df ) {
+		      return false;
+		   }
+		}
 	public void clearMessage() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
 		JTree tree = new JTree(top);
