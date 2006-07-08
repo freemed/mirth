@@ -60,12 +60,15 @@ public class Mirth
         
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         
+/*      Needs to be fixed.  Nothing is painted in the splash window until setupFrame(m) returns!!
+ *
         JWindow splashWindow = new JWindow();
         splashWindow.getContentPane().add(new JLabel(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/mirthlogo.gif"))), BorderLayout.CENTER);
         //splashWindow.getContentPane().add(new JLabel("lkamsdlfmasldfm"), BorderLayout.CENTER);
         splashWindow.pack();
         splashWindow.setLocationRelativeTo(null);
         splashWindow.setVisible(true);
+ */
         PlatformUI.MIRTH_FRAME.setupFrame(m);
         
         //splashWindow.dispose();

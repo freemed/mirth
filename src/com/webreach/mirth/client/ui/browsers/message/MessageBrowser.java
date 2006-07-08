@@ -114,6 +114,11 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionTabbedPane.setSelectedIndex(0);
     }
     
+    public void refresh()
+    {
+        filterButtonActionPerformed(null);
+    }
+    
     public void makeEventTable(MessageEventFilter filter) {
         eventTable = new JXTable();
         try 

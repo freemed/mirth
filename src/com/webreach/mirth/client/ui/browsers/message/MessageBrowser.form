@@ -75,7 +75,7 @@
                           <Component id="sendingFacilityField" alignment="0" min="-2" pref="114" max="-2" attributes="1"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="122" max="32767" attributes="0"/>
+                  <EmptySpace pref="134" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

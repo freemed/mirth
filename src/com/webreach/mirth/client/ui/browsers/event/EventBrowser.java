@@ -83,6 +83,11 @@ public class EventBrowser extends javax.swing.JPanel
         filterButtonActionPerformed(null);
         clearDescription();
     }
+
+    public void refresh()
+    {
+        filterButtonActionPerformed(null);
+    }
     
     public void makeEventTable(SystemEventFilter filter) {
         eventTable = new JXTable();

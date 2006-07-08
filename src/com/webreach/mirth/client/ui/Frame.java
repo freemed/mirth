@@ -334,18 +334,17 @@ public class Frame extends JXFrame
         eventTasks = new JXTaskPane();
         eventTasks.setTitle("Event Tasks");
         eventTasks.setFocusable(false);
-        eventTasks.add(initActionCallback("doRefresh", "Refresh the list of events with the given filter.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        eventTasks.add(initActionCallback("doRefreshEvents", "Refresh the list of events with the given filter.", ActionFactory.createBoundAction("doRefreshEvents","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        eventTasks.add(initActionCallback("doClearEvents", "Clear the System Events.", ActionFactory.createBoundAction("doClearEvents","Clear Events", "C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         setNonFocusable(eventTasks);
-        setVisibleTasks(eventTasks, 1, -1, false);
         taskPaneContainer.add(eventTasks);
 
         // Create Message Tasks Pane
         messageTasks = new JXTaskPane();
         messageTasks.setTitle("Message Tasks");
         messageTasks.setFocusable(false);
-        messageTasks.add(initActionCallback("doRefresh", "Refresh the list of messages with the given filter.", ActionFactory.createBoundAction("doRefresh","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        messageTasks.add(initActionCallback("doRefreshMessages", "Refresh the list of messages with the given filter.", ActionFactory.createBoundAction("doRefreshMessages","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
         setNonFocusable(messageTasks);
-        setVisibleTasks(messageTasks, 1, -1, false);
         taskPaneContainer.add(messageTasks);
 
         // Create User Tasks Pane
@@ -1048,6 +1047,29 @@ public class Frame extends JXFrame
                 alertError("File could not be written.");
             }
         }
+    }
+    
+    public void doRefreshMessages()
+    {
+        messageBrowser.refresh();
+    }
+    
+    public void doRefreshEvents()
+    {
+        eventBrowser.refresh();
+    }
+    
+    public void doClearEvents()
+    {
+        try
+        {
+            mirthClient.clearSystemEvents();
+        }
+        catch (ClientException e)
+        {
+            alertException(e.getStackTrace());
+        }
+        eventBrowser.refresh();
     }
 
     public boolean alertOption(String message)
