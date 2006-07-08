@@ -88,6 +88,7 @@ public class HL7TreePanel extends JPanel {
 				addChildren(message, top);
 	
 				JTree tree = new JTree(top);
+				tree.setDragEnabled( true ); //XXXX
 				removeAll();
 				add(tree);
 				revalidate();
