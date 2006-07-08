@@ -48,9 +48,10 @@ public class HL7ReferenceTree extends JPanel {
 							treePanel.setMessage( message.replaceAll("\\n","\r\n") );
 						else
 							treePanel.clearMessage();
-						
-						treePanel.repaint();
 						treePanel.revalidate();
+						treePanel.repaint();
+						
+						
 					}
 
 					public void componentHidden(ComponentEvent arg0) {

@@ -29,11 +29,19 @@ package com.webreach.mirth.client.ui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTree;
+import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Composite;
@@ -89,13 +97,38 @@ public class HL7TreePanel extends JPanel {
 	
 				JTree tree = new JTree(top);
 				tree.setDragEnabled( true ); //XXXX
+				tree.setTransferHandler(new TreeTransferHandler());
 				removeAll();
 				add(tree);
 				revalidate();
 			}
 		}
 	}
+	public class TreeTransferHandler extends TransferHandler {
 
+		   protected Transferable createTransferable( JComponent c ) {
+		      try {
+		         TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
+		         if ( tp == null )
+		            return null;
+		         String leaf = tp.toString();
+		        // if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
+		         //   return null;
+		         return new TreeTransferable( tp );
+		      }
+		      catch ( ClassCastException cce ) {
+		         return null;
+		      }
+		   }
+
+		   public int getSourceActions( JComponent c ) {
+		      return COPY_OR_MOVE;
+		   }
+
+		   public boolean canImport( JComponent c, DataFlavor[] df ) {
+		      return false;
+		   }
+		}
 	public void clearMessage() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
 		JTree tree = new JTree(top);
