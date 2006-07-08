@@ -101,6 +101,7 @@ public class MessageBrowser extends javax.swing.JPanel
     public void loadNew()
     {
         // use the start filters and make the table.
+        parent.setVisibleTasks(parent.messageTasks, 2, -1, false);
         sendingFacilityField.setText("");
         controlIDField.setText("");
         statusComboBox.setSelectedIndex(0);
@@ -115,6 +116,7 @@ public class MessageBrowser extends javax.swing.JPanel
     
     public void refresh()
     {
+        deselectRows();
         filterButtonActionPerformed(null);
     }
     
@@ -211,6 +213,7 @@ public class MessageBrowser extends javax.swing.JPanel
     
     public void deselectRows()
     {
+        parent.setVisibleTasks(parent.messageTasks, 2, -1, false);
         eventTable.clearSelection();
         clearDescription();
     }
@@ -231,6 +234,7 @@ public class MessageBrowser extends javax.swing.JPanel
 
             if(row >= 0)
             {
+                parent.setVisibleTasks(parent.messageTasks, 2, -1, true);
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 
                 String message = messageEventList.get(row).getMessage();
@@ -248,6 +252,18 @@ public class MessageBrowser extends javax.swing.JPanel
             }
         }
     }
+    
+    public int getSelectedMessageID()
+    {
+        int column = -1;
+        for (int i = 0; i < eventTable.getColumnCount(); i++)
+        {
+            if (eventTable.getColumnName(i).equals(MESSAGE_ID_TABLE_NAME))
+                column = i;
+        }
+        return ((Integer)eventTable.getValueAt(eventTable.getSelectedRow(), column)).intValue();
+    }
+    
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         filterPanel = new javax.swing.JPanel();

@@ -70,7 +70,7 @@ public class Frame extends JXFrame
     protected JXTaskPane channelTasks;
     protected JXTaskPane statusTasks;
     protected JXTaskPane eventTasks;
-    protected JXTaskPane messageTasks;
+    public JXTaskPane messageTasks;
     protected JXTaskPane details;
     protected JXTaskPane channelEditTasks;
     protected JXTaskPane userTasks;
@@ -344,7 +344,10 @@ public class Frame extends JXFrame
         messageTasks.setTitle("Message Tasks");
         messageTasks.setFocusable(false);
         messageTasks.add(initActionCallback("doRefreshMessages", "Refresh the list of messages with the given filter.", ActionFactory.createBoundAction("doRefreshMessages","Refresh", "R"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/refresh.png"))));
+        messageTasks.add(initActionCallback("doClearAllMessages", "Clear all Message Events in this channel.", ActionFactory.createBoundAction("doClearAllMessages","Clear All Messages", "C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
+        messageTasks.add(initActionCallback("doRemoveMessage", "Remove the selected Message Event.", ActionFactory.createBoundAction("doRemoveMessages","Remove Message", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         setNonFocusable(messageTasks);
+        setVisibleTasks(messageTasks, 2, -1, false);
         taskPaneContainer.add(messageTasks);
 
         // Create User Tasks Pane
@@ -1051,6 +1054,32 @@ public class Frame extends JXFrame
     
     public void doRefreshMessages()
     {
+        messageBrowser.refresh();
+    }
+    
+    public void doClearAllMessages()
+    {
+        try
+        {
+            mirthClient.clearMessageEvents(status.get(statusListPage.getSelectedStatus()).getChannelId());
+        }
+        catch (ClientException e)
+        {
+            alertException(e.getStackTrace());
+        }
+        messageBrowser.refresh();
+    }
+    
+    public void doRemoveMessage()
+    {
+        try
+        {
+            mirthClient.removeMessageEvent(messageBrowser.getSelectedMessageID());
+        }
+        catch (ClientException e)
+        {
+            alertException(e.getStackTrace());
+        }
         messageBrowser.refresh();
     }
     

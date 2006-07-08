@@ -86,6 +86,7 @@ public class EventBrowser extends javax.swing.JPanel
 
     public void refresh()
     {
+        deselectRows();
         filterButtonActionPerformed(null);
     }
     
@@ -173,6 +174,7 @@ public class EventBrowser extends javax.swing.JPanel
     public void deselectRows()
     {
         eventTable.clearSelection();
+        clearDescription();
     }
     
     public void clearDescription()
