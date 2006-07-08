@@ -40,7 +40,7 @@ public class DatabaseWriter extends ConnectorClass
         properties.put("Username", databaseUsernameField.getText());
         properties.put("Password", new String(databasePasswordField.getPassword()));
         properties.put("SQLStatement", databaseSQLTextPane.getText());
-        properties.put("SQLUpdateStatement", databaseUpdateSQLTextPane.getText());
+        properties.put("ack", databaseUpdateSQLTextPane.getText());
         return properties;
     }
 
@@ -64,7 +64,7 @@ public class DatabaseWriter extends ConnectorClass
         databaseUsernameField.setText((String)props.get("Username"));
         databasePasswordField.setText((String)props.get("Password"));
         databaseSQLTextPane.setText((String)props.get("SQLStatement"));
-        databaseUpdateSQLTextPane.setText((String)props.get("SQLUpdateStatement"));
+        databaseUpdateSQLTextPane.setText((String)props.get("ack"));
     }
 
     public void setDefaults()
@@ -86,7 +86,7 @@ public class DatabaseWriter extends ConnectorClass
         properties.put("Username", "");
         properties.put("Password", "");
         properties.put("SQLStatement", "");
-        properties.put("SQLUpdateStatement", "");
+        properties.put("ack", "");
         return properties;
     }
 
