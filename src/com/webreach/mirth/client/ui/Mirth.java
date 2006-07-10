@@ -6,12 +6,14 @@ import com.jgoodies.looks.plastic.theme.Silver;
 import com.webreach.mirth.client.core.Client;
 import com.webreach.mirth.client.core.ClientException;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -20,6 +22,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXLoginPanel;
 import org.jdesktop.swingx.auth.LoginEvent;
@@ -119,10 +122,9 @@ public class Mirth
             {
                 try
                 {
-                    PlasticLookAndFeel.setPlasticTheme(new Silver());
-                    PlasticXPLookAndFeel look = new PlasticXPLookAndFeel();
-                    look.set3DEnabled(true);
-                    UIManager.setLookAndFeel(look);  
+                    //PlasticLookAndFeel.setPlasticTheme(new Silver());
+                    //PlasticXPLookAndFeel look = new PlasticXPLookAndFeel();
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());  
                     UIManager.put("win.xpstyle.name", "metallic");
                     LookAndFeelAddons.setAddon(WindowsLookAndFeelAddons.class);
                 }
@@ -138,7 +140,8 @@ public class Mirth
                 UIManager.put("JXLoginPanel.banner.foreground", UIConstants.TITLE_TEXT_COLOR);
                 UIManager.put("JXLoginPanel.banner.darkBackground", UIConstants.BANNER_DARK_BACKGROUND);
                 UIManager.put("JXLoginPanel.banner.lightBackground", UIConstants.BANNER_LIGHT_BACKGROUND);
-
+                //UIManager.put("TableHeaderUI", "com.sun.java.swing.plaf.windows.WindowsTableHeaderUI");
+                
                 final MirthLoginService svc = new MirthLoginService();
                 JXLoginPanel panel = new JXLoginPanel(svc, null, null, null);
                 

@@ -243,6 +243,7 @@ public class AdminPanel extends javax.swing.JPanel
     private void settingsComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_settingsComponentShown
     {//GEN-HEADEREND:event_settingsComponentShown
         parent.setFocus(parent.settingsTasks);
+        loadSettings();
     }//GEN-LAST:event_settingsComponentShown
 
     private void usersComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_usersComponentShown
@@ -264,7 +265,6 @@ public class AdminPanel extends javax.swing.JPanel
         try
         {
             Properties serverProperties = parent.mirthClient.getServerProperties();
-            System.out.println(serverProperties);
             if(serverProperties.getProperty("smtp.host") != null)
                 smtpHost.setText((String)serverProperties.getProperty("smtp.host"));
             else
