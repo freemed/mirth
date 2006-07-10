@@ -61,8 +61,8 @@ public class TreeTransferable implements Transferable {
          }
          if (!nodeQ.isEmpty())
         	 nodeQ.removeLast();
-         if (!nodeQ.isEmpty())
-        	 nodeQ.removeLast();
+        // if (!nodeQ.isEmpty())
+        //	 nodeQ.removeLast();
          while(!nodeQ.isEmpty()) {
         	 sb.append("['" + nodeQ.removeLast() + "']");
          }
