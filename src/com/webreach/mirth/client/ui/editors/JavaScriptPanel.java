@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,6 +39,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.UIConstants;
@@ -49,15 +51,10 @@ import com.webreach.mirth.client.ui.UIConstants;
  */
 public class JavaScriptPanel extends CardPanel {
 	
-	public JavaScriptPanel(MirthEditorPane p, String notes) {
+	public JavaScriptPanel(MirthEditorPane p) {
 		super();
 		parent = p;
-		this.notes = notes;
 		initComponents();
-	}
-	
-	public JavaScriptPanel(MirthEditorPane p) {
-		this(p, null);
 	}
 	
 	private void initComponents() {
@@ -70,7 +67,6 @@ public class JavaScriptPanel extends CardPanel {
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
-		editor = new JPanel();
 		mappingTextPane = new JTextPane( mappingDoc );
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
@@ -79,13 +75,15 @@ public class JavaScriptPanel extends CardPanel {
 		referenceScrollPane.setViewportView( refTree );
 		
 		headerArea.setForeground( Color.blue );
-		headerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
+		headerArea.setFont( EditorConstants.DEFAULT_FONT_BOLD );
 		headerArea.setBorder( BorderFactory.createEmptyBorder() );
 		headerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		headerArea.setEditable(false);
 		
+		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
+		
 		footerArea.setForeground( Color.blue );
-		footerArea.setFont( new Font( "Monospaced", Font.BOLD, 12 ) );
+		footerArea.setFont( EditorConstants.DEFAULT_FONT_BOLD );
 		footerArea.setBorder( BorderFactory.createEmptyBorder() );
 		footerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		footerArea.setEditable(false);
@@ -95,29 +93,19 @@ public class JavaScriptPanel extends CardPanel {
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		mappingPane.add( footerArea, BorderLayout.SOUTH );
 		
-		lineCount = 1;
-		lineNumbers = new JTextArea( Integer.toString(lineCount) );
-		Font lineNumbersFont = new Font("Monospaced", Font.PLAIN, 12);
-		lineNumbers.setEditable( false );
-		lineNumbers.setFont( lineNumbersFont );
-		lineNumbers.setForeground( Color.DARK_GRAY );
-		lineNumbers.setBackground( UIConstants.GRID_COLOR );
-		lineNumbers.setSize( lineNumbersFont.getSize() * 3, mappingTextPane.getHeight() );
-		
-		editor.setLayout( new BorderLayout() );
-		editor.add( lineNumbers, BorderLayout.WEST );
-		editor.add( mappingPane, BorderLayout.CENTER );
-
-		mappingScrollPane.setViewportView( editor );
+		lineNumbers = new LineNumber( mappingPane );
+		mappingScrollPane.setViewportView( mappingPane );
+		mappingScrollPane.setRowHeaderView( lineNumbers );
 		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
 				BorderFactory.createLoweredBevelBorder(), "JavaScript", TitledBorder.LEFT,
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		
+		notesTable = new NotesReferenceTable();
+		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		if ( notes != null )
-			refPanel.add( new NotesPanel( notes ), BorderLayout.NORTH );
+		refPanel.add( notesTable, BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
@@ -128,31 +116,17 @@ public class JavaScriptPanel extends CardPanel {
 		//BGN listeners
 		mappingTextPane.getDocument().addDocumentListener(
 				new DocumentListener() {
-					String numbers = "";
 					
 					public void changedUpdate(DocumentEvent arg0) {
-						updateDoc();
+						parent.modified = true;
 					}
 					
 					public void insertUpdate(DocumentEvent arg0) {
-						//updateDoc();				
+						parent.modified = true;			
 					}
 					
 					public void removeUpdate(DocumentEvent arg0) {
-						//updateDoc();
-					}
-					
-					private void updateDoc() {
 						parent.modified = true;
-						int currLineCount = 
-							mappingTextPane.getDocument().getDefaultRootElement().getElementCount();
-						
-						if ( lineCount < currLineCount ) {
-							for ( int i = 1;  i < currLineCount;  i++ )
-								numbers += i + "\n";
-							lineCount = currLineCount;
-							lineNumbers.setText( numbers );
-						}
 					}
 					
 				});
@@ -182,7 +156,7 @@ public class JavaScriptPanel extends CardPanel {
 		return mappingTextPane;
 	}
 	
-	String notes;
+	private NotesReferenceTable notesTable;
 	private JPanel refPanel;
 	private JTextArea headerArea;
 	private JTextArea footerArea;
@@ -190,9 +164,7 @@ public class JavaScriptPanel extends CardPanel {
 	private HighlightedDocument mappingDoc;
 	private JTextPane mappingTextPane;
 	private JScrollPane mappingScrollPane;
-	private JTextArea lineNumbers;
-	private int lineCount;
-	private JPanel editor;
+	private LineNumber lineNumbers;
 	private JSplitPane hSplitPane;
 	private JScrollPane referenceScrollPane;
 	private HL7ReferenceTree refTree;

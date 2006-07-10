@@ -31,12 +31,9 @@ import com.Ostermiller.Syntax.HighlightedDocument;
 public class MapperPanel extends CardPanel {
 	
 	/** Creates new form MapperPanel */
-	public MapperPanel(MirthEditorPane p, String n) {
+	public MapperPanel(MirthEditorPane p) {
 		super();
 		parent = p;
-		notes = n;
-		this.setBorder( BorderFactory.createEmptyBorder() );
-		this.setPreferredSize( new Dimension( 0, 0 ) );
 		initComponents();
 	}
 	
@@ -47,6 +44,7 @@ public class MapperPanel extends CardPanel {
 		referenceScrollPane = new JScrollPane();
 		refTree = new HL7ReferenceTree();
 		refPanel = new JPanel();
+		notesTable = new NotesReferenceTable();
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
 		mappingLabel = new JLabel( "   Variable: " );
@@ -65,10 +63,11 @@ public class MapperPanel extends CardPanel {
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		
+		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
+		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		if ( notes != null )
-			refPanel.add( new NotesPanel( notes ), BorderLayout.NORTH );
+		refPanel.add( notesTable, BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		JLabel padding = new JLabel( "  " );
@@ -152,7 +151,7 @@ public class MapperPanel extends CardPanel {
 	}    
 	
 	
-	String notes;
+	private NotesReferenceTable notesTable;
 	private JScrollPane referenceScrollPane;
 	private JPanel refPanel;
 	private JSplitPane hSplitPane;

@@ -22,7 +22,7 @@ public class ReferenceTable extends JXTable {
 	        row = table.getSelectedRow();
 	        
 	        if ( row >= 0 || row < table.getRowCount() )
-	        	return table.getValueAt( row, 0 ).toString();
+	        	return "$" + table.getValueAt( row, 0 ).toString();
 	        else
 	        	return "";
 	    }

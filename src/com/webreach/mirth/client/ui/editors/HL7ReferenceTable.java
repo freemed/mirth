@@ -29,10 +29,8 @@ public class HL7ReferenceTable extends ReferenceTable {
         
         this.setModel( new DefaultTableModel( referenceData, 
 				new String[] {"ID","Description","Chapter"} ) {
-					boolean[] canEdit = new boolean [] { false, false, false };
-					
 					public boolean isCellEditable ( int row, int col ) {
-						return canEdit[col];
+						return false;
 					}
 				});
        

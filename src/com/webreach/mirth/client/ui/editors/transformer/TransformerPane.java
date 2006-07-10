@@ -94,8 +94,8 @@ public class TransformerPane extends MirthEditorPane {
         // the available panels (cards)
         stepPanel = new CardPanel();
         blankPanel = new BlankPanel();
-        mapperPanel = new MapperPanel(this, notes);
-        jsPanel = new JavaScriptPanel(this, notes);
+        mapperPanel = new MapperPanel(this);
+        jsPanel = new JavaScriptPanel(this);
         // 		establish the cards to use in the Transformer
         stepPanel.addCard( blankPanel, BLANK_TYPE );
         stepPanel.addCard( mapperPanel, MAPPER_TYPE );

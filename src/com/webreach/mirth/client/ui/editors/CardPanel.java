@@ -25,8 +25,10 @@
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 
@@ -43,6 +45,8 @@ public class CardPanel extends JPanel {
 		super();
 		data = null;
 		this.setLayout( new CardLayout() );
+		this.setBorder( BorderFactory.createEmptyBorder() );
+		this.setPreferredSize( new Dimension( 0, 0 ) );
 	}
 	
 	// Adds a new card to the panel.  
