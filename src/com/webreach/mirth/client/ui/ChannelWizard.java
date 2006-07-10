@@ -438,6 +438,8 @@ public class ChannelWizard extends javax.swing.JDialog
             else if(applicationIntegration.isSelected())
                 channel.setMode(Channel.Mode.APPLICATION);
         }
+        else
+            channel.setMode(Channel.Mode.BROADCAST);
         parent.setupChannel(channel);
         this.dispose();
     }

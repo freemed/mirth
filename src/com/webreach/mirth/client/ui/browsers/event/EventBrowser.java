@@ -9,6 +9,7 @@ import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.model.SystemEvent;
 import com.webreach.mirth.model.filters.SystemEventFilter;
 import java.awt.Font;
+import java.awt.Point;
 import java.util.Calendar;
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -37,6 +38,20 @@ public class EventBrowser extends javax.swing.JPanel
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         
+        this.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                if (evt.isPopupTrigger())
+                    parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                if (evt.isPopupTrigger())
+                    parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        });
+        
         String[] values = new String[SystemEvent.Level.values().length + 1];
         values[0] = "ALL";
         for (int i = 1; i < values.length; i++)
@@ -48,6 +63,14 @@ public class EventBrowser extends javax.swing.JPanel
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, false);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 deselectRows();
@@ -169,6 +192,33 @@ public class EventBrowser extends javax.swing.JPanel
                 EventListSelected(evt);
             }
         });
+        
+        eventTable.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, true);
+            }
+        });
+    }
+    
+    private void showEventPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = eventTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                eventTable.setRowSelectionInterval(row, row);
+            }
+            else
+                deselectRows();
+            parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
     }
     
     public void deselectRows()

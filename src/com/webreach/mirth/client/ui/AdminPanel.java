@@ -18,6 +18,19 @@ public class AdminPanel extends javax.swing.JPanel
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         u = new Users();
+        
+        settings.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showSettingsPopupMenu(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showSettingsPopupMenu(evt);
+            }
+        });
+        
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(users);
         users.setLayout(layout);
         layout.setHorizontalGroup(
@@ -32,6 +45,14 @@ public class AdminPanel extends javax.swing.JPanel
         loadSettings();
     }
 
+    private void showSettingsPopupMenu(java.awt.event.MouseEvent evt)
+    {
+        if (evt.isPopupTrigger())
+        {
+            parent.settingsPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

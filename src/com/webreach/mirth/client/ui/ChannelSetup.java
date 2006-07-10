@@ -10,6 +10,7 @@ import com.webreach.mirth.model.Transformer;
 import com.webreach.mirth.model.Transport;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -46,6 +47,17 @@ public class ChannelSetup extends javax.swing.JPanel
     {
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
+        channelView.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showChannelEditPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showChannelEditPopupMenu(evt, false);
+            }
+        });
         jScrollPane4 = new JScrollPane();
         ArrayList<String> sourceConnectors;
         ArrayList<String> destinationConnectors;
@@ -81,6 +93,19 @@ public class ChannelSetup extends javax.swing.JPanel
 
         index = -1;
         channelView.setMaximumSize(new Dimension(450, 3000));
+    }
+    
+    private void showChannelEditPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = jTable1.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                jTable1.setRowSelectionInterval(row, row);
+            }
+            parent.channelEditPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
     }
     
     public void editTransformer()
@@ -213,6 +238,18 @@ public class ChannelSetup extends javax.swing.JPanel
                 }
             }
         });
+        
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showChannelEditPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showChannelEditPopupMenu(evt, true);
+            }
+        });
 
         int last = getLastIndex(lastIndex);
         if (addNew)
@@ -224,6 +261,18 @@ public class ChannelSetup extends javax.swing.JPanel
         else
             jTable1.setRowSelectionInterval(last,last);
         jScrollPane4.setViewportView(jTable1);
+        
+        jScrollPane4.addMouseListener(new java.awt.event.MouseAdapter() 
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showChannelEditPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showChannelEditPopupMenu(evt, false);
+            }
+        });
         
     }
     
@@ -751,29 +800,29 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void summaryComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_summaryComponentShown
     {//GEN-HEADEREND:event_summaryComponentShown
-        parent.setVisibleTasks(parent.channelEditTasks, 1, 4, false);
+        parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 4, false);
     }//GEN-LAST:event_summaryComponentShown
 
     private void sourceComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_sourceComponentShown
     {//GEN-HEADEREND:event_sourceComponentShown
-        parent.setVisibleTasks(parent.channelEditTasks, 1, 2, false);
-        parent.setVisibleTasks(parent.channelEditTasks, 3, 4, true);
+        parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 2, false);
+        parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 3, 4, true);
     }//GEN-LAST:event_sourceComponentShown
 
     private void destinationComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_destinationComponentShown
     {//GEN-HEADEREND:event_destinationComponentShown
         if(currentChannel.getMode() == Channel.Mode.APPLICATION)
         {
-            parent.setVisibleTasks(parent.channelEditTasks, 1, 2, false);
-            parent.setVisibleTasks(parent.channelEditTasks, 3, 4, true);
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 2, false);
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 3, 4, true);
         }
         else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
         {
-            parent.setVisibleTasks(parent.channelEditTasks, 1, 2, true);
-            parent.setVisibleTasks(parent.channelEditTasks, 3, 4, false);
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 2, true);
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 3, 4, false);
         }
         else
-            parent.setVisibleTasks(parent.channelEditTasks, 1, 4, true);
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 4, true);
     }//GEN-LAST:event_destinationComponentShown
 
     private void sourceSourceDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSourceDropdownActionPerformed

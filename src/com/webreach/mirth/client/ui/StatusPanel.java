@@ -3,6 +3,7 @@ package com.webreach.mirth.client.ui;
 import com.webreach.mirth.client.core.ClientException;
 import com.webreach.mirth.model.ChannelStatistics;
 import com.webreach.mirth.model.ChannelStatus;
+import java.awt.Point;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -36,6 +37,14 @@ public class StatusPanel extends javax.swing.JPanel
         statusPane = new JScrollPane();
         makeStatusTable();
         statusPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showStatusPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showStatusPopupMenu(evt, false);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 deselectRows();
@@ -150,6 +159,14 @@ public class StatusPanel extends javax.swing.JPanel
         });
         statusTable.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showStatusPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showStatusPopupMenu(evt, true);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 if (evt.getClickCount() >= 2)
@@ -167,31 +184,46 @@ public class StatusPanel extends javax.swing.JPanel
         }
     }    
     
+    private void showStatusPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = statusTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                statusTable.setRowSelectionInterval(row, row);
+            }
+            else
+                deselectRows();
+            parent.statusPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
     private void StatusListSelected(ListSelectionEvent evt) 
     {           
         int row = statusTable.getSelectedRow();
         if(row >= 0)
         {
-            parent.setVisibleTasks(parent.statusTasks, 3, -1, true);
+            parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 3, -1, true);
             
             int columnNumber = getColumnNumber("Status");
             if (((CellData)statusTable.getValueAt(row, columnNumber)).getText().equals("Started"))
             {
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(5).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(6).setVisible(true);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 4, 4, false);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 5, 5, true);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 6, 6, true);
             }
             else if (((CellData)statusTable.getValueAt(row, columnNumber)).getText().equals("Paused"))
             {
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(5).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(6).setVisible(true);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 4, 4, true);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 5, 5, false);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 6, 6, true);
             }
             else
             {
-                parent.statusTasks.getContentPane().getComponent(4).setVisible(true);
-                parent.statusTasks.getContentPane().getComponent(5).setVisible(false);
-                parent.statusTasks.getContentPane().getComponent(6).setVisible(false);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 4, 4, true);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 5, 5, false);
+                parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 6, 6, false);
             }
         }
     }
@@ -199,7 +231,7 @@ public class StatusPanel extends javax.swing.JPanel
     public void deselectRows()
     {
         statusTable.clearSelection();
-        parent.setVisibleTasks(parent.statusTasks, 3, -1, false);
+        parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 3, -1, false);
     }
     
     public int getSelectedStatus()

@@ -1,6 +1,7 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.User;
+import java.awt.Point;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -29,6 +30,14 @@ public class Users extends javax.swing.JScrollPane
         makeUsersTable();
         this.addMouseListener(new java.awt.event.MouseAdapter() 
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showUserPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showUserPopupMenu(evt, false);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 deselectRows();
@@ -103,6 +112,14 @@ public class Users extends javax.swing.JScrollPane
         });
         usersTable.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showUserPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showUserPopupMenu(evt, true);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 if (evt.getClickCount() >= 2)
@@ -111,20 +128,35 @@ public class Users extends javax.swing.JScrollPane
         });
         
     }    
+
+    private void showUserPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = usersTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                usersTable.setRowSelectionInterval(row, row);
+            }
+            else
+                deselectRows();
+            parent.userPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
     
     private void UsersListSelected(ListSelectionEvent evt) 
     {
         int row = usersTable.getSelectedRow();
-        if(row >= 0 && usersTable.getSelectedColumn()>= 0)
+        if(row >= 0)
         {
-            parent.setVisibleTasks(parent.userTasks, 2, -1, true);
+            parent.setVisibleTasks(parent.userTasks, parent.userPopupMenu, 2, -1, true);
         }
     }
     
     public void deselectRows()
     {
         usersTable.clearSelection();
-        parent.setVisibleTasks(parent.userTasks, 2, -1, false);
+        parent.setVisibleTasks(parent.userTasks, parent.userPopupMenu, 2, -1, false);
     }
     
     public int getSelectedRow()

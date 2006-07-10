@@ -1,9 +1,12 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.model.Channel;
+import java.awt.Point;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -31,11 +34,21 @@ public class ChannelPanel extends javax.swing.JPanel {
         
         channelPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showChannelPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showChannelPopupMenu(evt, false);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 deselectRows();
             }
         });
+        
+        channelPane.setComponentPopupMenu(parent.channelPopupMenu);
         
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -119,6 +132,14 @@ public class ChannelPanel extends javax.swing.JPanel {
         });
         channelTable.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showChannelPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showChannelPopupMenu(evt, true);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 if (evt.getClickCount() >= 2)
@@ -127,26 +148,41 @@ public class ChannelPanel extends javax.swing.JPanel {
         });
     }
     
+    private void showChannelPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = channelTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                channelTable.setRowSelectionInterval(row, row);
+            }
+            else
+                deselectRows();
+            parent.channelPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
     private void ChannelListSelected(ListSelectionEvent evt)
     {
         int row = channelTable.getSelectedRow();
         
         if(row >= 0)
         {
-            parent.setVisibleTasks(parent.channelTasks, 4, -1, true);
+            parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 4, -1, true);
 
             int columnNumber = getColumnNumber("Status");
             if (((CellData)channelTable.getValueAt(row, columnNumber)).getText().equals("Enabled"))
-                parent.channelTasks.getContentPane().getComponent(7).setVisible(false);
+                parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 7, 7, false);
             else
-                parent.channelTasks.getContentPane().getComponent(8).setVisible(false);
+                parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 8, 8, false);
         }
     }
     
     public void deselectRows()
     {
         channelTable.clearSelection();
-        parent.setVisibleTasks(parent.channelTasks, 4, -1, false);
+        parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 4, -1, false);
     }
     
     public int getSelectedChannel()

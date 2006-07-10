@@ -14,6 +14,7 @@ import com.webreach.mirth.model.filters.MessageEventFilter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Calendar;
@@ -54,6 +55,20 @@ public class MessageBrowser extends javax.swing.JPanel
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         
+        this.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                if (evt.isPopupTrigger())
+                    parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                if (evt.isPopupTrigger())
+                    parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        });
+        
         mappingDoc = new HighlightedDocument();
         mappingDoc.setHighlightStyle(HighlightedDocument.HTML_STYLE);
         normalDoc = XMLTextPane.getDocument();
@@ -74,6 +89,14 @@ public class MessageBrowser extends javax.swing.JPanel
         
         eventPane.addMouseListener(new java.awt.event.MouseAdapter()
         {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, false);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt)
             {
                 deselectRows();
@@ -98,10 +121,25 @@ public class MessageBrowser extends javax.swing.JPanel
         jPanel2.updateUI();
     }
     
+    private void showEventPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = eventTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                eventTable.setRowSelectionInterval(row, row);
+            }
+            else
+                deselectRows();
+            parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
     public void loadNew()
     {
         // use the start filters and make the table.
-        parent.setVisibleTasks(parent.messageTasks, 2, -1, false);
+        parent.setVisibleTasks(parent.messageTasks, parent.messagePopupMenu, 2, -1, false);
         sendingFacilityField.setText("");
         controlIDField.setText("");
         statusComboBox.setSelectedIndex(0);
@@ -209,11 +247,23 @@ public class MessageBrowser extends javax.swing.JPanel
                 EventListSelected(evt);
             }
         });
+        
+        eventTable.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showEventPopupMenu(evt, true);
+            }
+        });
     }
     
     public void deselectRows()
     {
-        parent.setVisibleTasks(parent.messageTasks, 2, -1, false);
+        parent.setVisibleTasks(parent.messageTasks, parent.messagePopupMenu, 2, -1, false);
         eventTable.clearSelection();
         clearDescription();
     }
@@ -234,7 +284,7 @@ public class MessageBrowser extends javax.swing.JPanel
 
             if(row >= 0)
             {
-                parent.setVisibleTasks(parent.messageTasks, 2, -1, true);
+                parent.setVisibleTasks(parent.messageTasks, parent.messagePopupMenu, 2, -1, true);
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 
                 String message = messageEventList.get(row).getMessage();
