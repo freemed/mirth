@@ -11,6 +11,9 @@ import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.Mirth;
 import com.webreach.mirth.client.ui.PlatformUI;
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -115,26 +118,60 @@ public class TransformerPane extends MirthEditorPane {
         parent.setNonFocusable( viewTasks );
         transformerTaskPaneContainer.add( viewTasks );
 	    
-	    transformerTasks = new JXTaskPane();
-	    transformerTasks.setTitle( "Transformer Tasks" );
-	    transformerTasks.setFocusable( false );
+        transformerTasks = new JXTaskPane();
+        transformerTasks.setTitle( "Transformer Tasks" );
+        transformerTasks.setFocusable( false );
+
+        transformerPopupMenu = new JPopupMenu();
         
         // add new step task
         transformerTasks.add( initActionCallback( "addNewStep",
         		ActionFactory.createBoundAction( "addNewStep", "Add New Step", "N" ),
         		new ImageIcon( Frame.class.getResource( "images/add.png" )) ));
+        JMenuItem addNewStep = new JMenuItem("Add New Step");
+        addNewStep.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent e){
+                addNewStep();
+            }
+        });
+        transformerPopupMenu.add(addNewStep);
+        
         // delete step task
         transformerTasks.add( initActionCallback( "deleteStep",
         		ActionFactory.createBoundAction( "deleteStep", "Delete Step", "X" ),
         		new ImageIcon( Frame.class.getResource( "images/delete.png" )) )); 
-	    // move step up task
-	    transformerTasks.add( initActionCallback( "moveStepUp",
-	    		ActionFactory.createBoundAction( "moveStepUp", "Move Step Up", "U" ),
-	    		new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
-	    // move step down task
+        JMenuItem deleteStep = new JMenuItem("Delete Step");
+        deleteStep.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent e){
+                deleteStep();
+            }
+        });
+        transformerPopupMenu.add(deleteStep);
+        
+        // move step up task
+        transformerTasks.add( initActionCallback( "moveStepUp",
+                    ActionFactory.createBoundAction( "moveStepUp", "Move Step Up", "U" ),
+                    new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
+        JMenuItem moveStepUp = new JMenuItem("Move Step Up");
+        moveStepUp.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent e){
+                moveStepUp();
+            }
+        });
+        transformerPopupMenu.add(moveStepUp);
+        
+        // move step down task
         transformerTasks.add( initActionCallback( "moveStepDown",
         		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
         		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
+        JMenuItem moveStepDown = new JMenuItem("Move Step Down");
+        moveStepDown.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent e){
+                moveStepDown();
+            }
+        });
+        transformerPopupMenu.add(moveStepDown);
+        
         // add the tasks to the taskpane, and the taskpane to the mirth client
         parent.setNonFocusable( transformerTasks );
         transformerTaskPaneContainer.add( transformerTasks );
@@ -216,6 +253,18 @@ public class TransformerPane extends MirthEditorPane {
         
         transformerTablePane.setViewportView( transformerTable );
         
+        transformerTablePane.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showTransformerPopupMenu(evt, false);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showTransformerPopupMenu(evt, false);
+            }
+        });
+        
         transformerTable.getSelectionModel().addListSelectionListener(
         		new ListSelectionListener() {
         			public void valueChanged( ListSelectionEvent evt ) {
@@ -223,7 +272,32 @@ public class TransformerPane extends MirthEditorPane {
         					TransformerListSelected( evt );
         			}
         		});
+        transformerTable.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showTransformerPopupMenu(evt, true);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showTransformerPopupMenu(evt, true);
+            }
+        });
     }    
+
+    private void showTransformerPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = transformerTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                transformerTable.setRowSelectionInterval(row, row);
+            }
+            
+            transformerPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
     
     // for the task pane
     public BoundAction initActionCallback( 
@@ -540,18 +614,18 @@ public class TransformerPane extends MirthEditorPane {
     private void updateTaskPane() {
     	int rowCount = transformerTableModel.getRowCount();
     	if ( rowCount <= 0 )
-        	parent.setVisibleTasks( transformerTasks, 1, -1, false );
+        	parent.setVisibleTasks( transformerTasks, transformerPopupMenu, 1, -1, false );
         else if ( rowCount == 1 ) {
-        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
-        	parent.setVisibleTasks( transformerTasks, 2, -1, false );
+        	parent.setVisibleTasks( transformerTasks, transformerPopupMenu, 0, -1, true );
+        	parent.setVisibleTasks( transformerTasks, transformerPopupMenu, 2, -1, false );
         } else {
-        	parent.setVisibleTasks( transformerTasks, 0, -1, true );
+        	parent.setVisibleTasks( transformerTasks, transformerPopupMenu, 0, -1, true );
      
         	int selRow = transformerTable.getSelectedRow();
         	if ( selRow == 0 ) // hide move up
-        		parent.setVisibleTasks( transformerTasks, 2, 2, false );
+        		parent.setVisibleTasks( transformerTasks, transformerPopupMenu, 2, 2, false );
         	else if ( selRow == rowCount - 1 ) // hide move down
-        		parent.setVisibleTasks( transformerTasks, 3, 3, false );
+        		parent.setVisibleTasks( transformerTasks, transformerPopupMenu, 3, 3, false );
         }
     }
     
@@ -567,6 +641,7 @@ public class TransformerPane extends MirthEditorPane {
     private JSplitPane vSplitPane;
     JXTaskPaneContainer transformerTaskPaneContainer;
     JXTaskPane transformerTasks;
+    JPopupMenu transformerPopupMenu;
     JXTaskPane viewTasks;
     
     // some helper guys

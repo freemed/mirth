@@ -1198,21 +1198,6 @@ public class Frame extends JXFrame
             }
         }
     }
-    
-    public void setVisibleTasks(JXTaskPane pane, int startIndex, int endIndex, boolean visible)
-    {
-        System.out.println("OLD setVisibleTasks");
-        if(endIndex == -1)
-        {
-            for (int i=startIndex; i < pane.getContentPane().getComponentCount(); i++)
-                pane.getContentPane().getComponent(i).setVisible(visible);
-        }
-        else
-        {
-            for (int i=startIndex; (i <= endIndex) && (i < pane.getContentPane().getComponentCount()); i++)
-                pane.getContentPane().getComponent(i).setVisible(visible);
-        }
-    }
 
     public boolean confirmLeave()
     {

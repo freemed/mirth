@@ -9,6 +9,8 @@ package com.webreach.mirth.client.ui.editors.filter;
 
 import com.webreach.mirth.client.ui.Mirth;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.*;
+import java.awt.Point;
 
 
 
@@ -105,6 +108,8 @@ public class FilterPane extends MirthEditorPane {
 		viewTasks = new JXTaskPane();
 		viewTasks.setTitle( "Mirth Views" );
 		viewTasks.setFocusable( false );
+                
+                filterPopupMenu = new JPopupMenu();
 		
 		viewTasks.add(initActionCallback( "accept",
 				ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
@@ -115,22 +120,55 @@ public class FilterPane extends MirthEditorPane {
 		filterTasks = new JXTaskPane();
 		filterTasks.setTitle( "Filter Tasks" );
 		filterTasks.setFocusable( false );		
-		// add new rule task
+		
+                // add new rule task
 		filterTasks.add( initActionCallback( "addNewRule",
 				ActionFactory.createBoundAction( "addNewRule", "Add New Rule", "N" ),
 				new ImageIcon( Frame.class.getResource( "images/add.png" )) ));		
+                JMenuItem addNewRule = new JMenuItem("Add New Rule");
+                addNewRule.addActionListener(new ActionListener(){
+                     public void actionPerformed(ActionEvent e){
+                        addNewRule();
+                    }
+                });
+                filterPopupMenu.add(addNewRule);
+                
 		// delete rule task
 		filterTasks.add( initActionCallback( "deleteRule",
 				ActionFactory.createBoundAction( "deleteRule", "Delete Rule", "X" ),
-				new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));		
+				new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));	
+                JMenuItem deleteRule = new JMenuItem("Delete Rule");
+                deleteRule.addActionListener(new ActionListener(){
+                     public void actionPerformed(ActionEvent e){
+                        deleteRule();
+                    }
+                });
+                filterPopupMenu.add(deleteRule);
+                
 		// move rule up task
 		filterTasks.add( initActionCallback( "moveRuleUp",
 				ActionFactory.createBoundAction( "moveRuleUp", "Move Rule Up", "U" ),
-				new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));		
+				new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));	
+                JMenuItem moveRuleUp = new JMenuItem("Move Rule Up");
+                moveRuleUp.addActionListener(new ActionListener(){
+                     public void actionPerformed(ActionEvent e){
+                        moveRuleUp();
+                    }
+                });
+                filterPopupMenu.add(moveRuleUp);
+                
 		// move rule down task
 		filterTasks.add( initActionCallback( "moveRuleDown",
 				ActionFactory.createBoundAction( "moveRuleDown", "Move Rule Down", "D" ),
-				new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));		
+				new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
+                JMenuItem moveRuleDown = new JMenuItem("Move Rule Down");
+                moveRuleDown.addActionListener(new ActionListener(){
+                     public void actionPerformed(ActionEvent e){
+                        moveRuleDown();
+                    }
+                });
+                filterPopupMenu.add(moveRuleDown);
+                
 		// add the tasks to the taskpane, and the taskpane to the mirth client
 		parent.setNonFocusable( filterTasks );
 		filterTaskPaneContainer.add( filterTasks );
@@ -206,6 +244,18 @@ public class FilterPane extends MirthEditorPane {
 		filterTablePane.setBorder( BorderFactory.createEmptyBorder() );
 		
 		filterTablePane.setViewportView( filterTable );
+                
+                filterTablePane.addMouseListener(new java.awt.event.MouseAdapter()
+                {
+                    public void mousePressed(java.awt.event.MouseEvent evt)
+                    {
+                        showFilterPopupMenu(evt, false);
+                    }
+                    public void mouseReleased(java.awt.event.MouseEvent evt)
+                    {
+                        showFilterPopupMenu(evt, false);
+                    }
+                });
 		
 		filterTable.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
@@ -214,8 +264,33 @@ public class FilterPane extends MirthEditorPane {
 							FilterListSelected(evt);
 					}
 				});
+            filterTable.addMouseListener(new java.awt.event.MouseAdapter()
+            {
+                public void mousePressed(java.awt.event.MouseEvent evt)
+                {
+                    showFilterPopupMenu(evt, true);
+                }
+                public void mouseReleased(java.awt.event.MouseEvent evt)
+                {
+                    showFilterPopupMenu(evt, true);
+                }
+            });
 	}    
 	
+        private void showFilterPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+        {
+            if (evt.isPopupTrigger())
+            {
+                if (onTable)
+                {
+                    int row = filterTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                    filterTable.setRowSelectionInterval(row, row);
+                }
+
+                filterPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+        
 	// for the task pane
 	public BoundAction initActionCallback( 
 			String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
@@ -439,18 +514,18 @@ public class FilterPane extends MirthEditorPane {
     private void updateTaskPane() {
     	int rowCount = filterTableModel.getRowCount();
     	if ( rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, 1, -1, false );
+        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 1, -1, false );
         else if ( rowCount == 1 ) {
-        	parent.setVisibleTasks( filterTasks, 0, -1, true );
-        	parent.setVisibleTasks( filterTasks, 2, -1, false );
+        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 0, -1, true );
+        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 2, -1, false );
         } else {
-        	parent.setVisibleTasks( filterTasks, 0, -1, true );
+        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 0, -1, true );
         	
         	int selRow = filterTable.getSelectedRow();
         	if ( selRow == 0 ) // hide move up
-        		parent.setVisibleTasks( filterTasks, 2, 2, false );
+        		parent.setVisibleTasks( filterTasks, filterPopupMenu, 2, 2, false );
         	else if ( selRow == rowCount - 1 ) // hide move down
-        		parent.setVisibleTasks( filterTasks, 3, 3, false );
+        		parent.setVisibleTasks( filterTasks, filterPopupMenu, 3, 3, false );
         }
     }
     
@@ -478,9 +553,10 @@ public class FilterPane extends MirthEditorPane {
 	private JScrollPane filterTablePane;
 	private JSplitPane vSplitPane;
 	private boolean updating;				// allow the selection listener to breathe
-	JXTaskPaneContainer filterTaskPaneContainer = new JXTaskPaneContainer();
-	JXTaskPane viewTasks = new JXTaskPane();
-	JXTaskPane filterTasks = new JXTaskPane();
+	JXTaskPaneContainer filterTaskPaneContainer;
+	JXTaskPane viewTasks;
+	JXTaskPane filterTasks;
+        JPopupMenu filterPopupMenu;
 	
 	
 	// this little sucker is used to track the last row that had
