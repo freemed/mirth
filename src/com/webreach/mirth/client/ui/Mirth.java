@@ -122,9 +122,9 @@ public class Mirth
             {
                 try
                 {
-                    //PlasticLookAndFeel.setPlasticTheme(new Silver());
-                    //PlasticXPLookAndFeel look = new PlasticXPLookAndFeel();
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());  
+                    PlasticLookAndFeel.setPlasticTheme(new Silver());
+                    PlasticXPLookAndFeel look = new PlasticXPLookAndFeel();
+                    UIManager.setLookAndFeel(look);  
                     UIManager.put("win.xpstyle.name", "metallic");
                     LookAndFeelAddons.setAddon(WindowsLookAndFeelAddons.class);
                 }
