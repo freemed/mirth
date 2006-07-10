@@ -12,7 +12,7 @@ public class EditorConstants {
 	public final static Font DEFAULT_FONT_BOLD = new Font("Monospaced", Font.BOLD, 12);
 	
 //	the colors for the line number margin
-	public final static Color LINENUMBER_BACKGROUND = (new JLabel()).getBackground();
+	public final static Color PANEL_BACKGROUND = (new JLabel()).getBackground();
 	public final static Color LINENUMBER_FOREGROUND = new Color( 119, 136, 153 );
 	
 }

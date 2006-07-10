@@ -38,7 +38,7 @@ public class LineNumber extends JComponent
 	 */
 	public LineNumber(JComponent component)
 	{
-		setBackground( EditorConstants.LINENUMBER_BACKGROUND );
+		setBackground( EditorConstants.PANEL_BACKGROUND );
 		setForeground( EditorConstants.LINENUMBER_FOREGROUND );
 		setFont( EditorConstants.DEFAULT_FONT );
 		setPreferredSize( WIDTH );

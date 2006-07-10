@@ -28,6 +28,7 @@
 package com.webreach.mirth.client.ui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -90,11 +91,13 @@ public class HL7XMLTreePanel extends JPanel {
 	 * Updates the panel with a new Message.
 	 */
 	public void setMessage(String source) {
+		PlatformUI.MIRTH_FRAME.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
 		Message message = null;
 		Document xmlDoc = null;
 		logger.debug("encoding HL7 message to XML:\n" + message);
 		
-		if (source != null) {
+		if (source != null && !source.equals("")) {
 			try {
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -142,6 +145,8 @@ public class HL7XMLTreePanel extends JPanel {
 				revalidate();
 			}
 		}
+		
+		PlatformUI.MIRTH_FRAME.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	}
 	
 	private void refTableMouseExited(MouseEvent evt) {
@@ -224,7 +229,7 @@ public class HL7XMLTreePanel extends JPanel {
 		}
 	}
 	public void clearMessage() {
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Paste a message to view HL7 message tree.");
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Paste an HL7 message to view HL7 message tree.");
 		JTree tree = new JTree(top);
 		removeAll();
 		add(tree);

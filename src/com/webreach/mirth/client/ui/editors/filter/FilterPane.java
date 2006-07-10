@@ -109,7 +109,7 @@ public class FilterPane extends MirthEditorPane {
 		viewTasks.setTitle( "Mirth Views" );
 		viewTasks.setFocusable( false );
                 
-                filterPopupMenu = new JPopupMenu();
+        filterPopupMenu = new JPopupMenu();
 		
 		viewTasks.add(initActionCallback( "accept",
 				ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
@@ -121,7 +121,7 @@ public class FilterPane extends MirthEditorPane {
 		filterTasks.setTitle( "Filter Tasks" );
 		filterTasks.setFocusable( false );		
 		
-                // add new rule task
+		// add new rule task
 		filterTasks.add( initActionCallback( "addNewRule",
 				ActionFactory.createBoundAction( "addNewRule", "Add New Rule", "N" ),
 				new ImageIcon( Frame.class.getResource( "images/add.png" )) ));		

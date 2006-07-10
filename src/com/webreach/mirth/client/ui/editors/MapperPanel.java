@@ -65,9 +65,14 @@ public class MapperPanel extends CardPanel {
 		
 		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
 		
+		JPanel notesPanel = new JPanel();
+		notesPanel.setBorder( BorderFactory.createTitledBorder("Global Variables") );
+		notesPanel.setLayout( new BorderLayout() );
+		notesPanel.add(notesTable, BorderLayout.CENTER );
+		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		refPanel.add( notesTable, BorderLayout.NORTH );
+		refPanel.add( notesPanel, BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		JLabel padding = new JLabel( "  " );
@@ -79,8 +84,12 @@ public class MapperPanel extends CardPanel {
 		padding = new JLabel( "                             " );
 		labelPanel.add( padding, BorderLayout.LINE_END );
 		
+		mappingPane = new JPanel();
+		mappingPane.setLayout( new BorderLayout() );
+		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
+		
 		referenceScrollPane.setViewportView( refTree );
-		mappingScrollPane.setViewportView( mappingTextPane );
+		mappingScrollPane.setViewportView( mappingPane );
 		
 		mappingPanel.setLayout( new BorderLayout() );
 		mappingPanel.add( labelPanel, BorderLayout.NORTH );
@@ -160,6 +169,7 @@ public class MapperPanel extends CardPanel {
 	private HL7ReferenceTree refTree;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
+	private JPanel mappingPane;
 	private JPanel mappingPanel;
 	private JTextField mappingTextField;
 	private JScrollPane mappingScrollPane;

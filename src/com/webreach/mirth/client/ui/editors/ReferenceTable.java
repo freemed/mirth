@@ -22,7 +22,7 @@ public class ReferenceTable extends JXTable {
 	        row = table.getSelectedRow();
 	        
 	        if ( row >= 0 || row < table.getRowCount() )
-	        	return "$" + table.getValueAt( row, 0 ).toString();
+	        	return table.getValueAt( row, 0 ).toString();
 	        else
 	        	return "";
 	    }
@@ -53,7 +53,7 @@ public class ReferenceTable extends JXTable {
 		this.setRowHeight( UIConstants.ROW_HEIGHT );
 		this.packTable( UIConstants.COL_MARGIN );
 		this.setShowVerticalLines( false );
-		this.setBorder( BorderFactory.createEtchedBorder() );
+		this.setBorder( BorderFactory.createEmptyBorder() );
         
         this.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent evt) {

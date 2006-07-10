@@ -39,7 +39,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.UIConstants;
@@ -59,7 +58,6 @@ public class JavaScriptPanel extends CardPanel {
 	
 	private void initComponents() {
 		refTree = new HL7ReferenceTree();
-		referenceScrollPane = new JScrollPane();
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		refPanel = new JPanel();
@@ -71,8 +69,6 @@ public class JavaScriptPanel extends CardPanel {
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
-		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
-		referenceScrollPane.setViewportView( refTree );
 		
 		headerArea.setForeground( Color.blue );
 		headerArea.setFont( EditorConstants.DEFAULT_FONT_BOLD );
@@ -102,11 +98,16 @@ public class JavaScriptPanel extends CardPanel {
 				Color.black ));
 		
 		notesTable = new NotesReferenceTable();
+		JPanel notesPanel = new JPanel();
+		notesPanel.setBorder( BorderFactory.createTitledBorder("Global Variables") );
+		notesPanel.setLayout( new BorderLayout() );
+		notesPanel.add(notesTable, BorderLayout.CENTER );
 		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		refPanel.add( notesTable, BorderLayout.NORTH );
-		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
+		
+		refPanel.add( notesPanel, BorderLayout.NORTH );
+		refPanel.add( refTree, BorderLayout.CENTER );
 		
 		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
 				mappingScrollPane, refPanel );
@@ -166,7 +167,6 @@ public class JavaScriptPanel extends CardPanel {
 	private JScrollPane mappingScrollPane;
 	private LineNumber lineNumbers;
 	private JSplitPane hSplitPane;
-	private JScrollPane referenceScrollPane;
 	private HL7ReferenceTree refTree;
 	private MirthEditorPane parent;
 	private String header = "{";

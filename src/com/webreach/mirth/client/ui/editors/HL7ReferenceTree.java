@@ -1,14 +1,16 @@
 package com.webreach.mirth.client.ui.editors;
 
+import java.awt.Cursor;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import org.jdesktop.layout.GroupLayout;
-import com.webreach.mirth.client.ui.HL7TreePanel;
+
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
+import com.webreach.mirth.client.ui.PlatformUI;
 
 
 public class HL7ReferenceTree extends JPanel {
@@ -47,8 +49,6 @@ public class HL7ReferenceTree extends JPanel {
 							treePanel.clearMessage();
 						treePanel.revalidate();
 						treePanel.repaint();
-						
-						
 					}
 
 					public void componentHidden(ComponentEvent arg0) {
