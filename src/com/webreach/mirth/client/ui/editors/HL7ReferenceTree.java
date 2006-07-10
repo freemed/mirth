@@ -15,11 +15,7 @@ public class HL7ReferenceTree extends JPanel {
 	
 	public HL7ReferenceTree() {
 		initComponents();
-		
-		//treePanel = new HL7TreePanel();
-		//treeScrollPane = new JScrollPane();
-		//treeScrollPane.setViewportView( treePanel );
-        HL7TabbedPane.addTab("HL7 Tree", treeScrollPane );
+		HL7TabbedPane.addTab("HL7 Tree", treeScrollPane );
 	}
 	
 	private void initComponents() {

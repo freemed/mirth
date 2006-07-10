@@ -30,12 +30,11 @@ package com.webreach.mirth.client.ui;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.StringReader;
-import java.util.Iterator;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -48,11 +47,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Attr;
 import org.xml.sax.InputSource;
 
 import ca.uhn.hl7v2.HL7Exception;
@@ -75,8 +74,9 @@ public class HL7XMLTreePanel extends JPanel {
 	private PipeParser parser;
 	private XMLParser xmlParser;
 	private EncodingCharacters encodingChars;
+	private JTree tree;
 	private Logger logger = Logger.getLogger(this.getClass());
-
+	
 	public HL7XMLTreePanel() {
 		parser = new PipeParser();
 		parser.setValidationContext(new NoValidation());
@@ -85,7 +85,7 @@ public class HL7XMLTreePanel extends JPanel {
 		this.setLayout(new GridLayout(1, 1));
 		this.setBackground( Color.white );
 	}
-
+	
 	/**
 	 * Updates the panel with a new Message.
 	 */
@@ -104,11 +104,11 @@ public class HL7XMLTreePanel extends JPanel {
 			} catch (EncodingNotSupportedException e) {
 				PlatformUI.MIRTH_FRAME.alertWarning( "Encoding not supported.\n" +
 						"Please check the syntax of your message\n" +
-						"and try again.");
+				"and try again.");
 			} catch (HL7Exception e) {
 				PlatformUI.MIRTH_FRAME.alertError( "HL7 Error!\n" +
 						"Please check the syntax of your message\n" +
-						"and try again.");
+				"and try again.");
 			} catch (Exception e) {
 				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
 				e.printStackTrace();
@@ -118,102 +118,133 @@ public class HL7XMLTreePanel extends JPanel {
 				DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
 				processElement(xmlDoc.getDocumentElement(), top);
 				//addChildren(message, top);
-	
-				JTree tree = new JTree(top);
-				tree.setDragEnabled( true ); //XXXX
+				
+				tree = new JTree(top);
+				tree.setDragEnabled( true );
 				tree.setTransferHandler(new TreeTransferHandler());
+				
+				tree.addMouseMotionListener(new MouseMotionAdapter() {
+					public void mouseDragged(MouseEvent evt) {
+						refTableMouseDragged(evt);
+					}
+					public void mouseMoved(MouseEvent evt) {
+						refTableMouseMoved(evt);
+					}
+				});
+				tree.addMouseListener(new MouseAdapter() {
+					public void mouseExited(MouseEvent evt) {
+						refTableMouseExited(evt);
+					}
+				});
+				
 				removeAll();
 				add(tree);
 				revalidate();
 			}
 		}
 	}
-		 private void processElement(Object elo, DefaultMutableTreeNode dmtn) {
-			 if (elo instanceof Element) {
-				 Element el = (Element)elo;
-				 DefaultMutableTreeNode currentNode =
-				 	new DefaultMutableTreeNode(el.getNodeName());
-				 String text = "";
-				 if (el.hasChildNodes()) {
-					 text = el.getFirstChild().getNodeValue();
-				 }
-				 else {
-					 text = el.getTextContent();
-				 }
-				 text = text.trim();
-				 if((text != null) && (!text.equals("")))
-				 	currentNode.add(new DefaultMutableTreeNode(text));
 	
-				 //processAttributes(el, currentNode);
+	private void refTableMouseExited(MouseEvent evt) {
+		tree.clearSelection();
+	}
 	
-				 NodeList children = el.getChildNodes();
-				 for (int i = 0; i < children.getLength(); i++) {
-				 	processElement(children.item(i), currentNode);
-				 }
-				 dmtn.add(currentNode);
-			 }
-		 }
-
-		 private void processAttributes(Element el, DefaultMutableTreeNode dmtn) {
-			 NamedNodeMap atts = el.getAttributes();
-			 for (int i = 0; i < atts.getLength(); i++) {
-				 Attr att = (Attr) atts.item(i);
-				 DefaultMutableTreeNode attNode =
-				 	new DefaultMutableTreeNode("@"+att.getName());
-				 attNode.add(new DefaultMutableTreeNode(att.getValue()));
-				 dmtn.add(attNode);
-			 }
-		 }
+	private void refTableMouseDragged(MouseEvent evt) {
+	}
+	
+	private void refTableMouseMoved(MouseEvent evt) {
+		int row = tree.getRowForLocation(evt.getPoint().x, evt.getPoint().y );
+		
+		if ( row >= 0 && row < tree.getRowCount() )				
+			tree.setSelectionRow( row );
+	}
+	
+	
+	private void processElement(Object elo, DefaultMutableTreeNode dmtn) {
+		if (elo instanceof Element) {
+			Element el = (Element)elo;
+			DefaultMutableTreeNode currentNode =
+				new DefaultMutableTreeNode(el.getNodeName());
+			String text = "";
+			if (el.hasChildNodes()) {
+				text = el.getFirstChild().getNodeValue();
+			}
+			else {
+				text = el.getTextContent();
+			}
+			text = text.trim();
+			if((text != null) && (!text.equals("")))
+				currentNode.add(new DefaultMutableTreeNode(text));
+			
+			//processAttributes(el, currentNode);
+			
+			NodeList children = el.getChildNodes();
+			for (int i = 0; i < children.getLength(); i++) {
+				processElement(children.item(i), currentNode);
+			}
+			dmtn.add(currentNode);
+		}
+	}
+	
+	private void processAttributes(Element el, DefaultMutableTreeNode dmtn) {
+		NamedNodeMap atts = el.getAttributes();
+		for (int i = 0; i < atts.getLength(); i++) {
+			Attr att = (Attr) atts.item(i);
+			DefaultMutableTreeNode attNode =
+				new DefaultMutableTreeNode("@"+att.getName());
+			attNode.add(new DefaultMutableTreeNode(att.getValue()));
+			dmtn.add(attNode);
+		}
+	}
 	
 	public class TreeTransferHandler extends TransferHandler {
-
-		   protected Transferable createTransferable( JComponent c ) {
-		      try {
-		         TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
-		         if ( tp == null )
-		            return null;
-		         if (!tp.isLeaf())
-		        	 return null;
-		         String leaf = tp.toString();
-		        // if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
-		         //   return null;
-		         return new TreeTransferable( tp );
-		      }
-		      catch ( ClassCastException cce ) {
-		         return null;
-		      }
-		   }
-
-		   public int getSourceActions( JComponent c ) {
-		      return COPY_OR_MOVE;
-		   }
-
-		   public boolean canImport( JComponent c, DataFlavor[] df ) {
-		      return false;
-		   }
+		
+		protected Transferable createTransferable( JComponent c ) {
+			try {
+				TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
+				if ( tp == null )
+					return null;
+				if (!tp.isLeaf())
+					return null;
+				String leaf = tp.toString();
+				// if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
+				//   return null;
+				return new TreeTransferable( tp );
+			}
+			catch ( ClassCastException cce ) {
+				return null;
+			}
 		}
+		
+		public int getSourceActions( JComponent c ) {
+			return COPY;
+		}
+		
+		public boolean canImport( JComponent c, DataFlavor[] df ) {
+			return false;
+		}
+	}
 	public void clearMessage() {
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Paste a message to view HL7 message tree.");
 		JTree tree = new JTree(top);
 		removeAll();
 		add(tree);
 		revalidate();
 	}
-
+	
 	/**
 	 * Adds the children of the given group under the given tree node.
 	 */
 	private void addChildren(Group messageParent, MutableTreeNode treeParent) {
 		String[] childNames = messageParent.getNames();
 		int currentChild = 0;
-
+		
 		for (int i = 0; i < childNames.length; i++) {
 			try {
 				Structure[] childReps = messageParent.getAll(childNames[i]);
-
+				
 				for (int j = 0; j < childReps.length; j++) {
 					DefaultMutableTreeNode newNode = null;
-
+					
 					if (childReps[j] instanceof Group) {
 						String groupName = childReps[j].getClass().getName();
 						groupName = groupName.substring(groupName.lastIndexOf('.') + 1, groupName.length());
@@ -223,7 +254,7 @@ public class HL7XMLTreePanel extends JPanel {
 						newNode = new DefaultMutableTreeNode(parser.encode((Segment) childReps[j], encodingChars));
 						addChildren((Segment) childReps[j], newNode);
 					}
-
+					
 					treeParent.insert(newNode, currentChild++);
 				}
 			} catch (HL7Exception e) {
@@ -231,7 +262,7 @@ public class HL7XMLTreePanel extends JPanel {
 			}
 		}
 	}
-
+	
 	/**
 	 * Add fields of a segment to the tree ...
 	 */
@@ -252,7 +283,7 @@ public class HL7XMLTreePanel extends JPanel {
 			}
 		}
 	}
-
+	
 	/**
 	 * Adds children to the tree. If the Type is a Varies, the Varies data are
 	 * added under a new node called "Varies". If there are extra components,
@@ -273,7 +304,7 @@ public class HL7XMLTreePanel extends JPanel {
 			} else if (Primitive.class.isAssignableFrom(messageParent.getClass())) {
 				addChildren((Primitive) messageParent, treeParent);
 			}
-
+			
 			if (messageParent.getExtraComponents().numComponents() > 0) {
 				DefaultMutableTreeNode newNode = new DefaultMutableTreeNode("ExtraComponents");
 				treeParent.insert(newNode, treeParent.getChildCount());
@@ -285,13 +316,13 @@ public class HL7XMLTreePanel extends JPanel {
 			}
 		}
 	}
-
+	
 	/**
 	 * Adds components of a composite to the tree ...
 	 */
 	private void addChildren(Composite messageParent, MutableTreeNode treeParent) {
 		Type[] components = messageParent.getComponents();
-
+		
 		for (int i = 0; i < components.length; i++) {
 			DefaultMutableTreeNode newNode;
 			newNode = new DefaultMutableTreeNode(getLabel(components[i]));
@@ -299,7 +330,7 @@ public class HL7XMLTreePanel extends JPanel {
 			treeParent.insert(newNode, i);
 		}
 	}
-
+	
 	/**
 	 * Adds single text value to tree as a leaf
 	 */
@@ -307,7 +338,7 @@ public class HL7XMLTreePanel extends JPanel {
 		DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(messageParent.getValue());
 		treeParent.insert(newNode, 0);
 	}
-
+	
 	/**
 	 * Returns the unqualified class name as a label for tree nodes.
 	 */

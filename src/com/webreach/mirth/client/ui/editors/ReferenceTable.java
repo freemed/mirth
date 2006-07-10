@@ -47,7 +47,6 @@ public class ReferenceTable extends JXTable {
         this.setTransferHandler( new TableTransferHandler() );
 		this.setDragEnabled( true );
         this.setFocusable( false );
-        this.setSortable( false );
 		this.setOpaque( true );
 		this.setRowSelectionAllowed( true );
         this.setSelectionMode( 0 );
