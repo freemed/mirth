@@ -118,8 +118,14 @@ public class HL7XMLTreePanel extends JPanel {
 			}
 			
 			if (xmlDoc != null) {
-				DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
-				processElement(xmlDoc.getDocumentElement(), top);
+				Element el = xmlDoc.getDocumentElement();
+				DefaultMutableTreeNode top = new DefaultMutableTreeNode(el.getNodeName());
+				
+				NodeList children = el.getChildNodes();
+				for (int i = 0; i < children.getLength(); i++) {
+					processElement(children.item(i), top);
+				}
+				//processElement(xmlDoc.getDocumentElement(), top);
 				//addChildren(message, top);
 				
 				tree = new JTree(top);
