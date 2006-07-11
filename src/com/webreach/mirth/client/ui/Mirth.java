@@ -16,7 +16,9 @@ import java.awt.event.WindowEvent;
 import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JWindow;
@@ -72,8 +74,9 @@ public class Mirth
         splashWindow.setLocationRelativeTo(null);
         splashWindow.setVisible(true);
  */
-        PlatformUI.MIRTH_FRAME.setupFrame(m);
         
+        PlatformUI.MIRTH_FRAME.setupFrame(m);
+
         //splashWindow.dispose();
         
         int width = 900;
