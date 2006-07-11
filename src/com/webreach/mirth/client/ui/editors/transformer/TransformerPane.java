@@ -214,6 +214,7 @@ public class TransformerPane extends MirthEditorPane {
 	    ((JXComboBox)comboBox.getComponent()).addItemListener( new ItemListener() {
             public void itemStateChanged( ItemEvent evt ) {  
             	String type = evt.getItem().toString();
+            	
             	stepPanel.showCard( type );
             }
         });
@@ -391,7 +392,7 @@ public class TransformerPane extends MirthEditorPane {
 			String type = (String)
     				transformerTable.getValueAt( row, STEP_TYPE_COL );
     		
-    		if ( type == "Mapper" ) {
+    		if ( type == MAPPER_TYPE ) {
     			data = mapperPanel.getData();
     			String var = data.get( "Variable" ).toString();
     			
@@ -652,7 +653,7 @@ public class TransformerPane extends MirthEditorPane {
     // panels using CardLayout
     protected CardPanel stepPanel;			// the card holder
     protected BlankPanel blankPanel;		// the cards
-    protected MapperPanel mapperPanel; 		//    \/
+    protected MapperPanel mapperPanel;		//    \/
     protected JavaScriptPanel jsPanel;      //    \/
     protected SMTPPanel smtpPanel;      	//    \/
     protected JDBCPanel jdbcPanel;			//    \/

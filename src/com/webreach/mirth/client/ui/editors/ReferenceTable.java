@@ -5,10 +5,15 @@ import java.awt.datatransfer.Transferable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.TransferHandler;
+
 import org.jdesktop.swingx.JXTable;
+
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 
 
@@ -86,5 +91,7 @@ public class ReferenceTable extends JXTable {
 				&& col >= 0 && col < this.getModel().getColumnCount() )
 			this.setRowSelectionInterval( row, row );
     }
+	
+	protected Frame parent = PlatformUI.MIRTH_FRAME;
 
 }

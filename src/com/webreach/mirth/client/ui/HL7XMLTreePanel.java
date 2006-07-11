@@ -91,13 +91,13 @@ public class HL7XMLTreePanel extends JPanel {
 	 * Updates the panel with a new Message.
 	 */
 	public void setMessage(String source) {
-		PlatformUI.MIRTH_FRAME.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-		
 		Message message = null;
 		Document xmlDoc = null;
 		logger.debug("encoding HL7 message to XML:\n" + message);
 		
 		if (source != null && !source.equals("")) {
+			PlatformUI.MIRTH_FRAME.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			
 			try {
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -150,9 +150,10 @@ public class HL7XMLTreePanel extends JPanel {
 				add(tree);
 				revalidate();
 			}
-		}
-		
+			
+
 		PlatformUI.MIRTH_FRAME.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		}
 	}
 	
 	private void refTableMouseExited(MouseEvent evt) {

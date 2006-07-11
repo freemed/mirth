@@ -57,7 +57,7 @@ public class JavaScriptPanel extends CardPanel {
 	}
 	
 	private void initComponents() {
-		refTree = new HL7ReferenceTree();
+		refTree = new TabbedReferencePanel();
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		refPanel = new JPanel();
@@ -97,16 +97,8 @@ public class JavaScriptPanel extends CardPanel {
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
 		
-		notesTable = new NotesReferenceTable();
-		JPanel notesPanel = new JPanel();
-		notesPanel.setBorder( BorderFactory.createTitledBorder("Global Variables") );
-		notesPanel.setLayout( new BorderLayout() );
-		notesPanel.add(notesTable, BorderLayout.CENTER );
-		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		
-		refPanel.add( notesPanel, BorderLayout.NORTH );
 		refPanel.add( refTree, BorderLayout.CENTER );
 		
 		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
@@ -157,7 +149,6 @@ public class JavaScriptPanel extends CardPanel {
 		return mappingTextPane;
 	}
 	
-	private NotesReferenceTable notesTable;
 	private JPanel refPanel;
 	private JTextArea headerArea;
 	private JTextArea footerArea;
@@ -167,7 +158,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JScrollPane mappingScrollPane;
 	private LineNumber lineNumbers;
 	private JSplitPane hSplitPane;
-	private HL7ReferenceTree refTree;
+	private TabbedReferencePanel refTree;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";

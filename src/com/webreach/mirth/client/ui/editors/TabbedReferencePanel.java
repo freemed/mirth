@@ -1,23 +1,25 @@
 package com.webreach.mirth.client.ui.editors;
 
-import java.awt.Cursor;
+import java.awt.BorderLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
-import com.webreach.mirth.client.ui.PlatformUI;
 
 
-public class HL7ReferenceTree extends JPanel {
+public class TabbedReferencePanel extends JPanel {
 	
-	public HL7ReferenceTree() {
+	public TabbedReferencePanel() {
 		initComponents();
-		HL7TabbedPane.addTab("HL7 Tree", treeScrollPane );
+		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
+		HL7TabbedPane.addTab( "Variables", varScrollPane );
 	}
 	
 	private void initComponents() {
@@ -28,6 +30,34 @@ public class HL7ReferenceTree extends JPanel {
         treeScrollPane = new JScrollPane();
         treePanel = new HL7XMLTreePanel();
 
+        String[][] referenceData = new String[2][2];
+		referenceData[0][0] = "$localMap";
+		referenceData[0][1] = "The local variable map that will be sent to the connector.";
+		referenceData[1][0] = "$globalMap";
+		referenceData[1][1] = "The global variable map that persists values between channels.";
+        
+        globalVarTable = new VariableReferenceTable( referenceData );
+        globalVarPanel = new JPanel();
+		globalVarPanel.setBorder( BorderFactory.createTitledBorder("Global Variables") );
+		globalVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
+		globalVarPanel.setLayout( new BorderLayout() );
+		globalVarPanel.add( globalVarTable, BorderLayout.CENTER );
+		
+		String[] temp = {"var1", "var2", "var3", "var4"};
+		dbVarTable = new VariableReferenceTable( temp );
+        dbVarPanel = new JPanel();
+		dbVarPanel.setBorder( BorderFactory.createTitledBorder("Database Variables") );
+		dbVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
+		dbVarPanel.setLayout( new BorderLayout() );
+		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
+		
+		varPanel = new JPanel();
+		varPanel.setLayout( new BorderLayout() );
+		varPanel.add( globalVarPanel, BorderLayout.NORTH );
+		varPanel.add( dbVarPanel, BorderLayout.CENTER );
+		varScrollPane = new JScrollPane();
+		varScrollPane.setViewportView( varPanel );
+		
         pasteBox.setColumns(20);
         pasteBox.setRows(5);
         pasteScrollPane.setViewportView(pasteBox);
@@ -94,5 +124,10 @@ public class HL7ReferenceTree extends JPanel {
 	private JTextArea pasteBox;
 	private JScrollPane treeScrollPane;
 	private HL7XMLTreePanel treePanel;
-
+	private VariableReferenceTable globalVarTable;
+	private VariableReferenceTable dbVarTable;
+	private JPanel globalVarPanel;
+	private JPanel dbVarPanel;
+	private JScrollPane varScrollPane;
+	private JPanel varPanel;
 }

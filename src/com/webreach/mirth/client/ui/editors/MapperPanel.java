@@ -9,8 +9,9 @@ package com.webreach.mirth.client.ui.editors;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,14 +27,18 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.model.Channel;
 
 
 public class MapperPanel extends CardPanel {
 	
 	/** Creates new form MapperPanel */
+	public MapperPanel() {initComponents();}
 	public MapperPanel(MirthEditorPane p) {
 		super();
 		parent = p;
+		
 		initComponents();
 	}
 	
@@ -42,12 +47,11 @@ public class MapperPanel extends CardPanel {
 	 */
 	private void initComponents() {
 		referenceScrollPane = new JScrollPane();
-		refTree = new HL7ReferenceTree();
+		refTree = new TabbedReferencePanel();
 		refPanel = new JPanel();
-		notesTable = new NotesReferenceTable();
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
-		mappingLabel = new JLabel( "   Variable: " );
+		mappingLabel = new JLabel( "   " + label );
 		mappingTextField = new JTextField();
 		mappingScrollPane = new JScrollPane();
 		mappingDoc = new HighlightedDocument();
@@ -65,14 +69,8 @@ public class MapperPanel extends CardPanel {
 		
 		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
 		
-		JPanel notesPanel = new JPanel();
-		notesPanel.setBorder( BorderFactory.createTitledBorder("Global Variables") );
-		notesPanel.setLayout( new BorderLayout() );
-		notesPanel.add(notesTable, BorderLayout.CENTER );
-		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		refPanel.add( notesPanel, BorderLayout.NORTH );
 		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
 		
 		JLabel padding = new JLabel( "  " );
@@ -132,6 +130,25 @@ public class MapperPanel extends CardPanel {
 					}
 					
 				});
+		
+		this.addComponentListener(
+				new ComponentListener() {
+					
+					public void componentResized(ComponentEvent arg0) {}
+					
+					public void componentMoved(ComponentEvent arg0) {}
+//					this will ensure the variable field is given the proper label
+					public void componentShown(ComponentEvent arg0) {
+						Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
+						if ( channel.getDirection().equals(Channel.Direction.INBOUND) )
+							mappingLabel.setText( "   Variable: " );
+						else if ( channel.getDirection().equals(Channel.Direction.OUTBOUND) )
+							mappingLabel.setText( "   HL7 Message Segment: " );
+					}
+					
+					public void componentHidden(ComponentEvent arg0) {}
+					
+				});
 		// END listeners
 		
 		this.setLayout( new BorderLayout() );
@@ -160,13 +177,13 @@ public class MapperPanel extends CardPanel {
 	}    
 	
 	
-	private NotesReferenceTable notesTable;
+	private String label;
 	private JScrollPane referenceScrollPane;
 	private JPanel refPanel;
 	private JSplitPane hSplitPane;
 	private JTextPane mappingTextPane;
 	private HighlightedDocument mappingDoc;
-	private HL7ReferenceTree refTree;
+	private TabbedReferencePanel refTree;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPane;
@@ -174,5 +191,4 @@ public class MapperPanel extends CardPanel {
 	private JTextField mappingTextField;
 	private JScrollPane mappingScrollPane;
 	private MirthEditorPane parent;
-	
 }

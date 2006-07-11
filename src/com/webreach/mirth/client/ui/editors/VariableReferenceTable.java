@@ -6,20 +6,34 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 
-public class NotesReferenceTable extends ReferenceTable {
+public class VariableReferenceTable extends ReferenceTable {
 
-	public NotesReferenceTable () {
+	public VariableReferenceTable (String[] data ) {
 		super();
 		
-		String[][] referenceData = new String[2][2];
+		String[][] d = new String[data.length][2];
+		for ( int i = 0;  i < data.length;  i++ ) {
+			d[i][0] = data[i];
+			d[i][1] = null;
+		}
 		
-		referenceData[0][0] = "$localMap";
-		referenceData[0][1] = "The local variable map that will be sent to the connector.";
+		this.setModel( new DefaultTableModel( d,
+				new String[] {"Variable"} ) {
+					public boolean isCellEditable ( int row, int col ) {
+						return false;
+					}
+				});
+       
+       //this.getColumnExt( "Variable" ).setMaxWidth( 125 );
+       this.getColumnExt( "Variable" ).setPreferredWidth( 80 );
+       
+       this.getColumnExt( "Variable" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
+	}
+	
+	public VariableReferenceTable (String[][] data) {
+		super();
 		
-		referenceData[1][0] = "$globalMap";
-		referenceData[1][1] = "The global variable map that persists values between channels.";
-        
-        this.setModel( new DefaultTableModel( referenceData,
+		this.setModel( new DefaultTableModel( data,
 				new String[] {"Variable","Note"} ) {
 					public boolean isCellEditable ( int row, int col ) {
 						return false;
@@ -27,7 +41,7 @@ public class NotesReferenceTable extends ReferenceTable {
 				});
        
        this.getColumnExt( "Variable" ).setMaxWidth( 125 );
-       this.getColumnExt( "Variable" ).setPreferredWidth( 100 );
+       this.getColumnExt( "Variable" ).setPreferredWidth( 80 );
        
        DefaultTableCellRenderer highlightColumn = new DefaultTableCellRenderer();
        highlightColumn.setBackground( EditorConstants.PANEL_BACKGROUND );
@@ -36,7 +50,5 @@ public class NotesReferenceTable extends ReferenceTable {
        this.getColumnExt( "Variable" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
        this.getColumnExt( "Note" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
 	}
-	
-	private Frame parent = PlatformUI.MIRTH_FRAME;
 	
 }
