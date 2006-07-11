@@ -159,7 +159,9 @@ public class MapperPanel extends CardPanel {
 	} 
 	
 	
-	
+	public void Update(){
+		tabPanel.Update();
+	}
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		m.put( "Variable", mappingTextField.getText().trim() );

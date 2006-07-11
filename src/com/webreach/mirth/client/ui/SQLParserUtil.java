@@ -51,21 +51,16 @@ public class SQLParserUtil {
 	}
 	public String[] Parse(){
 		
-		ArrayList<String> columns = new ArrayList<String>();
 		try{
-			Pattern pattern = Pattern.compile(REGEX);
+			//Pattern pattern = Pattern.compile(REGEX);
+			int fromClause = _sqlStatement.toUpperCase().indexOf("FROM");
+			String columnText = _sqlStatement.substring(7, fromClause).trim();
+			return columnText.replaceAll(" ", "").replaceAll("`","").split(",");
 			
-			_sqlStatement = _sqlStatement.split("FROM")[0];
-	        Matcher m = pattern.matcher(_sqlStatement);
-	      
-			while (m.find()) {
-				String key = m.group().replaceAll("`","");
-				columns.add(key);
-			}
 		}catch(Exception e){
 			logger.error(e);
+			return null;
 		}
-		return columns.toArray(new String[0]);
 	}
     public static void main(String[] args){
     	SQLParserUtil squ = new SQLParserUtil("SELECT `pd_lname`,`pd_fname`,    `pd_tname` FROM `patients`;");

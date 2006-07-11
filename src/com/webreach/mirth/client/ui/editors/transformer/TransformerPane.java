@@ -83,7 +83,7 @@ public class TransformerPane extends MirthEditorPane {
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
-    	
+    	mapperPanel.Update();
     	updateStepNumbers();
     	updateTaskPane();
     	modified = false;

@@ -1,18 +1,27 @@
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.BorderLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
+import javax.swing.TransferHandler;
+import javax.swing.tree.TreeNode;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.ReferenceTableHandler;
+import com.webreach.mirth.client.ui.ReferenceTableTransferable;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.SQLParserUtil;
+import com.webreach.mirth.client.ui.TreeTransferable;
 import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.client.ui.MirthTextPane;
 
@@ -25,12 +34,26 @@ public class TabbedReferencePanel extends JPanel {
 		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
 		HL7TabbedPane.addTab( "Variables", varScrollPane );
 	}
-	public void UpdateVariables(String[] variables){
+	public void Update()
+	{
+		updateSQL();
+	}
+	private void updateVariables(String[] variables){
+	
 		
 		dbVarPanel.remove(dbVarTable);
 		dbVarTable = new VariableReferenceTable( variables );
+		dbVarTable.setDragEnabled(true);
+		dbVarTable.setTransferHandler(new ReferenceTableHandler());
 		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
 		repaint();
+	}
+	private void updateSQL() {
+		Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("SQLStatement");
+		if ((sqlStatement != null) && (!sqlStatement.equals(""))){
+			SQLParserUtil spu = new SQLParserUtil((String)sqlStatement);
+			updateVariables(spu.Parse());
+		}
 	}
 	private void initComponents() {
         HL7TabbedPane = new JTabbedPane();
@@ -59,6 +82,8 @@ public class TabbedReferencePanel extends JPanel {
 		dbVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
 		dbVarPanel.setLayout( new BorderLayout() );
 		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
+		dbVarTable.setDragEnabled(true);
+		dbVarTable.setTransferHandler(new ReferenceTableHandler());
 		
 		varPanel = new JPanel();
 		varPanel.setLayout( new BorderLayout() );
@@ -78,13 +103,9 @@ public class TabbedReferencePanel extends JPanel {
 
 					public void componentShown(ComponentEvent arg0) {
 //						chrisl 7/11/206
-						Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("SQLStatement");
-						if ((sqlStatement != null) && (!sqlStatement.equals(""))){
-							SQLParserUtil spu = new SQLParserUtil((String)sqlStatement);
-							
-							UpdateVariables(spu.Parse());
-						}
+						updateSQL();
 					}
+					
 
 					public void componentHidden(ComponentEvent arg0) {
 						
