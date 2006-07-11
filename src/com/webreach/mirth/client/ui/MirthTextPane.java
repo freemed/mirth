@@ -3,6 +3,8 @@ package com.webreach.mirth.client.ui;
 import java.awt.event.KeyEvent;
 import javax.swing.JPopupMenu;
 
+import javax.swing.text.StyledDocument;
+
 public class MirthTextPane extends javax.swing.JTextPane
 {
     private Frame parent;
@@ -45,6 +47,38 @@ public class MirthTextPane extends javax.swing.JTextPane
         });
     }
     
+    public MirthTextPane(StyledDocument doc)
+    {
+    	super(doc);
+    	this.parent = PlatformUI.MIRTH_FRAME;
+    	
+    	cutAction = new CutAction(this);
+        copyAction = new CopyAction(this);
+        pasteAction = new PasteAction(this);
+        deleteAction = new DeleteAction(this);
+        selectAllAction = new SelectAllAction(this);
+        
+        menu = new JPopupMenu(); 
+        menu.add(cutAction); 
+        menu.add(copyAction); 
+        menu.add(pasteAction); 
+        menu.add(deleteAction); 
+        menu.addSeparator();
+        menu.add(selectAllAction);
+
+        this.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showPopupMenu(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showPopupMenu(evt);
+            }
+        });
+    }
+    
     private void showPopupMenu(java.awt.event.MouseEvent evt)
     {
         if (evt.isPopupTrigger())
@@ -58,7 +92,7 @@ public class MirthTextPane extends javax.swing.JTextPane
             menu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
-    
+
     public void processKeyEvent(KeyEvent ev)
     {
         parent.enableSave();

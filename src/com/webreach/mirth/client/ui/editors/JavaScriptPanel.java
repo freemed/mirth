@@ -35,12 +35,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.UIConstants;
 
 
@@ -65,7 +65,7 @@ public class JavaScriptPanel extends CardPanel {
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingScrollPane = new JScrollPane();
-		mappingTextPane = new JTextPane( mappingDoc );
+		mappingTextPane = new MirthTextPane( mappingDoc );
 		
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
@@ -145,7 +145,7 @@ public class JavaScriptPanel extends CardPanel {
 			mappingTextPane.setText( "" );
 	}
 	
-	public JTextPane getDocument() {
+	public MirthTextPane getDocument() {
 		return mappingTextPane;
 	}
 	
@@ -154,7 +154,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JTextArea footerArea;
 	private JPanel mappingPane;
 	private HighlightedDocument mappingDoc;
-	private JTextPane mappingTextPane;
+	private MirthTextPane mappingTextPane;
 	private JScrollPane mappingScrollPane;
 	private LineNumber lineNumbers;
 	private JSplitPane hSplitPane;
