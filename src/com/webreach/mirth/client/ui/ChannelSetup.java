@@ -602,7 +602,6 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryEnabledCheckbox.setBackground(new java.awt.Color(255, 255, 255));
         summaryEnabledCheckbox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         summaryEnabledCheckbox.setText("Enabled");
-        summaryEnabledCheckbox.setFocusable(false);
         summaryEnabledCheckbox.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         xmlPreEncoded.setBackground(new java.awt.Color(255, 255, 255));
@@ -616,22 +615,30 @@ public class ChannelSetup extends javax.swing.JPanel
             summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(summaryLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(summaryDescriptionLabel)
-                    .add(summaryDirectionLabel1)
-                    .add(summaryNameLabel)
-                    .add(summaryPatternLabel1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(summaryDirectionLabel2)
-                    .add(summaryPatternLabel2)
                     .add(summaryLayout.createSequentialGroup()
+                        .add(26, 26, 26)
+                        .add(summaryNameLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(45, 45, 45)
+                        .add(20, 20, 20)
                         .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 287, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                    .add(summaryLayout.createSequentialGroup()
+                        .add(51, 51, 51)
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(summaryPatternLabel1)
+                            .add(summaryDirectionLabel1))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(summaryDirectionLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(summaryPatternLabel2)))
+                    .add(summaryLayout.createSequentialGroup()
+                        .add(summaryDescriptionLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 285, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         summaryLayout.setVerticalGroup(
             summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -639,23 +646,23 @@ public class ChannelSetup extends javax.swing.JPanel
                 .addContainerGap()
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(summaryNameLabel))
-                .add(18, 18, 18)
+                    .add(summaryNameLabel)
+                    .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(summaryDirectionLabel2)
-                    .add(summaryDirectionLabel1))
-                .add(20, 20, 20)
+                    .add(summaryDirectionLabel1)
+                    .add(summaryDirectionLabel2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(summaryPatternLabel2)
-                    .add(summaryPatternLabel1))
-                .add(24, 24, 24)
+                    .add(summaryPatternLabel1)
+                    .add(summaryPatternLabel2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(summaryDescriptionLabel))
-                .add(24, 24, 24)
+                    .add(summaryDescriptionLabel)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         channelView.addTab("Summary", summary);
 
@@ -806,8 +813,15 @@ public class ChannelSetup extends javax.swing.JPanel
 
     private void sourceComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_sourceComponentShown
     {//GEN-HEADEREND:event_sourceComponentShown
-        parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 2, false);
-        parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 3, 4, true);
+        if(currentChannel.getMode() == Channel.Mode.ROUTER)
+        {
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 4, false);
+        }
+        else
+        {
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 1, 2, false);
+            parent.setVisibleTasks(parent.channelEditTasks, parent.channelEditPopupMenu, 3, 4, true);
+        }
     }//GEN-LAST:event_sourceComponentShown
 
     private void destinationComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_destinationComponentShown

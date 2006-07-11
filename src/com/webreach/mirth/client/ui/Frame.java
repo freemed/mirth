@@ -289,7 +289,7 @@ public class Frame extends JXFrame
     {
         // Create View pane
         viewPane = new JXTaskPane();
-        viewPane.setTitle("Mirth Views");
+        viewPane.setTitle("Mirth");
         viewPane.setFocusable(false);
         viewPane.add(initActionCallback("doShowStatusPanel", "Contains information about your currently deployed channels.", ActionFactory.createBoundAction("showStatusPanel","Status","S"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/status.png"))));
         viewPane.add(initActionCallback("doShowChannel", "Contains various operations to perform on your channels.", ActionFactory.createBoundAction("showChannelPannel","Channels","C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/channel.png"))));
@@ -538,8 +538,8 @@ public class Frame extends JXFrame
         });
         statusPopupMenu.add(startAllChannels);
         
-        statusTasks.add(initActionCallback("doShowEvents", "Show the event logs for the system.", ActionFactory.createBoundAction("doShowEvents","Events", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
-        JMenuItem showEvents = new JMenuItem("Events");
+        statusTasks.add(initActionCallback("doShowEvents", "Show the event logs for the system.", ActionFactory.createBoundAction("doShowEvents","View System Events", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
+        JMenuItem showEvents = new JMenuItem("View System Events");
         showEvents.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png")));
         showEvents.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e){
@@ -548,8 +548,8 @@ public class Frame extends JXFrame
         });
         statusPopupMenu.add(showEvents);
         
-        statusTasks.add(initActionCallback("doShowMessages", "Show the messages for the currently selected channel.", ActionFactory.createBoundAction("doShowMessages","Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
-        JMenuItem showMessages = new JMenuItem("Messages");
+        statusTasks.add(initActionCallback("doShowMessages", "Show the messages for the currently selected channel.", ActionFactory.createBoundAction("doShowMessages","View Messages", "M"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png"))));
+        JMenuItem showMessages = new JMenuItem("View Messages");
         showMessages.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/messages.png")));
         showMessages.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e){

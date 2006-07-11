@@ -93,7 +93,7 @@ public class UserWizard extends javax.swing.JDialog
 
         jLabel3.setText("Password:");
 
-        jLabel4.setText("Retype Password:");
+        jLabel4.setText("Re-type Password:");
 
         password1.setFont(new java.awt.Font("Tahoma", 0, 11));
         password1.addKeyListener(new java.awt.event.KeyAdapter()
@@ -150,7 +150,7 @@ public class UserWizard extends javax.swing.JDialog
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, channelOverviewLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .add(channelOverviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel4)
                     .add(jLabel3)

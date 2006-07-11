@@ -57,25 +57,37 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="summaryDescriptionLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="summaryDirectionLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="summaryNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="summaryPatternLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="xmlPreEncoded" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="summaryDirectionLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="summaryPatternLabel2" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="summaryNameLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="summaryNameField" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="summaryEnabledCheckbox" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="summaryPatternLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="summaryDirectionLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="summaryDirectionLabel2" min="-2" pref="78" max="-2" attributes="0"/>
+                                  <Component id="summaryPatternLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="summaryDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane2" min="-2" pref="285" max="-2" attributes="0"/>
+                                  <Component id="xmlPreEncoded" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="166" max="32767" attributes="0"/>
+                      <EmptySpace pref="170" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -85,27 +97,27 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="summaryNameField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="summaryEnabledCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="summaryNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="summaryEnabledCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="summaryDirectionLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="summaryDirectionLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="summaryDirectionLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="summaryPatternLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="summaryPatternLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="summaryPatternLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           <Component id="summaryDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="166" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="xmlPreEncoded" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="296" max="32767" attributes="0"/>
+                      <EmptySpace pref="284" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
