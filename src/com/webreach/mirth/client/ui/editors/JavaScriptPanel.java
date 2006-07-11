@@ -158,7 +158,8 @@ public class JavaScriptPanel extends CardPanel {
 	private JScrollPane mappingScrollPane;
 	private LineNumber lineNumbers;
 	private JSplitPane hSplitPane;
-	private TabbedReferencePanel tabPanel;
+//	public to access updateVariable() method from parent
+	public TabbedReferencePanel tabPanel;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";

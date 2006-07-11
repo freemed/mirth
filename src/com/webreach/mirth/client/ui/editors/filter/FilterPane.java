@@ -79,7 +79,8 @@ public class FilterPane extends MirthEditorPane {
 			jsPanel.setData( null );
 		}			
     	
-    	parent.setCurrentContentPage( this );
+		jsPanel.tabPanel.updateVariables();
+		parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
     	
     	updateRuleNumbers();

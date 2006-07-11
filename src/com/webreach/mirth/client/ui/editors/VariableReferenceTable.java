@@ -15,6 +15,18 @@ import com.webreach.mirth.client.ui.TreeTransferable;
 
 public class VariableReferenceTable extends ReferenceTable {
 
+	public VariableReferenceTable () {
+		this.setModel( new DefaultTableModel(
+				new String[] {"Variable"}, 0 ) {
+					public boolean isCellEditable ( int row, int col ) {
+						return false;
+					}
+				});
+       
+       this.getColumnExt( "Variable" ).setPreferredWidth( 80 );
+       this.getColumnExt( "Variable" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
+	}
+	
 	public VariableReferenceTable (String[] data ) {
 		super();
 		
