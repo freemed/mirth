@@ -1066,11 +1066,11 @@ public class Frame extends JXFrame
     {
         doRefreshUser();
 
-        if (adminPanel.u.getUserIndex() == UIConstants.ERROR_CONSTANT)
+        if (adminPanel.userPane.getUserIndex() == UIConstants.ERROR_CONSTANT)
             JOptionPane.showMessageDialog(this, "User no longer exists.");
         else
         {
-            UserWizard userDialog = new UserWizard(adminPanel.u.getSelectedRow());
+            UserWizard userDialog = new UserWizard(adminPanel.userPane.getSelectedRow());
             Dimension dialogSize = userDialog.getPreferredSize();
             Dimension frmSize = getSize();
             Point loc = getLocation();
@@ -1085,8 +1085,8 @@ public class Frame extends JXFrame
         if(!alertOption("Are you sure you want to delete this user?"))
             return;
 
-        int userToDelete = adminPanel.u.getUserIndex();
-        String userName = ((CellData)adminPanel.u.usersTable.getValueAt(adminPanel.u.getSelectedRow(), adminPanel.u.getColumnNumber("Username"))).getText();
+        int userToDelete = adminPanel.userPane.getUserIndex();
+        String userName = ((CellData)adminPanel.userPane.usersTable.getValueAt(adminPanel.userPane.getSelectedRow(), adminPanel.userPane.getColumnNumber("Username"))).getText();
 
         if(userName.equalsIgnoreCase("admin"))
         {
@@ -1101,8 +1101,8 @@ public class Frame extends JXFrame
            {
                 mirthClient.removeUser(users.get(userToDelete).getId());
                 users = mirthClient.getUsers();
-                adminPanel.u.makeUsersTable();
-                adminPanel.u.deselectRows();
+                adminPanel.userPane.makeUsersTable();
+                adminPanel.userPane.deselectRows();
            }
         }
         catch (ClientException e)
@@ -1117,14 +1117,14 @@ public class Frame extends JXFrame
         int userId = UIConstants.ERROR_CONSTANT;
         String userName = null;
 
-        if(adminPanel.u.getUserIndex() != UIConstants.ERROR_CONSTANT)
-            userId = users.get(adminPanel.u.getUserIndex()).getId();
+        if(adminPanel.userPane.getUserIndex() != UIConstants.ERROR_CONSTANT)
+            userId = users.get(adminPanel.userPane.getUserIndex()).getId();
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
         {
             users = mirthClient.getUsers();
-            adminPanel.u.makeUsersTable();
+            adminPanel.userPane.makeUsersTable();
 
             for(int i = 0; i<users.size(); i++)
             {
@@ -1140,7 +1140,7 @@ public class Frame extends JXFrame
 
         // as long as the channel was not deleted
         if (userName != null)
-            adminPanel.u.setSelectedUser(userName);
+            adminPanel.userPane.setSelectedUser(userName);
     }
 
     public void doDeployAll()
@@ -1292,7 +1292,7 @@ public class Frame extends JXFrame
         {
             mirthClient.updateUser(curr);
             users = mirthClient.getUsers();
-            adminPanel.u.makeUsersTable();
+            adminPanel.userPane.makeUsersTable();
         }
         catch (ClientException e)
         {

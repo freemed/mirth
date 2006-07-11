@@ -24,7 +24,7 @@ public class UserWizard extends javax.swing.JDialog
         {
             jLabel2.setText("Edit User");
             jLabel2.setForeground(UIConstants.TITLE_TEXT_COLOR);
-            index = this.parent.adminPanel.u.getUserIndex();
+            index = this.parent.adminPanel.userPane.getUserIndex();
             username.setText(this.parent.users.get(index).getUsername());     
             password1.setText(this.parent.users.get(index).getPassword());
             password2.setText(this.parent.users.get(index).getPassword());
