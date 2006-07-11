@@ -55,6 +55,7 @@ import ca.uhn.hl7v2.model.Varies;
 import ca.uhn.hl7v2.parser.EncodingCharacters;
 import ca.uhn.hl7v2.parser.EncodingNotSupportedException;
 import ca.uhn.hl7v2.parser.PipeParser;
+import ca.uhn.hl7v2.util.Terser;
 import ca.uhn.hl7v2.validation.impl.NoValidation;
 
 public class HL7TreePanel extends JPanel {
@@ -74,10 +75,13 @@ public class HL7TreePanel extends JPanel {
 	 */
 	public void setMessage(String source) {
 		Message message = null;
+		String messageName = new String();
 
 		if (source != null) {
 			try {
 				message = parser.parse(source);
+				Terser terser = new Terser(message);
+				messageName = terser.get("/MSH-9-1") + "-" + terser.get("/MSH-9-2") + " (" + message.getVersion() + ")";
 			} catch (EncodingNotSupportedException e) {
 				PlatformUI.MIRTH_FRAME.alertWarning( "Encoding not supported.\n" +
 						"Please check the syntax of your message\n" +
@@ -92,7 +96,7 @@ public class HL7TreePanel extends JPanel {
 			}
 			
 			if (message != null) {
-				DefaultMutableTreeNode top = new DefaultMutableTreeNode(message.getClass().getName());
+				DefaultMutableTreeNode top = new DefaultMutableTreeNode(messageName);
 				addChildren(message, top);
 	
 				JTree tree = new JTree(top);
