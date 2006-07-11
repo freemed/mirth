@@ -2,9 +2,8 @@ package com.webreach.mirth.client.ui.editors;
 
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import com.webreach.mirth.client.ui.Frame;
+
 import com.webreach.mirth.client.ui.PlatformUI;
-import com.webreach.mirth.client.ui.UIConstants;
 
 public class VariableReferenceTable extends ReferenceTable {
 
@@ -24,9 +23,7 @@ public class VariableReferenceTable extends ReferenceTable {
 					}
 				});
        
-       //this.getColumnExt( "Variable" ).setMaxWidth( 125 );
        this.getColumnExt( "Variable" ).setPreferredWidth( 80 );
-       
        this.getColumnExt( "Variable" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
 	}
 	

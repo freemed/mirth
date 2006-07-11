@@ -47,7 +47,7 @@ public class MapperPanel extends CardPanel {
 	 */
 	private void initComponents() {
 		referenceScrollPane = new JScrollPane();
-		refTree = new TabbedReferencePanel();
+		tabPanel = new TabbedReferencePanel();
 		refPanel = new JPanel();
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
@@ -86,7 +86,7 @@ public class MapperPanel extends CardPanel {
 		mappingPane.setLayout( new BorderLayout() );
 		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
 		
-		referenceScrollPane.setViewportView( refTree );
+		referenceScrollPane.setViewportView( tabPanel );
 		mappingScrollPane.setViewportView( mappingPane );
 		
 		mappingPanel.setLayout( new BorderLayout() );
@@ -184,7 +184,7 @@ public class MapperPanel extends CardPanel {
 	private JSplitPane hSplitPane;
 	private MirthTextPane mappingTextPane;
 	private HighlightedDocument mappingDoc;
-	private TabbedReferencePanel refTree;
+	private TabbedReferencePanel tabPanel;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPane;

@@ -16,7 +16,13 @@ import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 
-
+/** ReferenceTable
+ * 	This class provides some basic properties and drag & drop support
+ *  for a JXTable
+ *   
+ *  @author franciscos
+ *
+ */
 public class ReferenceTable extends JXTable {
 	
 	public class TableTransferHandler extends TransferHandler {

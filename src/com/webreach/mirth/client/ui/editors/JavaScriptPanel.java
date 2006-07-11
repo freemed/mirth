@@ -57,7 +57,7 @@ public class JavaScriptPanel extends CardPanel {
 	}
 	
 	private void initComponents() {
-		refTree = new TabbedReferencePanel();
+		tabPanel = new TabbedReferencePanel();
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		refPanel = new JPanel();
@@ -99,7 +99,7 @@ public class JavaScriptPanel extends CardPanel {
 		
 		refPanel.setBorder( BorderFactory.createEmptyBorder() );
 		refPanel.setLayout( new BorderLayout() );
-		refPanel.add( refTree, BorderLayout.CENTER );
+		refPanel.add( tabPanel, BorderLayout.CENTER );
 		
 		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
 				mappingScrollPane, refPanel );
@@ -158,7 +158,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JScrollPane mappingScrollPane;
 	private LineNumber lineNumbers;
 	private JSplitPane hSplitPane;
-	private TabbedReferencePanel refTree;
+	private TabbedReferencePanel tabPanel;
 	private MirthEditorPane parent;
 	private String header = "{";
 	private String footer = "}";
