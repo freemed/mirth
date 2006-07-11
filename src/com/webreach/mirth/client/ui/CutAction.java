@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
+/** Allows for Cutting in text components. */
 class CutAction extends AbstractAction
 {
     JTextComponent comp;

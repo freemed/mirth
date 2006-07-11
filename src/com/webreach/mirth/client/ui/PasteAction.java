@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
+/** Allows for Pasting in text components. */
 class PasteAction extends AbstractAction
 {
     JTextComponent comp;

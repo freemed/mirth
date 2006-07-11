@@ -2,6 +2,9 @@ package com.webreach.mirth.client.ui;
 
 import java.util.Properties;
 
+/** Used to extend from for all of the Connectors.
+ *  Each method is re-implemented in each Connector.
+ */
 public class ConnectorClass extends javax.swing.JPanel
 {
     String name;
@@ -13,24 +16,36 @@ public class ConnectorClass extends javax.swing.JPanel
         initComponents();
     }
     
+    /** Gets the name of the connector */
     public String getName()
     {
         return name;
     }
     
+    /** Gets a properties object with all of the current data 
+     *  in the connector's form.
+     */
     public Properties getProperties()
     {
         return properties;
     }
     
+    /** Sets all of the current data in the connector's form 
+     *  to the data in the properties object parameter
+     */
     public void setProperties(Properties props)
     {
     }
     
+    /** NO LONGER USED.  Replaced by using setProperties(getDefaults()).
+     *  Simply sets the defaults to everything int he form */
     public void setDefaults()
     {
     }
     
+    /** Gets a properties object with all of the default settings
+     *  for that form as the data.
+     */
     public Properties getDefaults()
     {
         return properties;

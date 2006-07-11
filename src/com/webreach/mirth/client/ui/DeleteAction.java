@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
+/** Allows for Deleting in text components. */
 class DeleteAction extends AbstractAction
 {
     JTextComponent comp;

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
+/** Allows for Selecting All in text components. */
 class SelectAllAction extends AbstractAction
 {
     JTextComponent comp;

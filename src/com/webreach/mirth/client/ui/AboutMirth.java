@@ -1,19 +1,10 @@
-/*
- * AboutMirth.java
- *
- * Created on July 6, 2006, 12:01 PM
- */
-
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.ui.util.FileUtil;
 import java.io.File;
 import java.io.IOException;
 
-/**
- *
- * @author  brendanh
- */
+/** Creates the About Mirth dialog.  The content is loaded from about.txt. */
 public class AboutMirth extends javax.swing.JDialog
 {
     private Frame parent;
@@ -28,6 +19,7 @@ public class AboutMirth extends javax.swing.JDialog
         this.setResizable(false);
     }
     
+    /** Loads the contents of about.txt */
     public void loadContent()
     {
         String content = "";

@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/** CellRenderer that has the alignment set to CENTER. */
 public class CenterCellRenderer extends DefaultTableCellRenderer
 {
     public CenterCellRenderer()

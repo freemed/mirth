@@ -2,6 +2,10 @@ package com.webreach.mirth.client.ui;
 
 import javax.swing.ImageIcon;
 
+/** Holds an ImageIcon and a String value.  These are used for a cell
+ *  that has an image in it.  This class has accessor methods to get 
+ *  and set these values.
+ */
 public class CellData
 {
     private ImageIcon icon;

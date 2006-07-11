@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 public class AdminPanel extends javax.swing.JPanel
 {
-    public Users u;
+    public Users userPane;
 
     private static Preferences userPreferences;
     private Frame parent;
@@ -17,7 +17,7 @@ public class AdminPanel extends javax.swing.JPanel
     {
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
-        u = new Users();
+        userPane = new Users();
         
         settings.addMouseListener(new java.awt.event.MouseAdapter() 
         {
@@ -35,16 +35,17 @@ public class AdminPanel extends javax.swing.JPanel
         users.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(u, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .add(userPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(u, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .add(userPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         
         loadSettings();
     }
 
+    /** Shows the right click popup menu */
     private void showSettingsPopupMenu(java.awt.event.MouseEvent evt)
     {
         if (evt.isPopupTrigger())
@@ -329,6 +330,7 @@ public class AdminPanel extends javax.swing.JPanel
         parent.setFocus(parent.userTasks);
     }//GEN-LAST:event_usersComponentShown
     
+    /** Loads the current settings into the Settings form */
     public void loadSettings()
     {
         intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
@@ -363,13 +365,13 @@ public class AdminPanel extends javax.swing.JPanel
             else
                 smtpPassword.setText("");
         } 
-        catch (ClientException ex)
+        catch (ClientException e)
         {
-            ex.printStackTrace();
+            parent.alertException(e.getStackTrace());
         }
-        
     }
     
+    /** Shows the correct taskpane based on which tab is open */
     public void showTasks()
     {
         if(settings.isVisible())
@@ -382,6 +384,7 @@ public class AdminPanel extends javax.swing.JPanel
         }
     }
 
+    /** Saves the current settings from the settings form */
     public void saveSettings()
     {
         int interval = Integer.parseInt(intervalTime.getText());
