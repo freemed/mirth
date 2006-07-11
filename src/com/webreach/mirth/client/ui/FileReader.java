@@ -19,23 +19,52 @@ public class FileReader extends ConnectorClass
         Properties properties = new Properties();
         properties.put("DataType", name);
         properties.put("Directory", directoryField.getText());
-        properties.put("FileName", fileNameField.getText());
-        properties.put("Contents", fileContentsTextArea.getText());
+        properties.put("PollingFrequency", pollingFreq.getText());
+        properties.put("MoveToPattern", moveToPattern.getText());
+        properties.put("MoveToDirectory", moveToDirectory.getText());
+        
+        if (deleteAfterReadYes.isSelected())
+            properties.put("DeleteAfterRead", "YES");
+        else
+            properties.put("DeleteAfterRead", "NO");
+        
+        if (checkFileAgeYes.isSelected())
+            properties.put("CheckFileAge", "YES");
+        else
+            properties.put("CheckFileAge", "NO");
+        
+        properties.put("FileAge", fileAge.getText());
+        
         return properties;
     }
 
     public void setProperties(Properties props)
     {
         directoryField.setText((String)props.get("Directory"));
-        fileNameField.setText((String)props.get("FileName"));
-        fileContentsTextArea.setText((String)props.get("Contents"));
+        pollingFreq.setText((String)props.get("PollingFrequency"));
+        moveToPattern.setText((String)props.get("MoveToPattern"));
+        moveToDirectory.setText((String)props.get("MoveToDirectory"));
+        if(((String)props.get("DeleteAfterRead")).equalsIgnoreCase("YES"))
+            deleteAfterReadYes.setSelected(true);
+        else
+            deleteAfterReadNo.setSelected(true);
+        if(((String)props.get("CheckFileAge")).equalsIgnoreCase("YES"))
+            checkFileAgeYes.setSelected(true);
+        else
+            checkFileAgeNo.setSelected(true);
+        fileAge.setText((String)props.get("FileAge"));
     }
 
     public void setDefaults()
     {
         directoryField.setText("");
-        fileNameField.setText("");
-        fileContentsTextArea.setText("");
+        pollingFreq.setText("");
+        moveToPattern.setText("");
+        moveToDirectory.setText("");
+        deleteAfterReadNo.setSelected(true);
+        checkFileAgeNo.setSelected(true);
+        fileAge.setText("");
+
     }
     
     public Properties getDefaults()
@@ -43,8 +72,12 @@ public class FileReader extends ConnectorClass
         Properties properties = new Properties();
         properties.put("DataType", name);
         properties.put("Directory", "");
-        properties.put("FileName", "");
-        properties.put("Contents", "");
+        properties.put("PollingFrequency", "");
+        properties.put("MoveToPattern", "");
+        properties.put("MoveToDirectory", "");
+        properties.put("DeleteAfterRead", "NO");
+        properties.put("CheckFileAge", "NO");
+        properties.put("FileAge", "");
         return properties;
     }
 
@@ -56,25 +89,66 @@ public class FileReader extends ConnectorClass
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents()
     {
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         directoryField = new com.webreach.mirth.client.ui.MirthTextField();
-        fileNameField = new com.webreach.mirth.client.ui.MirthTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        fileContentsTextArea = new com.webreach.mirth.client.ui.MirthTextArea();
+        pollingFreq = new com.webreach.mirth.client.ui.MirthTextField();
+        jLabel4 = new javax.swing.JLabel();
+        moveToPattern = new com.webreach.mirth.client.ui.MirthTextField();
+        moveToDirectory = new com.webreach.mirth.client.ui.MirthTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        deleteAfterReadYes = new com.webreach.mirth.client.ui.MirthRadioButton();
+        deleteAfterReadNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        checkFileAgeYes = new com.webreach.mirth.client.ui.MirthRadioButton();
+        checkFileAgeNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        fileAge = new com.webreach.mirth.client.ui.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Reader", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
-        jLabel1.setText("Directory:");
+        jLabel1.setText("Directory to read:");
 
-        jLabel2.setText("File Name:");
+        jLabel2.setText("Polling Frequency:");
 
-        jLabel3.setText("Contents:");
+        jLabel4.setText("Move-to Pattern:");
 
-        fileContentsTextArea.setColumns(20);
-        fileContentsTextArea.setRows(5);
-        jScrollPane1.setViewportView(fileContentsTextArea);
+        jLabel5.setText("Move-to Directory:");
+
+        jLabel6.setText("Delete File After Read: ");
+
+        jLabel7.setText("Check File Age:");
+
+        jLabel8.setText("File Age:");
+
+        deleteAfterReadYes.setBackground(new java.awt.Color(255, 255, 255));
+        deleteAfterReadYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(deleteAfterReadYes);
+        deleteAfterReadYes.setText("Yes");
+        deleteAfterReadYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        deleteAfterReadNo.setBackground(new java.awt.Color(255, 255, 255));
+        deleteAfterReadNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(deleteAfterReadNo);
+        deleteAfterReadNo.setSelected(true);
+        deleteAfterReadNo.setText("No");
+        deleteAfterReadNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        checkFileAgeYes.setBackground(new java.awt.Color(255, 255, 255));
+        checkFileAgeYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup2.add(checkFileAgeYes);
+        checkFileAgeYes.setText("Yes");
+        checkFileAgeYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        checkFileAgeNo.setBackground(new java.awt.Color(255, 255, 255));
+        checkFileAgeNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup2.add(checkFileAgeNo);
+        checkFileAgeNo.setSelected(true);
+        checkFileAgeNo.setText("No");
+        checkFileAgeNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -83,15 +157,31 @@ public class FileReader extends ConnectorClass
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabel8)
+                    .add(jLabel7)
+                    .add(jLabel6)
+                    .add(jLabel4)
                     .add(jLabel2)
-                    .add(jLabel3)
-                    .add(jLabel1))
+                    .add(jLabel1)
+                    .add(jLabel5))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(fileNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(directoryField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 327, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, moveToDirectory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, directoryField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, moveToPattern, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, pollingFreq, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(deleteAfterReadYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(deleteAfterReadNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, fileAge, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, checkFileAgeYes, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(checkFileAgeNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(332, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -101,25 +191,55 @@ public class FileReader extends ConnectorClass
                     .add(jLabel1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(fileNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2))
+                    .add(jLabel2)
+                    .add(pollingFreq, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel3)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 278, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel4)
+                    .add(moveToPattern, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(moveToDirectory, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel5))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabel6)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(deleteAfterReadYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(deleteAfterReadNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(checkFileAgeYes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(checkFileAgeNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel8)
+                    .add(fileAge, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private com.webreach.mirth.client.ui.MirthRadioButton checkFileAgeNo;
+    private com.webreach.mirth.client.ui.MirthRadioButton checkFileAgeYes;
+    private com.webreach.mirth.client.ui.MirthRadioButton deleteAfterReadNo;
+    private com.webreach.mirth.client.ui.MirthRadioButton deleteAfterReadYes;
     private com.webreach.mirth.client.ui.MirthTextField directoryField;
-    private com.webreach.mirth.client.ui.MirthTextArea fileContentsTextArea;
-    private com.webreach.mirth.client.ui.MirthTextField fileNameField;
+    private com.webreach.mirth.client.ui.MirthTextField fileAge;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private com.webreach.mirth.client.ui.MirthTextField moveToDirectory;
+    private com.webreach.mirth.client.ui.MirthTextField moveToPattern;
+    private com.webreach.mirth.client.ui.MirthTextField pollingFreq;
     // End of variables declaration//GEN-END:variables
 
 }
