@@ -142,11 +142,7 @@ public class MapperPanel extends CardPanel {
 					// this will ensure the variable field is given the proper label
 					public void componentShown(ComponentEvent arg0) {
 					
-						Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
-						if ( channel.getDirection().equals(Channel.Direction.INBOUND) )
-							mappingLabel.setText( "   Variable: " );
-						else if ( channel.getDirection().equals(Channel.Direction.OUTBOUND) )
-							mappingLabel.setText( "   HL7 Message Segment: " );
+						
 					}
 					
 					public void componentHidden(ComponentEvent arg0) {}
@@ -161,6 +157,15 @@ public class MapperPanel extends CardPanel {
 	
 	public void Update(){
 		tabPanel.Update();
+		Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
+		if ( channel.getDirection().equals(Channel.Direction.INBOUND) ){
+			mappingLabel.setText( "   Variable: " );
+			tabPanel.setDroppedTextPrefix("msg");
+		}
+		else if ( channel.getDirection().equals(Channel.Direction.OUTBOUND) ){
+			mappingLabel.setText( "   HL7 Message Segment: " );
+			tabPanel.setDroppedTextPrefix("hl7");
+		}
 	}
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();

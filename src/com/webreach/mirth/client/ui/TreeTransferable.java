@@ -14,13 +14,14 @@ public class TreeTransferable implements Transferable {
 
    private static DataFlavor[] flavors = null;
    private TreeNode data = null;
-
+   private String prefix = "msg";
    /**
     * @param data the type of Ant element being transferred, e.g., target, task,
     * type, etc.
     */
-   public TreeTransferable( TreeNode data ) {
+   public TreeTransferable( TreeNode data, String prefix ) {
       this.data = data;
+      this.prefix = prefix;
       init();
    }
 
@@ -52,7 +53,7 @@ public class TreeTransferable implements Transferable {
       if ( data != null ){
          
         StringBuilder sb = new StringBuilder();
-        sb.insert(0, "msg");
+        sb.insert(0, prefix);
     	 TreeNode parent = data.getParent();
     	 LinkedList<String> nodeQ = new LinkedList<String>();
          while(parent != null){

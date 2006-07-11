@@ -1,19 +1,29 @@
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.BorderLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
+import javax.swing.TransferHandler;
+import javax.swing.tree.TreeNode;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.ReferenceTableHandler;
+import com.webreach.mirth.client.ui.ReferenceTableTransferable;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
-import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.SQLParserUtil;
+import com.webreach.mirth.client.ui.TreeTransferable;
+import com.webreach.mirth.model.Channel;
+import com.webreach.mirth.client.ui.MirthTextPane;
 
 
 
@@ -24,12 +34,12 @@ public class TabbedReferencePanel extends JPanel {
 		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
 		HL7TabbedPane.addTab( "Variables", varScrollPane );
 	}
-	
-	public void Update() {
+	public void Update()
+	{
 		updateSQL();
 	}
-	
 	private void updateVariables(String[] variables){
+	
 		
 		dbVarPanel.remove(dbVarTable);
 		dbVarTable = new VariableReferenceTable( variables );
@@ -38,7 +48,9 @@ public class TabbedReferencePanel extends JPanel {
 		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
 		repaint();
 	}
-	
+	public void setDroppedTextPrefix(String prefix){
+		treePanel.setDroppedTextPrefix(prefix);
+	}
 	private void updateSQL() {
 		Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("SQLStatement");
 		if ((sqlStatement != null) && (!sqlStatement.equals(""))){
@@ -46,7 +58,6 @@ public class TabbedReferencePanel extends JPanel {
 			updateVariables(spu.Parse());
 		}
 	}
-	
 	private void initComponents() {
         HL7TabbedPane = new JTabbedPane();
         pasteTab = new JPanel();
@@ -67,7 +78,8 @@ public class TabbedReferencePanel extends JPanel {
 		globalVarPanel.setLayout( new BorderLayout() );
 		globalVarPanel.add( globalVarTable, BorderLayout.CENTER );
 		
-		dbVarTable = new VariableReferenceTable();
+		String[] temp = {"var1", "var2", "var3", "var4"};
+		dbVarTable = new VariableReferenceTable( temp );
         dbVarPanel = new JPanel();
 		dbVarPanel.setBorder( BorderFactory.createTitledBorder("Database Variables") );
 		dbVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
@@ -109,7 +121,8 @@ public class TabbedReferencePanel extends JPanel {
 		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
 		pasteBox = new MirthTextPane( HL7Doc );
 		pasteBox.setFont( EditorConstants.DEFAULT_FONT );
-
+		//pasteBox.setColumns(20);
+        //pasteBox.setRows(5);
 //		this is a tricky way to have "no line-wrap" in a JTextPane;
 //		not using JTextArea for compliance with our current syntax
 //		highlighting package, and for use of MirthTextPane, which
@@ -136,7 +149,7 @@ public class TabbedReferencePanel extends JPanel {
 						if ( message != null || !message.equals("") )
 							treePanel.setMessage( message.replaceAll("\\n","\r\n") );
 						else
-							treePanel.clearMessage();
+						treePanel.clearMessage();
 						treePanel.revalidate();
 						treePanel.repaint();
 					}
