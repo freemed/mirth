@@ -301,7 +301,7 @@ public class ChannelWizard extends javax.swing.JDialog
                 .addContainerGap())
         );
 
-        jLabel4.setText("Channel Type:");
+        jLabel4.setText("Type:");
 
         helpText2.setBorder(null);
         helpText2.setEditable(false);
@@ -325,18 +325,18 @@ public class ChannelWizard extends javax.swing.JDialog
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(mirthHeadingPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
             .add(channelPatternLayout.createSequentialGroup()
-                .add(77, 77, 77)
+                .addContainerGap()
+                .add(helpTextPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, channelPatternLayout.createSequentialGroup()
+                .addContainerGap(119, Short.MAX_VALUE)
                 .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(channelPatternLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(broadcast)
                     .add(router)
                     .add(applicationIntegration))
-                .addContainerGap(93, Short.MAX_VALUE))
-            .add(channelPatternLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(helpTextPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(93, 93, 93))
         );
 
         channelPatternLayout.linkSize(new java.awt.Component[] {backButton, cancelButton2, finishButton}, org.jdesktop.layout.GroupLayout.HORIZONTAL);
@@ -345,7 +345,7 @@ public class ChannelWizard extends javax.swing.JDialog
             channelPatternLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, channelPatternLayout.createSequentialGroup()
                 .add(mirthHeadingPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 49, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(23, 23, 23)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)
                 .add(channelPatternLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(broadcast)
                     .add(jLabel4))
@@ -353,7 +353,7 @@ public class ChannelWizard extends javax.swing.JDialog
                 .add(router)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(applicationIntegration)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                .add(16, 16, 16)
                 .add(helpTextPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 81, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(14, 14, 14)
                 .add(jSeparator2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)

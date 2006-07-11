@@ -449,7 +449,7 @@ public class ChannelSetup extends javax.swing.JPanel
         else
             summaryEnabledCheckbox.setSelected(false);
         
-        if(((String)currentChannel.getProperties().get("recv_pre_encoded")) != null && ((String)currentChannel.getProperties().get("recv_pre_encoded")).equalsIgnoreCase("true"))
+        if(((String)currentChannel.getProperties().get("recv_xml_encoded")) != null && ((String)currentChannel.getProperties().get("recv_xml_encoded")).equalsIgnoreCase("true"))
             xmlPreEncoded.setSelected(true);
         else
             xmlPreEncoded.setSelected(false);
@@ -494,9 +494,9 @@ public class ChannelSetup extends javax.swing.JPanel
         currentChannel.setEnabled(summaryEnabledCheckbox.isSelected());
         
         if(xmlPreEncoded.isSelected())
-            currentChannel.getProperties().put("recv_pre_encoded", "true");
+            currentChannel.getProperties().put("recv_xml_encoded", "true");
         else
-            currentChannel.getProperties().put("recv_pre_encoded", "false");
+            currentChannel.getProperties().put("recv_xml_encoded", "false");
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try
