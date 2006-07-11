@@ -47,6 +47,7 @@ public class ChannelSetup extends javax.swing.JPanel
     {
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
+        
         channelView.addMouseListener(new java.awt.event.MouseAdapter() 
         {
             public void mousePressed(java.awt.event.MouseEvent evt)

@@ -1483,7 +1483,7 @@ public class Frame extends JXFrame
     {
         if(currentContentPage == channelEditPage)
             channelEditTasks.getContentPane().getComponent(0).setVisible(true);
-        else
+        else if (currentContentPage == adminPanel)
             settingsTasks.getContentPane().getComponent(1).setVisible(true);
     }
     
