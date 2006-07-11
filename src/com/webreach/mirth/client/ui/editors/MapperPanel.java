@@ -153,10 +153,9 @@ public class MapperPanel extends CardPanel {
 		this.setLayout( new BorderLayout() );
 		this.add( hSplitPane, BorderLayout.CENTER );
 	} 
-	
-	
-	public void Update(){
-		tabPanel.Update();
+		
+	public void update(){
+		tabPanel.update();
 		Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
 		if ( channel.getDirection().equals(Channel.Direction.INBOUND) ){
 			mappingLabel.setText( "   Variable: " );
@@ -167,6 +166,7 @@ public class MapperPanel extends CardPanel {
 			tabPanel.setDroppedTextPrefix("hl7");
 		}
 	}
+
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		m.put( "Variable", mappingTextField.getText().trim() );

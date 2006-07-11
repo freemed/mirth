@@ -70,9 +70,9 @@ public class TransformerPane extends MirthEditorPane {
         	setRowData( s, row );
         }
         
-    	int rowCount = transformerTableModel.getRowCount();
-        // select the first row if there is one
-		if ( rowCount > 0 ) {
+//      select the first row if there is one
+		int rowCount = transformerTableModel.getRowCount();
+        if ( rowCount > 0 ) {
 			transformerTable.setRowSelectionInterval( 0, 0 );
 			prevSelRow = 0;
 		} else {
@@ -83,7 +83,7 @@ public class TransformerPane extends MirthEditorPane {
     	
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
-    	mapperPanel.Update();
+    	mapperPanel.update();
     	updateStepNumbers();
     	updateTaskPane();
     	modified = false;
@@ -273,6 +273,7 @@ public class TransformerPane extends MirthEditorPane {
         					TransformerListSelected( evt );
         			}
         		});
+        
         transformerTable.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mousePressed(java.awt.event.MouseEvent evt)
@@ -655,9 +656,6 @@ public class TransformerPane extends MirthEditorPane {
     protected BlankPanel blankPanel;		// the cards
     protected MapperPanel mapperPanel;		//    \/
     protected JavaScriptPanel jsPanel;      //    \/
-    protected SMTPPanel smtpPanel;      	//    \/
-    protected JDBCPanel jdbcPanel;			//    \/
-    protected AlertPanel alertPanel;		//    \/
     
     // transformer constants
     public static final int STEP_NUMBER_COL  = 0;

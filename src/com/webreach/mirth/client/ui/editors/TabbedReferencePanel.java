@@ -1,29 +1,20 @@
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.BorderLayout;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
-import javax.swing.TransferHandler;
-import javax.swing.tree.TreeNode;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
-import com.webreach.mirth.client.ui.ReferenceTableHandler;
-import com.webreach.mirth.client.ui.ReferenceTableTransferable;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
-import com.webreach.mirth.client.ui.PlatformUI;
-import com.webreach.mirth.client.ui.SQLParserUtil;
-import com.webreach.mirth.client.ui.TreeTransferable;
-import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.client.ui.MirthTextPane;
+import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.ReferenceTableHandler;
+import com.webreach.mirth.client.ui.SQLParserUtil;
 
 
 
@@ -34,8 +25,8 @@ public class TabbedReferencePanel extends JPanel {
 		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
 		HL7TabbedPane.addTab( "Variables", varScrollPane );
 	}
-	public void Update()
-	{
+
+	public void update() {
 		updateSQL();
 	}
 	private void updateVariables(String[] variables){

@@ -130,6 +130,9 @@ public class JavaScriptPanel extends CardPanel {
 		
 	}
 	
+	public void update(){
+		tabPanel.update();
+	}
 	
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
