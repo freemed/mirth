@@ -55,6 +55,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.webreach.mirth.model.converters.ER7Serializer;
+
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Composite;
 import ca.uhn.hl7v2.model.Group;
@@ -103,8 +105,8 @@ public class HL7XMLTreePanel extends JPanel {
 			try {
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-				xmlDoc = docBuilder.parse(new InputSource(new StringReader(xmlParser.encode(parser.parse(source)))));
-				
+				String er7Message = new ER7Serializer().serialize(source);
+				xmlDoc = docBuilder.parse(new InputSource(new StringReader(er7Message)));
 				message = parser.parse(source);
 			} catch (EncodingNotSupportedException e) {
 				PlatformUI.MIRTH_FRAME.alertWarning( "Encoding not supported.\n" +
