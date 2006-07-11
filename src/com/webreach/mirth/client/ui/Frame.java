@@ -1428,28 +1428,34 @@ public class Frame extends JXFrame
     
     public void doClearAllMessages()
     {
-        try
+        if (alertOption("Are you sure you would like to clear all messages?"))
         {
-            mirthClient.clearMessageEvents(status.get(statusListPage.getSelectedStatus()).getChannelId());
+            try
+            {
+                mirthClient.clearMessageEvents(status.get(statusListPage.getSelectedStatus()).getChannelId());
+            }
+            catch (ClientException e)
+            {
+                alertException(e.getStackTrace());
+            }
+            messageBrowser.refresh();
         }
-        catch (ClientException e)
-        {
-            alertException(e.getStackTrace());
-        }
-        messageBrowser.refresh();
     }
     
     public void doRemoveMessage()
     {
-        try
+        if (alertOption("Are you sure you would like to remove the selected message?"))
         {
-            mirthClient.removeMessageEvent(messageBrowser.getSelectedMessageID());
+            try
+            {
+                mirthClient.removeMessageEvent(messageBrowser.getSelectedMessageID());
+            }
+            catch (ClientException e)
+            {
+                alertException(e.getStackTrace());
+            }
+            messageBrowser.refresh();
         }
-        catch (ClientException e)
-        {
-            alertException(e.getStackTrace());
-        }
-        messageBrowser.refresh();
     }
     
     public void doRefreshEvents()
@@ -1459,15 +1465,18 @@ public class Frame extends JXFrame
     
     public void doClearEvents()
     {
-        try
+        if (alertOption("Are you sure you would like to clear all system events?"))
         {
-            mirthClient.clearSystemEvents();
+            try
+            {
+                mirthClient.clearSystemEvents();
+            }
+            catch (ClientException e)
+            {
+                alertException(e.getStackTrace());
+            }
+            eventBrowser.refresh();
         }
-        catch (ClientException e)
-        {
-            alertException(e.getStackTrace());
-        }
-        eventBrowser.refresh();
     }
 
     public boolean alertOption(String message)
