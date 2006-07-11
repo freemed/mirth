@@ -21,12 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.model.Channel;
 
@@ -56,7 +56,7 @@ public class MapperPanel extends CardPanel {
 		mappingScrollPane = new JScrollPane();
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
-		mappingTextPane = new JTextPane( mappingDoc );
+		mappingTextPane = new MirthTextPane( mappingDoc );
 		
 		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
@@ -137,7 +137,8 @@ public class MapperPanel extends CardPanel {
 					public void componentResized(ComponentEvent arg0) {}
 					
 					public void componentMoved(ComponentEvent arg0) {}
-//					this will ensure the variable field is given the proper label
+					
+					// this will ensure the variable field is given the proper label
 					public void componentShown(ComponentEvent arg0) {
 						Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
 						if ( channel.getDirection().equals(Channel.Direction.INBOUND) )
@@ -181,7 +182,7 @@ public class MapperPanel extends CardPanel {
 	private JScrollPane referenceScrollPane;
 	private JPanel refPanel;
 	private JSplitPane hSplitPane;
-	private JTextPane mappingTextPane;
+	private MirthTextPane mappingTextPane;
 	private HighlightedDocument mappingDoc;
 	private TabbedReferencePanel refTree;
 	private JLabel mappingLabel;

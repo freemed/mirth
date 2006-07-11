@@ -5,13 +5,13 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 
+import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
+import com.webreach.mirth.client.ui.MirthTextPane;
 
 
 public class TabbedReferencePanel extends JPanel {
@@ -26,19 +26,18 @@ public class TabbedReferencePanel extends JPanel {
         HL7TabbedPane = new JTabbedPane();
         pasteTab = new JPanel();
         pasteScrollPane = new JScrollPane();
-        pasteBox = new JTextArea();
         treeScrollPane = new JScrollPane();
         treePanel = new HL7XMLTreePanel();
 
         String[][] referenceData = new String[2][2];
-		referenceData[0][0] = "$localMap";
+		referenceData[0][0] = "localMap";
 		referenceData[0][1] = "The local variable map that will be sent to the connector.";
-		referenceData[1][0] = "$globalMap";
+		referenceData[1][0] = "globalMap";
 		referenceData[1][1] = "The global variable map that persists values between channels.";
         
         globalVarTable = new VariableReferenceTable( referenceData );
         globalVarPanel = new JPanel();
-		globalVarPanel.setBorder( BorderFactory.createTitledBorder("Global Variables") );
+		globalVarPanel.setBorder( BorderFactory.createTitledBorder("Variables") );
 		globalVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
 		globalVarPanel.setLayout( new BorderLayout() );
 		globalVarPanel.add( globalVarTable, BorderLayout.CENTER );
@@ -58,10 +57,22 @@ public class TabbedReferencePanel extends JPanel {
 		varScrollPane = new JScrollPane();
 		varScrollPane.setViewportView( varPanel );
 		
-        pasteBox.setColumns(20);
-        pasteBox.setRows(5);
-        pasteScrollPane.setViewportView(pasteBox);
-
+//		we need to create an HL7 Lexer...	
+		HighlightedDocument HL7Doc = new HighlightedDocument();
+		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
+		pasteBox = new MirthTextPane( HL7Doc );
+		pasteBox.setFont( EditorConstants.DEFAULT_FONT );
+		
+//		this is a tricky way to have "no line-wrap" in a JTextPane;
+//		not using JTextArea for compliance with our current syntax
+//		highlighting package, and for use of MirthTextPane, which
+//		provides right-click edit functionality
+		JPanel pasteBoxPanel = new JPanel();
+		pasteBoxPanel.setLayout( new BorderLayout() );
+		pasteBoxPanel.add( pasteBox, BorderLayout.CENTER );
+        pasteScrollPane.setViewportView( pasteBoxPanel );
+        treeScrollPane.setViewportView( treePanel );
+        
         treeScrollPane.addComponentListener(
         		new ComponentListener() {
 
@@ -87,8 +98,6 @@ public class TabbedReferencePanel extends JPanel {
         			
         		});
         
-        treeScrollPane.setViewportView( treePanel );
-
         org.jdesktop.layout.GroupLayout pasteTabLayout = new org.jdesktop.layout.GroupLayout(pasteTab);
         pasteTab.setLayout(pasteTabLayout);
         pasteTabLayout.setHorizontalGroup(
@@ -121,7 +130,7 @@ public class TabbedReferencePanel extends JPanel {
 	private JTabbedPane HL7TabbedPane;
 	private JPanel pasteTab;
 	private JScrollPane pasteScrollPane;
-	private JTextArea pasteBox;
+	private MirthTextPane pasteBox;
 	private JScrollPane treeScrollPane;
 	private HL7XMLTreePanel treePanel;
 	private VariableReferenceTable globalVarTable;
