@@ -28,6 +28,7 @@ import javax.swing.event.DocumentListener;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.SQLParserUtil;
 import com.webreach.mirth.model.Channel;
 
 
@@ -140,6 +141,7 @@ public class MapperPanel extends CardPanel {
 					
 					// this will ensure the variable field is given the proper label
 					public void componentShown(ComponentEvent arg0) {
+					
 						Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
 						if ( channel.getDirection().equals(Channel.Direction.INBOUND) )
 							mappingLabel.setText( "   Variable: " );

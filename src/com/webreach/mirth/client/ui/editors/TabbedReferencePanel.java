@@ -11,7 +11,11 @@ import javax.swing.JTabbedPane;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
+import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.SQLParserUtil;
+import com.webreach.mirth.model.Channel;
 import com.webreach.mirth.client.ui.MirthTextPane;
+
 
 
 public class TabbedReferencePanel extends JPanel {
@@ -21,7 +25,13 @@ public class TabbedReferencePanel extends JPanel {
 		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
 		HL7TabbedPane.addTab( "Variables", varScrollPane );
 	}
-	
+	public void UpdateVariables(String[] variables){
+		
+		dbVarPanel.remove(dbVarTable);
+		dbVarTable = new VariableReferenceTable( variables );
+		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
+		repaint();
+	}
 	private void initComponents() {
         HL7TabbedPane = new JTabbedPane();
         pasteTab = new JPanel();
@@ -57,12 +67,38 @@ public class TabbedReferencePanel extends JPanel {
 		varScrollPane = new JScrollPane();
 		varScrollPane.setViewportView( varPanel );
 		
+        
+        pasteScrollPane.setViewportView(pasteBox);
+        varScrollPane.addComponentListener(
+        		new ComponentListener(){
+        			public void componentResized(ComponentEvent arg0) {
+					}
+        			public void componentMoved(ComponentEvent arg0) {
+					}
+
+					public void componentShown(ComponentEvent arg0) {
+//						chrisl 7/11/206
+						Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("SQLStatement");
+						if ((sqlStatement != null) && (!sqlStatement.equals(""))){
+							SQLParserUtil spu = new SQLParserUtil((String)sqlStatement);
+							
+							UpdateVariables(spu.Parse());
+						}
+					}
+
+					public void componentHidden(ComponentEvent arg0) {
+						
+					}
+        			
+        		});
+
 //		we need to create an HL7 Lexer...	
 		HighlightedDocument HL7Doc = new HighlightedDocument();
 		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
 		pasteBox = new MirthTextPane( HL7Doc );
 		pasteBox.setFont( EditorConstants.DEFAULT_FONT );
-		
+		//pasteBox.setColumns(20);
+        //pasteBox.setRows(5);
 //		this is a tricky way to have "no line-wrap" in a JTextPane;
 //		not using JTextArea for compliance with our current syntax
 //		highlighting package, and for use of MirthTextPane, which
@@ -73,6 +109,8 @@ public class TabbedReferencePanel extends JPanel {
         pasteScrollPane.setViewportView( pasteBoxPanel );
         treeScrollPane.setViewportView( treePanel );
         
+
+					
         treeScrollPane.addComponentListener(
         		new ComponentListener() {
 

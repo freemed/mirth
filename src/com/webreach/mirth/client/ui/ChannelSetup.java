@@ -1149,7 +1149,10 @@ public class ChannelSetup extends javax.swing.JPanel
         c.setFilter(df);
         return c;
     }
-    
+    public ConnectorClass getSourceConnector(){
+    	return connectorClass1;
+    }
+
     public void showSaveButton()
     {
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);

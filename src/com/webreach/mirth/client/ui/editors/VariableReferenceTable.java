@@ -46,6 +46,8 @@ public class VariableReferenceTable extends ReferenceTable {
        
        this.getColumnExt( "Variable" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
        this.getColumnExt( "Note" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
+	
+	
 	}
 	
 }
