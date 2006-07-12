@@ -13,9 +13,9 @@ import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.ReferenceTableHandler;
-import com.webreach.mirth.client.ui.SQLParserUtil;
 import com.webreach.mirth.client.ui.components.MirthTextPane;
 import com.webreach.mirth.client.ui.connectors.DatabaseReader;
+import com.webreach.mirth.client.ui.util.SQLParserUtil;
 
 
 public class TabbedReferencePanel extends JPanel {

@@ -24,7 +24,7 @@
  * this file under either the MPL or the GPL.
  *
  */
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.util;
 
 import java.util.ArrayList;
 import java.util.List;
