@@ -1,9 +1,8 @@
-package com.webreach.mirth.client.ui.components;
+package com.webreach.mirth.client.ui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import com.webreach.mirth.client.ui.PlatformUI;
 
 /**
  * Creates the heading panel that is used for wizards, login, etc.

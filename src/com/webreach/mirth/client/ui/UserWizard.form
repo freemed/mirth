@@ -159,7 +159,7 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="password2KeyReleased"/>
           </Events>
         </Component>
-        <Container class="com.webreach.mirth.client.ui.components.MirthHeadingPanel" name="mirthHeadingPanel1">
+        <Container class="com.webreach.mirth.client.ui.MirthHeadingPanel" name="mirthHeadingPanel1">
 
           <Layout>
             <DimensionLayout dim="0">

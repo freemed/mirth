@@ -45,7 +45,7 @@ public class AboutMirth extends javax.swing.JDialog
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         aboutContent = new javax.swing.JTextPane();
-        mirthHeadingPanel1 = new com.webreach.mirth.client.ui.components.MirthHeadingPanel();
+        mirthHeadingPanel1 = new com.webreach.mirth.client.ui.MirthHeadingPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -133,7 +133,7 @@ public class AboutMirth extends javax.swing.JDialog
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private com.webreach.mirth.client.ui.components.MirthHeadingPanel mirthHeadingPanel1;
+    private com.webreach.mirth.client.ui.MirthHeadingPanel mirthHeadingPanel1;
     // End of variables declaration//GEN-END:variables
     
 }
