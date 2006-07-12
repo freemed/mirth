@@ -198,7 +198,7 @@ public class Mirth
                 
                 loginInfo.getComponent(5).setFont(loginInfo.getComponent(1).getFont());
                 svc.setPanel(loginInfo);
-                svc.addLoginListener(new MirthLoginListener(svc));
+                svc.addLoginListener(new MirthLoginListener());
                 
                 final JXLoginPanel.JXLoginFrame frm = JXLoginPanel.showLoginFrame(panel);
                 frm.setIconImage(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/emoticon_smile.png")).getImage());
@@ -214,10 +214,9 @@ public class Mirth
  */
 class MirthLoginListener implements LoginListener 
 {
-        public MirthLoginListener(final MirthLoginService svc) 
+        public MirthLoginListener() 
         {
         }
-        
         public void loginSucceeded(LoginEvent source) 
         {
         }

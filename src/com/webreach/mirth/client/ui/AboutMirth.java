@@ -15,6 +15,7 @@ public class AboutMirth extends javax.swing.JDialog
         this.parent = PlatformUI.MIRTH_FRAME;
         initComponents();
         loadContent();
+        aboutContent.setCaretPosition(0);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setResizable(false);
     }
