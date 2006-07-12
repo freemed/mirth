@@ -15,6 +15,8 @@ public class LLPSender extends ConnectorClass
     Frame parent;
     /** Creates new form LLPSender */
     public final String DATATYPE = "DataType";
+    public final String LLP_PROTOCOL_NAME = "tcpProtocolClassName";
+    public final String LLP_PROTOCOL_NAME_VALUE = "org.mule.providers.tcp.protocols.LlpProtocol";
     public final String LLP_ADDRESS = "host";
     public final String LLP_PORT = "port";
     public final String LLP_SERVER_TIMEOUT = "sendTimeout";
@@ -37,6 +39,7 @@ public class LLPSender extends ConnectorClass
     {        
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(LLP_PROTOCOL_NAME,LLP_PROTOCOL_NAME_VALUE);
         String hostIPAddress = hostIPAddressField.getText() + "." + hostIPAddressField1.getText() + "." + hostIPAddressField2.getText() + "." + hostIPAddressField3.getText();
         properties.put(LLP_ADDRESS, hostIPAddress);
         properties.put(LLP_PORT, hostPortField.getText());
@@ -114,6 +117,7 @@ public class LLPSender extends ConnectorClass
     {        
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(LLP_PROTOCOL_NAME,LLP_PROTOCOL_NAME_VALUE);
         properties.put(LLP_ADDRESS, "127.0.0.1");
         properties.put(LLP_PORT, "6660");
         properties.put(LLP_SERVER_TIMEOUT, "5000");

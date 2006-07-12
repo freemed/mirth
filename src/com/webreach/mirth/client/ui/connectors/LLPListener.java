@@ -15,6 +15,8 @@ public class LLPListener extends ConnectorClass
     Frame parent;
     /** Creates new form LLPListener */
     public final String DATATYPE = "DataType";
+    public final String LLP_PROTOCOL_NAME = "tcpProtocolClassName";
+    public final String LLP_PROTOCOL_NAME_VALUE = "org.mule.providers.tcp.protocols.LlpProtocol";
     public final String LLP_ADDRESS = "host";
     public final String LLP_PORT = "port";
     public final String LLP_RECEIVE_TIMEOUT = "receiveTimeout";
@@ -37,6 +39,7 @@ public class LLPListener extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(LLP_PROTOCOL_NAME,LLP_PROTOCOL_NAME_VALUE);
         String listenerIPAddress = listenerIPAddressField.getText() + "." + listenerIPAddressField1.getText() + "." + listenerIPAddressField2.getText() + "." + listenerIPAddressField3.getText();
         properties.put(LLP_ADDRESS, listenerIPAddress);
         properties.put(LLP_PORT, listenerPortField.getText());
@@ -116,6 +119,7 @@ public class LLPListener extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(LLP_PROTOCOL_NAME,LLP_PROTOCOL_NAME_VALUE);
         properties.put(LLP_ADDRESS, "127.0.0.1");
         properties.put(LLP_PORT, "6661");
         properties.put(LLP_RECEIVE_TIMEOUT, "5000");
