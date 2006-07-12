@@ -5,8 +5,20 @@ import java.util.StringTokenizer;
 
 public class LLPSender extends ConnectorClass
 {
-	Frame parent;
+    Frame parent;
     /** Creates new form LLPSender */
+    public final String DATATYPE = "DataType";
+    public final String LLP_ADDRESS = "host";
+    public final String LLP_PORT = "port";
+    public final String LLP_SERVER_TIMEOUT = "sendTimeout";
+    public final String LLP_BUFFER_SIZE = "bufferSize";
+    public final String LLP_KEEP_CONNECTION_OPEN = "keepSendSocketOpen";
+    public final String LLP_MAX_RETRY_COUNT = "maxRetryCount";
+    public final String LLP_START_OF_MESSAGE_CHARACTER = "messageStart";
+    public final String LLP_END_OF_MESSAGE_CHARACTER = "messageEnd";
+    public final String LLP_FIELD_SEPARATOR = "fieldSeparator";
+    public final String LLP_RECORD_SEPARATOR = "recordSeparator";
+    
     public LLPSender()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -17,29 +29,29 @@ public class LLPSender extends ConnectorClass
     public Properties getProperties()
     {        
         Properties properties = new Properties();
-        properties.put("DataType", name);
+        properties.put(DATATYPE, name);
         String hostIPAddress = hostIPAddressField.getText() + "." + hostIPAddressField1.getText() + "." + hostIPAddressField2.getText() + "." + hostIPAddressField3.getText();
-        properties.put("address", hostIPAddress);
-        properties.put("port", hostPortField.getText());
-        properties.put("ServerTimeout", serverTimeoutField.getText());
-        properties.put("BufferSize", bufferSizeField.getText());
+        properties.put(LLP_ADDRESS, hostIPAddress);
+        properties.put(LLP_PORT, hostPortField.getText());
+        properties.put(LLP_SERVER_TIMEOUT, serverTimeoutField.getText());
+        properties.put(LLP_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put("KeepConnectionOpen", "YES");
+            properties.put(LLP_KEEP_CONNECTION_OPEN, "YES");
         else
-            properties.put("KeepConnectionOpen", "NO");
+            properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
 
-        properties.put("MaximumRetryCount", maximumRetryCountField.getText());
-        properties.put("StartOfMessageCharacter", startOfMessageCharacterField.getText());
-        properties.put("EndOfMessageCharacter", endOfMessageCharacterField.getText());
-        properties.put("RecordSeparator", recordSeparatorField.getText());
-        properties.put("FieldSeparator", fieldSeparatorField.getText());
+        properties.put(LLP_MAX_RETRY_COUNT, maximumRetryCountField.getText());
+        properties.put(LLP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
+        properties.put(LLP_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
+        properties.put(LLP_RECORD_SEPARATOR, recordSeparatorField.getText());
+        properties.put(LLP_FIELD_SEPARATOR, fieldSeparatorField.getText());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        String hostIPAddress = (String)props.get("address");
+        String hostIPAddress = (String)props.get(LLP_ADDRESS);
         StringTokenizer IP = new StringTokenizer(hostIPAddress, ".");
         if (IP.hasMoreTokens())
             hostIPAddressField.setText(IP.nextToken());
@@ -58,20 +70,20 @@ public class LLPSender extends ConnectorClass
         else
             hostIPAddressField3.setText("");
         
-        hostPortField.setText((String)props.get("port"));
-        serverTimeoutField.setText((String)props.get("ServerTimeout"));
-        bufferSizeField.setText((String)props.get("BufferSize"));
+        hostPortField.setText((String)props.get(LLP_PORT));
+        serverTimeoutField.setText((String)props.get(LLP_SERVER_TIMEOUT));
+        bufferSizeField.setText((String)props.get(LLP_BUFFER_SIZE));
 
-        if(((String)props.get("KeepConnectionOpen")).equals("YES"))
+        if(((String)props.get(LLP_KEEP_CONNECTION_OPEN)).equals("YES"))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
 
-        maximumRetryCountField.setText((String)props.get("MaximumRetryCount"));
-        startOfMessageCharacterField.setText((String)props.get("StartOfMessageCharacter"));
-        endOfMessageCharacterField.setText((String)props.get("EndOfMessageCharacter"));
-        recordSeparatorField.setText((String)props.get("RecordSeparator"));
-        fieldSeparatorField.setText((String)props.get("FieldSeparator"));
+        maximumRetryCountField.setText((String)props.get(LLP_MAX_RETRY_COUNT));
+        startOfMessageCharacterField.setText((String)props.get(LLP_START_OF_MESSAGE_CHARACTER));
+        endOfMessageCharacterField.setText((String)props.get(LLP_END_OF_MESSAGE_CHARACTER));
+        recordSeparatorField.setText((String)props.get(LLP_RECORD_SEPARATOR));
+        fieldSeparatorField.setText((String)props.get(LLP_FIELD_SEPARATOR));
     }
 
     public void setDefaults()
@@ -94,17 +106,17 @@ public class LLPSender extends ConnectorClass
     public Properties getDefaults()
     {        
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("address", "127.0.0.1");
-        properties.put("port", "3601");
-        properties.put("ServerTimeout", "");
-        properties.put("BufferSize", "");
-        properties.put("KeepConnectionOpen", "YES");
-        properties.put("MaximumRetryCount", "");
-        properties.put("StartOfMessageCharacter", "");
-        properties.put("EndOfMessageCharacter", "");
-        properties.put("RecordSeparator", "");
-        properties.put("FieldSeparator", "");
+        properties.put(DATATYPE, name);
+        properties.put(LLP_ADDRESS, "127.0.0.1");
+        properties.put(LLP_PORT, "6660");
+        properties.put(LLP_SERVER_TIMEOUT, "5000");
+        properties.put(LLP_BUFFER_SIZE, "65536");
+        properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(LLP_MAX_RETRY_COUNT, "50");
+        properties.put(LLP_START_OF_MESSAGE_CHARACTER, "0x0B");
+        properties.put(LLP_END_OF_MESSAGE_CHARACTER, "0x1C");
+        properties.put(LLP_RECORD_SEPARATOR, "0x0D");
+        properties.put(LLP_FIELD_SEPARATOR, "0x7C");
         return properties;
     }
 

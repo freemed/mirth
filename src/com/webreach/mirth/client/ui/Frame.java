@@ -1404,7 +1404,7 @@ public class Frame extends JXFrame
 
         if(returnVal == JFileChooser.APPROVE_OPTION)
         {
-            Channel channel = channels.get(channelListPage.getSelectedChannel());
+            Channel channel = channelEditPage.currentChannel;
             ObjectXMLSerializer serializer = new ObjectXMLSerializer();
             String channelXML = serializer.serialize(channel);
             exportFile = exportFileChooser.getSelectedFile();

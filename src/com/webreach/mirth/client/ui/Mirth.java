@@ -162,8 +162,8 @@ public class Mirth
                 javax.swing.JTextField serverName = new javax.swing.JTextField(mirthServerDefault, 30); 
                 JLabel nameLabel = new JLabel("Login"); 
                 JLabel passwordLabel = new JLabel("Password");  
-                javax.swing.JTextField nameField = new javax.swing.JTextField(userDefault, 15); 
-                JPasswordField passwordField = new JPasswordField(passwordDefault, 15);  
+                javax.swing.JTextField nameField = new javax.swing.JTextField(userDefault, 30); 
+                JPasswordField passwordField = new JPasswordField(passwordDefault, 30);  
                                
                 loginInfo.setLayout(new GridBagLayout());  
                 
@@ -179,7 +179,7 @@ public class Mirth
                 gridBagConstraints.gridy = 0;  
                 gridBagConstraints.gridwidth = 1;  
                 gridBagConstraints.anchor = GridBagConstraints.WEST;  
-                gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;  
+                //gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;  
                 gridBagConstraints.weightx = 1.0;  
                 gridBagConstraints.insets = new Insets(0, 0, 5, 0);  
                 loginInfo.add(serverName, gridBagConstraints);  
@@ -196,7 +196,7 @@ public class Mirth
                 gridBagConstraints.gridy = 1;  
                 gridBagConstraints.gridwidth = 1;  
                 gridBagConstraints.anchor = GridBagConstraints.WEST;  
-                gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;  
+                //gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;  
                 gridBagConstraints.weightx = 1.0;  
                 gridBagConstraints.insets = new Insets(0, 0, 5, 0);  
                 loginInfo.add(nameField, gridBagConstraints);  
@@ -213,7 +213,7 @@ public class Mirth
                 gridBagConstraints.gridy = 2;  
                 gridBagConstraints.gridwidth = 1;  
                 gridBagConstraints.anchor = GridBagConstraints.WEST;  
-                gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;  
+                //gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;  
                 gridBagConstraints.weightx = 1.0;
                 gridBagConstraints.insets = new Insets(0, 0, 11, 0);  
                 loginInfo.add(passwordField, gridBagConstraints);  

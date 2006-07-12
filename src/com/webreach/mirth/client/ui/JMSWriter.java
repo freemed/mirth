@@ -7,6 +7,17 @@ public class JMSWriter extends ConnectorClass
     Frame parent;
     
     /** Creates new form FileWriter */
+    public final String DATATYPE = "Datatype";
+    public final String JMS_ACK_MODE = "AckMode";
+    public final String JMS_SPECIFICATION = "Specification";
+    public final String JMS_DELIVERY = "Delivery";
+    public final String JMS_DURABLE = "Durable";
+    public final String JMS_CLIENT_ID = "ClientID";
+    public final String JMS_JNDI_INITIAL_FACTORY = "JNDIInitialFactory";
+    public final String JMS_JNDI_PROVIDER_URL = "JNDIProviderURL";
+    public final String JMS_JNDI_CONNECTION_NAME = "JNDIConnectionName";    
+    public final String JMS_REDELIVERY_HANDLER = "redeliveryHandler";    
+    
     public JMSWriter()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -17,25 +28,25 @@ public class JMSWriter extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("AckMode", ackMode.getText());
-        properties.put("Specification", (String)specDropDown.getSelectedItem());
+        properties.put(DATATYPE, name);
+        properties.put(JMS_ACK_MODE, ackMode.getText());
+        properties.put(JMS_SPECIFICATION, (String)specDropDown.getSelectedItem());
         
         if(deliveryNo.isSelected())
-            properties.put("Delivery", "false");
+            properties.put(JMS_DELIVERY, "false");
         else
-            properties.put("Delivery", "true");
+            properties.put(JMS_DELIVERY, "true");
         
         if(durableNo.isSelected())
-            properties.put("Durable", "false");
+            properties.put(JMS_DURABLE, "false");
         else
-            properties.put("Durable", "true");
+            properties.put(JMS_DURABLE, "true");
         
-        properties.put("ClientID", cliendId.getText());
-        properties.put("JNDIInitialFactory", JNDIInitialFactory.getText());
-        properties.put("JNDIProviderURL", JNDIProviderURL.getText());
-        properties.put("JNDIConnectionName", JNDIConnectionName.getText());
-        properties.put("redeliveryHandler", redeliveryHandler.getText());
+        properties.put(JMS_CLIENT_ID, cliendId.getText());
+        properties.put(JMS_JNDI_INITIAL_FACTORY, JNDIInitialFactory.getText());
+        properties.put(JMS_JNDI_PROVIDER_URL, JNDIProviderURL.getText());
+        properties.put(JMS_JNDI_CONNECTION_NAME, JNDIConnectionName.getText());
+        properties.put(JMS_REDELIVERY_HANDLER, redeliveryHandler.getText());
         return properties;
     }
 
@@ -43,24 +54,24 @@ public class JMSWriter extends ConnectorClass
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
         
-        ackMode.setText((String)props.get("AckMode"));
-        specDropDown.setSelectedItem(props.get("Specification"));
+        ackMode.setText((String)props.get(JMS_ACK_MODE));
+        specDropDown.setSelectedItem(props.get(JMS_SPECIFICATION));
         
-        if(((String)props.get("Delivery")).equalsIgnoreCase("false"))
+        if(((String)props.get(JMS_DELIVERY)).equalsIgnoreCase("false"))
             deliveryNo.setSelected(true);
         else
             deliveryYes.setSelected(true);
         
-        if(((String)props.get("Delivery")).equalsIgnoreCase("false"))
+        if(((String)props.get(JMS_DELIVERY)).equalsIgnoreCase("false"))
             durableNo.setSelected(true);
         else
             durableYes.setSelected(true);
         
-        cliendId.setText((String)props.get("ClientID"));
-        JNDIInitialFactory.setText((String)props.get("JNDIInitialFactory"));
-        JNDIProviderURL.setText((String)props.get("JNDIProviderURL"));
-        JNDIConnectionName.setText((String)props.get("JNDIConnectionName"));
-        redeliveryHandler.setText((String)props.get("redeliveryHandler"));
+        cliendId.setText((String)props.get(JMS_CLIENT_ID));
+        JNDIInitialFactory.setText((String)props.get(JMS_JNDI_INITIAL_FACTORY));
+        JNDIProviderURL.setText((String)props.get(JMS_JNDI_PROVIDER_URL));
+        JNDIConnectionName.setText((String)props.get(JMS_JNDI_CONNECTION_NAME));
+        redeliveryHandler.setText((String)props.get(JMS_REDELIVERY_HANDLER));
         
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
@@ -81,16 +92,16 @@ public class JMSWriter extends ConnectorClass
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("AckMode", "1");
-        properties.put("Specification", (String)specDropDown.getItemAt(0));
-        properties.put("Delivery", "false");
-        properties.put("Durable", "false");
-        properties.put("ClientID", "");
-        properties.put("JNDIInitialFactory", "");
-        properties.put("JNDIProviderURL", "");
-        properties.put("JNDIConnectionName", "");
-        properties.put("redeliveryHandler", "org.mule.proivders.jms.DefaultRedeliveryHandler");
+        properties.put(DATATYPE, name);
+        properties.put(JMS_ACK_MODE, "1");
+        properties.put(JMS_SPECIFICATION, (String)specDropDown.getItemAt(0));
+        properties.put(JMS_DELIVERY, "false");
+        properties.put(JMS_DURABLE, "false");
+        properties.put(JMS_CLIENT_ID, "");
+        properties.put(JMS_JNDI_INITIAL_FACTORY, "");
+        properties.put(JMS_JNDI_PROVIDER_URL, "");
+        properties.put(JMS_JNDI_CONNECTION_NAME, "");
+        properties.put(JMS_REDELIVERY_HANDLER, "org.mule.proivders.jms.DefaultRedeliveryHandler");
         return properties;
     }
 
@@ -205,10 +216,10 @@ public class JMSWriter extends ConnectorClass
                     .add(JNDIInitialFactory, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(cliendId, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(JNDIConnectionName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(ackMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(specDropDown, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(redeliveryHandler, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 87, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(162, Short.MAX_VALUE))
+                    .add(ackMode, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .add(redeliveryHandler, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

@@ -7,6 +7,12 @@ public class FileWriter extends ConnectorClass
     Frame parent;
     
     /** Creates new form FileWriter */
+    public final String DATATYPE = "DataType";
+    public final String FILE_DIRECTORY = "host";
+    public final String FILE_NAME = "outputPattern";
+    public final String FILE_APPEND = "outputAppend";
+    public final String FILE_CONTENTS = "template";
+
     public FileWriter()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -17,30 +23,30 @@ public class FileWriter extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("Directory", directoryField.getText());
-        properties.put("FileName", fileNameField.getText());
+        properties.put(DATATYPE, name);
+        properties.put(FILE_DIRECTORY, directoryField.getText());
+        properties.put(FILE_NAME, fileNameField.getText());
         
         if (appendToFileYes.isSelected())
-            properties.put("AppendToFile", "YES");
+            properties.put(FILE_APPEND, "YES");
         else
-            properties.put("AppendToFile", "NO");
+            properties.put(FILE_APPEND, "NO");
         
-        properties.put("Contents", fileContentsTextArea.getText());
+        properties.put(FILE_CONTENTS, fileContentsTextArea.getText());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        directoryField.setText((String)props.get("Directory"));
-        fileNameField.setText((String)props.get("FileName"));
+        directoryField.setText((String)props.get(FILE_DIRECTORY));
+        fileNameField.setText((String)props.get(FILE_NAME));
         
-        if(((String)props.get("AppendToFile")).equalsIgnoreCase("YES"))
+        if(((String)props.get(FILE_APPEND)).equalsIgnoreCase("YES"))
             appendToFileYes.setSelected(true);
         else
             appendToFileNo.setSelected(true);
         
-        fileContentsTextArea.setText((String)props.get("Contents"));
+        fileContentsTextArea.setText((String)props.get(FILE_CONTENTS));
     }
 
     public void setDefaults()
@@ -54,11 +60,11 @@ public class FileWriter extends ConnectorClass
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("Directory", "");
-        properties.put("FileName", "");
-        properties.put("AppendToFile", "NO");
-        properties.put("Contents", "");
+        properties.put(DATATYPE, name);
+        properties.put(FILE_DIRECTORY, "inbox/");
+        properties.put(FILE_NAME, "");
+        properties.put(FILE_APPEND, "YES");
+        properties.put(FILE_CONTENTS, "");
         return properties;
     }
 

@@ -7,6 +7,15 @@ public class FileReader extends ConnectorClass
     Frame parent;
     
     /** Creates new form FileWriter */
+    public final String DATATYPE = "DataType";
+    public final String FILE_DIRECTORY = "host";
+    public final String FILE_POLLING_FREQUENCY = "pollingFrequency";
+    public final String FILE_MOVE_TO_PATTERN = "moveToPattern";
+    public final String FILE_MOVE_TO_DIRECTORY = "moveToDirectory";
+    public final String FILE_DELETE_AFTER_READ = "autoDelete";
+    public final String FILE_CHECK_FILE_AGE = "checkFileAge";
+    public final String FILE_FILE_AGE = "fileAge";
+    
     public FileReader()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -17,42 +26,42 @@ public class FileReader extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("Directory", directoryField.getText());
-        properties.put("PollingFrequency", pollingFreq.getText());
-        properties.put("MoveToPattern", moveToPattern.getText());
-        properties.put("MoveToDirectory", moveToDirectory.getText());
+        properties.put(DATATYPE, name);
+        properties.put(FILE_DIRECTORY, directoryField.getText());
+        properties.put(FILE_POLLING_FREQUENCY, pollingFreq.getText());
+        properties.put(FILE_MOVE_TO_PATTERN, moveToPattern.getText());
+        properties.put(FILE_MOVE_TO_DIRECTORY, moveToDirectory.getText());
         
         if (deleteAfterReadYes.isSelected())
-            properties.put("DeleteAfterRead", "YES");
+            properties.put(FILE_DELETE_AFTER_READ, "YES");
         else
-            properties.put("DeleteAfterRead", "NO");
+            properties.put(FILE_DELETE_AFTER_READ, "NO");
         
         if (checkFileAgeYes.isSelected())
-            properties.put("CheckFileAge", "YES");
+            properties.put(FILE_CHECK_FILE_AGE, "YES");
         else
-            properties.put("CheckFileAge", "NO");
+            properties.put(FILE_CHECK_FILE_AGE, "NO");
         
-        properties.put("FileAge", fileAge.getText());
+        properties.put(FILE_FILE_AGE, fileAge.getText());
         
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        directoryField.setText((String)props.get("Directory"));
-        pollingFreq.setText((String)props.get("PollingFrequency"));
-        moveToPattern.setText((String)props.get("MoveToPattern"));
-        moveToDirectory.setText((String)props.get("MoveToDirectory"));
-        if(((String)props.get("DeleteAfterRead")).equalsIgnoreCase("YES"))
+        directoryField.setText((String)props.get(FILE_DIRECTORY));
+        pollingFreq.setText((String)props.get(FILE_POLLING_FREQUENCY));
+        moveToPattern.setText((String)props.get(FILE_MOVE_TO_PATTERN));
+        moveToDirectory.setText((String)props.get(FILE_MOVE_TO_DIRECTORY));
+        if(((String)props.get(FILE_DELETE_AFTER_READ)).equalsIgnoreCase("YES"))
             deleteAfterReadYes.setSelected(true);
         else
             deleteAfterReadNo.setSelected(true);
-        if(((String)props.get("CheckFileAge")).equalsIgnoreCase("YES"))
+        if(((String)props.get(FILE_CHECK_FILE_AGE)).equalsIgnoreCase("YES"))
             checkFileAgeYes.setSelected(true);
         else
             checkFileAgeNo.setSelected(true);
-        fileAge.setText((String)props.get("FileAge"));
+        fileAge.setText((String)props.get(FILE_FILE_AGE));
     }
 
     public void setDefaults()
@@ -70,14 +79,14 @@ public class FileReader extends ConnectorClass
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("Directory", "");
-        properties.put("PollingFrequency", "");
-        properties.put("MoveToPattern", "");
-        properties.put("MoveToDirectory", "");
-        properties.put("DeleteAfterRead", "NO");
-        properties.put("CheckFileAge", "NO");
-        properties.put("FileAge", "");
+        properties.put(DATATYPE, name);
+        properties.put(FILE_DIRECTORY, "");
+        properties.put(FILE_POLLING_FREQUENCY, "1000");
+        properties.put(FILE_MOVE_TO_PATTERN, "");
+        properties.put(FILE_MOVE_TO_DIRECTORY, "");
+        properties.put(FILE_DELETE_AFTER_READ, "NO");
+        properties.put(FILE_CHECK_FILE_AGE, "NO");
+        properties.put(FILE_FILE_AGE, "0");
         return properties;
     }
 

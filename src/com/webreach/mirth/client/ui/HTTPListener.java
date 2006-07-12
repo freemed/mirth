@@ -7,6 +7,18 @@ public class HTTPListener extends ConnectorClass
 {
     Frame parent;
     /** Creates new form HTTPListener */
+    public final String DATATYPE = "DataType";
+    public final String HTTP_ADDRESS = "host";
+    public final String HTTP_PORT = "port";
+    public final String HTTP_RECEIVE_TIMEOUT = "receiveTimeout";
+    public final String HTTP_BUFFER_SIZE = "bufferSize";
+    public final String HTTP_KEEP_CONNECTION_OPEN = "keepSendSocketOpen";
+    public final String HTTP_START_OF_MESSAGE_CHARACTER = "messageStart";
+    public final String HTTP_END_OF_MESSAGE_CHARACTER = "messageEnd";
+    public final String HTTP_FIELD_SEPARATOR = "fieldSeparator";
+    public final String HTTP_RECORD_SEPARATOR = "recordSeparator";
+    public final String HTTP_SEND_ACK = "sendACK";
+    
     public HTTPListener()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -17,29 +29,29 @@ public class HTTPListener extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
+        properties.put(DATATYPE, name);
         String listenerIPAddress = listenerIPAddressField.getText() + "." + listenerIPAddressField1.getText() + "." + listenerIPAddressField2.getText() + "." + listenerIPAddressField3.getText();
-        properties.put("address", listenerIPAddress);
-        properties.put("port", listenerPortField.getText());
-        properties.put("ReceiveTimeout", receiveTimeoutField.getText());
-        properties.put("BufferSize", bufferSizeField.getText());
+        properties.put(HTTP_ADDRESS, listenerIPAddress);
+        properties.put(HTTP_PORT, listenerPortField.getText());
+        properties.put(HTTP_RECEIVE_TIMEOUT, receiveTimeoutField.getText());
+        properties.put(HTTP_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put("KeepConnectionOpen", "YES");
+            properties.put(HTTP_KEEP_CONNECTION_OPEN, "YES");
         else
-            properties.put("KeepConnectionOpen", "NO");
+            properties.put(HTTP_KEEP_CONNECTION_OPEN, "NO");
 
-        properties.put("StartOfMessageCharacter", startOfMessageCharacterField.getText());
-        properties.put("EndOfMessageCharacter", endOfMessageCharacterField.getText());
-        properties.put("FieldSeparator", fieldSeparatorField.getText());
-        properties.put("RecordSeparator", recordSeparatorField.getText());
-        properties.put("SendACK", sendACKCombobox.getSelectedItem());
+        properties.put(HTTP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
+        properties.put(HTTP_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
+        properties.put(HTTP_FIELD_SEPARATOR, fieldSeparatorField.getText());
+        properties.put(HTTP_RECORD_SEPARATOR, recordSeparatorField.getText());
+        properties.put(HTTP_SEND_ACK, sendACKCombobox.getSelectedItem());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        String listenerIPAddress = (String)props.get("address");
+        String listenerIPAddress = (String)props.get(HTTP_ADDRESS);
         StringTokenizer IP = new StringTokenizer(listenerIPAddress, ".");
         if (IP.hasMoreTokens())
             listenerIPAddressField.setText(IP.nextToken());
@@ -58,20 +70,20 @@ public class HTTPListener extends ConnectorClass
         else
             listenerIPAddressField3.setText("");
 
-        listenerPortField.setText((String)props.get("port"));
-        receiveTimeoutField.setText((String)props.get("ReceiveTimeout"));
-        bufferSizeField.setText((String)props.get("BufferSize"));
+        listenerPortField.setText((String)props.get(HTTP_PORT));
+        receiveTimeoutField.setText((String)props.get(HTTP_RECEIVE_TIMEOUT));
+        bufferSizeField.setText((String)props.get(HTTP_BUFFER_SIZE));
 
-        if(((String)props.get("KeepConnectionOpen")).equals("YES"))
+        if(((String)props.get(HTTP_KEEP_CONNECTION_OPEN)).equals("YES"))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
 
-        startOfMessageCharacterField.setText((String)props.get("StartOfMessageCharacter"));
-        endOfMessageCharacterField.setText((String)props.get("EndOfMessageCharacter"));
-        fieldSeparatorField.setText((String)props.get("FieldSeparator"));
-        recordSeparatorField.setText((String)props.get("RecordSeparator"));
-        sendACKCombobox.setSelectedItem(props.get("SendACK"));
+        startOfMessageCharacterField.setText((String)props.get(HTTP_START_OF_MESSAGE_CHARACTER));
+        endOfMessageCharacterField.setText((String)props.get(HTTP_END_OF_MESSAGE_CHARACTER));
+        fieldSeparatorField.setText((String)props.get(HTTP_FIELD_SEPARATOR));
+        recordSeparatorField.setText((String)props.get(HTTP_RECORD_SEPARATOR));
+        sendACKCombobox.setSelectedItem(props.get(HTTP_SEND_ACK));
     }
 
     public void setDefaults()
@@ -96,17 +108,17 @@ public class HTTPListener extends ConnectorClass
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("address", "127.0.0.1");
-        properties.put("port", "3700");
-        properties.put("ReceiveTimeout", "");
-        properties.put("BufferSize", "");
-        properties.put("KeepConnectionOpen", "YES");
-        properties.put("StartOfMessageCharacter", "");
-        properties.put("EndOfMessageCharacter", "");
-        properties.put("FieldSeparator", "");
-        properties.put("RecordSeparator", "");
-        properties.put("SendACK", sendACKCombobox.getItemAt(0));
+        properties.put(DATATYPE, name);
+        properties.put(HTTP_ADDRESS, "127.0.0.1");
+        properties.put(HTTP_PORT, "6660");
+        properties.put(HTTP_RECEIVE_TIMEOUT, "5000");
+        properties.put(HTTP_BUFFER_SIZE, "65536");
+        properties.put(HTTP_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(HTTP_START_OF_MESSAGE_CHARACTER, "0x0B");
+        properties.put(HTTP_END_OF_MESSAGE_CHARACTER, "0x1C");
+        properties.put(HTTP_FIELD_SEPARATOR, "0x7C");
+        properties.put(HTTP_RECORD_SEPARATOR, "0x0D");
+        properties.put(HTTP_SEND_ACK, sendACKCombobox.getItemAt(0));
         return properties;
     }
 

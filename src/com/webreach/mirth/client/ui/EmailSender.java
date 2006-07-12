@@ -6,6 +6,15 @@ public class EmailSender extends ConnectorClass
 {
 	Frame parent;
     /** Creates new form EmailSender */
+    public final String DATATYPE = "DataType";
+    public final String EMAIL_ADDRESS = "hostname";
+    public final String EMAIL_PORT = "port";
+    public final String EMAIL_USERNAME = "username";
+    public final String EMAIL_PASSWORD = "password";
+    public final String EMAIL_TO = "to";
+    public final String EMAIL_SUBJECT = "subject";
+    public final String EMAIL_BODY = "body";
+        
     public EmailSender()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -16,26 +25,26 @@ public class EmailSender extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("address", SMTPServerHostField.getText());
-        properties.put("port", SMTPServerPortField.getText());
-        properties.put("Username", emailUsernameField.getText());
-        properties.put("Password", new String(emailPasswordField.getPassword()));
-        properties.put("To", emailToField.getText());
-        properties.put("Subject", emailSubjectField.getText());
-        properties.put("Body", emailBodyTextArea.getText());
+        properties.put(DATATYPE, name);
+        properties.put(EMAIL_ADDRESS, SMTPServerHostField.getText());
+        properties.put(EMAIL_PORT, SMTPServerPortField.getText());
+        properties.put(EMAIL_USERNAME, emailUsernameField.getText());
+        properties.put(EMAIL_PASSWORD, new String(emailPasswordField.getPassword()));
+        properties.put(EMAIL_TO, emailToField.getText());
+        properties.put(EMAIL_SUBJECT, emailSubjectField.getText());
+        properties.put(EMAIL_BODY, emailBodyTextArea.getText());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        SMTPServerHostField.setText((String)props.get("address"));
-        SMTPServerPortField.setText((String)props.get("port"));
-        emailUsernameField.setText((String)props.get("Username"));
-        emailPasswordField.setText((String)props.get("Password"));
-        emailToField.setText((String)props.get("To"));
-        emailSubjectField.setText((String)props.get("Subject"));
-        emailBodyTextArea.setText((String)props.get("Body"));
+        SMTPServerHostField.setText((String)props.get(EMAIL_ADDRESS));
+        SMTPServerPortField.setText((String)props.get(EMAIL_PORT));
+        emailUsernameField.setText((String)props.get(EMAIL_USERNAME));
+        emailPasswordField.setText((String)props.get(EMAIL_PASSWORD));
+        emailToField.setText((String)props.get(EMAIL_TO));
+        emailSubjectField.setText((String)props.get(EMAIL_SUBJECT));
+        emailBodyTextArea.setText((String)props.get(EMAIL_BODY));
     }
 
     public void setDefaults()
@@ -52,14 +61,14 @@ public class EmailSender extends ConnectorClass
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("address", "");
-        properties.put("port", "");
-        properties.put("Username", "");
-        properties.put("Password", "");
-        properties.put("To", "");
-        properties.put("Subject", "");
-        properties.put("Body", "");
+        properties.put(DATATYPE, name);
+        properties.put(EMAIL_ADDRESS, "");
+        properties.put(EMAIL_PORT, "");
+        properties.put(EMAIL_USERNAME, "");
+        properties.put(EMAIL_PASSWORD, "");
+        properties.put(EMAIL_TO, "user@domain.com");
+        properties.put(EMAIL_SUBJECT, "Test");
+        properties.put(EMAIL_BODY, "Test email.");
         return properties;
     }
 

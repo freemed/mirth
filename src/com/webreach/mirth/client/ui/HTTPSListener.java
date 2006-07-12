@@ -7,6 +7,31 @@ public class HTTPSListener extends ConnectorClass
 {
     Frame parent;
     /** Creates new form HTTPSListener */
+    public final String DATATYPE = "DataType";
+    public final String HTTPS_ADDRESS = "host";
+    public final String HTTPS_PORT = "port";
+    public final String HTTPS_RECEIVE_TIMEOUT = "receiveTimeout";
+    public final String HTTPS_BUFFER_SIZE = "bufferSize";
+    public final String HTTPS_KEEP_CONNECTION_OPEN = "keepSendSocketOpen";
+    public final String HTTPS_START_OF_MESSAGE_CHARACTER = "messageStart";
+    public final String HTTPS_END_OF_MESSAGE_CHARACTER = "messageEnd";
+    public final String HTTPS_FIELD_SEPARATOR = "fieldSeparator";
+    public final String HTTPS_RECORD_SEPARATOR = "recordSeparator";
+    public final String HTTPS_SEND_ACK = "sendACK";
+    public final String HTTPS_KEY_STORE = "keyStore";
+    public final String HTTPS_KEY_STORE_PASSWORD = "storePassword";
+    public final String HTTPS_KEY_STORE_TYPE = "keytoreType";
+    public final String HTTPS_KEY_MANAGER_ALGORITHM = "keyManagerAlgorithm";
+    public final String HTTPS_KEY_MANAGER_FACTORY = "keyManagerFactory";
+    public final String HTTPS_PROTOCOL_HANDLER = "protocolHandler";
+    public final String HTTPS_REQUIRE_CLIENT_AUTHENTICATION = "requireClientAuthentication";
+    public final String HTTPS_SECURITY_PROVIDER = "provider";
+    public final String HTTPS_CLIENT_KEYSTORE = "clientKeystore";
+    public final String HTTPS_CLIENT_KEYSTORE_PASSWORD = "clientKeystorePassword";
+    public final String HTTPS_TRUST_KEYSTORE = "trustStore";
+    public final String HTTPS_TRUST_KEYSTORE_PASSWORD = "trustStorePassword";
+    public final String HTTPS_EXPLICIT_TRUST_STORE_ONLY = "explicitTrustStoreOnly";
+    
     public HTTPSListener()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -17,51 +42,52 @@ public class HTTPSListener extends ConnectorClass
     public Properties getProperties()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
+        properties.put(DATATYPE, name);
         String listenerIPAddress = listenerIPAddressField.getText() + "." + listenerIPAddressField1.getText() + "." + listenerIPAddressField2.getText() + "." + listenerIPAddressField3.getText();
-        properties.put("address", listenerIPAddress);
-        properties.put("port", listenerPortField.getText());
-        properties.put("ReceiveTimeout", receiveTimeoutField.getText());
-        properties.put("BufferSize", bufferSizeField.getText());
+        properties.put(HTTPS_ADDRESS, listenerIPAddress);
+        properties.put(HTTPS_PORT, listenerPortField.getText());
+        properties.put(HTTPS_RECEIVE_TIMEOUT, receiveTimeoutField.getText());
+        properties.put(HTTPS_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put("KeepConnectionOpen", "YES");
+            properties.put(HTTPS_KEEP_CONNECTION_OPEN, "YES");
         else
-            properties.put("KeepConnectionOpen", "NO");
+            properties.put(HTTPS_KEEP_CONNECTION_OPEN, "NO");
 
-        properties.put("KeyStore", keyStoreField.getText());
-        properties.put("KeyStorePassword", keyStorePasswordField.getText());
-        properties.put("KeyStoreType", keyStoreTypeField.getText());
-        properties.put("KeyManagerAlgorithm", keyManagerAlgorithmField.getText());
-        properties.put("ProtocolHandler", protocolHandlerField.getText());
+        properties.put(HTTPS_KEY_STORE, keyStoreField.getText());
+        properties.put(HTTPS_KEY_STORE_PASSWORD, keyStorePasswordField.getText());
+        properties.put(HTTPS_KEY_STORE_TYPE, keyStoreTypeField.getText());
+        properties.put(HTTPS_KEY_MANAGER_ALGORITHM, keyManagerAlgorithmField.getText());
+        properties.put(HTTPS_PROTOCOL_HANDLER, protocolHandlerField.getText());
 
         if (requireClientAuthenticationYesRadio.isSelected())
-            properties.put("RequireClientAuthentication", "YES");
+            properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, "YES");
         else
-            properties.put("RequireClientAuthentication", "NO");
+            properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, "NO");
 
-        properties.put("SecurityProvider", securityProviderField.getText());
-        properties.put("ClientKeystore", clientKeystoreField.getText());
-        properties.put("ClientKeystorePassword", clientKeystorePasswordField.getText());
-        properties.put("TrustKeystore", trustKeystoreField.getText());
-        properties.put("TrustKeystorePassword", trustKeystorePasswordField.getText());
+        properties.put(HTTPS_SECURITY_PROVIDER, securityProviderField.getText());
+        properties.put(HTTPS_CLIENT_KEYSTORE, clientKeystoreField.getText());
+        properties.put(HTTPS_CLIENT_KEYSTORE_PASSWORD, clientKeystorePasswordField.getText());
+        properties.put(HTTPS_TRUST_KEYSTORE, trustKeystoreField.getText());
+        properties.put(HTTPS_TRUST_KEYSTORE_PASSWORD, trustKeystorePasswordField.getText());
 
         if (explicitTrustStoreOnlyYesRadio.isSelected())
-            properties.put("ExplicitTrustStoreOnly", "YES");
+            properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, "YES");
         else
-            properties.put("ExplicitTrustStoreOnly", "NO");
-
-        properties.put("StartOfMessageCharacter", startOfMessageCharacterField.getText());
-        properties.put("EndOfMessageCharacter", endOfMessageCharacterField.getText());
-        properties.put("FieldSeparator", fieldSeparatorField.getText());
-        properties.put("RecordSeparator", recordSeparatorField.getText());
-        properties.put("SendACK", sendACKCombobox.getSelectedItem());
+            properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, "NO");
+        
+        properties.put(HTTPS_KEY_MANAGER_FACTORY, keyManagerFactoryField.getText());
+        properties.put(HTTPS_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
+        properties.put(HTTPS_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
+        properties.put(HTTPS_FIELD_SEPARATOR, fieldSeparatorField.getText());
+        properties.put(HTTPS_RECORD_SEPARATOR, recordSeparatorField.getText());
+        properties.put(HTTPS_SEND_ACK, sendACKCombobox.getSelectedItem());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        String listenerIPAddress = (String)props.get("address");
+        String listenerIPAddress = (String)props.get(HTTPS_ADDRESS);
         StringTokenizer IP = new StringTokenizer(listenerIPAddress, ".");
         if (IP.hasMoreTokens())
             listenerIPAddressField.setText(IP.nextToken());
@@ -80,43 +106,44 @@ public class HTTPSListener extends ConnectorClass
         else
             listenerIPAddressField3.setText("");      
 
-        listenerPortField.setText((String)props.get("port"));
-        receiveTimeoutField.setText((String)props.get("ReceiveTimeout"));
-        bufferSizeField.setText((String)props.get("BufferSize"));
+        listenerPortField.setText((String)props.get(HTTPS_PORT));
+        receiveTimeoutField.setText((String)props.get(HTTPS_RECEIVE_TIMEOUT));
+        bufferSizeField.setText((String)props.get(HTTPS_BUFFER_SIZE));
 
-        if(((String)props.get("KeepConnectionOpen")).equals("YES"))
+        if(((String)props.get(HTTPS_KEEP_CONNECTION_OPEN)).equals("YES"))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
 
-        keyStoreField.setText((String)props.get("KeyStore"));
-        keyStorePasswordField.setText((String)props.get("KeyStorePassword"));
-        keyStoreTypeField.setText((String)props.get("KeyStoreType"));
-        keyManagerAlgorithmField.setText((String)props.get("KeyManagerAlgorithm"));
-        protocolHandlerField.setText((String)props.get("ProtocolHandler"));
-
-        if(((String)props.get("RequireClientAuthentication")).equals("YES"))
+        keyStoreField.setText((String)props.get(HTTPS_KEY_STORE));
+        keyStorePasswordField.setText((String)props.get(HTTPS_KEY_STORE_PASSWORD));
+        keyStoreTypeField.setText((String)props.get(HTTPS_KEY_STORE_TYPE));
+        keyManagerAlgorithmField.setText((String)props.get(HTTPS_KEY_MANAGER_ALGORITHM));
+        protocolHandlerField.setText((String)props.get(HTTPS_PROTOCOL_HANDLER));
+        
+        if(((String)props.get(HTTPS_REQUIRE_CLIENT_AUTHENTICATION)).equals("YES"))
             requireClientAuthenticationYesRadio.setSelected(true);
         else
             requireClientAuthenticationNoRadio.setSelected(true);
 
-        securityProviderField.setText((String)props.get("SecurityProvider"));
-        clientKeystoreField.setText((String)props.get("ClientKeystore"));
-        clientKeystorePasswordField.setText((String)props.get("ClientKeystorePassword"));
-        trustKeystoreField.setText((String)props.get("TrustKeystore"));
-        trustKeystorePasswordField.setText((String)props.get("TrustKeystorePassword"));
-
-        if(((String)props.get("ExplicitTrustStoreOnly")).equals("YES"))
+        securityProviderField.setText((String)props.get(HTTPS_SECURITY_PROVIDER));
+        clientKeystoreField.setText((String)props.get(HTTPS_CLIENT_KEYSTORE));
+        clientKeystorePasswordField.setText((String)props.get(HTTPS_CLIENT_KEYSTORE_PASSWORD));
+        trustKeystoreField.setText((String)props.get(HTTPS_TRUST_KEYSTORE));
+        trustKeystorePasswordField.setText((String)props.get(HTTPS_TRUST_KEYSTORE_PASSWORD));
+        keyManagerFactoryField.setText((String)props.get(HTTPS_KEY_MANAGER_FACTORY));
+        
+        if(((String)props.get(HTTPS_EXPLICIT_TRUST_STORE_ONLY)).equals("YES"))
             explicitTrustStoreOnlyYesRadio.setSelected(true);
         else
             explicitTrustStoreOnlyNoRadio.setSelected(true);
 
-        startOfMessageCharacterField.setText((String)props.get("StartOfMessageCharacter"));
-        endOfMessageCharacterField.setText((String)props.get("EndOfMessageCharacter"));
-        fieldSeparatorField.setText((String)props.get("FieldSeparator"));
-        recordSeparatorField.setText((String)props.get("RecordSeparator"));
+        startOfMessageCharacterField.setText((String)props.get(HTTPS_START_OF_MESSAGE_CHARACTER));
+        endOfMessageCharacterField.setText((String)props.get(HTTPS_END_OF_MESSAGE_CHARACTER));
+        fieldSeparatorField.setText((String)props.get(HTTPS_FIELD_SEPARATOR));
+        recordSeparatorField.setText((String)props.get(HTTPS_RECORD_SEPARATOR));
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        sendACKCombobox.setSelectedItem(props.get("SendACK"));
+        sendACKCombobox.setSelectedItem(props.get(HTTPS_SEND_ACK));
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
 
@@ -142,6 +169,7 @@ public class HTTPSListener extends ConnectorClass
         trustKeystoreField.setText("");
         trustKeystorePasswordField.setText("");
         explicitTrustStoreOnlyYesRadio.setSelected(true);
+        keyManagerFactoryField.setText("");
         startOfMessageCharacterField.setText("");
         endOfMessageCharacterField.setText("");
         fieldSeparatorField.setText("");
@@ -152,29 +180,30 @@ public class HTTPSListener extends ConnectorClass
     public Properties getDefaults()
     {
         Properties properties = new Properties();
-        properties.put("DataType", name);
-        properties.put("address", "127.0.0.1");
-        properties.put("port", "3800");
-        properties.put("ReceiveTimeout", "");
-        properties.put("BufferSize", "");
-        properties.put("KeepConnectionOpen", "YES");
-        properties.put("KeyStore", "");
-        properties.put("KeyStorePassword", "");
-        properties.put("KeyStoreType", "");
-        properties.put("KeyManagerAlgorithm", "");
-        properties.put("ProtocolHandler", "");
-        properties.put("RequireClientAuthentication", "YES");
-        properties.put("SecurityProvider", "");
-        properties.put("ClientKeystore", "");
-        properties.put("ClientKeystorePassword", "");
-        properties.put("TrustKeystore", "");
-        properties.put("TrustKeystorePassword", "");
-        properties.put("ExplicitTrustStoreOnly", "YES");
-        properties.put("StartOfMessageCharacter", "");
-        properties.put("EndOfMessageCharacter", "");
-        properties.put("FieldSeparator", "");
-        properties.put("RecordSeparator", "");
-        properties.put("SendACK", sendACKCombobox.getItemAt(0));
+        properties.put(DATATYPE, name);
+        properties.put(HTTPS_ADDRESS, "127.0.0.1");
+        properties.put(HTTPS_PORT, "6660");
+        properties.put(HTTPS_RECEIVE_TIMEOUT, "5000");
+        properties.put(HTTPS_BUFFER_SIZE, "65536");
+        properties.put(HTTPS_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(HTTPS_KEY_STORE, ".keystore");
+        properties.put(HTTPS_KEY_STORE_PASSWORD, "");
+        properties.put(HTTPS_KEY_STORE_TYPE, "KeyStore.getDefaultType()");
+        properties.put(HTTPS_KEY_MANAGER_ALGORITHM, "SunX509");
+        properties.put(HTTPS_PROTOCOL_HANDLER, "com.sun.net.ssl.internal.www.protocol");
+        properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, "YES");
+        properties.put(HTTPS_SECURITY_PROVIDER, "com.sun.net.ssl.internal.ssl.Provider");
+        properties.put(HTTPS_CLIENT_KEYSTORE, "");
+        properties.put(HTTPS_CLIENT_KEYSTORE_PASSWORD, "");
+        properties.put(HTTPS_TRUST_KEYSTORE, "");
+        properties.put(HTTPS_TRUST_KEYSTORE_PASSWORD, "");
+        properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, "NO");
+        properties.put(HTTPS_KEY_MANAGER_FACTORY, "");
+        properties.put(HTTPS_START_OF_MESSAGE_CHARACTER, "0x0B");
+        properties.put(HTTPS_END_OF_MESSAGE_CHARACTER, "0x1C");
+        properties.put(HTTPS_FIELD_SEPARATOR, "0x7C");
+        properties.put(HTTPS_RECORD_SEPARATOR, "0x0D");
+        properties.put(HTTPS_SEND_ACK, sendACKCombobox.getItemAt(0));
         return properties;
     }
     
