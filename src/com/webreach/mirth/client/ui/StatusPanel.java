@@ -17,8 +17,17 @@ import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 import org.jdesktop.swingx.table.ColumnHeaderRenderer;
 
+/**
+ * The main status panel.
+ */
 public class StatusPanel extends javax.swing.JPanel 
 {
+    private final String STATUS_COLUMN_NAME = "Status";
+    private final String NAME_COLUMN_NAME = "Name";
+    private final String RECEIVED_COLUMN_NAME = "Received";
+    private final String SENT_COLUMN_NAME = "Sent";
+    private final String ERROR_COLUMN_NAME = "Errors";
+    
     public JXTable statusTable;
      
     private JScrollPane statusPane;
@@ -32,6 +41,9 @@ public class StatusPanel extends javax.swing.JPanel
         initComponents();
     }
     
+    /**
+     * Initializes the status panel layout, table, and mouse listeners.
+     */
     private void initComponents()
     {
         statusPane = new JScrollPane();
@@ -63,16 +75,18 @@ public class StatusPanel extends javax.swing.JPanel
         );
     }
     
+    /**
+     * Makes the status table with all current server information.
+     */
     public void makeStatusTable()
     {
         if(statusTable != null && statusTable.getSelectedRow() != -1)
-            lastIndex = (String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber("Name"));
+            lastIndex = (String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber(NAME_COLUMN_NAME));
         else
             lastIndex = null;
         
         statusTable = new JXTable();
-        int numColumns = 5;
-        Object[][] tableData = new Object[parent.status.size()][numColumns];
+        Object[][] tableData = new Object[parent.status.size()][5];
         for (int i=0; i < parent.status.size(); i++)
         {
             ChannelStatus tempStatus = parent.status.get(i); 
@@ -103,7 +117,7 @@ public class StatusPanel extends javax.swing.JPanel
             tableData,
             new String []
             {
-                "Status", "Name", "Received", "Sent", "Errors"
+                STATUS_COLUMN_NAME, NAME_COLUMN_NAME, RECEIVED_COLUMN_NAME, SENT_COLUMN_NAME, ERROR_COLUMN_NAME
             }
         )
         {
@@ -120,24 +134,24 @@ public class StatusPanel extends javax.swing.JPanel
         
         statusTable.setSelectionMode(0);  
         
-        statusTable.getColumnExt("Status").setMaxWidth(UIConstants.MAX_WIDTH);
-        statusTable.getColumnExt("Received").setMaxWidth(UIConstants.MAX_WIDTH);
-        statusTable.getColumnExt("Sent").setMaxWidth(UIConstants.MAX_WIDTH);
-        statusTable.getColumnExt("Errors").setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt(STATUS_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt(RECEIVED_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt(SENT_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        statusTable.getColumnExt(ERROR_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         
-        statusTable.getColumnExt("Status").setCellRenderer(new ImageCellRenderer());
+        statusTable.getColumnExt(STATUS_COLUMN_NAME).setCellRenderer(new ImageCellRenderer());
         
-        statusTable.getColumnExt("Received").setCellRenderer(new CenterCellRenderer());
-        statusTable.getColumnExt("Sent").setCellRenderer(new CenterCellRenderer());
-        statusTable.getColumnExt("Errors").setCellRenderer(new CenterCellRenderer());
+        statusTable.getColumnExt(RECEIVED_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
+        statusTable.getColumnExt(SENT_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
+        statusTable.getColumnExt(ERROR_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
         
-        statusTable.getColumnExt("Received").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
-        statusTable.getColumnExt("Sent").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
-        statusTable.getColumnExt("Errors").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        statusTable.getColumnExt(RECEIVED_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        statusTable.getColumnExt(SENT_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        statusTable.getColumnExt(ERROR_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
         
         statusTable.packTable(UIConstants.COL_MARGIN);
         
-        statusTable.setRowHeight(20);
+        statusTable.setRowHeight(UIConstants.ROW_HEIGHT);
         statusTable.setOpaque(true);
         statusTable.setRowSelectionAllowed(true);
         
@@ -178,12 +192,15 @@ public class StatusPanel extends javax.swing.JPanel
         {
             for(int i = 0; i < statusTable.getRowCount(); i++)
             {
-                if(lastIndex.equals((String)statusTable.getValueAt(i, getColumnNumber("Name"))))
+                if(lastIndex.equals((String)statusTable.getValueAt(i, getColumnNumber(NAME_COLUMN_NAME))))
                     statusTable.setRowSelectionInterval(i,i);
             }
         }
     }    
     
+    /**
+     * Shows the popup menu when the trigger button (right-click) has been pushed.
+     */
     private void showStatusPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
     {
         if (evt.isPopupTrigger())
@@ -199,6 +216,10 @@ public class StatusPanel extends javax.swing.JPanel
         }
     }
     
+    /*
+     * Action when something on the status list has been selected.
+     * Sets all appropriate tasks visible.
+     */
     private void StatusListSelected(ListSelectionEvent evt) 
     {           
         int row = statusTable.getSelectedRow();
@@ -206,7 +227,7 @@ public class StatusPanel extends javax.swing.JPanel
         {
             parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 3, -1, true);
             
-            int columnNumber = getColumnNumber("Status");
+            int columnNumber = getColumnNumber(STATUS_COLUMN_NAME);
             if (((CellData)statusTable.getValueAt(row, columnNumber)).getText().equals("Started"))
             {
                 parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 4, 4, false);
@@ -228,22 +249,31 @@ public class StatusPanel extends javax.swing.JPanel
         }
     }
     
+    /**
+     * Deselects all rows and sets the correct tasks visible.
+     */
     public void deselectRows()
     {
         statusTable.clearSelection();
         parent.setVisibleTasks(parent.statusTasks, parent.statusPopupMenu, 3, -1, false);
     }
     
+    /** 
+     * Gets the index of the selected status row.
+     */
     public int getSelectedStatus()
     {
         for(int i=0; i<parent.status.size(); i++)
         {
-            if(((String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber("Name"))).equalsIgnoreCase(parent.status.get(i).getName()))
+            if(((String)statusTable.getValueAt(statusTable.getSelectedRow(), getColumnNumber(NAME_COLUMN_NAME))).equalsIgnoreCase(parent.status.get(i).getName()))
                 return i;
         }
         return UIConstants.ERROR_CONSTANT;
     }
     
+    /**
+     * Gets the index of column with title 'name'.
+     */
     public int getColumnNumber(String name)
     {
         for (int i = 0; i < statusTable.getColumnCount(); i++)

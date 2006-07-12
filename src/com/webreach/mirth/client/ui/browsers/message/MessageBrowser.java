@@ -31,15 +31,18 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
+/**
+ * The message browser panel.
+ */
 public class MessageBrowser extends javax.swing.JPanel
 {
-    public static final String MESSAGE_ID_TABLE_NAME = "Message ID";
-    public static final String CHANNEL_ID_TABLE_NAME = "Channel ID";
-    public static final String DATE_TABLE_NAME = "Date";
-    public static final String SENDING_FACILITY_TABLE_NAME = "Sending Facility";
-    public static final String EVENT_TABLE_NAME = "Event";
-    public static final String CONTROL_ID_TABLE_NAME = "Control ID";
-    public static final String STATUS_TABLE_NAME = "Status";
+    private final String MESSAGE_ID_COLUMN_NAME = "Message ID";
+    private final String CHANNEL_ID_COLUMN_NAME = "Channel ID";
+    private final String DATE_COLUMN_NAME = "Date";
+    private final String SENDING_FACILITY_COLUMN_NAME = "Sending Facility";
+    private final String EVENT_COLUMN_NAME = "Event";
+    private final String CONTROL_ID_COLUMN_NAME = "Control ID";
+    private final String STATUS_COLUMN_NAME = "Status";
     
     private JScrollPane eventPane;
     private JXTable eventTable;
@@ -51,6 +54,9 @@ public class MessageBrowser extends javax.swing.JPanel
     private HighlightedDocument er7Doc;
     private Document normalDoc;
     
+    /**
+     * Constructs the new message browser and sets up its default information/layout.
+     */
     public MessageBrowser()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -125,21 +131,9 @@ public class MessageBrowser extends javax.swing.JPanel
         jPanel2.updateUI();
     }
     
-    private void showEventPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
-    {
-        if (evt.isPopupTrigger())
-        {
-            if (onTable)
-            {
-                int row = eventTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
-                eventTable.setRowSelectionInterval(row, row);
-            }
-            else
-                deselectRows();
-            parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-        }
-    }
-    
+    /**
+     * Loads up a clean message browser as if a new one was constructed.
+     */
     public void loadNew()
     {
         // use the start filters and make the table.
@@ -157,12 +151,19 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionTabbedPane.setSelectedIndex(0);
     }
     
+    /**
+     * Refreshes the panel with the curent filter information.
+     */
     public void refresh()
     {
         deselectRows();
         filterButtonActionPerformed(null);
     }
     
+    /**
+     * Creates the table with all of the information given after
+     * being filtered by the specified 'filter'
+     */
     public void makeEventTable(MessageEventFilter filter) {
         eventTable = new JXTable();
         try 
@@ -202,7 +203,7 @@ public class MessageBrowser extends javax.swing.JPanel
                 tableData,
                 new String []
         {
-            MESSAGE_ID_TABLE_NAME, CHANNEL_ID_TABLE_NAME, DATE_TABLE_NAME, SENDING_FACILITY_TABLE_NAME, EVENT_TABLE_NAME, CONTROL_ID_TABLE_NAME, STATUS_TABLE_NAME
+            MESSAGE_ID_COLUMN_NAME, CHANNEL_ID_COLUMN_NAME, DATE_COLUMN_NAME, SENDING_FACILITY_COLUMN_NAME, EVENT_COLUMN_NAME, CONTROL_ID_COLUMN_NAME, STATUS_COLUMN_NAME
         }
         ) {
             boolean[] canEdit = new boolean []
@@ -217,22 +218,22 @@ public class MessageBrowser extends javax.swing.JPanel
         
         eventTable.setSelectionMode(0);        
         
-        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt(DATE_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt(SENDING_FACILITY_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(MESSAGE_ID_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(CHANNEL_ID_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(DATE_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(SENDING_FACILITY_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         
-        eventTable.getColumnExt(CONTROL_ID_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt(STATUS_TABLE_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(CONTROL_ID_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(STATUS_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         
-        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setCellRenderer(new CenterCellRenderer());
-        eventTable.getColumnExt(MESSAGE_ID_TABLE_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
-        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setCellRenderer(new CenterCellRenderer());
-        eventTable.getColumnExt(CHANNEL_ID_TABLE_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);  
+        eventTable.getColumnExt(MESSAGE_ID_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
+        eventTable.getColumnExt(MESSAGE_ID_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);
+        eventTable.getColumnExt(CHANNEL_ID_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
+        eventTable.getColumnExt(CHANNEL_ID_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);  
         
         eventTable.packTable(UIConstants.COL_MARGIN);    
         
-        eventTable.setRowHeight(20);
+        eventTable.setRowHeight(UIConstants.ROW_HEIGHT);
         eventTable.setOpaque(true);
         eventTable.setRowSelectionAllowed(true);
         
@@ -266,6 +267,27 @@ public class MessageBrowser extends javax.swing.JPanel
         });
     }
     
+    /**
+     * Shows the trigger button (right-click) popup menu.
+     */
+    private void showEventPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
+    {
+        if (evt.isPopupTrigger())
+        {
+            if (onTable)
+            {
+                int row = eventTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+                eventTable.setRowSelectionInterval(row, row);
+            }
+            else
+                deselectRows();
+            parent.eventPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
+    /**
+     * Deselects all rows in the table and clears the description information.
+     */
     public void deselectRows()
     {
         parent.setVisibleTasks(parent.messageTasks, parent.messagePopupMenu, 2, -1, false);
@@ -273,6 +295,9 @@ public class MessageBrowser extends javax.swing.JPanel
         clearDescription();
     }
     
+    /**
+     * Clears all description information.
+     */
     public void clearDescription()
     {
         ER7TextPane.setDocument(normalDoc);
@@ -282,6 +307,9 @@ public class MessageBrowser extends javax.swing.JPanel
         HL7Panel.clearMessage();
     }
     
+    /**
+     * An action for when a row is selected in the table.
+     */
     private void EventListSelected(ListSelectionEvent evt)
     {
         if (!evt.getValueIsAdjusting())
@@ -310,12 +338,15 @@ public class MessageBrowser extends javax.swing.JPanel
         }
     }
     
+    /**
+     * Returns the ID of the selected message in the table.
+     */
     public int getSelectedMessageID()
     {
         int column = -1;
         for (int i = 0; i < eventTable.getColumnCount(); i++)
         {
-            if (eventTable.getColumnName(i).equals(MESSAGE_ID_TABLE_NAME))
+            if (eventTable.getColumnName(i).equals(MESSAGE_ID_COLUMN_NAME))
                 column = i;
         }
         return ((Integer)eventTable.getValueAt(eventTable.getSelectedRow(), column)).intValue();
@@ -539,6 +570,10 @@ public class MessageBrowser extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * An action when the filter button is pressed.  Creates
+     * the actual filter and remakes the table with that filter.
+     */
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
         if (mirthDatePicker1.getDate() != null && mirthDatePicker2.getDate() != null)
         {

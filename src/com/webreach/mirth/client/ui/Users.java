@@ -11,13 +11,19 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
+/**
+ * Creates the main Users scroll pane.
+ */
 public class Users extends javax.swing.JScrollPane 
 {
+    private final String USER_ID_COLUMN_NAME = "User ID";
+    private final String USERNAME_COLUMN_NAME = "Username";
+    
     public JXTable usersTable;
     
     private Frame parent;
     
-    /** Creates new form thisl */
+    /** Creates new form Users */
     public Users() 
     {  
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -25,6 +31,9 @@ public class Users extends javax.swing.JScrollPane
         setVisible(true);
     }
     
+    /**
+     * makes the table and adds mouse listeners
+     */
     private void initComponents()
     {
         makeUsersTable();
@@ -45,6 +54,9 @@ public class Users extends javax.swing.JScrollPane
         });
     }
     
+    /**
+     * Makes the users table with the information from the server
+     */
     public void makeUsersTable()
     {
         usersTable = new JXTable();
@@ -63,7 +75,7 @@ public class Users extends javax.swing.JScrollPane
             tableData,
             new String []
             {
-                "User ID", "Username"
+                USER_ID_COLUMN_NAME, USERNAME_COLUMN_NAME
             }
         )
         {
@@ -80,15 +92,15 @@ public class Users extends javax.swing.JScrollPane
         
         usersTable.setSelectionMode(0);
         
-        usersTable.getColumnExt("Username").setCellRenderer(new ImageCellRenderer());        
-        usersTable.getColumnExt("User ID").setMaxWidth(UIConstants.MAX_WIDTH);
+        usersTable.getColumnExt(USERNAME_COLUMN_NAME).setCellRenderer(new ImageCellRenderer());        
+        usersTable.getColumnExt(USER_ID_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         
-        usersTable.getColumnExt("User ID").setCellRenderer(new CenterCellRenderer());
-        usersTable.getColumnExt("User ID").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER); 
+        usersTable.getColumnExt(USER_ID_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
+        usersTable.getColumnExt(USER_ID_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER); 
         
         usersTable.packTable(UIConstants.COL_MARGIN);
         
-        usersTable.setRowHeight(20);
+        usersTable.setRowHeight(UIConstants.ROW_HEIGHT);
         usersTable.setOpaque(true);
         
         usersTable.setCellSelectionEnabled(false);
@@ -129,6 +141,9 @@ public class Users extends javax.swing.JScrollPane
         
     }    
 
+    /**
+     * Shows the popup menu on trigger buton (right-click).
+     */
     private void showUserPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
     {
         if (evt.isPopupTrigger())
@@ -144,6 +159,9 @@ public class Users extends javax.swing.JScrollPane
         }
     }
     
+    /**
+     * An action to set the correct tasks to visible when a user is selected in the table.
+     */
     private void UsersListSelected(ListSelectionEvent evt) 
     {
         int row = usersTable.getSelectedRow();
@@ -153,20 +171,29 @@ public class Users extends javax.swing.JScrollPane
         }
     }
     
+    /**
+     * Deselects all rows and sets the visible tasks appropriately.
+     */
     public void deselectRows()
     {
         usersTable.clearSelection();
         parent.setVisibleTasks(parent.userTasks, parent.userPopupMenu, 2, -1, false);
     }
     
+    /**
+     *  Returns the selected row in the user table.
+     */
     public int getSelectedRow()
     {
         return usersTable.getSelectedRow();
     }
     
+    /**
+     *  Sets the selected user to user with the given 'userName'.
+     */
     public boolean setSelectedUser(String userName)
     {
-        int columnNumber = getColumnNumber("Username");
+        int columnNumber = getColumnNumber(USERNAME_COLUMN_NAME);
         for (int i = 0; i < parent.users.size(); i++)
         {
             if (userName.equals((String)(((CellData)usersTable.getValueAt(i, columnNumber)).getText())))
@@ -178,9 +205,13 @@ public class Users extends javax.swing.JScrollPane
         return false;
     }
     
+    /**
+     * Returns the index according to the stored server's user list
+     * of the currently selected user.
+     */
     public int getUserIndex()
     {
-        int columnNumber = getColumnNumber("Username");
+        int columnNumber = getColumnNumber(USERNAME_COLUMN_NAME);
          
         if (usersTable.getSelectedRow() != -1)
         {
@@ -197,6 +228,9 @@ public class Users extends javax.swing.JScrollPane
         return UIConstants.ERROR_CONSTANT;
     }
     
+    /**
+     * Gets the column index number of the column titled 'name'.
+     */
     public int getColumnNumber(String name)
     {
         for (int i = 0; i < usersTable.getColumnCount(); i++)

@@ -34,21 +34,14 @@ import org.jdesktop.swingx.plaf.LookAndFeelAddons;
 import org.jdesktop.swingx.plaf.windows.WindowsLookAndFeelAddons;
 
 /**
- * <p>Title: Mirth Beta Prototype</p>
- *
- * <p>Description: Mirth Beta Prototype</p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: WebReach, Inc.</p>
- *
- * @author Brendan Haverlock and Jacob Brauer
- * @version 1.0
+ * The main mirth class.  Sets up the login and then authenticates
+ * the login information and sets up Frame (the main application window).
  */
 public class Mirth 
 {
     public Client client;
     private static Preferences userPreferences; 
+    
     /**
      * Construct and show the application.
      */
@@ -66,7 +59,7 @@ public class Mirth
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         
 /*      Needs to be fixed.  Nothing is painted in the splash window until setupFrame(m) returns!!
- *
+
         JWindow splashWindow = new JWindow();
         splashWindow.getContentPane().add(new JLabel(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/mirthlogo.gif"))), BorderLayout.CENTER);
         //splashWindow.getContentPane().add(new JLabel("lkamsdlfmasldfm"), BorderLayout.CENTER);
@@ -113,7 +106,8 @@ public class Mirth
     }
     
     /**
-     * Application entry point.
+     * Application entry point.  
+     * Sets up the login panel and its layout as well.
      *
      * @param args String[]
      */
@@ -251,6 +245,9 @@ public class Mirth
     }
 }
 
+/**
+ * A listener for logging in.
+ */
 class MirthLoginListener implements LoginListener 
 {
         public MirthLoginListener() 
@@ -272,6 +269,9 @@ class MirthLoginListener implements LoginListener
         }
 }
 
+/**
+ * A login service that authenticates login information.
+ */
 class MirthLoginService extends LoginService 
 {
         Client c;

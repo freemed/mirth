@@ -26,13 +26,24 @@ import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.ConditionalHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
+/**
+ * The event browser panel.
+ */
 public class EventBrowser extends javax.swing.JPanel
 {
+    private final String EVENT_ID_COLUMN_NAME = "Event ID";
+    private final String DATE_COLUMN_NAME = "Date";
+    private final String LEVEL_COLUMN_NAME = "Level";
+    private final String EVENT_COLUMN_NAME = "Event";
+    
     private JScrollPane eventPane;
     private JXTable eventTable;
     private Frame parent;
     private List<SystemEvent> systemEventList;
     
+    /**
+     * Constructs the new event browser and sets up its default information/layout.
+     */
     public EventBrowser()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -95,6 +106,9 @@ public class EventBrowser extends javax.swing.JPanel
         jPanel2.updateUI();
     }
     
+    /**
+     * Loads up a clean event browser as if a new one was constructed.
+     */
     public void loadNew()
     {
         // use the start filters and make the table.
@@ -107,12 +121,19 @@ public class EventBrowser extends javax.swing.JPanel
         clearDescription();
     }
 
+    /**
+     * Refreshes the panel with the curent filter information.
+     */
     public void refresh()
     {
         deselectRows();
         filterButtonActionPerformed(null);
     }
     
+    /**
+     * Creates the table with all of the information given after
+     * being filtered by the specified 'filter'
+     */
     public void makeEventTable(SystemEventFilter filter) {
         eventTable = new JXTable();
         try 
@@ -149,7 +170,7 @@ public class EventBrowser extends javax.swing.JPanel
                 tableData,
                 new String []
         {
-            "Event ID", "Date", "Level", "Event"
+            EVENT_ID_COLUMN_NAME, DATE_COLUMN_NAME, LEVEL_COLUMN_NAME, EVENT_COLUMN_NAME
         }
         ) {
             boolean[] canEdit = new boolean []
@@ -164,15 +185,15 @@ public class EventBrowser extends javax.swing.JPanel
         
         eventTable.setSelectionMode(0);
 
-        eventTable.getColumnExt("Event ID").setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt("Date").setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt("Level").setMaxWidth(UIConstants.MAX_WIDTH);
-        eventTable.getColumnExt("Event ID").setCellRenderer(new CenterCellRenderer());
-        eventTable.getColumnExt("Event ID").setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);        
+        eventTable.getColumnExt(EVENT_ID_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(DATE_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(LEVEL_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        eventTable.getColumnExt(EVENT_ID_COLUMN_NAME).setCellRenderer(new CenterCellRenderer());
+        eventTable.getColumnExt(EVENT_ID_COLUMN_NAME).setHeaderRenderer(PlatformUI.CENTER_COLUMN_HEADER_RENDERER);        
         
         eventTable.packTable(UIConstants.COL_MARGIN);
         
-        eventTable.setRowHeight(20);
+        eventTable.setRowHeight(UIConstants.ROW_HEIGHT);
         eventTable.setOpaque(true);
         eventTable.setRowSelectionAllowed(true);
         
@@ -206,6 +227,9 @@ public class EventBrowser extends javax.swing.JPanel
         });
     }
     
+    /**
+     * Shows the trigger button (right-click) popup menu.
+     */
     private void showEventPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
     {
         if (evt.isPopupTrigger())
@@ -221,17 +245,26 @@ public class EventBrowser extends javax.swing.JPanel
         }
     }
     
+    /**
+     * Deselects all rows in the table and clears the description information.
+     */
     public void deselectRows()
     {
         eventTable.clearSelection();
         clearDescription();
     }
     
+    /**
+     * Clears all description information.
+     */
     public void clearDescription()
     {
         description.setText("Select an event to see its description.");
     }
     
+    /**
+     * An action for when a row is selected in the table.
+     */
     private void EventListSelected(ListSelectionEvent evt)
     {
         if (!evt.getValueIsAdjusting())
@@ -405,6 +438,10 @@ public class EventBrowser extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * An action when the filter button is pressed.  Creates
+     * the actual filter and remakes the table with that filter.
+     */
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
         if (mirthDatePicker1.getDate() != null && mirthDatePicker2.getDate() != null)
         {
