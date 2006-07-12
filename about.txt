@@ -1,6 +1,6 @@
-Mirth
+Mirth Administrator
 
-Version: 1.0.0
+Version: 1.0.0 Beta
 Built on July 14, 2006
 
 (c) Copyright Mirth contributors and other 2005, 2006. All rights reserved. Visit http://www.mirthproject.org

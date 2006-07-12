@@ -211,7 +211,7 @@ public class Frame extends JXFrame
         contentPanel = (JPanel) getContentPane();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.setBorder(null);
-        setTitle("Mirth Client Prototype");
+        setTitle(UIConstants.TITLE_TEXT);
         statusBar = new StatusBar();
         splitPane.setDividerSize(0);
         contentPanel.add(statusBar, BorderLayout.SOUTH);

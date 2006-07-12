@@ -11,6 +11,7 @@ public class UIConstants
 {
     // for Frame
     public static final int TASK_PANE_WIDTH = 170;
+    public static final String TITLE_TEXT = "Mirth Administrator 1.0.0 Beta";
     
     // for error checking
     public static final int ERROR_CONSTANT = -1;
