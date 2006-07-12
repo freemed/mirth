@@ -214,7 +214,7 @@ public class ChannelSetup extends javax.swing.JPanel
         });
         
         // Set the custom cell editor for the Destination Name column.
-        destinationTable.getColumnModel().getColumn(destinationTable.getColumnModel().getColumnIndex(DESTINATION_COLUMN_NAME)).setCellEditor(new MyTableCellEditor());
+        destinationTable.getColumnModel().getColumn(destinationTable.getColumnModel().getColumnIndex(DESTINATION_COLUMN_NAME)).setCellEditor(new DestinationTableCellEditor());
 
         destinationTable.setSelectionMode(0);
         destinationTable.setRowSelectionAllowed(true);
