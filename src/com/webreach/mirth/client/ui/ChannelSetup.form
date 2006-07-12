@@ -230,9 +230,9 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="connectorClass1" max="32767" attributes="0"/>
+                              <Component id="sourceConnectorClass" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="variableList1" min="-2" max="-2" attributes="0"/>
+                              <Component id="sourceVariableList" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="sourceSourceLabel" min="-2" max="-2" attributes="0"/>
@@ -254,8 +254,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="connectorClass1" max="32767" attributes="0"/>
-                          <Component id="variableList1" alignment="1" pref="497" max="32767" attributes="0"/>
+                          <Component id="sourceConnectorClass" max="32767" attributes="0"/>
+                          <Component id="sourceVariableList" alignment="1" pref="497" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -282,7 +282,7 @@
                 <Property name="text" type="java.lang.String" value="Connector Type:"/>
               </Properties>
             </Component>
-            <Container class="com.webreach.mirth.client.ui.ConnectorClass" name="connectorClass1">
+            <Container class="com.webreach.mirth.client.ui.ConnectorClass" name="sourceConnectorClass">
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -297,7 +297,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="com.webreach.mirth.client.ui.VariableList" name="variableList1">
+            <Component class="com.webreach.mirth.client.ui.VariableList" name="sourceVariableList">
             </Component>
           </SubComponents>
         </Container>
@@ -326,9 +326,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="connectorClass2" max="32767" attributes="0"/>
+                              <Component id="destinationConnectorClass" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="variableList2" min="-2" max="-2" attributes="0"/>
+                              <Component id="destinationVariableList" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="destinationSourceLabel" min="-2" max="-2" attributes="0"/>
@@ -350,8 +350,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="connectorClass2" max="32767" attributes="0"/>
-                          <Component id="variableList2" alignment="0" pref="497" max="32767" attributes="0"/>
+                          <Component id="destinationConnectorClass" max="32767" attributes="0"/>
+                          <Component id="destinationVariableList" alignment="0" pref="497" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -378,7 +378,7 @@
                 <Property name="text" type="java.lang.String" value="Connector Type:"/>
               </Properties>
             </Component>
-            <Container class="com.webreach.mirth.client.ui.ConnectorClass" name="connectorClass2">
+            <Container class="com.webreach.mirth.client.ui.ConnectorClass" name="destinationConnectorClass">
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -393,7 +393,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="com.webreach.mirth.client.ui.VariableList" name="variableList2">
+            <Component class="com.webreach.mirth.client.ui.VariableList" name="destinationVariableList">
             </Component>
           </SubComponents>
         </Container>

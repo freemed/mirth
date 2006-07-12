@@ -15,7 +15,15 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
-public class ChannelPanel extends javax.swing.JPanel {
+/** The main channe list panel view. */
+public class ChannelPanel extends javax.swing.JPanel
+{
+    private final String STATUS_COLUMN_NAME = "Status";
+    private final String DIRECTION_COLUMN_NAME = "Direction";
+    private final String NAME_COLUMN_NAME = "Name";
+    private final String INBOUND_DIRECTION = "Inbound";
+    private final String OUTBOUND_DIRECTION = "Outbound";
+    private final String ENABLED_STATUS = "Enabled";
     
     private JScrollPane channelPane;
     private JXTable channelTable;
@@ -27,7 +35,9 @@ public class ChannelPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void initComponents() {
+    /** Initializes the pane, makes the table, adds the mouse listeners, and sets the layout */
+    public void initComponents()
+    {
         channelPane = new JScrollPane();
         
         makeChannelTable();
@@ -62,7 +72,9 @@ public class ChannelPanel extends javax.swing.JPanel {
                 );
     }
     
-    public void makeChannelTable() {
+    /** Creates the channel table */
+    public void makeChannelTable()
+    {
         channelTable = new JXTable();
         
         Object[][] tableData = new Object[parent.channels.size()][3];
@@ -77,9 +89,9 @@ public class ChannelPanel extends javax.swing.JPanel {
                 tableData[i][0] = new CellData(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_black.png")),"Disabled");
             
             if (temp.getDirection().equals(Channel.Direction.INBOUND))
-                tableData[i][1] = "Inbound";
+                tableData[i][1] = INBOUND_DIRECTION;
             else
-                tableData[i][1] = "Outbound";
+                tableData[i][1] = OUTBOUND_DIRECTION;
 
             tableData[i][2] = temp.getName();
         }
@@ -89,7 +101,7 @@ public class ChannelPanel extends javax.swing.JPanel {
                 tableData,
                 new String []
         {
-            "Status", "Direction", "Name"
+            STATUS_COLUMN_NAME, DIRECTION_COLUMN_NAME, NAME_COLUMN_NAME
         }
         ) {
             boolean[] canEdit = new boolean []
@@ -104,16 +116,18 @@ public class ChannelPanel extends javax.swing.JPanel {
         
         channelTable.setSelectionMode(0);        
         
-        channelTable.getColumnExt("Status").setMaxWidth(UIConstants.MAX_WIDTH);
-        channelTable.getColumnExt("Direction").setMaxWidth(UIConstants.MAX_WIDTH);
+        // Must set the maximum width on columns that should be packed.
+        channelTable.getColumnExt(STATUS_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        channelTable.getColumnExt(DIRECTION_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         
-        channelTable.getColumnExt("Status").setCellRenderer(new ImageCellRenderer());
+        channelTable.getColumnExt(STATUS_COLUMN_NAME).setCellRenderer(new ImageCellRenderer());
         channelTable.packTable(UIConstants.COL_MARGIN);
 
-        channelTable.setRowHeight(20);
+        channelTable.setRowHeight(UIConstants.ROW_HEIGHT);
         channelTable.setOpaque(true);
         channelTable.setRowSelectionAllowed(true);
         
+        // Set highlighter.
         if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
         {
             HighlighterPipeline highlighter = new HighlighterPipeline();
@@ -130,6 +144,8 @@ public class ChannelPanel extends javax.swing.JPanel {
                 ChannelListSelected(evt);
             }
         });
+        
+        // listen for trigger button and double click to edit channel.
         channelTable.addMouseListener(new java.awt.event.MouseAdapter()
         {
             public void mousePressed(java.awt.event.MouseEvent evt)
@@ -148,6 +164,10 @@ public class ChannelPanel extends javax.swing.JPanel {
         });
     }
     
+    /** Show the popup menu on trigger button press (right-click).
+     *  If it's on the table then the row should be selected, if not
+     *  any selected rows should be deselected first.
+     */
     private void showChannelPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
     {
         if (evt.isPopupTrigger())
@@ -163,6 +183,7 @@ public class ChannelPanel extends javax.swing.JPanel {
         }
     }
     
+    /** The action called when a Channel is selected.  Sets tasks as well. */
     private void ChannelListSelected(ListSelectionEvent evt)
     {
         int row = channelTable.getSelectedRow();
@@ -171,23 +192,25 @@ public class ChannelPanel extends javax.swing.JPanel {
         {
             parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 4, -1, true);
 
-            int columnNumber = getColumnNumber("Status");
-            if (((CellData)channelTable.getValueAt(row, columnNumber)).getText().equals("Enabled"))
+            int columnNumber = getColumnNumber(STATUS_COLUMN_NAME);
+            if (((CellData)channelTable.getValueAt(row, columnNumber)).getText().equals(ENABLED_STATUS))
                 parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 7, 7, false);
             else
                 parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 8, 8, false);
         }
     }
     
+    /** Clears the selection in the table and sets the tasks appropriately */
     public void deselectRows()
     {
         channelTable.clearSelection();
         parent.setVisibleTasks(parent.channelTasks, parent.channelPopupMenu, 4, -1, false);
     }
     
+    /** Gets the selected channel index that corresponds to the saved channels list */
     public int getSelectedChannel()
     {
-        int columnNumber = getColumnNumber("Name");
+        int columnNumber = getColumnNumber(NAME_COLUMN_NAME);
         
         if (channelTable.getSelectedRow() != -1)
         {
@@ -201,9 +224,10 @@ public class ChannelPanel extends javax.swing.JPanel {
         return -1;
     }
     
+    /** Sets a channel to be selected by taking it's name */
     public boolean setSelectedChannel(String channelName)
     {
-        int columnNumber = getColumnNumber("Name");
+        int columnNumber = getColumnNumber(NAME_COLUMN_NAME);
         for (int i = 0; i < parent.channels.size(); i++)
         {
             if (channelName.equals(channelTable.getValueAt(i, columnNumber)))
@@ -215,6 +239,7 @@ public class ChannelPanel extends javax.swing.JPanel {
         return false;
     }
     
+    /** Gets a column index by taking it's name */
     private int getColumnNumber(String name)
     {
         for (int i = 0; i < channelTable.getColumnCount(); i++)
