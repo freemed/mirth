@@ -333,7 +333,7 @@ public class AdminPanel extends javax.swing.JPanel
     /** Loads the current settings into the Settings form */
     public void loadSettings()
     {
-        intervalTime.setDocument(new MirthTextFieldLimit(3, false, true));
+        intervalTime.setDocument(new MirthFieldConstraints(3, false, true));
         userPreferences = Preferences.systemNodeForPackage(Mirth.class);
         int interval = userPreferences.getInt("intervalTime", 10);
         intervalTime.setText(interval + "");
