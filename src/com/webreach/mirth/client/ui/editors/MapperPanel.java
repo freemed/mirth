@@ -47,7 +47,7 @@ public class MapperPanel extends CardPanel {
 		mappingLabel = new JLabel( "   " + label );
 		mappingTextField = new JTextField();
 		mappingScrollPane = new JScrollPane();
-		mappingDoc = new HighlightedDocument();
+		HighlightedDocument mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingTextPane = new MirthTextPane( mappingDoc );
 		
@@ -60,7 +60,7 @@ public class MapperPanel extends CardPanel {
 				Color.black ));
 		
 		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
-
+		
 		mappingTextPanel = new JPanel();
 		mappingTextPanel.setLayout( new BorderLayout() );
 		mappingTextPanel.add( mappingTextPane, BorderLayout.CENTER );
@@ -110,12 +110,12 @@ public class MapperPanel extends CardPanel {
 					
 				});
 		// END listeners
-
+		
 		this.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10) );
 		this.setLayout( new BorderLayout() );
 		this.add( mappingPanel, BorderLayout.CENTER );
 	} 
-		
+	
 	public void update(){
 		parent.update();
 		
@@ -128,7 +128,7 @@ public class MapperPanel extends CardPanel {
 			parent.setDroppedTextPrefix("hl7");
 		}
 	}
-
+	
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
 		m.put( "Variable", mappingTextField.getText().trim() );
@@ -152,7 +152,6 @@ public class MapperPanel extends CardPanel {
 	private String label;
 	private JPanel mappingTextPanel;		// for no linewrap in textpane
 	private MirthTextPane mappingTextPane;
-	private HighlightedDocument mappingDoc;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPanel;

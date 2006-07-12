@@ -33,7 +33,6 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -61,9 +60,9 @@ public class JavaScriptPanel extends CardPanel {
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
 		scriptPanel = new JPanel();
-		scriptDoc = new HighlightedDocument();
-		scriptDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		scriptScrollPane = new JScrollPane();
+		HighlightedDocument scriptDoc = new HighlightedDocument();
+		scriptDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		scriptTextPane = new MirthTextPane( scriptDoc );
 		
 		scriptTextPane.setBorder( BorderFactory.createEmptyBorder() );
@@ -95,7 +94,7 @@ public class JavaScriptPanel extends CardPanel {
 				BorderFactory.createLoweredBevelBorder(), "JavaScript", TitledBorder.LEFT,
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
-
+		
 		//BGN listeners
 		scriptTextPane.getDocument().addDocumentListener(
 				new DocumentListener() {
@@ -147,7 +146,6 @@ public class JavaScriptPanel extends CardPanel {
 	private JTextArea headerArea;
 	private JTextArea footerArea;
 	private JPanel scriptPanel;
-	private HighlightedDocument scriptDoc;
 	private MirthTextPane scriptTextPane;
 	private JScrollPane scriptScrollPane;
 	private LineNumber lineNumbers;

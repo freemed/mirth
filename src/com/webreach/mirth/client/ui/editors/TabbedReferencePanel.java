@@ -24,7 +24,7 @@ public class TabbedReferencePanel extends JPanel {
 		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
 		HL7TabbedPane.addTab( "HL7 Message", pasteScrollPane );
 	}
-
+	
 	public void update() {
 		updateSQL();
 	}
@@ -59,27 +59,27 @@ public class TabbedReferencePanel extends JPanel {
 	}
 	
 	private void initComponents() {
-        HL7TabbedPane = new JTabbedPane();
-        pasteTab = new JPanel();
-        pasteScrollPane = new JScrollPane();
-        treeScrollPane = new JScrollPane();
-        treePanel = new HL7XMLTreePanel();
-
-        String[][] referenceData = new String[2][2];
+		HL7TabbedPane = new JTabbedPane();
+		pasteTab = new JPanel();
+		pasteScrollPane = new JScrollPane();
+		treeScrollPane = new JScrollPane();
+		treePanel = new HL7XMLTreePanel();
+		
+		String[][] referenceData = new String[2][2];
 		referenceData[0][0] = "localMap";
 		referenceData[0][1] = "The local variable map that will be sent to the connector.";
 		referenceData[1][0] = "globalMap";
 		referenceData[1][1] = "The global variable map that persists values between channels.";
-        
-        globalVarTable = new VariableReferenceTable( referenceData );
-        globalVarPanel = new JPanel();
+		
+		globalVarTable = new VariableReferenceTable( referenceData );
+		globalVarPanel = new JPanel();
 		globalVarPanel.setBorder( BorderFactory.createTitledBorder("Variables") );
 		globalVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
 		globalVarPanel.setLayout( new BorderLayout() );
 		globalVarPanel.add( globalVarTable, BorderLayout.CENTER );
 		
 		dbVarTable = new VariableReferenceTable();
-        dbVarPanel = new JPanel();
+		dbVarPanel = new JPanel();
 		dbVarPanel.setBorder( BorderFactory.createTitledBorder("Database Variables") );
 		dbVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
 		dbVarPanel.setLayout( new BorderLayout() );
@@ -93,7 +93,7 @@ public class TabbedReferencePanel extends JPanel {
 		varPanel.add( dbVarPanel, BorderLayout.CENTER );
 		varScrollPane = new JScrollPane();
 		varScrollPane.setViewportView( varPanel );
-
+		
 //		we need to create an HL7 Lexer...	
 		HighlightedDocument HL7Doc = new HighlightedDocument();
 		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
@@ -107,81 +107,81 @@ public class TabbedReferencePanel extends JPanel {
 		JPanel pasteBoxPanel = new JPanel();
 		pasteBoxPanel.setLayout( new BorderLayout() );
 		pasteBoxPanel.add( pasteBox, BorderLayout.CENTER );
-        pasteScrollPane.setViewportView( pasteBoxPanel );
-        treeScrollPane.setViewportView( treePanel );
-        
-        varScrollPane.addComponentListener(
-        		new ComponentListener(){
-        			public void componentResized(ComponentEvent arg0) {
+		pasteScrollPane.setViewportView( pasteBoxPanel );
+		treeScrollPane.setViewportView( treePanel );
+		
+		varScrollPane.addComponentListener(
+				new ComponentListener(){
+					public void componentResized(ComponentEvent arg0) {
 					}
-        			
-        			public void componentMoved(ComponentEvent arg0) {
+					
+					public void componentMoved(ComponentEvent arg0) {
 					}
-
+					
 					public void componentShown(ComponentEvent arg0) {
 						// chrisl 7/11/206
 						updateSQL();
 					}				
-
+					
 					public void componentHidden(ComponentEvent arg0) {
 						
 					}
-        			
-        		});
 					
-        treeScrollPane.addComponentListener(
-        		new ComponentListener() {
-
+				});
+		
+		treeScrollPane.addComponentListener(
+				new ComponentListener() {
+					
 					public void componentResized(ComponentEvent arg0) {
 					}
-
+					
 					public void componentMoved(ComponentEvent arg0) {
 					}
-
+					
 					public void componentShown(ComponentEvent arg0) {
 						String message = pasteBox.getText();
 						if ( message != null || !message.equals("") )
 							treePanel.setMessage( message.replaceAll("\\n","\r\n") );
 						else
-						treePanel.clearMessage();
+							treePanel.clearMessage();
 						treePanel.revalidate();
 						treePanel.repaint();
 					}
-
+					
 					public void componentHidden(ComponentEvent arg0) {
 						treePanel.clearMessage();
 					}
-        			
-        		});
-        
-        org.jdesktop.layout.GroupLayout pasteTabLayout = new org.jdesktop.layout.GroupLayout(pasteTab);
-        pasteTab.setLayout(pasteTabLayout);
-        pasteTabLayout.setHorizontalGroup(
-            pasteTabLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pasteTabLayout.createSequentialGroup()
-                .add(pasteScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
-        );
-        pasteTabLayout.setVerticalGroup(
-            pasteTabLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(pasteTabLayout.createSequentialGroup()
-                .add(pasteScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
-        );
-        HL7TabbedPane.addTab( "Variables", varScrollPane );
-
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(HL7TabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(HL7TabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-        );
-    }
-
+					
+				});
+		
+		org.jdesktop.layout.GroupLayout pasteTabLayout = new org.jdesktop.layout.GroupLayout(pasteTab);
+		pasteTab.setLayout(pasteTabLayout);
+		pasteTabLayout.setHorizontalGroup(
+				pasteTabLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+				.add(pasteTabLayout.createSequentialGroup()
+						.add(pasteScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+		);
+		pasteTabLayout.setVerticalGroup(
+				pasteTabLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+				.add(pasteTabLayout.createSequentialGroup()
+						.add(pasteScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+		);
+		HL7TabbedPane.addTab( "Variables", varScrollPane );
+		
+		org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+		this.setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+				.add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+						.add(HL7TabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+		);
+		layout.setVerticalGroup(
+				layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+				.add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+						.add(HL7TabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+		);
+	}
+	
 	
 	private JTabbedPane HL7TabbedPane;
 	private JPanel pasteTab;

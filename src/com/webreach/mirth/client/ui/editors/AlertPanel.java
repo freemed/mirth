@@ -2,6 +2,11 @@ package com.webreach.mirth.client.ui.editors;
 
 import java.util.Map;
 
+
+/** AlertPanel
+ *
+ * @author franciscos
+ */
 public class AlertPanel extends CardPanel {
 	
 	
