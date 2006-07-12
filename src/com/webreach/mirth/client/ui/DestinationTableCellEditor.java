@@ -11,7 +11,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
-public class MyTableCellEditor extends AbstractCellEditor implements TableCellEditor
+/**
+ * A table cell editor for the destination table.
+ */
+public class DestinationTableCellEditor extends AbstractCellEditor implements TableCellEditor
 {
     // This is the component that will handle the editing of the cell value
     JComponent component = new JTextField();
@@ -19,14 +22,16 @@ public class MyTableCellEditor extends AbstractCellEditor implements TableCellEd
     Object originalValue;
 
     
-    public MyTableCellEditor()
+    public DestinationTableCellEditor()
     {
         super();
         this.parent = PlatformUI.MIRTH_FRAME;
     }
 
-    // This method is called just before the cell value
-    // is saved. If the value is not valid, false should be returned.
+    /**
+     * This method is called just before the cell value
+     * is saved. If the value is not valid, false should be returned.
+     */
     public boolean stopCellEditing()
     {
         String s = (String)getCellEditorValue();
@@ -36,14 +41,18 @@ public class MyTableCellEditor extends AbstractCellEditor implements TableCellEd
         return super.stopCellEditing();
     }
 
-    // This method is called when editing is completed.
-    // It must return the new value to be stored in the cell
+    /**
+     * This method is called when editing is completed.
+     * It must return the new value to be stored in the cell.
+     */
     public Object getCellEditorValue()
     {
         return ((JTextField)component).getText();
     }
 
-    // This method is called when a cell value is edited by the user.
+    /** 
+     * This method is called when a cell value is edited by the user.
+     */
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
     {
         // 'value' is value contained in the cell located at (rowIndex, vColIndex)
@@ -61,29 +70,34 @@ public class MyTableCellEditor extends AbstractCellEditor implements TableCellEd
         return component;
     }
     
+    /**
+     * Checks whether or not the value change is valid.
+     */
     private boolean valueChanged(String s)
     {
-        List<Connector> dc = parent.channelEditPage.currentChannel.getDestinationConnectors();
+        List<Connector> destinationConnectors = parent.channelEditPage.currentChannel.getDestinationConnectors();
         
         // make sure the name doesn't already exist
-        for(int i = 0; i<dc.size(); i++)
+        for(int i = 0; i<destinationConnectors.size(); i++)
         {
-            if(dc.get(i).getName().equalsIgnoreCase(s))
+            if(destinationConnectors.get(i).getName().equalsIgnoreCase(s))
                 return false;
         }
         
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(true);
         // set the name to the new name.
-        for(int i = 0; i<dc.size(); i++)
+        for(int i = 0; i<destinationConnectors.size(); i++)
         {
-            if(dc.get(i).getName().equalsIgnoreCase((String)originalValue))
-                dc.get(i).setName(s);
+            if(destinationConnectors.get(i).getName().equalsIgnoreCase((String)originalValue))
+                destinationConnectors.get(i).setName(s);
         }
         
         return true;
     }
     
-    // Enables the editor only for double-clicks.
+    /**
+     * Enables the editor only for double-clicks.
+     */
     public boolean isCellEditable(EventObject evt) {
         if (evt instanceof MouseEvent) {
             return ((MouseEvent)evt).getClickCount() >= 2;
