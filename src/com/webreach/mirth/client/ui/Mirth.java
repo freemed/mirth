@@ -202,7 +202,7 @@ public class Mirth
                 
                 final JXLoginPanel.JXLoginFrame frm = JXLoginPanel.showLoginFrame(panel);
                 frm.setIconImage(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/emoticon_smile.png")).getImage());
-                
+                frm.setTitle("Mirth Administrator Login");
                 frm.setVisible(true);
             }
         });

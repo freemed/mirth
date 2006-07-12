@@ -1576,10 +1576,19 @@ public class Frame extends JXFrame
 
         if(returnVal == JFileChooser.APPROVE_OPTION)
         {
-            Channel channel = channelEditPage.currentChannel;
+            Channel channel;
+            if (currentContentPage == channelEditPage)
+                channel = channelEditPage.currentChannel;
+            else
+                channel = channels.get(channelListPage.getSelectedChannel());
             ObjectXMLSerializer serializer = new ObjectXMLSerializer();
             String channelXML = serializer.serialize(channel);
             exportFile = exportFileChooser.getSelectedFile();
+            
+            int length = exportFile.getName().length();
+
+            if (length < 4 || !exportFile.getName().substring(length-4, length).equals(".xml"))
+                exportFile = new File(exportFile.getAbsolutePath() + ".xml");
 
             try
             {
