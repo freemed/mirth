@@ -228,6 +228,9 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="readOnUpdateYesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="readOnUpdateNo">
       <Properties>
@@ -248,10 +251,13 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="readOnUpdateNoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Read On-Update:"/>
+        <Property name="text" type="java.lang.String" value="Run On-Update SQL:"/>
       </Properties>
     </Component>
   </SubComponents>

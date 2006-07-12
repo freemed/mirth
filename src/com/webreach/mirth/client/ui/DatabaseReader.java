@@ -8,7 +8,9 @@ public class DatabaseReader extends ConnectorClass
     Frame parent;
     /** Creates new form DatabaseWriter */
     public final String DATATYPE = "DataType";
-    public final String DATABASE_DRIVER = "Driver";
+    public final String DATABASE_HOST = "host";
+    public final String DATABASE_HOST_VALUE = "query";
+    public final String DATABASE_DRIVER = "driver";
     public final String SUN_JDBC_ODBC_BRIDGE = "Sun JDBC-ODBC Bridge";
     public final String ODBC_MYSQL = "ODBC - MySQL";
     public final String ODBC_POSTGRESQL = "ODBC - PostgresSQL";
@@ -47,6 +49,7 @@ public class DatabaseReader extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(DATABASE_HOST, DATABASE_HOST_VALUE);
         
         if(databaseDriverCombobox.getSelectedItem().equals(SUN_JDBC_ODBC_BRIDGE))
             properties.put(DATABASE_DRIVER, SUN_JDBC_ODBC_JDBCODBCDRIVER);
@@ -102,6 +105,7 @@ public class DatabaseReader extends ConnectorClass
             readOnUpdateNo.setSelected(true);
         
         databaseUpdateSQLTextPane.setText((String)props.get(DATABASE_ACK));
+        
     }
 
     public void setDefaults()
@@ -120,6 +124,7 @@ public class DatabaseReader extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(DATABASE_HOST, DATABASE_HOST_VALUE);
         properties.put(DATABASE_DRIVER, COM_MYSQL_JDBC_DRIVER);
         properties.put(DATABASE_URL, "");
         properties.put(DATABASE_USERNAME, "");
@@ -189,6 +194,13 @@ public class DatabaseReader extends ConnectorClass
         buttonGroup1.add(readOnUpdateYes);
         readOnUpdateYes.setText("Yes");
         readOnUpdateYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        readOnUpdateYes.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                readOnUpdateYesActionPerformed(evt);
+            }
+        });
 
         readOnUpdateNo.setBackground(new java.awt.Color(255, 255, 255));
         readOnUpdateNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -196,8 +208,15 @@ public class DatabaseReader extends ConnectorClass
         readOnUpdateNo.setSelected(true);
         readOnUpdateNo.setText("No");
         readOnUpdateNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        readOnUpdateNo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                readOnUpdateNoActionPerformed(evt);
+            }
+        });
 
-        jLabel8.setText("Read On-Update:");
+        jLabel8.setText("Run On-Update SQL:");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -281,6 +300,16 @@ public class DatabaseReader extends ConnectorClass
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void readOnUpdateNoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_readOnUpdateNoActionPerformed
+    {//GEN-HEADEREND:event_readOnUpdateNoActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_readOnUpdateNoActionPerformed
+
+    private void readOnUpdateYesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_readOnUpdateYesActionPerformed
+    {//GEN-HEADEREND:event_readOnUpdateYesActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_readOnUpdateYesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

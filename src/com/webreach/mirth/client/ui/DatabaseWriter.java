@@ -8,7 +8,9 @@ public class DatabaseWriter extends ConnectorClass
     Frame parent;
     /** Creates new form DatabaseWriter */
     public final String DATATYPE = "DataType";
-    public final String DATABASE_DRIVER = "Driver";
+    public final String DATABASE_HOST = "host";
+    public final String DATABASE_HOST_VALUE = "query";
+    public final String DATABASE_DRIVER = "driver";
     public final String SUN_JDBC_ODBC_BRIDGE = "Sun JDBC-ODBC Bridge";
     public final String ODBC_MYSQL = "ODBC - MySQL";
     public final String ODBC_POSTGRESQL = "ODBC - PostgresSQL";
@@ -40,6 +42,7 @@ public class DatabaseWriter extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(DATABASE_HOST, DATABASE_HOST_VALUE);
         
         if(databaseDriverCombobox.getSelectedItem().equals(SUN_JDBC_ODBC_BRIDGE))
             properties.put(DATABASE_DRIVER, SUN_JDBC_ODBC_JDBCODBCDRIVER);
@@ -94,6 +97,7 @@ public class DatabaseWriter extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
+        properties.put(DATABASE_HOST, DATABASE_HOST_VALUE);
         properties.put(DATABASE_DRIVER, COM_MYSQL_JDBC_DRIVER);
         properties.put(DATABASE_URL, "");
         properties.put(DATABASE_USERNAME, "");
