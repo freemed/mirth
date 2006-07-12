@@ -79,6 +79,7 @@ public class MessageBrowser extends javax.swing.JPanel
         HL7Panel = new HL7TreePanel();
         HL7ScrollPane = new JScrollPane();
         HL7ScrollPane.setViewportView(HL7Panel);
+        HL7ScrollPane.setFocusable(false);
         descriptionTabbedPane.addTab("HL7", HL7ScrollPane);
         
         String[] values = new String[MessageEvent.Status.values().length + 1];
@@ -321,7 +322,8 @@ public class MessageBrowser extends javax.swing.JPanel
     }
     
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         filterPanel = new javax.swing.JPanel();
         sendingFacilityLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -356,8 +358,10 @@ public class MessageBrowser extends javax.swing.JPanel
         jLabel3.setText("Start Date:");
 
         filterButton.setText("Filter");
-        filterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        filterButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 filterButtonActionPerformed(evt);
             }
         });
@@ -432,13 +436,15 @@ public class MessageBrowser extends javax.swing.JPanel
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String [] {
+            new String []
+            {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
@@ -448,7 +454,7 @@ public class MessageBrowser extends javax.swing.JPanel
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -456,7 +462,9 @@ public class MessageBrowser extends javax.swing.JPanel
         );
 
         descriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        descriptionTabbedPane.setFocusable(false);
         ER7Panel.setBackground(new java.awt.Color(255, 255, 255));
+        ER7Panel.setFocusable(false);
         ER7TextPane.setEditable(false);
         jScrollPane2.setViewportView(ER7TextPane);
 
@@ -466,7 +474,7 @@ public class MessageBrowser extends javax.swing.JPanel
             ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(ER7PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ER7PanelLayout.setVerticalGroup(
@@ -479,6 +487,7 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionTabbedPane.addTab("ER7", ER7Panel);
 
         XMLPanel.setBackground(new java.awt.Color(255, 255, 255));
+        XMLPanel.setFocusable(false);
         XMLTextPane.setEditable(false);
         jScrollPane4.setViewportView(XMLTextPane);
 
@@ -488,7 +497,7 @@ public class MessageBrowser extends javax.swing.JPanel
             XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(XMLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addContainerGap())
         );
         XMLPanelLayout.setVerticalGroup(
@@ -504,7 +513,7 @@ public class MessageBrowser extends javax.swing.JPanel
         descriptionPanel.setLayout(descriptionPanelLayout);
         descriptionPanelLayout.setHorizontalGroup(
             descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(descriptionTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+            .add(descriptionTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
         );
         descriptionPanelLayout.setVerticalGroup(
             descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

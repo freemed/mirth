@@ -90,6 +90,8 @@ public class AdminPanel extends javax.swing.JPanel
         rowHighlightYes = new com.webreach.mirth.client.ui.MirthRadioButton();
         rowHighlightNo = new com.webreach.mirth.client.ui.MirthRadioButton();
 
+        adminPanel.setFocusable(false);
+        users.setFocusable(false);
         users.addComponentListener(new java.awt.event.ComponentAdapter()
         {
             public void componentShown(java.awt.event.ComponentEvent evt)
@@ -111,6 +113,7 @@ public class AdminPanel extends javax.swing.JPanel
         adminPanel.addTab("Users", users);
 
         settings.setBackground(new java.awt.Color(255, 255, 255));
+        settings.setFocusable(false);
         settings.addComponentListener(new java.awt.event.ComponentAdapter()
         {
             public void componentShown(java.awt.event.ComponentEvent evt)
@@ -169,9 +172,7 @@ public class AdminPanel extends javax.swing.JPanel
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jLabel3)
-                        .add(489, 489, 489))
+                    .add(jLabel3)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jLabel8)
@@ -189,8 +190,8 @@ public class AdminPanel extends javax.swing.JPanel
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(requireAuthenticationNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(smtpPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(smtpHost, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
-                        .add(350, 350, 350))))
+                            .add(smtpHost, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))))
+                .add(350, 350, 350))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -279,7 +280,7 @@ public class AdminPanel extends javax.swing.JPanel
             .add(org.jdesktop.layout.GroupLayout.TRAILING, settingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(settingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
