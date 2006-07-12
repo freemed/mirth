@@ -24,12 +24,14 @@ public class DatabaseWriter extends ConnectorClass
     public final String DATABASE_PASSWORD = "password";
     public final String DATABASE_SQL_STATEMENT = "statement";
     
+    HighlightedDocument mappingDoc;
+    
     public DatabaseWriter()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
         name = "Database Writer";
         initComponents();
-        HighlightedDocument mappingDoc = new HighlightedDocument();
+        mappingDoc = new HighlightedDocument();
         mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
         HighlightedDocument mappingDoc2 = new HighlightedDocument();
     }
@@ -60,6 +62,10 @@ public class DatabaseWriter extends ConnectorClass
     public void setProperties(Properties props)
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
+        
+        mappingDoc = new HighlightedDocument();
+        mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
+        HighlightedDocument mappingDoc2 = new HighlightedDocument();
         
         if(props.get(DATABASE_DRIVER).equals(SUN_JDBC_ODBC_JDBCODBCDRIVER))
             databaseDriverCombobox.setSelectedItem(SUN_JDBC_ODBC_BRIDGE);

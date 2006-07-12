@@ -27,14 +27,17 @@ public class DatabaseReader extends ConnectorClass
     public final String DATABASE_USE_ACK = "useAck";
     public final String DATABASE_ACK = "ack";
     
+    private HighlightedDocument mappingDoc;
+    private HighlightedDocument mappingDoc2;
+    
     public DatabaseReader()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
         name = "Database Reader";
         initComponents();
-        HighlightedDocument mappingDoc = new HighlightedDocument();
+        mappingDoc = new HighlightedDocument();
         mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
-        HighlightedDocument mappingDoc2 = new HighlightedDocument();
+        mappingDoc2 = new HighlightedDocument();
         mappingDoc2.setHighlightStyle(HighlightedDocument.SQL_STYLE);
         databaseSQLTextPane.setDocument(mappingDoc);
         databaseUpdateSQLTextPane.setDocument(mappingDoc2);
@@ -74,6 +77,13 @@ public class DatabaseReader extends ConnectorClass
     public void setProperties(Properties props)
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
+        
+        mappingDoc = new HighlightedDocument();
+        mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
+        mappingDoc2 = new HighlightedDocument();
+        mappingDoc2.setHighlightStyle(HighlightedDocument.SQL_STYLE);
+        databaseSQLTextPane.setDocument(mappingDoc);
+        databaseUpdateSQLTextPane.setDocument(mappingDoc2);
         
         if(props.get(DATABASE_DRIVER).equals(SUN_JDBC_ODBC_JDBCODBCDRIVER))
             databaseDriverCombobox.setSelectedItem(SUN_JDBC_ODBC_BRIDGE);
