@@ -7,7 +7,7 @@ public class DatabaseWriter extends ConnectorClass
 {
     Frame parent;
     /** Creates new form DatabaseWriter */
-    public final String DATATYPE = "Datatype";
+    public final String DATATYPE = "DataType";
     public final String DATABASE_DRIVER = "Driver";
     public final String SUN_JDBC_ODBC_BRIDGE = "Sun JDBC-ODBC Bridge";
     public final String ODBC_MYSQL = "ODBC - MySQL";
@@ -24,7 +24,7 @@ public class DatabaseWriter extends ConnectorClass
     public final String DATABASE_PASSWORD = "password";
     public final String DATABASE_SQL_STATEMENT = "statement";
     
-    HighlightedDocument mappingDoc;
+    private HighlightedDocument mappingDoc;
     
     public DatabaseWriter()
     {
@@ -33,7 +33,7 @@ public class DatabaseWriter extends ConnectorClass
         initComponents();
         mappingDoc = new HighlightedDocument();
         mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
-        HighlightedDocument mappingDoc2 = new HighlightedDocument();
+        databaseSQLTextPane.setDocument(mappingDoc);
     }
 
     public Properties getProperties()
@@ -62,10 +62,6 @@ public class DatabaseWriter extends ConnectorClass
     public void setProperties(Properties props)
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        
-        mappingDoc = new HighlightedDocument();
-        mappingDoc.setHighlightStyle(HighlightedDocument.SQL_STYLE);
-        HighlightedDocument mappingDoc2 = new HighlightedDocument();
         
         if(props.get(DATABASE_DRIVER).equals(SUN_JDBC_ODBC_JDBCODBCDRIVER))
             databaseDriverCombobox.setSelectedItem(SUN_JDBC_ODBC_BRIDGE);

@@ -7,7 +7,7 @@ public class JMSWriter extends ConnectorClass
     Frame parent;
     
     /** Creates new form FileWriter */
-    public final String DATATYPE = "Datatype";
+    public final String DATATYPE = "DataType";
     public final String JMS_ACK_MODE = "AckMode";
     public final String JMS_SPECIFICATION = "Specification";
     public final String JMS_DELIVERY = "Delivery";
