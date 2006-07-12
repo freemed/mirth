@@ -283,20 +283,20 @@ public class EventBrowser extends javax.swing.JPanel
         filterPanel = new javax.swing.JPanel();
         eventLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        eventField = new javax.swing.JTextField();
         filterButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         mirthDatePicker1 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
         mirthDatePicker2 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
         levelComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        eventField = new com.webreach.mirth.client.ui.components.MirthTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         descriptionPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        description = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        description = new com.webreach.mirth.client.ui.components.MirthTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -321,44 +321,41 @@ public class EventBrowser extends javax.swing.JPanel
         filterPanelLayout.setHorizontalGroup(
             filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(filterPanelLayout.createSequentialGroup()
-                .add(34, 34, 34)
+                .add(12, 12, 12)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(filterPanelLayout.createSequentialGroup()
-                        .add(eventLabel)
-                        .add(6, 6, 6))
-                    .add(filterPanelLayout.createSequentialGroup()
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                    .add(eventLabel)
+                    .add(jLabel3))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(filterButton)
                     .add(filterPanelLayout.createSequentialGroup()
-                        .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(16, 16, 16)
+                        .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 84, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(20, 20, 20)
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(levelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(filterButton)
                     .add(filterPanelLayout.createSequentialGroup()
                         .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         filterPanelLayout.setVerticalGroup(
             filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(filterPanelLayout.createSequentialGroup()
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(eventLabel)
                     .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(eventLabel)
                     .add(jLabel1)
                     .add(levelComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel3)
                     .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2))
+                    .add(jLabel2)
+                    .add(jLabel3))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filterButton)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -383,7 +380,7 @@ public class EventBrowser extends javax.swing.JPanel
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -391,13 +388,10 @@ public class EventBrowser extends javax.swing.JPanel
         );
 
         descriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
-        description.setColumns(20);
-        description.setEditable(false);
-        description.setRows(5);
-        description.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jScrollPane2.setViewportView(description);
-
         jLabel4.setText("Description:");
+
+        description.setEditable(false);
+        jScrollPane2.setViewportView(description);
 
         org.jdesktop.layout.GroupLayout descriptionPanelLayout = new org.jdesktop.layout.GroupLayout(descriptionPanel);
         descriptionPanel.setLayout(descriptionPanelLayout);
@@ -407,7 +401,7 @@ public class EventBrowser extends javax.swing.JPanel
                 .addContainerGap()
                 .add(descriptionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel4)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
                 .addContainerGap())
         );
         descriptionPanelLayout.setVerticalGroup(
@@ -483,9 +477,9 @@ public class EventBrowser extends javax.swing.JPanel
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea description;
+    private com.webreach.mirth.client.ui.components.MirthTextPane description;
     private javax.swing.JPanel descriptionPanel;
-    private javax.swing.JTextField eventField;
+    private com.webreach.mirth.client.ui.components.MirthTextField eventField;
     private javax.swing.JLabel eventLabel;
     private javax.swing.JButton filterButton;
     private javax.swing.JPanel filterPanel;

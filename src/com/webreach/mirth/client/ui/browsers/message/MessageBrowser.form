@@ -69,16 +69,16 @@
                           <Component id="mirthDatePicker2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="eventField" alignment="1" max="32767" attributes="1"/>
-                              <Component id="sendingFacilityField" alignment="1" min="-2" pref="114" max="-2" attributes="1"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="eventField" max="32767" attributes="1"/>
+                              <Component id="sendingFacilityField" alignment="0" pref="104" max="32767" attributes="1"/>
                           </Group>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="controlIDField" min="-2" pref="71" max="-2" attributes="1"/>
+                                  <Component id="controlIDField" min="-2" pref="59" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -97,16 +97,16 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="sendingFacilityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="sendingFacilityField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sendingFacilityField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="controlIDField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="eventField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="statusComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="eventField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
@@ -132,8 +132,6 @@
             <Property name="text" type="java.lang.String" value="Start Date:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="sendingFacilityField">
-        </Component>
         <Component class="javax.swing.JButton" name="filterButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Filter"/>
@@ -150,8 +148,6 @@
         <Component class="com.webreach.mirth.client.ui.components.MirthDatePicker" name="mirthDatePicker1">
         </Component>
         <Component class="com.webreach.mirth.client.ui.components.MirthDatePicker" name="mirthDatePicker2">
-        </Component>
-        <Component class="javax.swing.JTextField" name="controlIDField">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -175,7 +171,11 @@
             <Property name="text" type="java.lang.String" value="Event:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="eventField">
+        <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="sendingFacilityField">
+        </Component>
+        <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="eventField">
+        </Component>
+        <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="controlIDField">
         </Component>
       </SubComponents>
     </Container>
@@ -274,7 +274,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="450" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="450" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -283,21 +283,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="115" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" pref="115" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextPane" name="ER7TextPane">
+                    <Component class="com.webreach.mirth.client.ui.components.MirthTextPane" name="ER7TextPane">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                       </Properties>
@@ -326,7 +326,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" pref="450" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="450" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -335,21 +335,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" pref="115" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="115" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextPane" name="XMLTextPane">
+                    <Component class="com.webreach.mirth.client.ui.components.MirthTextPane" name="XMLTextPane">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                       </Properties>

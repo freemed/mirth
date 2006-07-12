@@ -353,33 +353,32 @@ public class MessageBrowser extends javax.swing.JPanel
     }
     
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         filterPanel = new javax.swing.JPanel();
         sendingFacilityLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        sendingFacilityField = new javax.swing.JTextField();
         filterButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         mirthDatePicker1 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
         mirthDatePicker2 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
-        controlIDField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         statusComboBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        eventField = new javax.swing.JTextField();
+        sendingFacilityField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        eventField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        controlIDField = new com.webreach.mirth.client.ui.components.MirthTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         descriptionPanel = new javax.swing.JPanel();
         descriptionTabbedPane = new javax.swing.JTabbedPane();
         ER7Panel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        ER7TextPane = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ER7TextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
         XMLPanel = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        XMLTextPane = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        XMLTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         filterPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -389,10 +388,8 @@ public class MessageBrowser extends javax.swing.JPanel
         jLabel3.setText("Start Date:");
 
         filterButton.setText("Filter");
-        filterButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        filterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filterButtonActionPerformed(evt);
             }
         });
@@ -425,15 +422,15 @@ public class MessageBrowser extends javax.swing.JPanel
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(mirthDatePicker2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(filterPanelLayout.createSequentialGroup()
-                        .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(eventField)
-                            .add(sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(15, 15, 15)
+                        .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(eventField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(sendingFacilityField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                        .add(14, 14, 14)
                         .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(filterPanelLayout.createSequentialGroup()
                                 .add(jLabel1)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(controlIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 71, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(controlIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 59, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(filterPanelLayout.createSequentialGroup()
                                 .add(jLabel5)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -445,15 +442,15 @@ public class MessageBrowser extends javax.swing.JPanel
             .add(filterPanelLayout.createSequentialGroup()
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(sendingFacilityLabel)
-                    .add(sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel1)
+                    .add(sendingFacilityField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(controlIDField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel5)
-                    .add(statusComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(statusComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(eventField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(filterPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(mirthDatePicker1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -467,15 +464,13 @@ public class MessageBrowser extends javax.swing.JPanel
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String []
-            {
+            new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
@@ -497,7 +492,7 @@ public class MessageBrowser extends javax.swing.JPanel
         ER7Panel.setBackground(new java.awt.Color(255, 255, 255));
         ER7Panel.setFocusable(false);
         ER7TextPane.setEditable(false);
-        jScrollPane2.setViewportView(ER7TextPane);
+        jScrollPane3.setViewportView(ER7TextPane);
 
         org.jdesktop.layout.GroupLayout ER7PanelLayout = new org.jdesktop.layout.GroupLayout(ER7Panel);
         ER7Panel.setLayout(ER7PanelLayout);
@@ -505,14 +500,14 @@ public class MessageBrowser extends javax.swing.JPanel
             ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(ER7PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ER7PanelLayout.setVerticalGroup(
             ER7PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(ER7PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
         descriptionTabbedPane.addTab("ER7", ER7Panel);
@@ -520,7 +515,7 @@ public class MessageBrowser extends javax.swing.JPanel
         XMLPanel.setBackground(new java.awt.Color(255, 255, 255));
         XMLPanel.setFocusable(false);
         XMLTextPane.setEditable(false);
-        jScrollPane4.setViewportView(XMLTextPane);
+        jScrollPane2.setViewportView(XMLTextPane);
 
         org.jdesktop.layout.GroupLayout XMLPanelLayout = new org.jdesktop.layout.GroupLayout(XMLPanel);
         XMLPanel.setLayout(XMLPanelLayout);
@@ -528,14 +523,14 @@ public class MessageBrowser extends javax.swing.JPanel
             XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(XMLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addContainerGap())
         );
         XMLPanelLayout.setVerticalGroup(
             XMLPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(XMLPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
         descriptionTabbedPane.addTab("XML", XMLPanel);
@@ -624,13 +619,13 @@ public class MessageBrowser extends javax.swing.JPanel
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ER7Panel;
-    private javax.swing.JTextPane ER7TextPane;
+    private com.webreach.mirth.client.ui.components.MirthTextPane ER7TextPane;
     private javax.swing.JPanel XMLPanel;
-    private javax.swing.JTextPane XMLTextPane;
-    private javax.swing.JTextField controlIDField;
+    private com.webreach.mirth.client.ui.components.MirthTextPane XMLTextPane;
+    private com.webreach.mirth.client.ui.components.MirthTextField controlIDField;
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JTabbedPane descriptionTabbedPane;
-    private javax.swing.JTextField eventField;
+    private com.webreach.mirth.client.ui.components.MirthTextField eventField;
     private javax.swing.JButton filterButton;
     private javax.swing.JPanel filterPanel;
     private javax.swing.JLabel jLabel1;
@@ -641,11 +636,11 @@ public class MessageBrowser extends javax.swing.JPanel
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private com.webreach.mirth.client.ui.components.MirthDatePicker mirthDatePicker1;
     private com.webreach.mirth.client.ui.components.MirthDatePicker mirthDatePicker2;
-    private javax.swing.JTextField sendingFacilityField;
+    private com.webreach.mirth.client.ui.components.MirthTextField sendingFacilityField;
     private javax.swing.JLabel sendingFacilityLabel;
     private javax.swing.JComboBox statusComboBox;
     // End of variables declaration//GEN-END:variables
