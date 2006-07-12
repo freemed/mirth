@@ -6,13 +6,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
-import com.webreach.mirth.client.ui.CopyAction;
-import com.webreach.mirth.client.ui.CutAction;
-import com.webreach.mirth.client.ui.DeleteAction;
 import com.webreach.mirth.client.ui.Frame;
-import com.webreach.mirth.client.ui.PasteAction;
 import com.webreach.mirth.client.ui.PlatformUI;
-import com.webreach.mirth.client.ui.SelectAllAction;
+import com.webreach.mirth.client.ui.actions.CopyAction;
+import com.webreach.mirth.client.ui.actions.CutAction;
+import com.webreach.mirth.client.ui.actions.DeleteAction;
+import com.webreach.mirth.client.ui.actions.PasteAction;
+import com.webreach.mirth.client.ui.actions.SelectAllAction;
 
 /** 
  * Mirth's implementation of the JTextField.  Adds enabling of

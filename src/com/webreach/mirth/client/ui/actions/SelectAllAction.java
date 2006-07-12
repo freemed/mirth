@@ -1,4 +1,4 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;

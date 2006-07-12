@@ -1,28 +1,29 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.actions;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
-/** Allows for Copying in text components. */
-public class CopyAction extends AbstractAction
+/** Allows for Deleting in text components. */
+public class DeleteAction extends AbstractAction
 {
     JTextComponent comp;
     
-    public CopyAction(JTextComponent comp)
+    public DeleteAction(JTextComponent comp)
     { 
-        super("Copy"); 
+        super("Delete"); 
         this.comp = comp; 
     } 
  
     public void actionPerformed(ActionEvent e)
     { 
-        comp.copy(); 
+        comp.replaceSelection(null); 
     } 
  
     public boolean isEnabled()
     { 
-        return comp.isEnabled() 
+        return comp.isEditable() 
+                && comp.isEnabled() 
                 && comp.getSelectedText() != null; 
     } 
 
