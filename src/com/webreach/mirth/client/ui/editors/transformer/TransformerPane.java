@@ -603,6 +603,7 @@ public class TransformerPane extends MirthEditorPane {
 	    	}
 	    	
 	    	transformer.setSteps( list );
+	    	
 	    	transformer.setTemplate( tabPanel.getHL7Message() );
 	    
 	    	// reset the task pane and content to channel edit page
