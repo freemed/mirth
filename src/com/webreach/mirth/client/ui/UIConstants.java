@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
+/**
+ * A constants class for the Mirth UI
+ */
 public class UIConstants 
 {
     // for error checking

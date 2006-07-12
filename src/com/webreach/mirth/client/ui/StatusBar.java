@@ -1,9 +1,3 @@
-/*
- * StatusBar.java
- *
- * Created on June 28, 2006, 11:29 AM
- */
-
 package com.webreach.mirth.client.ui;
 
 import javax.swing.ImageIcon;
@@ -11,8 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
 
 /**
- *
- * @author  brendanh
+ * Creates the status bar for the Mirth client application.
  */
 public class StatusBar extends javax.swing.JPanel
 {

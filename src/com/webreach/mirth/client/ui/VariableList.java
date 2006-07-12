@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A panel that contains the MirthVariableList.
+ */
 public class VariableList extends javax.swing.JPanel
 {
     
@@ -16,6 +19,9 @@ public class VariableList extends javax.swing.JPanel
         initComponents();
     }
     
+    /**
+     * Set the variable list from a list of steps.
+     */
     public void setVariableList(List<Step> steps)
     {
         ArrayList<String> variables = new ArrayList<String>();

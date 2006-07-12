@@ -5,6 +5,9 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import org.jdesktop.swingx.table.ColumnHeaderRenderer;
 
+/** 
+ * A class of static variables that need to be referenced from multiple locations.
+ */
 public class PlatformUI 
 {
     public static Frame MIRTH_FRAME;

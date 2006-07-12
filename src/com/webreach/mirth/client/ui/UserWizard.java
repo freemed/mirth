@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+/**
+ * A wizard for creating a new user or editing a current user
+ */
 public class UserWizard extends javax.swing.JDialog
 {
     private Frame parent;
@@ -220,6 +223,10 @@ public class UserWizard extends javax.swing.JDialog
         
     }//GEN-LAST:event_password1KeyReleased
 
+    /**
+     * An action for when the finish button is pressed.
+     * Checks and saves all of the information.
+     */
     private void finishButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_finishButtonActionPerformed
     {//GEN-HEADEREND:event_finishButtonActionPerformed
         for (int i = 0; i < parent.users.size(); i++)
@@ -271,6 +278,9 @@ public class UserWizard extends javax.swing.JDialog
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
     
+    /**
+     * This method checks if the finish button can now be enabled
+     */
     public boolean checkIfAbleToFinish()
     {
         if(String.valueOf(password1.getPassword()).equals("") || String.valueOf(password2.getPassword()).trim().equals("") || username.getText().trim().equals(""))
