@@ -144,6 +144,7 @@ public class FilterPane extends MirthEditorPane {
 				ActionFactory.createBoundAction( "addNewRule", "Add New Rule", "N" ),
 				new ImageIcon( Frame.class.getResource( "images/add.png" )) ));		
 		JMenuItem addNewRule = new JMenuItem("Add New Rule");
+		addNewRule.setIcon( new ImageIcon( Frame.class.getResource( "images/add.png" )) );
 		addNewRule.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				addNewRule();
@@ -156,6 +157,7 @@ public class FilterPane extends MirthEditorPane {
 				ActionFactory.createBoundAction( "deleteRule", "Delete Rule", "X" ),
 				new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));	
 		JMenuItem deleteRule = new JMenuItem("Delete Rule");
+		deleteRule.setIcon( new ImageIcon( Frame.class.getResource( "images/delete.png" )) );
 		deleteRule.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				deleteRule();
@@ -168,6 +170,7 @@ public class FilterPane extends MirthEditorPane {
 				ActionFactory.createBoundAction( "moveRuleUp", "Move Rule Up", "U" ),
 				new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));	
 		JMenuItem moveRuleUp = new JMenuItem("Move Rule Up");
+		moveRuleUp.setIcon( new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) );
 		moveRuleUp.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				moveRuleUp();
@@ -180,6 +183,7 @@ public class FilterPane extends MirthEditorPane {
 				ActionFactory.createBoundAction( "moveRuleDown", "Move Rule Down", "D" ),
 				new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
 		JMenuItem moveRuleDown = new JMenuItem("Move Rule Down");
+		moveRuleDown.setIcon( new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) );
 		moveRuleDown.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				moveRuleDown();

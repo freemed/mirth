@@ -150,6 +150,7 @@ public class TransformerPane extends MirthEditorPane {
         		ActionFactory.createBoundAction( "addNewStep", "Add New Step", "N" ),
         		new ImageIcon( Frame.class.getResource( "images/add.png" )) ));
         JMenuItem addNewStep = new JMenuItem("Add New Step");
+        addNewStep.setIcon( new ImageIcon( Frame.class.getResource("images/add.png") ) );
         addNewStep.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e){
                 addNewStep();
@@ -162,6 +163,7 @@ public class TransformerPane extends MirthEditorPane {
         		ActionFactory.createBoundAction( "deleteStep", "Delete Step", "X" ),
         		new ImageIcon( Frame.class.getResource( "images/delete.png" )) )); 
         JMenuItem deleteStep = new JMenuItem("Delete Step");
+        deleteStep.setIcon( new ImageIcon( Frame.class.getResource( "images/delete.png" )) );
         deleteStep.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e){
                 deleteStep();
@@ -174,6 +176,7 @@ public class TransformerPane extends MirthEditorPane {
                     ActionFactory.createBoundAction( "moveStepUp", "Move Step Up", "U" ),
                     new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));
         JMenuItem moveStepUp = new JMenuItem("Move Step Up");
+        moveStepUp.setIcon( new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) );
         moveStepUp.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e){
                 moveStepUp();
@@ -186,6 +189,7 @@ public class TransformerPane extends MirthEditorPane {
         		ActionFactory.createBoundAction( "moveStepDown", "Move Step Down", "D" ),
         		new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
         JMenuItem moveStepDown = new JMenuItem("Move Step Down");
+        moveStepDown.setIcon( new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) );
         moveStepDown.addActionListener(new ActionListener(){
              public void actionPerformed(ActionEvent e){
                 moveStepDown();
