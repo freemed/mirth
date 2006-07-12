@@ -9,6 +9,9 @@ import javax.swing.ImageIcon;
  */
 public class UIConstants 
 {
+    // for Frame
+    public static final int TASK_PANE_WIDTH = 170;
+    
     // for error checking
     public static final int ERROR_CONSTANT = -1;
         

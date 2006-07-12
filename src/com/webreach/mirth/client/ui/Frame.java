@@ -42,6 +42,10 @@ import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
+/**
+ * The main conent frame for the Mirth Client Application.
+ * Extends JXFrame and sets up all content.
+ */
 public class Frame extends JXFrame
 {
     public Client mirthClient;
@@ -59,12 +63,12 @@ public class Frame extends JXFrame
     protected List<User> users;
 
     protected ActionManager manager = ActionManager.getInstance();
-    protected JPanel contentPane;
+    protected JPanel contentPanel;
     protected BorderLayout borderLayout1 = new BorderLayout();
     protected StatusBar statusBar;
-    protected JSplitPane jSplitPane1 = new JSplitPane();
-    protected JScrollPane jScrollPane1 = new JScrollPane();
-    protected JScrollPane jScrollPane2 = new JScrollPane();
+    protected JSplitPane splitPane = new JSplitPane();
+    protected JScrollPane taskPane = new JScrollPane();
+    protected JScrollPane contentPane = new JScrollPane();
     protected Component currentContentPage = null;
     protected JXTaskPaneContainer currentTaskPaneContainer = null;
 
@@ -96,7 +100,10 @@ public class Frame extends JXFrame
     private DropShadowBorder dsb;
     private static Preferences userPreferences; 
 
-    private void build(JXTitledPanel container, JScrollPane component, boolean opaque)
+    /**
+     * Builds the content panel with a title bar and settings.
+     */
+    private void buildContentPanel(JXTitledPanel container, JScrollPane component, boolean opaque)
     {
         container.getContentContainer().setLayout(new BorderLayout());
         container.setBorder(dsb);
@@ -114,11 +121,17 @@ public class Frame extends JXFrame
             container.setTitleDarkBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
     }
 
+    /**
+     * Set the main content panel title to a String
+     */
     public void setPanelName(String name)
     {
         rightContainer.setTitle(name);
     }
 
+    /** 
+     * Called to set up this main window frame.  Calls jbInit() as well.
+     */
     public void setupFrame(Client mirthClient)
     {
         dsb = new DropShadowBorder(UIManager.getColor("Control"), 0, 3, .3f, 12, true, true, true, true);
@@ -179,24 +192,27 @@ public class Frame extends JXFrame
         statusUpdater.start();
     }
 
+    /**
+     * Sets up the layout information and calls makePaneContainer() to make the task panes.
+     */
     private void jbInit() throws Exception
     {
-        contentPane = (JPanel) getContentPane();
-        contentPane.setLayout(new BorderLayout());
-        contentPane.setBorder(null);
+        contentPanel = (JPanel) getContentPane();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.setBorder(null);
         setTitle("Mirth Client Prototype");
         statusBar = new StatusBar();
-        jSplitPane1.setDividerSize(0);
-        contentPane.add(statusBar, BorderLayout.SOUTH);
-        contentPane.add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        splitPane.setDividerSize(0);
+        contentPanel.add(statusBar, BorderLayout.SOUTH);
+        contentPanel.add(splitPane, java.awt.BorderLayout.CENTER);
 
-        ///build(leftContainer, jScrollPane1, false, "User Options");
-        build(rightContainer, jScrollPane2, false);
+        ///buildContentPanel(leftContainer, taskPane, false, "User Options");
+        buildContentPanel(rightContainer, contentPane, false);
 
-        jSplitPane1.add(rightContainer, JSplitPane.RIGHT);
-        jSplitPane1.add(jScrollPane1, JSplitPane.LEFT);
-        jScrollPane1.setMinimumSize(new Dimension(170,0));
-        jSplitPane1.setDividerLocation(170);
+        splitPane.add(rightContainer, JSplitPane.RIGHT);
+        splitPane.add(taskPane, JSplitPane.LEFT);
+        taskPane.setMinimumSize(new Dimension(UIConstants.TASK_PANE_WIDTH,0));
+        splitPane.setDividerLocation(UIConstants.TASK_PANE_WIDTH);
         setCurrentContentPage(statusListPage);
         makePaneContainer();
         setCurrentTaskPaneContainer(taskPaneContainer);
@@ -209,11 +225,15 @@ public class Frame extends JXFrame
                 userPreferences.putInt("maximizedState", getExtendedState());
                 userPreferences.putInt("width", getWidth());
                 userPreferences.putInt("height", getHeight());
-                endUpdater();
+                doLogout();
             }
         });
     }
 
+    /**
+     * Changes the current content page to the Channel Editor with the new
+     * channel specified as the loaded one.
+     */
     public void setupChannel(Channel channel)
     {
         setCurrentContentPage(channelEditPage);
@@ -222,31 +242,53 @@ public class Frame extends JXFrame
         setVisibleTasks(channelEditTasks, channelEditPopupMenu, 0, 0, false);
         channelEditPage.addChannel(channel);
     }
+    
+    /**
+     * Edits a channel at a specified index, setting that channel
+     * as the current channel in the editor.
+     */
+    public void editChannel(int index)
+    {
+        setBold(viewPane, UIConstants.ERROR_CONSTANT);
+        setCurrentContentPage(channelEditPage);
+        setFocus(channelEditTasks);
+        setVisibleTasks(channelEditTasks, channelEditPopupMenu, 0, 4, false);
+        channelEditPage.editChannel(index);
+    }
 
+    /**
+     * Sets the current content page to the passed in page.
+     */
     public void setCurrentContentPage(Component contentPageObject)
     {
         if (contentPageObject==currentContentPage)
             return;
 
         if (currentContentPage!=null)
-            jScrollPane2.getViewport().remove(currentContentPage);
+            contentPane.getViewport().remove(currentContentPage);
 
-        jScrollPane2.getViewport().add(contentPageObject);
+        contentPane.getViewport().add(contentPageObject);
         currentContentPage = contentPageObject;
     }
 
+    /** 
+     * Sets the current task pane container
+     */
     public void setCurrentTaskPaneContainer(JXTaskPaneContainer container)
     {
         if (container==currentTaskPaneContainer)
             return;
 
         if (currentTaskPaneContainer!=null)
-            jScrollPane1.getViewport().remove(currentTaskPaneContainer);
+            taskPane.getViewport().remove(currentTaskPaneContainer);
 
-        jScrollPane1.getViewport().add(container);
+        taskPane.getViewport().add(container);
         currentTaskPaneContainer = container;
     }
 
+    /**
+     * Ends the updater thread.
+     */
     private void endUpdater()
     {
         try
@@ -258,17 +300,11 @@ public class Frame extends JXFrame
         {
             alertException(e.getStackTrace());
         }
-
-        try
-        {
-            mirthClient.logout();
-        }
-        catch (ClientException e)
-        {
-            alertException(e.getStackTrace());
-        }
     }
     
+    /**
+     * Makes all of the task panes and shows the status panel.
+     */
     private void makePaneContainer()
     {
         createViewPane();
@@ -285,6 +321,9 @@ public class Frame extends JXFrame
         doShowStatusPanel();
     }
     
+    /**
+     * Creates the view task pane.
+     */
     private void createViewPane()
     {
         // Create View pane
@@ -298,6 +337,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(viewPane);
     }
     
+     /**
+     * Creates the settings task pane.
+     */
     private void createSettingsPane()
     {
         // Create Settings Tasks Pane
@@ -332,6 +374,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(settingsTasks);
     }
     
+    /**
+     * Creates the channel task pane.
+     */
     private void createChannelPane()
     {
         // Create Channel Tasks Pane
@@ -436,6 +481,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(channelTasks);
     }
     
+    /**
+     * Creates the channel edit task pane.
+     */
     private void createChannelEditPane()
     {
         // Create Channel Edit Tasks Pane
@@ -510,6 +558,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(channelEditTasks);
     }
     
+    /**
+     * Creates the status task pane.
+     */
     private void createStatusPane()
     {
         // Create Status Tasks Pane
@@ -594,6 +645,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(statusTasks);
     }
     
+    /**
+     * Creates the event task pane.
+     */
     private void createEventPane()
     {
         // Create Event Tasks Pane
@@ -626,6 +680,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(eventTasks);
     }
     
+    /**
+     * Creates the message task pane.
+     */
     private void createMessagePane()
     {
         // Create Message Tasks Pane
@@ -669,6 +726,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(messageTasks);
     }
     
+    /**
+     * Creates the users task pane.
+     */
     private void createUserPane()
     {
         // Create User Tasks Pane
@@ -722,6 +782,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(userTasks);
     }
     
+    /**
+     * Creates the other task pane.
+     */
     private void createOtherPane()
     {
         //Create Other Pane
@@ -736,6 +799,9 @@ public class Frame extends JXFrame
         taskPaneContainer.add(otherPane);
     }
     
+    /**
+     * Creates the details task pane.
+     */
     private void createDetailsPane()
     {
         // Create Details Pane
@@ -746,6 +812,9 @@ public class Frame extends JXFrame
         details.setVisible(false);
     }
 
+    /**
+     * Initializes the bound method call for the task pane actions.
+     */
     private BoundAction initActionCallback(String callbackMethod, String toolTip, BoundAction boundAction, ImageIcon icon)
     {
         if(icon != null)
@@ -754,7 +823,237 @@ public class Frame extends JXFrame
         boundAction.registerCallback(this,callbackMethod);
         return boundAction;
     }
+    
+    /**
+     * Alerts the user with a yes/no option with the passed in 'message'
+     */
+    public boolean alertOption(String message)
+    {
+        int option = JOptionPane.showConfirmDialog(this, message , "Select an Option", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION)
+            return true;
+        else
+            return false;
+    }
 
+    /**
+     * Alerts the user with an information dialog with the passed in 'message'
+     */
+    public void alertInformation(String message)
+    {
+        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Alerts the user with a warning dialog with the passed in 'message'
+     */
+    public void alertWarning(String message)
+    {
+        JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    /**
+     * Alerts the user with an error dialog with the passed in 'message'
+     */
+    public void alertError(String message)
+    {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Alerts the user with an exception dialog with the passed in stack trace.
+     */
+    public void alertException(StackTraceElement[] strace)
+    {
+        String stackTrace = "";
+        for (int i = 0; i < strace.length; i++)
+            stackTrace += strace[i].toString() + "\n";
+        
+        JScrollPane errorScrollPane = new JScrollPane();
+        JTextArea errorTextArea = new JTextArea();
+        errorTextArea.setBackground(UIManager.getColor("Control"));
+        errorTextArea.setColumns(50);
+        errorTextArea.setRows(10);
+        errorTextArea.setText(stackTrace);
+        errorTextArea.setEditable(false);
+        errorTextArea.setCaretPosition(0);
+        errorScrollPane.setViewportView(errorTextArea);
+        JOptionPane.showMessageDialog(this, errorScrollPane, "Critical Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * Sets the 'index' in 'pane' to be bold
+     */
+    public void setBold(JXTaskPane pane, int index)
+    {
+        for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
+            pane.getContentPane().getComponent(i).setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
+
+        if (index != UIConstants.ERROR_CONSTANT)
+            pane.getContentPane().getComponent(index).setFont(UIConstants.TEXTFIELD_BOLD_FONT);
+    }
+
+    /**
+     * Sets the visible task pane to the specified 'pane'
+     */
+    public void setFocus(JXTaskPane pane)
+    {
+        channelTasks.setVisible(false);
+        channelEditTasks.setVisible(false);
+        statusTasks.setVisible(false);
+        eventTasks.setVisible(false);
+        messageTasks.setVisible(false);
+        settingsTasks.setVisible(false);
+        userTasks.setVisible(false);
+        pane.setVisible(true);
+    }
+
+    /**
+     * Sets all components in pane to be non-focusable.
+     */
+    public void setNonFocusable(JXTaskPane pane)
+    {
+        for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
+            pane.getContentPane().getComponent(i).setFocusable(false);
+    }
+
+    
+    /**
+     * Sets the visibible tasks in the given 'pane' and 'menu'.  The method takes an
+     * interval of indicies (end index should be -1 to go to the end), as well as a
+     * whether they should be set to visible or not-visible.
+     */
+    public void setVisibleTasks(JXTaskPane pane, JPopupMenu menu, int startIndex, int endIndex, boolean visible)
+    {
+        if(endIndex == -1)
+        {
+            for (int i=startIndex; i < pane.getContentPane().getComponentCount(); i++)
+            {
+                pane.getContentPane().getComponent(i).setVisible(visible);
+                menu.getComponent(i).setVisible(visible);
+            }
+        }
+        else
+        {
+            for (int i=startIndex; (i <= endIndex) && (i < pane.getContentPane().getComponentCount()); i++)
+            {
+                pane.getContentPane().getComponent(i).setVisible(visible);
+                menu.getComponent(i).setVisible(visible);
+            }
+        }
+    }
+
+    /**
+     * A prompt to ask the user if he would like to save the changes
+     * made before leaving the page.
+     */
+    public boolean confirmLeave()
+    {
+        if (channelEditTasks.getContentPane().getComponent(0).isVisible())
+        {
+            int option = JOptionPane.showConfirmDialog(this, "Would you like to save the channel changes?");
+            if (option == JOptionPane.YES_OPTION)
+            {
+                if (!channelEditPage.saveChanges())
+                    return false;
+            }
+            else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
+                return false;
+            
+            channelEditTasks.getContentPane().getComponent(0).setVisible(false);
+        }
+        else if (settingsTasks.getContentPane().getComponent(1).isVisible())
+        {
+            int option = JOptionPane.showConfirmDialog(this, "Would you like to save the settings?");
+           
+            if (option == JOptionPane.YES_OPTION)
+                adminPanel.saveSettings();
+            else if (option == JOptionPane.NO_OPTION)
+                adminPanel.loadSettings();
+            else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
+                return false;
+            
+            settingsTasks.getContentPane().getComponent(1).setVisible(false);
+        }
+        return true;
+    }
+
+    /**
+     * Sends the channel passed in to the server, updating it or adding it.
+     */
+    public void updateChannel(Channel curr)
+    {
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        try
+        {
+            if(!mirthClient.updateChannel(curr, false))
+            {
+                if(alertOption("This channel has been modified since you first opened it.  Would you like to overwrite it?"))
+                    mirthClient.updateChannel(curr, true);
+                else
+                    return;
+            }
+            channels = mirthClient.getChannels();
+            channelListPage.makeChannelTable();
+        }
+        catch (ClientException e)
+        {
+            alertException(e.getStackTrace());
+        }
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }
+
+    /**
+     * Sends the passed in user to the server, updating it or adding it.
+     */
+    public void updateUser(User curr)
+    {
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        try
+        {
+            mirthClient.updateUser(curr);
+            users = mirthClient.getUsers();
+            adminPanel.userPane.makeUsersTable();
+        }
+        catch (ClientException e)
+        {
+            alertException(e.getStackTrace());
+        }
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }
+    
+    /**
+     * Checks to see if the passed in channel name already exists
+     */
+    public boolean checkChannelName(String name)
+    {
+        for (int i = 0; i < channels.size(); i++)
+        {
+            if (channels.get(i).getName().equalsIgnoreCase(name))
+            {
+                alertWarning("Channel name already exists. Please choose a unique name.");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Enables the save button for needed page.
+     */
+    public void enableSave()
+    {
+        if(currentContentPage == channelEditPage)
+            channelEditTasks.getContentPane().getComponent(0).setVisible(true);
+        else if (currentContentPage == adminPanel)
+            settingsTasks.getContentPane().getComponent(1).setVisible(true);
+    }
+    
+
+//////////////////////////////////////////////////////////////
+//     --- All bound actions are beneath this point ---     //
+//////////////////////////////////////////////////////////////
+    
     public void goToMirth()
     {
         BareBonesBrowserLaunch.openURL("http://www.mirthproject.org/");
@@ -811,6 +1110,7 @@ public class Frame extends JXFrame
 
     public void doLogout()
     {
+        endUpdater();
         try
         {
             mirthClient.logout();
@@ -819,7 +1119,6 @@ public class Frame extends JXFrame
         {
             alertException(e.getStackTrace());
         }
-        endUpdater();
         this.dispose();
         Mirth.main(new String[0]);
     }
@@ -847,15 +1146,6 @@ public class Frame extends JXFrame
             editChannel(channelListPage.getSelectedChannel());
             setPanelName("Edit Channel :: " +  channelEditPage.currentChannel.getName());
         }
-    }
-
-    public void editChannel(int index)
-    {
-        setBold(viewPane, UIConstants.ERROR_CONSTANT);
-        setCurrentContentPage(channelEditPage);
-        setFocus(channelEditTasks);
-        setVisibleTasks(channelEditTasks, channelEditPopupMenu, 0, 4, false);
-        channelEditPage.editChannel(index);
     }
 
     public void doDeleteChannel()
@@ -1185,122 +1475,6 @@ public class Frame extends JXFrame
         setFocus(eventTasks);
     }
 
-    public void setBold(JXTaskPane pane, int index)
-    {
-        for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
-            pane.getContentPane().getComponent(i).setFont(UIConstants.TEXTFIELD_PLAIN_FONT);
-
-        if (index != UIConstants.ERROR_CONSTANT)
-            pane.getContentPane().getComponent(index).setFont(UIConstants.TEXTFIELD_BOLD_FONT);
-    }
-
-    public void setFocus(JXTaskPane pane)
-    {
-        channelTasks.setVisible(false);
-        channelEditTasks.setVisible(false);
-        statusTasks.setVisible(false);
-        eventTasks.setVisible(false);
-        messageTasks.setVisible(false);
-        settingsTasks.setVisible(false);
-        userTasks.setVisible(false);
-        pane.setVisible(true);
-    }
-
-    public void setNonFocusable(JXTaskPane pane)
-    {
-        for (int i=0; i<pane.getContentPane().getComponentCount(); i++)
-            pane.getContentPane().getComponent(i).setFocusable(false);
-    }
-
-    public void setVisibleTasks(JXTaskPane pane, JPopupMenu menu, int startIndex, int endIndex, boolean visible)
-    {
-        if(endIndex == -1)
-        {
-            for (int i=startIndex; i < pane.getContentPane().getComponentCount(); i++)
-            {
-                pane.getContentPane().getComponent(i).setVisible(visible);
-                menu.getComponent(i).setVisible(visible);
-            }
-        }
-        else
-        {
-            for (int i=startIndex; (i <= endIndex) && (i < pane.getContentPane().getComponentCount()); i++)
-            {
-                pane.getContentPane().getComponent(i).setVisible(visible);
-                menu.getComponent(i).setVisible(visible);
-            }
-        }
-    }
-
-    public boolean confirmLeave()
-    {
-        if (channelEditTasks.getContentPane().getComponent(0).isVisible())
-        {
-            int option = JOptionPane.showConfirmDialog(this, "Would you like to save the channel changes?");
-            if (option == JOptionPane.YES_OPTION)
-            {
-                if (!channelEditPage.saveChanges())
-                    return false;
-            }
-            else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
-                return false;
-            
-            channelEditTasks.getContentPane().getComponent(0).setVisible(false);
-        }
-        else if (settingsTasks.getContentPane().getComponent(1).isVisible())
-        {
-            int option = JOptionPane.showConfirmDialog(this, "Would you like to save the settings?");
-           
-            if (option == JOptionPane.YES_OPTION)
-                adminPanel.saveSettings();
-            else if (option == JOptionPane.NO_OPTION)
-                adminPanel.loadSettings();
-            else if (option == JOptionPane.CANCEL_OPTION || option == JOptionPane.CLOSED_OPTION)
-                return false;
-            
-            settingsTasks.getContentPane().getComponent(1).setVisible(false);
-        }
-        return true;
-    }
-
-    public void updateChannel(Channel curr)
-    {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        try
-        {
-            if(!mirthClient.updateChannel(curr, false))
-            {
-                if(alertOption("This channel has been modified since you first opened it.  Would you like to overwrite it?"))
-                    mirthClient.updateChannel(curr, true);
-                else
-                    return;
-            }
-            channels = mirthClient.getChannels();
-            channelListPage.makeChannelTable();
-        }
-        catch (ClientException e)
-        {
-            alertException(e.getStackTrace());
-        }
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }
-
-    public void updateUser(User curr)
-    {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        try
-        {
-            mirthClient.updateUser(curr);
-            users = mirthClient.getUsers();
-            adminPanel.userPane.makeUsersTable();
-        }
-        catch (ClientException e)
-        {
-            alertException(e.getStackTrace());
-        }
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }
-
     public void doEditTransformer()
     {
         setPanelName("Edit Channel :: " + channelEditPage.currentChannel.getName() + " :: Edit Transformer");
@@ -1367,19 +1541,6 @@ public class Frame extends JXFrame
                 alertError("Invalid channel file.");
             }
         }
-    }
-
-    public boolean checkChannelName(String name)
-    {
-        for (int i = 0; i < channels.size(); i++)
-        {
-            if (channels.get(i).getName().equalsIgnoreCase(name))
-            {
-                alertWarning("Channel name already exists. Please choose a unique name.");
-                return false;
-            }
-        }
-        return true;
     }
 
     public void doExport()
@@ -1477,56 +1638,6 @@ public class Frame extends JXFrame
             }
             eventBrowser.refresh();
         }
-    }
-
-    public boolean alertOption(String message)
-    {
-        int option = JOptionPane.showConfirmDialog(this, message , "Select an Option", JOptionPane.YES_NO_OPTION);
-        if (option == JOptionPane.YES_OPTION)
-            return true;
-        else
-            return false;
-    }
-
-    public void alertInformation(String message)
-    {
-        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void alertWarning(String message)
-    {
-        JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
-    }
-    
-    public void alertError(String message)
-    {
-        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public void alertException(StackTraceElement[] strace)
-    {
-        String stackTrace = "";
-        for (int i = 0; i < strace.length; i++)
-            stackTrace += strace[i].toString() + "\n";
-        
-        JScrollPane errorScrollPane = new JScrollPane();
-        JTextArea errorTextArea = new JTextArea();
-        errorTextArea.setBackground(UIManager.getColor("Control"));
-        errorTextArea.setColumns(50);
-        errorTextArea.setRows(10);
-        errorTextArea.setText(stackTrace);
-        errorTextArea.setEditable(false);
-        errorTextArea.setCaretPosition(0);
-        errorScrollPane.setViewportView(errorTextArea);
-        JOptionPane.showMessageDialog(this, errorScrollPane, "Critical Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    public void enableSave()
-    {
-        if(currentContentPage == channelEditPage)
-            channelEditTasks.getContentPane().getComponent(0).setVisible(true);
-        else if (currentContentPage == adminPanel)
-            settingsTasks.getContentPane().getComponent(1).setVisible(true);
     }
     
     public void doRefreshSettings()
