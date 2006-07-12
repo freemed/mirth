@@ -5,6 +5,9 @@ import java.util.Properties;
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 
+/**
+ * The main administration panel.
+ */
 public class AdminPanel extends javax.swing.JPanel
 {
     public Users userPane;

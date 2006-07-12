@@ -15,7 +15,7 @@ import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
 
-/** The main channe list panel view. */
+/** The main channel list panel view. */
 public class ChannelPanel extends javax.swing.JPanel
 {
     private final String STATUS_COLUMN_NAME = "Status";
