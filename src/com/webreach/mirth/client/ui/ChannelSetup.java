@@ -1,6 +1,7 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
+import com.webreach.mirth.client.ui.connectors.ConnectorClass;
 import com.webreach.mirth.client.ui.editors.filter.FilterPane;
 import com.webreach.mirth.client.ui.editors.transformer.TransformerPane;
 import com.webreach.mirth.model.Channel;
@@ -601,12 +602,12 @@ public class ChannelSetup extends javax.swing.JPanel
         source = new javax.swing.JPanel();
         sourceSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
-        sourceConnectorClass = new com.webreach.mirth.client.ui.ConnectorClass();
+        sourceConnectorClass = new com.webreach.mirth.client.ui.connectors.ConnectorClass();
         sourceVariableList = new com.webreach.mirth.client.ui.VariableList();
         destination = new javax.swing.JPanel();
         destinationSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         destinationSourceLabel = new javax.swing.JLabel();
-        destinationConnectorClass = new com.webreach.mirth.client.ui.ConnectorClass();
+        destinationConnectorClass = new com.webreach.mirth.client.ui.connectors.ConnectorClass();
         destinationVariableList = new com.webreach.mirth.client.ui.VariableList();
 
         channelView.setFocusable(false);
@@ -1311,14 +1312,14 @@ public class ChannelSetup extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane channelView;
     private javax.swing.JPanel destination;
-    private com.webreach.mirth.client.ui.ConnectorClass destinationConnectorClass;
+    private com.webreach.mirth.client.ui.connectors.ConnectorClass destinationConnectorClass;
     private com.webreach.mirth.client.ui.components.MirthComboBox destinationSourceDropdown;
     private javax.swing.JLabel destinationSourceLabel;
     private com.webreach.mirth.client.ui.VariableList destinationVariableList;
     private javax.swing.ButtonGroup filterButtonGroup;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel source;
-    private com.webreach.mirth.client.ui.ConnectorClass sourceConnectorClass;
+    private com.webreach.mirth.client.ui.connectors.ConnectorClass sourceConnectorClass;
     private com.webreach.mirth.client.ui.components.MirthComboBox sourceSourceDropdown;
     private javax.swing.JLabel sourceSourceLabel;
     private com.webreach.mirth.client.ui.VariableList sourceVariableList;

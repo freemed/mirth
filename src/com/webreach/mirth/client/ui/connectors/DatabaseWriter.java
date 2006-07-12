@@ -1,6 +1,9 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.connectors;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
+
 import java.util.Properties;
 
 /** 

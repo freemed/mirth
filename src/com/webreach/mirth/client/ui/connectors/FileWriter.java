@@ -1,6 +1,9 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.connectors;
 
 import java.util.Properties;
+
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 
 /** 
  * A form that extends from ConnectorClass.  All methods implemented

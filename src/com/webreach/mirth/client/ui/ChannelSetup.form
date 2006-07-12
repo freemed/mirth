@@ -282,7 +282,7 @@
                 <Property name="text" type="java.lang.String" value="Connector Type:"/>
               </Properties>
             </Component>
-            <Container class="com.webreach.mirth.client.ui.ConnectorClass" name="sourceConnectorClass">
+            <Container class="com.webreach.mirth.client.ui.connectors.ConnectorClass" name="sourceConnectorClass">
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -378,7 +378,7 @@
                 <Property name="text" type="java.lang.String" value="Connector Type:"/>
               </Properties>
             </Component>
-            <Container class="com.webreach.mirth.client.ui.ConnectorClass" name="destinationConnectorClass">
+            <Container class="com.webreach.mirth.client.ui.connectors.ConnectorClass" name="destinationConnectorClass">
 
               <Layout>
                 <DimensionLayout dim="0">

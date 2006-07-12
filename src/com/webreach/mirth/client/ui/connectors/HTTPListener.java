@@ -1,32 +1,35 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.connectors;
 
 import java.util.Properties;
 import java.util.StringTokenizer;
+
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 
 /** 
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
-public class LLPListener extends ConnectorClass
+public class HTTPListener extends ConnectorClass
 {
     Frame parent;
-    /** Creates new form LLPListener */
+    /** Creates new form HTTPListener */
     public final String DATATYPE = "DataType";
-    public final String LLP_ADDRESS = "host";
-    public final String LLP_PORT = "port";
-    public final String LLP_RECEIVE_TIMEOUT = "receiveTimeout";
-    public final String LLP_BUFFER_SIZE = "bufferSize";
-    public final String LLP_KEEP_CONNECTION_OPEN = "keepSendSocketOpen";
-    public final String LLP_START_OF_MESSAGE_CHARACTER = "messageStart";
-    public final String LLP_END_OF_MESSAGE_CHARACTER = "messageEnd";
-    public final String LLP_FIELD_SEPARATOR = "fieldSeparator";
-    public final String LLP_RECORD_SEPARATOR = "recordSeparator";
-    public final String LLP_SEND_ACK = "sendACK";
+    public final String HTTP_ADDRESS = "host";
+    public final String HTTP_PORT = "port";
+    public final String HTTP_RECEIVE_TIMEOUT = "receiveTimeout";
+    public final String HTTP_BUFFER_SIZE = "bufferSize";
+    public final String HTTP_KEEP_CONNECTION_OPEN = "keepSendSocketOpen";
+    public final String HTTP_START_OF_MESSAGE_CHARACTER = "messageStart";
+    public final String HTTP_END_OF_MESSAGE_CHARACTER = "messageEnd";
+    public final String HTTP_FIELD_SEPARATOR = "fieldSeparator";
+    public final String HTTP_RECORD_SEPARATOR = "recordSeparator";
+    public final String HTTP_SEND_ACK = "sendACK";
     
-    public LLPListener()
+    public HTTPListener()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
-        name = "LLP Listener";
+        name = "HTTP Listener";
         initComponents();
     }
 
@@ -35,27 +38,27 @@ public class LLPListener extends ConnectorClass
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
         String listenerIPAddress = listenerIPAddressField.getText() + "." + listenerIPAddressField1.getText() + "." + listenerIPAddressField2.getText() + "." + listenerIPAddressField3.getText();
-        properties.put(LLP_ADDRESS, listenerIPAddress);
-        properties.put(LLP_PORT, listenerPortField.getText());
-        properties.put(LLP_RECEIVE_TIMEOUT, receiveTimeoutField.getText());
-        properties.put(LLP_BUFFER_SIZE, bufferSizeField.getText());
+        properties.put(HTTP_ADDRESS, listenerIPAddress);
+        properties.put(HTTP_PORT, listenerPortField.getText());
+        properties.put(HTTP_RECEIVE_TIMEOUT, receiveTimeoutField.getText());
+        properties.put(HTTP_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put(LLP_KEEP_CONNECTION_OPEN, "YES");
+            properties.put(HTTP_KEEP_CONNECTION_OPEN, "YES");
         else
-            properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
+            properties.put(HTTP_KEEP_CONNECTION_OPEN, "NO");
 
-        properties.put(LLP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
-        properties.put(LLP_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
-        properties.put(LLP_FIELD_SEPARATOR, fieldSeparatorField.getText());
-        properties.put(LLP_RECORD_SEPARATOR, recordSeparatorField.getText());
-        properties.put(LLP_SEND_ACK, sendACKCombobox.getSelectedItem());
+        properties.put(HTTP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
+        properties.put(HTTP_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
+        properties.put(HTTP_FIELD_SEPARATOR, fieldSeparatorField.getText());
+        properties.put(HTTP_RECORD_SEPARATOR, recordSeparatorField.getText());
+        properties.put(HTTP_SEND_ACK, sendACKCombobox.getSelectedItem());
         return properties;
     }
 
     public void setProperties(Properties props)
     {
-        String listenerIPAddress = (String)props.get(LLP_ADDRESS);
+        String listenerIPAddress = (String)props.get(HTTP_ADDRESS);
         StringTokenizer IP = new StringTokenizer(listenerIPAddress, ".");
         if (IP.hasMoreTokens())
             listenerIPAddressField.setText(IP.nextToken());
@@ -74,22 +77,20 @@ public class LLPListener extends ConnectorClass
         else
             listenerIPAddressField3.setText("");
 
-        listenerPortField.setText((String)props.get(LLP_PORT));
-        receiveTimeoutField.setText((String)props.get(LLP_RECEIVE_TIMEOUT));
-        bufferSizeField.setText((String)props.get(LLP_BUFFER_SIZE));
+        listenerPortField.setText((String)props.get(HTTP_PORT));
+        receiveTimeoutField.setText((String)props.get(HTTP_RECEIVE_TIMEOUT));
+        bufferSizeField.setText((String)props.get(HTTP_BUFFER_SIZE));
 
-        if(((String)props.get(LLP_KEEP_CONNECTION_OPEN)).equals("YES"))
+        if(((String)props.get(HTTP_KEEP_CONNECTION_OPEN)).equals("YES"))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
 
-        startOfMessageCharacterField.setText((String)props.get(LLP_START_OF_MESSAGE_CHARACTER));
-        endOfMessageCharacterField.setText((String)props.get(LLP_END_OF_MESSAGE_CHARACTER));
-        fieldSeparatorField.setText((String)props.get(LLP_FIELD_SEPARATOR));
-        recordSeparatorField.setText((String)props.get(LLP_RECORD_SEPARATOR));
-        boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        sendACKCombobox.setSelectedItem(props.get(LLP_SEND_ACK));
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
+        startOfMessageCharacterField.setText((String)props.get(HTTP_START_OF_MESSAGE_CHARACTER));
+        endOfMessageCharacterField.setText((String)props.get(HTTP_END_OF_MESSAGE_CHARACTER));
+        fieldSeparatorField.setText((String)props.get(HTTP_FIELD_SEPARATOR));
+        recordSeparatorField.setText((String)props.get(HTTP_RECORD_SEPARATOR));
+        sendACKCombobox.setSelectedItem(props.get(HTTP_SEND_ACK));
     }
 
     public void setDefaults()
@@ -98,7 +99,7 @@ public class LLPListener extends ConnectorClass
         listenerIPAddressField1.setText("0");
         listenerIPAddressField2.setText("0");
         listenerIPAddressField3.setText("1");
-        listenerPortField.setText("3600");
+        listenerPortField.setText("3700");
         receiveTimeoutField.setText("");
         bufferSizeField.setText("");
         keepConnectionOpenYesRadio.setSelected(true);
@@ -106,26 +107,29 @@ public class LLPListener extends ConnectorClass
         endOfMessageCharacterField.setText("");
         fieldSeparatorField.setText("");
         recordSeparatorField.setText("");
+        boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
         sendACKCombobox.setSelectedIndex(0);
+        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
-    
+
     public Properties getDefaults()
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
-        properties.put(LLP_ADDRESS, "127.0.0.1");
-        properties.put(LLP_PORT, "6661");
-        properties.put(LLP_RECEIVE_TIMEOUT, "5000");
-        properties.put(LLP_BUFFER_SIZE, "65536");
-        properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
-        properties.put(LLP_START_OF_MESSAGE_CHARACTER, "0x0B");
-        properties.put(LLP_END_OF_MESSAGE_CHARACTER, "0x1C");
-        properties.put(LLP_FIELD_SEPARATOR, "0x7C");
-        properties.put(LLP_RECORD_SEPARATOR, "0x0D");
-        properties.put(LLP_SEND_ACK, sendACKCombobox.getItemAt(0));
+        properties.put(HTTP_ADDRESS, "127.0.0.1");
+        properties.put(HTTP_PORT, "6660");
+        properties.put(HTTP_RECEIVE_TIMEOUT, "5000");
+        properties.put(HTTP_BUFFER_SIZE, "65536");
+        properties.put(HTTP_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(HTTP_START_OF_MESSAGE_CHARACTER, "0x0B");
+        properties.put(HTTP_END_OF_MESSAGE_CHARACTER, "0x1C");
+        properties.put(HTTP_FIELD_SEPARATOR, "0x7C");
+        properties.put(HTTP_RECORD_SEPARATOR, "0x0D");
+        properties.put(HTTP_SEND_ACK, sendACKCombobox.getItemAt(0));
         return properties;
     }
 
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -148,6 +152,7 @@ public class LLPListener extends ConnectorClass
         sendACKCombobox = new com.webreach.mirth.client.ui.components.MirthComboBox();
         bufferSizeField = new com.webreach.mirth.client.ui.components.MirthTextField();
         receiveTimeoutField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerIPAddressField = new com.webreach.mirth.client.ui.components.MirthTextField();
         listenerPortField = new com.webreach.mirth.client.ui.components.MirthTextField();
         recordSeparatorField = new com.webreach.mirth.client.ui.components.MirthTextField();
         startOfMessageCharacterField = new com.webreach.mirth.client.ui.components.MirthTextField();
@@ -155,16 +160,15 @@ public class LLPListener extends ConnectorClass
         fieldSeparatorField = new com.webreach.mirth.client.ui.components.MirthTextField();
         keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.components.MirthRadioButton();
         keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.components.MirthRadioButton();
-        listenerIPAddressField3 = new com.webreach.mirth.client.ui.components.MirthTextField();
-        jLabel25 = new javax.swing.JLabel();
-        listenerIPAddressField2 = new com.webreach.mirth.client.ui.components.MirthTextField();
-        jLabel26 = new javax.swing.JLabel();
         listenerIPAddressField1 = new com.webreach.mirth.client.ui.components.MirthTextField();
-        jLabel9 = new javax.swing.JLabel();
-        listenerIPAddressField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerIPAddressField2 = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerIPAddressField3 = new com.webreach.mirth.client.ui.components.MirthTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LLP Listener", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HTTP Listener", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
         jLabel1.setText("Listener IP Address:");
 
         jLabel2.setText("Listener Port:");
@@ -199,14 +203,14 @@ public class LLPListener extends ConnectorClass
         keepConnectionOpenNoRadio.setText("No");
         keepConnectionOpenNoRadio.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel25.setText(".");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel6.setText(".");
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel26.setText(".");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel7.setText(".");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jLabel9.setText(".");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jLabel8.setText(".");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -226,34 +230,34 @@ public class LLPListener extends ConnectorClass
                     .add(jLabel36)
                     .add(jLabel38))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
                         .add(keepConnectionOpenYesRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(keepConnectionOpenNoRadio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, receiveTimeoutField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, listenerPortField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, sendACKCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, startOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, endOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, fieldSeparatorField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, recordSeparatorField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, bufferSizeField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                    .add(receiveTimeoutField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(listenerPortField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(sendACKCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(startOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(endOfMessageCharacterField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(fieldSeparatorField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(recordSeparatorField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(bufferSizeField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 131, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(layout.createSequentialGroup()
                         .add(listenerIPAddressField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel9)
+                        .add(jLabel6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(listenerIPAddressField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel26)
+                        .add(jLabel7)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(listenerIPAddressField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel25)
+                        .add(jLabel8)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(listenerIPAddressField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -263,12 +267,11 @@ public class LLPListener extends ConnectorClass
                         .add(listenerIPAddressField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(listenerIPAddressField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel1))
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(listenerIPAddressField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(listenerIPAddressField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jLabel9)
-                    .add(jLabel26)
-                    .add(jLabel25))
+                    .add(jLabel6)
+                    .add(listenerIPAddressField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel8)
+                    .add(listenerIPAddressField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel7))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(listenerPortField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -306,7 +309,7 @@ public class LLPListener extends ConnectorClass
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(sendACKCombobox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel38))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -317,8 +320,6 @@ public class LLPListener extends ConnectorClass
     private com.webreach.mirth.client.ui.components.MirthTextField fieldSeparatorField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -327,7 +328,9 @@ public class LLPListener extends ConnectorClass
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.ButtonGroup keepConnectionOpenGroup;
     private com.webreach.mirth.client.ui.components.MirthRadioButton keepConnectionOpenNoRadio;
     private com.webreach.mirth.client.ui.components.MirthRadioButton keepConnectionOpenYesRadio;

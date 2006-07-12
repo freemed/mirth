@@ -1,4 +1,4 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.connectors;
 
 import java.util.Properties;
 
