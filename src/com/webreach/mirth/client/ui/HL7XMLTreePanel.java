@@ -42,7 +42,6 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -55,23 +54,16 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.webreach.mirth.model.converters.ER7Serializer;
-
 import ca.uhn.hl7v2.HL7Exception;
-import ca.uhn.hl7v2.model.Composite;
-import ca.uhn.hl7v2.model.Group;
 import ca.uhn.hl7v2.model.Message;
-import ca.uhn.hl7v2.model.Primitive;
-import ca.uhn.hl7v2.model.Segment;
-import ca.uhn.hl7v2.model.Structure;
-import ca.uhn.hl7v2.model.Type;
-import ca.uhn.hl7v2.model.Varies;
 import ca.uhn.hl7v2.parser.DefaultXMLParser;
 import ca.uhn.hl7v2.parser.EncodingCharacters;
 import ca.uhn.hl7v2.parser.EncodingNotSupportedException;
 import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.parser.XMLParser;
 import ca.uhn.hl7v2.validation.impl.NoValidation;
+
+import com.webreach.mirth.model.converters.ER7Serializer;
 
 public class HL7XMLTreePanel extends JPanel {
 	private PipeParser parser;
@@ -215,20 +207,22 @@ public class HL7XMLTreePanel extends JPanel {
 	public class TreeTransferHandler extends TransferHandler {
 		
 		protected Transferable createTransferable( JComponent c ) {
-			try {
-				TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
-				if ( tp == null )
+			if ( c != null ) {
+				try {
+					TreeNode tp = (TreeNode)( ( JTree ) c ).getSelectionPath().getLastPathComponent();
+					if ( tp == null )
+						return null;
+					if (!tp.isLeaf())
+						return null;
+					String leaf = tp.toString();
+					// if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
+					//   return null;
+					return new TreeTransferable( tp, _dropPrefix );
+				}
+				catch ( ClassCastException cce ) {
 					return null;
-				if (!tp.isLeaf())
-					return null;
-				String leaf = tp.toString();
-				// if (leaf.equals(DNDConstants.TASK) || leaf.equals(DNDConstants.TYPE))
-				//   return null;
-				return new TreeTransferable( tp, _dropPrefix );
-			}
-			catch ( ClassCastException cce ) {
-				return null;
-			}
+				}
+			} else return null;
 		}
 		
 		public int getSourceActions( JComponent c ) {

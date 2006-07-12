@@ -35,7 +35,7 @@ public class TabbedReferencePanel extends JPanel {
 		if ((sqlStatement != null) && (!sqlStatement.equals(""))){
 			SQLParserUtil spu = new SQLParserUtil((String)sqlStatement);
 			updateVariables(spu.Parse());
-		}else{
+		} else {
 			updateVariables(new String[]{});
 		}
 	}

@@ -61,10 +61,11 @@ public class JavaScriptPanel extends CardPanel {
 		footerArea = new JTextArea( footer );
 		scriptPanel = new JPanel();
 		scriptScrollPane = new JScrollPane();
-		HighlightedDocument scriptDoc = new HighlightedDocument();
+	
+		scriptDoc = new HighlightedDocument();
 		scriptDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		scriptTextPane = new MirthTextPane( scriptDoc );
-		
+	
 		scriptTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		scriptPanel.setBorder( BorderFactory.createEmptyBorder() );
 		
@@ -146,6 +147,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JTextArea headerArea;
 	private JTextArea footerArea;
 	private JPanel scriptPanel;
+	private HighlightedDocument scriptDoc;
 	private MirthTextPane scriptTextPane;
 	private JScrollPane scriptScrollPane;
 	private LineNumber lineNumbers;

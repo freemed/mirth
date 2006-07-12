@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -47,7 +48,8 @@ public class MapperPanel extends CardPanel {
 		mappingLabel = new JLabel( "   " + label );
 		mappingTextField = new JTextField();
 		mappingScrollPane = new JScrollPane();
-		HighlightedDocument mappingDoc = new HighlightedDocument();
+		
+		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingTextPane = new MirthTextPane( mappingDoc );
 		
@@ -152,6 +154,7 @@ public class MapperPanel extends CardPanel {
 	private String label;
 	private JPanel mappingTextPanel;		// for no linewrap in textpane
 	private MirthTextPane mappingTextPane;
+	private HighlightedDocument mappingDoc;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPanel;
