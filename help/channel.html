@@ -15,7 +15,8 @@
 
 <hr>
 
-<table cellpadding=15>
+<center>
+<table cellpadding=15 width=80%>
 	<h2>Channels</h2>
 	
 	<tr><td>
@@ -44,7 +45,7 @@
 			The directory where the file should be moved when done processing.<br><br>
 			
 			<b>Delete File After Read</b><br>
-			Choose whether to move the file after it is read.<br><br>
+			Choose 'Yes' to delete the file after it is read, or 'No' to keep it.<br><br>
 			
 			<b>Check File Age</b><br>
 			Check the file age before processing.<br><br>
@@ -52,9 +53,7 @@
 			<b>File Age</b><br>
 			If "Check File Age" is selected, check that the file is at least
 			this many days old.<br><br>
-	</td></tr>
-			
-	<tr><td>
+	
 		<h3>Database Reader</h3>
 			<b>Driver</b><br>
 			The type of database driver used for this reader.<br><br>
@@ -76,19 +75,17 @@
 			The SQL statement to execute.<br><br>
 			
 			<b>Run On-Update SQL</b><br>
-			Choose whether an SQL statement should be executed on an update.<br><br>
+			Choose 'Yes' to execute an SQL statement after an update.<br><br>
 			
 			<b>On-Update Statement</b><br>
 			An SQL statement to execute after an update has occurred.<br><br>
-	</td></tr>
 	
-	<tr><td>
 		<h3>LLP Listener</h3>
 			<b>Listener IP Address</b><br>
-			The address for the LLP Listener to use.<br><br>
+			The address for the LLP Listener to listen on.<br><br>
 			
 			<b>Listener Port</b><br>
-			The port used to make the connection.<br><br>
+			The port to listen on.<br><br>
 			
 			<b>Receive Timeout</b><br>
 			The amount of time to wait, in milleseconds, for receipt of a message.<br><br>
@@ -97,7 +94,8 @@
 			The buffer size to use for receiving messages.<br><br>
 			
 			<b>Keep Connection Open</b><br>
-			Choose whether to keep the connection open after receipt of message.<br><br>
+			Choose 'Yes' to keep the connection open after receipt of message
+			or 'No' to have the connection close.<br><br>
 			
 			<b>Start of Message Character</b><br>
 			The character expected at the beginning of a message.<i> (hexadecimal)</i><br><br>
@@ -112,10 +110,73 @@
 			The character used to delimit records.<i> (hexadecimal)</i><br><br>
 			
 			<b>Send ACK:</b><br>
-			Choose whether to explicitly send or not send an ACK after receipt,
-			or choose Auto to let the system decide.<br><br>
+			Choose 'Yes' to explicitly send an ACK after receipt, 'No' to
+			not send an ACK, or 'Auto' to let the system decide.<br><br>
+	
+		<h3>File Writer</h3>
+			<b>Directory</b><br>
+			The director to where the file will be written.<br><br>
+			
+			<b>File Name</b><br>
+			The name of the file to be written.<br><br>
+			
+			<b>Append to File</b><br>
+			If a file with the given name already exists, choose 'Yes' to
+			append the data to the end or 'No' to overwrite the file.<br><br>
+			
+			<b>File Template</b><br>
+			A template referencing transformer variables and written to the file.<br><br>
+			
+		<h3>Database Writer</h3>
+			<b>Driver</b><br>
+			The type of database driver used for this reader.<br><br>
+			
+			<b>Database URL</b><br>
+			The URL for the driver to use to connect to the database.<br><br>
+			
+			<b>Username</b><br>
+			The username used to access the database.<br><br>
+			
+			<b>Password</b><br>
+			The password to authenticate the given username.<br><br>
+			
+			<b>SQL Statement</b><br>
+			The SQL statement to execute.<br><br>
+		
+		<h3>LLP Sender</h3>
+			<b>Host IP Address</b><br>
+			The address for the LLP Sender to use.<br><br>
+			
+			<b>Listener Port</b><br>
+			The port used to make the connection.<br><br>
+			
+			<b>Send Timeout</b><br>
+			The amount of time to wait, in milleseconds, for a message to be 
+			sent successfully.<br><br>
+			
+			<b>Buffer Size</b><br>
+			The buffer size to use for sending messages.<br><br>
+			
+			<b>Keep Connection Open</b><br>
+			Choose 'Yes' to keep the connection open after message sent
+			or 'No' to have the connection close.<br><br>
+			
+			<b>Start of Message Character</b><br>
+			The character expected at the beginning of a message.<i> (hexadecimal)</i><br><br>
+			
+			<b>End of Message Character</b><br>
+			The character expected at the end of a message.<i> (hexadecimal)</i><br><br>
+			
+			<b>Field Seperator</b><br>
+			The character used to delimit fields.<i> (hexadecimal)</i><br><br>
+			
+			<b>Record Seperator</b><br>
+			The character used to delimit records.<i> (hexadecimal)</i><br><br>
+			
+	</td></tr>
 	
 <table>
+</center>
 
 </font>
 </body>
