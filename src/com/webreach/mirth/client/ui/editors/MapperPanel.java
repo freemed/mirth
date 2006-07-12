@@ -12,19 +12,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.components.MirthTextField;
 import com.webreach.mirth.client.ui.components.MirthTextPane;
 import com.webreach.mirth.model.Channel;
 
@@ -46,7 +45,7 @@ public class MapperPanel extends CardPanel {
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
 		mappingLabel = new JLabel( "   " + label );
-		mappingTextField = new JTextField();
+		mappingTextField = new MirthTextField();
 		mappingScrollPane = new JScrollPane();
 		
 		mappingDoc = new HighlightedDocument();
@@ -158,7 +157,7 @@ public class MapperPanel extends CardPanel {
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPanel;
-	private JTextField mappingTextField;
+	private MirthTextField mappingTextField;
 	private JScrollPane mappingScrollPane;
 	private MirthEditorPane parent;
 }
