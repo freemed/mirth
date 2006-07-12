@@ -1,6 +1,9 @@
 package com.webreach.mirth.client.ui;
 
-
+/** 
+ * Mirth's implementation of the JCheckbox.  Adds enabling of
+ * the save button in parent.
+ */
 public class MirthCheckBox extends javax.swing.JCheckBox {
     private Frame parent;
 

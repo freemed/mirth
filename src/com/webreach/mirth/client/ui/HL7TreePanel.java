@@ -108,6 +108,9 @@ public class HL7TreePanel extends JPanel {
 		}
 	}
 	
+        /**
+         * Clears the current tree so that it is empty.
+         */
 	public void clearMessage() {
 		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Select a message to view HL7 message tree.");
 		JTree tree = new JTree(top);

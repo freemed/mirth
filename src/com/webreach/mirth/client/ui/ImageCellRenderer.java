@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+/** A new renderer that for table cells that has both an image and a text value. */
 public class ImageCellRenderer extends DefaultTableCellRenderer
 {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) 

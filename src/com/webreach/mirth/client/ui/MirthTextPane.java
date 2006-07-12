@@ -5,6 +5,11 @@ import javax.swing.JPopupMenu;
 
 import javax.swing.text.StyledDocument;
 
+/** 
+ * Mirth's implementation of the JTextPane.  Adds enabling of
+ * the save button in parent.  Also adds a trigger button (right click)
+ * editor menu with Cut, Copy, Paste, Delete, and Select All.
+ */
 public class MirthTextPane extends javax.swing.JTextPane
 {
     private Frame parent;
@@ -47,6 +52,9 @@ public class MirthTextPane extends javax.swing.JTextPane
         });
     }
     
+    /**
+     * A constructor that accepts a StyledDocument
+     */
     public MirthTextPane(StyledDocument doc)
     {
     	super(doc);
@@ -79,6 +87,9 @@ public class MirthTextPane extends javax.swing.JTextPane
         });
     }
     
+    /**
+     * Shows the popup menu for the trigger button
+     */
     private void showPopupMenu(java.awt.event.MouseEvent evt)
     {
         if (evt.isPopupTrigger())

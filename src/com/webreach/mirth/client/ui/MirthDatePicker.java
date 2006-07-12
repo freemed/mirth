@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.JXDatePicker;
 
+/** 
+ * Mirth's implementation of the JXDatePicker.  Sets the format, 
+ * editor font, and button image.
+ */
 public class MirthDatePicker extends JXDatePicker {
     
     /**

@@ -1,17 +1,10 @@
-/*
- * MirthHeadingPanel.java
- *
- * Created on June 22, 2006, 11:06 AM
- */
-
 package com.webreach.mirth.client.ui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 
 /**
- *
- * @author  brendanh
+ * Creates the heading panel that is used for wizards, login, etc.
  */
 public class MirthHeadingPanel extends javax.swing.JPanel
 {

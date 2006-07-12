@@ -3,6 +3,11 @@ package com.webreach.mirth.client.ui;
 import java.awt.event.KeyEvent;
 import javax.swing.JPopupMenu;
 
+/** 
+ * Mirth's implementation of the JTextArea.  Adds enabling of
+ * the save button in parent.  Also adds a trigger button (right click)
+ * editor menu with Cut, Copy, Paste, Delete, and Select All.
+ */
 public class MirthTextArea extends javax.swing.JTextArea
 {
     private Frame parent;
@@ -45,6 +50,9 @@ public class MirthTextArea extends javax.swing.JTextArea
         });
     }
     
+    /**
+     * Shows the popup menu for the trigger button
+     */
     private void showPopupMenu(java.awt.event.MouseEvent evt)
     {
         if (evt.isPopupTrigger())

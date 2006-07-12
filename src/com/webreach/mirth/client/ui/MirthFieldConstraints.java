@@ -1,6 +1,9 @@
 package com.webreach.mirth.client.ui;
 import javax.swing.text.*;
 
+/** 
+ * Document that can be set with certain field constraints. 
+ */
 public class MirthFieldConstraints extends PlainDocument
 {
     private int limit;
@@ -8,12 +11,18 @@ public class MirthFieldConstraints extends PlainDocument
     private boolean toUppercase = false;
     private boolean numbersOnly = false;
 
+    /**
+     * Constructor that sets a character number limit
+     */
     MirthFieldConstraints(int limit)
     {
         super();
         this.limit = limit;
     }
     
+    /**
+     * Constructor that sets a character number limit, uppercase conversion, and numbers only
+     */
     MirthFieldConstraints(int limit, boolean toUppercase, boolean numbersOnly)
     {
         super();
@@ -22,7 +31,10 @@ public class MirthFieldConstraints extends PlainDocument
         this.numbersOnly = numbersOnly;
     }
 
-
+    /**
+     * Overwritten insertString method to check if the string should
+     * actually be inserted based on the constraints.
+     */
     public void insertString(int offset, String  str, AttributeSet attr) throws BadLocationException
     {
         if (str == null)

@@ -1,7 +1,11 @@
 package com.webreach.mirth.client.ui;
 
-
-public class MirthButton extends javax.swing.JButton {
+/** 
+ * Mirth's implementation of the JButton.  Adds enabling of
+ * the save button in parent.
+ */
+public class MirthButton extends javax.swing.JButton
+{
     private Frame parent;
     
     public MirthButton() {

@@ -6,6 +6,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
+/** 
+ * Mirth's implementation of the JTextField.  Adds enabling of
+ * the save button in parent.  Also adds a trigger button (right click)
+ * editor menu with Cut, Copy, Paste, Delete, and Select All.
+ */
 public class MirthTextField extends javax.swing.JTextField
 {
     private Frame parent;
@@ -48,6 +53,9 @@ public class MirthTextField extends javax.swing.JTextField
         });
     }
     
+    /**
+     * Shows the popup menu for the trigger button
+     */
     private void showPopupMenu(java.awt.event.MouseEvent evt)
     {
         if (evt.isPopupTrigger())

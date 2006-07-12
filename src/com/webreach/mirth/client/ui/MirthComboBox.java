@@ -1,6 +1,9 @@
 package com.webreach.mirth.client.ui;
 
-
+/** 
+ * Mirth's implementation of the JComboBox.  Adds enabling of
+ * the save button in parent.
+ */
 public class MirthComboBox extends javax.swing.JComboBox {
     private Frame parent;
 

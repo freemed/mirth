@@ -1,7 +1,11 @@
 package com.webreach.mirth.client.ui;
 
-
-public class MirthRadioButton extends javax.swing.JRadioButton {
+/** 
+ * Mirth's implementation of the JRadioButton.  Adds enabling of
+ * the save button in parent.
+ */
+public class MirthRadioButton extends javax.swing.JRadioButton
+{
     private Frame parent;
     
     public MirthRadioButton() {

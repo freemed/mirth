@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+/** Creates the new channel wizard dialog */
 public class ChannelWizard extends javax.swing.JDialog
 {
     private Frame parent;
@@ -415,6 +416,9 @@ public class ChannelWizard extends javax.swing.JDialog
         createChannel();
     }//GEN-LAST:event_finishButtonActionPerformed
 
+    /** Is called after the wizard is complete in order to create the
+     *  new channel and load it up.
+     */
     private void createChannel()
     {
         for (int i = 0; i < parent.channels.size(); i++)
@@ -466,6 +470,9 @@ public class ChannelWizard extends javax.swing.JDialog
         channelPattern.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    /** If the button is "Next" instead of "Finish" then it moves on to the
+     *  next options.  Otherwise, it creates the new channel.
+     */
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_nextButtonActionPerformed
     {//GEN-HEADEREND:event_nextButtonActionPerformed
         parent.doRefreshChannels();
