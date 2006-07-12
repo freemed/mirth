@@ -58,9 +58,16 @@ public class FileReader extends ConnectorClass
         else
             deleteAfterReadNo.setSelected(true);
         if(((String)props.get(FILE_CHECK_FILE_AGE)).equalsIgnoreCase("YES"))
+        {
             checkFileAgeYes.setSelected(true);
+            checkFileAgeYesActionPerformed(null);
+        }
         else
+        {
             checkFileAgeNo.setSelected(true);
+            checkFileAgeNoActionPerformed(null);
+        }
+        
         fileAge.setText((String)props.get(FILE_FILE_AGE));
     }
 
@@ -110,7 +117,7 @@ public class FileReader extends ConnectorClass
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        fileAgeLabel = new javax.swing.JLabel();
         deleteAfterReadYes = new com.webreach.mirth.client.ui.MirthRadioButton();
         deleteAfterReadNo = new com.webreach.mirth.client.ui.MirthRadioButton();
         checkFileAgeYes = new com.webreach.mirth.client.ui.MirthRadioButton();
@@ -131,7 +138,7 @@ public class FileReader extends ConnectorClass
 
         jLabel7.setText("Check File Age:");
 
-        jLabel8.setText("File Age:");
+        fileAgeLabel.setText("File Age:");
 
         deleteAfterReadYes.setBackground(new java.awt.Color(255, 255, 255));
         deleteAfterReadYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -151,6 +158,13 @@ public class FileReader extends ConnectorClass
         buttonGroup2.add(checkFileAgeYes);
         checkFileAgeYes.setText("Yes");
         checkFileAgeYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        checkFileAgeYes.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                checkFileAgeYesActionPerformed(evt);
+            }
+        });
 
         checkFileAgeNo.setBackground(new java.awt.Color(255, 255, 255));
         checkFileAgeNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -158,6 +172,13 @@ public class FileReader extends ConnectorClass
         checkFileAgeNo.setSelected(true);
         checkFileAgeNo.setText("No");
         checkFileAgeNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        checkFileAgeNo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                checkFileAgeNoActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -166,7 +187,7 @@ public class FileReader extends ConnectorClass
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel8)
+                    .add(fileAgeLabel)
                     .add(jLabel7)
                     .add(jLabel6)
                     .add(jLabel4)
@@ -223,11 +244,23 @@ public class FileReader extends ConnectorClass
                     .add(checkFileAgeNo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel8)
+                    .add(fileAgeLabel)
                     .add(fileAge, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkFileAgeNoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkFileAgeNoActionPerformed
+    {//GEN-HEADEREND:event_checkFileAgeNoActionPerformed
+        fileAgeLabel.setEnabled(false);
+        fileAge.setEnabled(false);
+    }//GEN-LAST:event_checkFileAgeNoActionPerformed
+
+    private void checkFileAgeYesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_checkFileAgeYesActionPerformed
+    {//GEN-HEADEREND:event_checkFileAgeYesActionPerformed
+        fileAgeLabel.setEnabled(true);
+        fileAge.setEnabled(true);
+    }//GEN-LAST:event_checkFileAgeYesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -239,13 +272,13 @@ public class FileReader extends ConnectorClass
     private com.webreach.mirth.client.ui.MirthRadioButton deleteAfterReadYes;
     private com.webreach.mirth.client.ui.MirthTextField directoryField;
     private com.webreach.mirth.client.ui.MirthTextField fileAge;
+    private javax.swing.JLabel fileAgeLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private com.webreach.mirth.client.ui.MirthTextField moveToDirectory;
     private com.webreach.mirth.client.ui.MirthTextField moveToPattern;
     private com.webreach.mirth.client.ui.MirthTextField pollingFreq;

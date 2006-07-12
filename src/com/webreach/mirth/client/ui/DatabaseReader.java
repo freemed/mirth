@@ -100,9 +100,15 @@ public class DatabaseReader extends ConnectorClass
         databaseSQLTextPane.setText((String)props.get(DATABASE_SQL_STATEMENT));
         
         if(((String)props.get(DATABASE_USE_ACK)).equalsIgnoreCase("YES"))
+        {    
             readOnUpdateYes.setSelected(true);
+            readOnUpdateYesActionPerformed(null);
+        }
         else
+        {
             readOnUpdateNo.setSelected(true);
+            readOnUpdateNoActionPerformed(null);
+        }
         
         databaseUpdateSQLTextPane.setText((String)props.get(DATABASE_ACK));
         
@@ -158,7 +164,7 @@ public class DatabaseReader extends ConnectorClass
         databaseSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         databaseUpdateSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
-        jLabel6 = new javax.swing.JLabel();
+        onUpdateLabel = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pollingFreq = new com.webreach.mirth.client.ui.MirthTextField();
         readOnUpdateYes = new com.webreach.mirth.client.ui.MirthRadioButton();
@@ -185,7 +191,7 @@ public class DatabaseReader extends ConnectorClass
 
         jScrollPane3.setViewportView(databaseUpdateSQLTextPane);
 
-        jLabel6.setText("On-Update Statement:");
+        onUpdateLabel.setText("On-Update Statement:");
 
         jLabel7.setText("Polling Frequency:");
 
@@ -244,7 +250,7 @@ public class DatabaseReader extends ConnectorClass
                             .add(jLabel7)
                             .add(jLabel5)
                             .add(jLabel8)
-                            .add(jLabel6))
+                            .add(onUpdateLabel))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(pollingFreq, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -295,7 +301,7 @@ public class DatabaseReader extends ConnectorClass
                     .add(jLabel8))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(onUpdateLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 145, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -303,12 +309,14 @@ public class DatabaseReader extends ConnectorClass
 
     private void readOnUpdateNoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_readOnUpdateNoActionPerformed
     {//GEN-HEADEREND:event_readOnUpdateNoActionPerformed
-// TODO add your handling code here:
+        onUpdateLabel.setEnabled(false);
+        databaseUpdateSQLTextPane.setEnabled(false);
     }//GEN-LAST:event_readOnUpdateNoActionPerformed
 
     private void readOnUpdateYesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_readOnUpdateYesActionPerformed
     {//GEN-HEADEREND:event_readOnUpdateYesActionPerformed
-// TODO add your handling code here:
+        onUpdateLabel.setEnabled(true);
+        databaseUpdateSQLTextPane.setEnabled(true);
     }//GEN-LAST:event_readOnUpdateYesActionPerformed
 
 
@@ -325,11 +333,11 @@ public class DatabaseReader extends ConnectorClass
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel onUpdateLabel;
     private com.webreach.mirth.client.ui.MirthTextField pollingFreq;
     private com.webreach.mirth.client.ui.MirthRadioButton readOnUpdateNo;
     private com.webreach.mirth.client.ui.MirthRadioButton readOnUpdateYes;
