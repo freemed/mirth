@@ -13,10 +13,15 @@ public class ReferenceTableHandler extends TransferHandler {
 	protected Transferable createTransferable( JComponent c ) {
 		try {
 			ReferenceTable reftable = ((ReferenceTable)( c ));
+			int currRow = reftable.getSelectedRow();
 		
-			if ( reftable == null )
-				return null;
-			String text = (String)reftable.getModel().getValueAt(reftable.getSelectedRow(), 0);
+			if ( reftable == null ) return null;
+			
+			String text;
+			if (currRow >= 0 && currRow < reftable.getRowCount() ) 
+				text = (String)reftable.getModel().getValueAt(reftable.getSelectedRow(), 0);
+			else text = "";
+			
 			return new ReferenceTableTransferable( text );
 		}
 		catch ( ClassCastException cce ) {

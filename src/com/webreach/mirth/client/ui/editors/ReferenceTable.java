@@ -26,13 +26,13 @@ import com.webreach.mirth.client.ui.UIConstants;
 public class ReferenceTable extends JXTable {
 	
 	public class TableTransferHandler extends TransferHandler {
-	    int row;
+	    int row = -1;
 	    
 	    protected String exportString(JComponent c) {
 	        JXTable table = (JXTable)c;
 	        row = table.getSelectedRow();
 	        
-	        if ( row >= 0 || row < table.getRowCount() )
+	        if ( row >= 0 && row < table.getRowCount() )
 	        	return table.getValueAt( row, 0 ).toString();
 	        else
 	        	return "";
