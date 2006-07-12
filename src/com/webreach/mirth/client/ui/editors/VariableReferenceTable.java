@@ -1,17 +1,10 @@
 package com.webreach.mirth.client.ui.editors;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-
-import javax.swing.JComponent;
-import javax.swing.JTree;
-import javax.swing.TransferHandler;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.TreeNode;
 
 import com.webreach.mirth.client.ui.PlatformUI;
-import com.webreach.mirth.client.ui.TreeTransferable;
+
 
 public class VariableReferenceTable extends ReferenceTable {
 
@@ -27,8 +20,10 @@ public class VariableReferenceTable extends ReferenceTable {
        this.getColumnExt( "Variable" ).setHeaderRenderer( PlatformUI.CENTER_COLUMN_HEADER_RENDERER );
 	}
 	
-	public VariableReferenceTable (String[] data ) {
+	public VariableReferenceTable ( String[] data ) {
 		super();
+		
+		if (data == null) return;
 		
 		String[][] d = new String[data.length][2];
 		for ( int i = 0;  i < data.length;  i++ ) {
@@ -49,6 +44,8 @@ public class VariableReferenceTable extends ReferenceTable {
 	
 	public VariableReferenceTable (String[][] data) {
 		super();
+		
+		if (data == null) return;
 		
 		this.setModel( new DefaultTableModel( data,
 				new String[] {"Variable","Note"} ) {

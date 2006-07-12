@@ -17,31 +17,18 @@ import com.webreach.mirth.client.ui.ReferenceTableHandler;
 import com.webreach.mirth.client.ui.SQLParserUtil;
 
 
-
 public class TabbedReferencePanel extends JPanel {
 	
 	public TabbedReferencePanel() {
 		initComponents();
 		HL7TabbedPane.addTab( "HL7 Tree", treeScrollPane );
-		HL7TabbedPane.addTab( "Variables", varScrollPane );
+		HL7TabbedPane.addTab( "HL7 Message", pasteScrollPane );
 	}
 
 	public void update() {
 		updateSQL();
 	}
-	private void updateVariables(String[] variables){
 	
-		
-		dbVarPanel.remove(dbVarTable);
-		dbVarTable = new VariableReferenceTable( variables );
-		dbVarTable.setDragEnabled(true);
-		dbVarTable.setTransferHandler(new ReferenceTableHandler());
-		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
-		repaint();
-	}
-	public void setDroppedTextPrefix(String prefix){
-		treePanel.setDroppedTextPrefix(prefix);
-	}
 	private void updateSQL() {
 		Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("SQLStatement");
 		if ((sqlStatement != null) && (!sqlStatement.equals(""))){
@@ -49,6 +36,28 @@ public class TabbedReferencePanel extends JPanel {
 			updateVariables(spu.Parse());
 		}
 	}
+	
+	private void updateVariables(String[] variables){		
+		dbVarPanel.remove( dbVarTable );
+		dbVarTable = new VariableReferenceTable( variables );
+		dbVarTable.setDragEnabled( true );
+		dbVarTable.setTransferHandler( new ReferenceTableHandler() );
+		dbVarPanel.add( dbVarTable, BorderLayout.CENTER );
+		repaint();
+	}
+	
+	public void setDroppedTextPrefix(String prefix){
+		treePanel.setDroppedTextPrefix(prefix);
+	}
+	
+	public String getHL7Message() {
+		return pasteBox.getText();
+	}
+	
+	public void setHL7Message( String msg ) {
+		pasteBox.setText( msg );
+	}
+	
 	private void initComponents() {
         HL7TabbedPane = new JTabbedPane();
         pasteTab = new JPanel();
@@ -69,8 +78,7 @@ public class TabbedReferencePanel extends JPanel {
 		globalVarPanel.setLayout( new BorderLayout() );
 		globalVarPanel.add( globalVarTable, BorderLayout.CENTER );
 		
-		String[] temp = {"var1", "var2", "var3", "var4"};
-		dbVarTable = new VariableReferenceTable( temp );
+		dbVarTable = new VariableReferenceTable();
         dbVarPanel = new JPanel();
 		dbVarPanel.setBorder( BorderFactory.createTitledBorder("Database Variables") );
 		dbVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
@@ -85,35 +93,13 @@ public class TabbedReferencePanel extends JPanel {
 		varPanel.add( dbVarPanel, BorderLayout.CENTER );
 		varScrollPane = new JScrollPane();
 		varScrollPane.setViewportView( varPanel );
-		
-        
-        pasteScrollPane.setViewportView(pasteBox);
-        varScrollPane.addComponentListener(
-        		new ComponentListener(){
-        			public void componentResized(ComponentEvent arg0) {
-					}
-        			public void componentMoved(ComponentEvent arg0) {
-					}
-
-					public void componentShown(ComponentEvent arg0) {
-//						chrisl 7/11/206
-						updateSQL();
-					}
-					
-
-					public void componentHidden(ComponentEvent arg0) {
-						
-					}
-        			
-        		});
 
 //		we need to create an HL7 Lexer...	
 		HighlightedDocument HL7Doc = new HighlightedDocument();
 		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
 		pasteBox = new MirthTextPane( HL7Doc );
 		pasteBox.setFont( EditorConstants.DEFAULT_FONT );
-		//pasteBox.setColumns(20);
-        //pasteBox.setRows(5);
+		
 //		this is a tricky way to have "no line-wrap" in a JTextPane;
 //		not using JTextArea for compliance with our current syntax
 //		highlighting package, and for use of MirthTextPane, which
@@ -124,7 +110,24 @@ public class TabbedReferencePanel extends JPanel {
         pasteScrollPane.setViewportView( pasteBoxPanel );
         treeScrollPane.setViewportView( treePanel );
         
+        varScrollPane.addComponentListener(
+        		new ComponentListener(){
+        			public void componentResized(ComponentEvent arg0) {
+					}
+        			
+        			public void componentMoved(ComponentEvent arg0) {
+					}
 
+					public void componentShown(ComponentEvent arg0) {
+						// chrisl 7/11/206
+						updateSQL();
+					}				
+
+					public void componentHidden(ComponentEvent arg0) {
+						
+					}
+        			
+        		});
 					
         treeScrollPane.addComponentListener(
         		new ComponentListener() {
@@ -163,7 +166,7 @@ public class TabbedReferencePanel extends JPanel {
             .add(pasteTabLayout.createSequentialGroup()
                 .add(pasteScrollPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
         );
-        HL7TabbedPane.addTab("HL7 Message", pasteTab);
+        HL7TabbedPane.addTab( "Variables", varScrollPane );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);

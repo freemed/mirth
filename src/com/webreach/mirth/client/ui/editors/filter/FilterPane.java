@@ -7,22 +7,32 @@
 
 package com.webreach.mirth.client.ui.editors.filter;
 
-import com.webreach.mirth.client.ui.Mirth;
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ListIterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.prefs.Preferences;
-import javax.swing.*;
+
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
 import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTaskPane;
@@ -31,14 +41,19 @@ import org.jdesktop.swingx.action.ActionFactory;
 import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
-import com.webreach.mirth.client.ui.Frame;
+
 import com.webreach.mirth.client.ui.CenterCellRenderer;
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.Mirth;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.UIConstants;
+import com.webreach.mirth.client.ui.editors.BlankPanel;
+import com.webreach.mirth.client.ui.editors.CardPanel;
+import com.webreach.mirth.client.ui.editors.JavaScriptPanel;
+import com.webreach.mirth.client.ui.editors.MirthEditorPane;
+import com.webreach.mirth.client.ui.editors.MyComboBoxEditor;
 import com.webreach.mirth.model.Filter;
 import com.webreach.mirth.model.Rule;
-import com.webreach.mirth.client.ui.UIConstants;
-import com.webreach.mirth.client.ui.editors.*;
-import java.awt.Point;
 
 
 
@@ -53,24 +68,26 @@ public class FilterPane extends MirthEditorPane {
 	}
 	
 	/** load( Filter f )
-     */
-    public void load( Filter f ) {
-    	filter = f;
-    	
-    	// we need to clear all the old data before we load the new
-    	makeFilterTable();
-    	
-    	// add any existing steps to the model
-        List<Rule> list = filter.getRules();
-        ListIterator<Rule> li = list.listIterator();
-        while ( li.hasNext() ) {
-        	Rule s = li.next();
-        	int row = s.getSequenceNumber();
-        	setRowData( s, row );
-        }
-        
-    	int rowCount = filterTableModel.getRowCount();
-    	// select the first row if there is one
+	 */
+	public void load( Filter f ) {
+		filter = f;
+		
+		// we need to clear all the old data before we load the new
+		makeFilterTable();
+		
+		// add any existing steps to the model
+		List<Rule> list = filter.getRules();
+		ListIterator<Rule> li = list.listIterator();
+		while ( li.hasNext() ) {
+			Rule s = li.next();
+			int row = s.getSequenceNumber();
+			setRowData( s, row );
+		}
+		
+		tabPanel.setHL7Message( filter.getTemplate() );
+		
+		int rowCount = filterTableModel.getRowCount();
+		// select the first row if there is one
 		if ( rowCount > 0 ) {
 			filterTable.setRowSelectionInterval( 0, 0 );
 			prevSelRow = 0;
@@ -78,14 +95,15 @@ public class FilterPane extends MirthEditorPane {
 			rulePanel.showCard( BLANK_TYPE );
 			jsPanel.setData( null );
 		}			
-    	
+		
 		parent.setCurrentContentPage( this );
-    	parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
-    	
-    	updateRuleNumbers();
-    	updateTaskPane();
-    	modified = false;
-    }
+		parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
+		
+		jsPanel.update();
+		updateRuleNumbers();
+		updateTaskPane();
+		modified = false;
+	}
 	
 	/** This method is called from within the constructor to
 	 *  initialize the form.
@@ -108,8 +126,8 @@ public class FilterPane extends MirthEditorPane {
 		viewTasks = new JXTaskPane();
 		viewTasks.setTitle( "Mirth Views" );
 		viewTasks.setFocusable( false );
-                
-        filterPopupMenu = new JPopupMenu();
+		
+		filterPopupMenu = new JPopupMenu();
 		
 		viewTasks.add(initActionCallback( "accept",
 				ActionFactory.createBoundAction( "accept", "Back to Channels", "B" ), 
@@ -125,50 +143,50 @@ public class FilterPane extends MirthEditorPane {
 		filterTasks.add( initActionCallback( "addNewRule",
 				ActionFactory.createBoundAction( "addNewRule", "Add New Rule", "N" ),
 				new ImageIcon( Frame.class.getResource( "images/add.png" )) ));		
-                JMenuItem addNewRule = new JMenuItem("Add New Rule");
-                addNewRule.addActionListener(new ActionListener(){
-                     public void actionPerformed(ActionEvent e){
-                        addNewRule();
-                    }
-                });
-                filterPopupMenu.add(addNewRule);
-                
+		JMenuItem addNewRule = new JMenuItem("Add New Rule");
+		addNewRule.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				addNewRule();
+			}
+		});
+		filterPopupMenu.add(addNewRule);
+		
 		// delete rule task
 		filterTasks.add( initActionCallback( "deleteRule",
 				ActionFactory.createBoundAction( "deleteRule", "Delete Rule", "X" ),
 				new ImageIcon( Frame.class.getResource( "images/delete.png" )) ));	
-                JMenuItem deleteRule = new JMenuItem("Delete Rule");
-                deleteRule.addActionListener(new ActionListener(){
-                     public void actionPerformed(ActionEvent e){
-                        deleteRule();
-                    }
-                });
-                filterPopupMenu.add(deleteRule);
-                
+		JMenuItem deleteRule = new JMenuItem("Delete Rule");
+		deleteRule.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				deleteRule();
+			}
+		});
+		filterPopupMenu.add(deleteRule);
+		
 		// move rule up task
 		filterTasks.add( initActionCallback( "moveRuleUp",
 				ActionFactory.createBoundAction( "moveRuleUp", "Move Rule Up", "U" ),
 				new ImageIcon( Frame.class.getResource( "images/arrow_up.png" )) ));	
-                JMenuItem moveRuleUp = new JMenuItem("Move Rule Up");
-                moveRuleUp.addActionListener(new ActionListener(){
-                     public void actionPerformed(ActionEvent e){
-                        moveRuleUp();
-                    }
-                });
-                filterPopupMenu.add(moveRuleUp);
-                
+		JMenuItem moveRuleUp = new JMenuItem("Move Rule Up");
+		moveRuleUp.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				moveRuleUp();
+			}
+		});
+		filterPopupMenu.add(moveRuleUp);
+		
 		// move rule down task
 		filterTasks.add( initActionCallback( "moveRuleDown",
 				ActionFactory.createBoundAction( "moveRuleDown", "Move Rule Down", "D" ),
 				new ImageIcon( Frame.class.getResource( "images/arrow_down.png" )) ));
-                JMenuItem moveRuleDown = new JMenuItem("Move Rule Down");
-                moveRuleDown.addActionListener(new ActionListener(){
-                     public void actionPerformed(ActionEvent e){
-                        moveRuleDown();
-                    }
-                });
-                filterPopupMenu.add(moveRuleDown);
-                
+		JMenuItem moveRuleDown = new JMenuItem("Move Rule Down");
+		moveRuleDown.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				moveRuleDown();
+			}
+		});
+		filterPopupMenu.add(moveRuleDown);
+		
 		// add the tasks to the taskpane, and the taskpane to the mirth client
 		parent.setNonFocusable( filterTasks );
 		filterTaskPaneContainer.add( filterTasks );
@@ -178,10 +196,17 @@ public class FilterPane extends MirthEditorPane {
 		// BGN LAYOUT
 		filterTablePane.setBorder( BorderFactory.createEmptyBorder() );
 		rulePanel.setBorder( BorderFactory.createEmptyBorder() );
+		
+		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT,
+				rulePanel, refPanel );
+		hSplitPane.setContinuousLayout( true );
+		hSplitPane.setDividerLocation( 450 );
+		
 		vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
-				filterTablePane, rulePanel );
+				filterTablePane, hSplitPane );
 		vSplitPane.setContinuousLayout( true );
 		vSplitPane.setDividerLocation( 200 );
+		
 		this.setLayout( new BorderLayout() );
 		this.add( vSplitPane, BorderLayout.CENTER );
 		this.setBorder( BorderFactory.createEmptyBorder() );
@@ -194,14 +219,14 @@ public class FilterPane extends MirthEditorPane {
 		
 		filterTable.setModel( new DefaultTableModel( 
 				new String [] { "#", "Operator", "Script" }, 0 ) {
-					boolean[] canEdit = new boolean [] { false, true, false };
-					
-					public boolean isCellEditable( int row, int col ) {
-						if ( row == 0 && col == RULE_OP_COL )
-							return false;				
-						return canEdit[col];
-				}
-			});
+			boolean[] canEdit = new boolean [] { false, true, false };
+			
+			public boolean isCellEditable( int row, int col ) {
+				if ( row == 0 && col == RULE_OP_COL )
+					return false;				
+				return canEdit[col];
+			}
+		});
 		
 		filterTableModel = (DefaultTableModel)filterTable.getModel();
 		
@@ -234,28 +259,38 @@ public class FilterPane extends MirthEditorPane {
 		filterTable.setOpaque( true );
 		filterTable.setRowSelectionAllowed( true );
 		
-        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true)) {
-            HighlighterPipeline highlighter = new HighlighterPipeline();
-            highlighter.addHighlighter(new AlternateRowHighlighter(UIConstants.HIGHLIGHTER_COLOR, UIConstants.BACKGROUND_COLOR, UIConstants.TITLE_TEXT_COLOR));
-            filterTable.setHighlighters( highlighter );
-        }
-                
+		if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true)) {
+			HighlighterPipeline highlighter = new HighlighterPipeline();
+			highlighter.addHighlighter(new AlternateRowHighlighter(UIConstants.HIGHLIGHTER_COLOR, UIConstants.BACKGROUND_COLOR, UIConstants.TITLE_TEXT_COLOR));
+			filterTable.setHighlighters( highlighter );
+		}
+		
 		filterTable.setBorder( BorderFactory.createEmptyBorder() );
 		filterTablePane.setBorder( BorderFactory.createEmptyBorder() );
 		
 		filterTablePane.setViewportView( filterTable );
-                
-                filterTablePane.addMouseListener(new java.awt.event.MouseAdapter()
-                {
-                    public void mousePressed(java.awt.event.MouseEvent evt)
-                    {
-                        showFilterPopupMenu(evt, false);
-                    }
-                    public void mouseReleased(java.awt.event.MouseEvent evt)
-                    {
-                        showFilterPopupMenu(evt, false);
-                    }
-                });
+		
+		filterTable.addMouseListener(
+				new MouseAdapter() {
+					public void mousePressed(MouseEvent evt) {
+						showFilterPopupMenu(evt, true);
+					}
+					
+					public void mouseReleased(MouseEvent evt) {
+						showFilterPopupMenu(evt, true);
+					}
+				});
+		
+		filterTablePane.addMouseListener(
+				new MouseAdapter() {
+					public void mousePressed(MouseEvent evt) {
+						showFilterPopupMenu(evt, false);
+					}
+					
+					public void mouseReleased(MouseEvent evt) {
+						showFilterPopupMenu(evt, false);
+					}
+				});
 		
 		filterTable.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
@@ -264,33 +299,20 @@ public class FilterPane extends MirthEditorPane {
 							FilterListSelected(evt);
 					}
 				});
-            filterTable.addMouseListener(new java.awt.event.MouseAdapter()
-            {
-                public void mousePressed(java.awt.event.MouseEvent evt)
-                {
-                    showFilterPopupMenu(evt, true);
-                }
-                public void mouseReleased(java.awt.event.MouseEvent evt)
-                {
-                    showFilterPopupMenu(evt, true);
-                }
-            });
+		
 	}    
 	
-        private void showFilterPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
-        {
-            if (evt.isPopupTrigger())
-            {
-                if (onTable)
-                {
-                    int row = filterTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
-                    filterTable.setRowSelectionInterval(row, row);
-                }
-
-                filterPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
-            }
-        }
-        
+	private void showFilterPopupMenu(MouseEvent evt, boolean onTable) {
+		if (evt.isPopupTrigger()) {
+			if (onTable) {
+				int row = filterTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
+				filterTable.setRowSelectionInterval(row, row);
+			}
+			
+			filterPopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+		}
+	}
+	
 	// for the task pane
 	public BoundAction initActionCallback( 
 			String callbackMethod, BoundAction boundAction, ImageIcon icon ) {
@@ -306,7 +328,7 @@ public class FilterPane extends MirthEditorPane {
 		
 		int row = filterTable.getSelectedRow();
 		int last = evt.getLastIndex();
-
+		
 		saveData( prevSelRow );
 		
 		if( isValid( row ) )
@@ -317,8 +339,8 @@ public class FilterPane extends MirthEditorPane {
 		}
 		
 		rulePanel.showCard( JAVASCRIPT_TYPE );
-    	filterTable.setRowSelectionInterval( row, row );
-    	prevSelRow = row;
+		filterTable.setRowSelectionInterval( row, row );
+		prevSelRow = row;
 		updateTaskPane();
 		
 		updating = false;
@@ -333,9 +355,9 @@ public class FilterPane extends MirthEditorPane {
 	// previously selected Rule object
 	private void saveData( int row ) {
 		if ( filterTable.isEditing() )
-    		filterTable.getCellEditor( filterTable.getEditingRow(), 
-    				filterTable.getEditingColumn() ).stopCellEditing();
-    	
+			filterTable.getCellEditor( filterTable.getEditingRow(), 
+					filterTable.getEditingColumn() ).stopCellEditing();
+		
 		updating = true;
 		
 		if ( isValid( row )) {
@@ -350,22 +372,22 @@ public class FilterPane extends MirthEditorPane {
 	
 	// loads the data object from the currently selected row
 	// into the correct panel
-    private void loadData( int row ) {
-    	if ( isValid( row ) ) {
-    		Map<Object,Object> m = new HashMap<Object,Object>();
-    		m.put("Script", filterTableModel.getValueAt( row, RULE_SCRIPT_COL ));
-    		jsPanel.setData( m );
-    	}
-    }
-    
-    // display a rule in the table
+	private void loadData( int row ) {
+		if ( isValid( row ) ) {
+			Map<Object,Object> m = new HashMap<Object,Object>();
+			m.put("Script", filterTableModel.getValueAt( row, RULE_SCRIPT_COL ));
+			jsPanel.setData( m );
+		}
+	}
+	
+	// display a rule in the table
 	private void setRowData( Rule rule, int row ) {
 		Object[] tableData = new Object[NUMBER_OF_COLUMNS];
 		
 		tableData[RULE_NUMBER_COL] = rule.getSequenceNumber();
 		tableData[RULE_OP_COL] = rule.getOperator();
 		tableData[RULE_SCRIPT_COL] = rule.getScript();
-
+		
 		updating = true;
 		filterTableModel.addRow( tableData );
 		filterTable.setRowSelectionInterval( row, row );
@@ -388,7 +410,7 @@ public class FilterPane extends MirthEditorPane {
 			rule.setOperator( Rule.Operator.NONE );	// NONE operator by default on row 0
 		else
 			rule.setOperator( Rule.Operator.AND );	// AND operator by default elsewhere
-
+		
 		setRowData( rule, rowCount );
 		prevSelRow = rowCount;
 		updateRuleNumbers();
@@ -400,8 +422,8 @@ public class FilterPane extends MirthEditorPane {
 	public void deleteRule() {
 		modified = true;
 		if ( filterTable.isEditing() )
-    		filterTable.getCellEditor( filterTable.getEditingRow(), 
-    				filterTable.getEditingColumn() ).stopCellEditing();
+			filterTable.getCellEditor( filterTable.getEditingRow(), 
+					filterTable.getEditingColumn() ).stopCellEditing();
 		
 		updating = true; 
 		
@@ -470,6 +492,7 @@ public class FilterPane extends MirthEditorPane {
 		}
 		
 		filter.setRules( list );
+		filter.setTemplate( tabPanel.getHL7Message() );
 		
 		// reset the task pane and content to channel edit page
 		parent.channelEditPage.setSourceVariableList();
@@ -491,58 +514,58 @@ public class FilterPane extends MirthEditorPane {
 		int selRow = filterTable.getSelectedRow();
 		
 		for ( int i = 0;  i < rowCount;  i++ )
-    		filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );	
-
-    	updateOperations();
-    	if ( isValid( selRow ) ) {
-        	filterTable.setRowSelectionInterval( selRow, selRow );
-        	loadData( selRow );
-        	rulePanel.showCard( JAVASCRIPT_TYPE );
-        } else if ( rowCount > 0 ) {
-        	filterTable.setRowSelectionInterval( 0, 0 );
-        	loadData( 0 );        
-        	rulePanel.showCard( JAVASCRIPT_TYPE );
-        }
-        
-    	updateTaskPane();
-        updating = false;
-    }
+			filterTableModel.setValueAt( i, i, RULE_NUMBER_COL );	
+		
+		updateOperations();
+		if ( isValid( selRow ) ) {
+			filterTable.setRowSelectionInterval( selRow, selRow );
+			loadData( selRow );
+			rulePanel.showCard( JAVASCRIPT_TYPE );
+		} else if ( rowCount > 0 ) {
+			filterTable.setRowSelectionInterval( 0, 0 );
+			loadData( 0 );        
+			rulePanel.showCard( JAVASCRIPT_TYPE );
+		}
+		
+		updateTaskPane();
+		updating = false;
+	}
 	
 	/** updateTaskPane()
-     *  configure the task pane so that it shows only relevant tasks
-     */
-    private void updateTaskPane() {
-    	int rowCount = filterTableModel.getRowCount();
-    	if ( rowCount <= 0 )
-        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 1, -1, false );
-        else if ( rowCount == 1 ) {
-        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 0, -1, true );
-        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 2, -1, false );
-        } else {
-        	parent.setVisibleTasks( filterTasks, filterPopupMenu, 0, -1, true );
-        	
-        	int selRow = filterTable.getSelectedRow();
-        	if ( selRow == 0 ) // hide move up
-        		parent.setVisibleTasks( filterTasks, filterPopupMenu, 2, 2, false );
-        	else if ( selRow == rowCount - 1 ) // hide move down
-        		parent.setVisibleTasks( filterTasks, filterPopupMenu, 3, 3, false );
-        }
-    }
-    
-    /** updateOperations()
-     *  goes through all existing rules, enforcing rule 0 to be 
-     *  a Rule.Operator.NONE, and any other NONEs to ANDs.
-     */
-    private void updateOperations() {
-    	for ( int i = 0;  i < filterTableModel.getRowCount(); i++ ) {
-    		if ( i == 0 )
-    			filterTableModel.setValueAt( "", i, RULE_OP_COL );
-    		else if ( filterTableModel.getValueAt( i, RULE_OP_COL ).toString().equals( "" ) )
-    			filterTableModel.setValueAt( Rule.Operator.AND.toString(), i, RULE_OP_COL );
-    	}
-    }
+	 *  configure the task pane so that it shows only relevant tasks
+	 */
+	private void updateTaskPane() {
+		int rowCount = filterTableModel.getRowCount();
+		if ( rowCount <= 0 )
+			parent.setVisibleTasks( filterTasks, filterPopupMenu, 1, -1, false );
+		else if ( rowCount == 1 ) {
+			parent.setVisibleTasks( filterTasks, filterPopupMenu, 0, -1, true );
+			parent.setVisibleTasks( filterTasks, filterPopupMenu, 2, -1, false );
+		} else {
+			parent.setVisibleTasks( filterTasks, filterPopupMenu, 0, -1, true );
+			
+			int selRow = filterTable.getSelectedRow();
+			if ( selRow == 0 ) // hide move up
+				parent.setVisibleTasks( filterTasks, filterPopupMenu, 2, 2, false );
+			else if ( selRow == rowCount - 1 ) // hide move down
+				parent.setVisibleTasks( filterTasks, filterPopupMenu, 3, 3, false );
+		}
+	}
 	
-//............................................................................\\
+	/** updateOperations()
+	 *  goes through all existing rules, enforcing rule 0 to be 
+	 *  a Rule.Operator.NONE, and any other NONEs to ANDs.
+	 */
+	private void updateOperations() {
+		for ( int i = 0;  i < filterTableModel.getRowCount(); i++ ) {
+			if ( i == 0 )
+				filterTableModel.setValueAt( "", i, RULE_OP_COL );
+			else if ( filterTableModel.getValueAt( i, RULE_OP_COL ).toString().equals( "" ) )
+				filterTableModel.setValueAt( Rule.Operator.AND.toString(), i, RULE_OP_COL );
+		}
+	}
+	
+//	............................................................................\\
 	
 	// used to load this pane
 	private Filter filter;
@@ -551,12 +574,13 @@ public class FilterPane extends MirthEditorPane {
 	private JXTable filterTable;
 	private DefaultTableModel filterTableModel;
 	private JScrollPane filterTablePane;
+	private JSplitPane hSplitPane;
 	private JSplitPane vSplitPane;
 	private boolean updating;				// allow the selection listener to breathe
 	JXTaskPaneContainer filterTaskPaneContainer;
 	JXTaskPane viewTasks;
 	JXTaskPane filterTasks;
-        JPopupMenu filterPopupMenu;
+	JPopupMenu filterPopupMenu;
 	
 	
 	// this little sucker is used to track the last row that had

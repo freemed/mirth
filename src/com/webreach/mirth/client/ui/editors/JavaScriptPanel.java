@@ -50,6 +50,7 @@ import com.webreach.mirth.client.ui.UIConstants;
  */
 public class JavaScriptPanel extends CardPanel {
 	
+	public JavaScriptPanel(){initComponents();}
 	public JavaScriptPanel(MirthEditorPane p) {
 		super();
 		parent = p;
@@ -57,18 +58,16 @@ public class JavaScriptPanel extends CardPanel {
 	}
 	
 	private void initComponents() {
-		tabPanel = new TabbedReferencePanel();
 		headerArea = new JTextArea( header );
 		footerArea = new JTextArea( footer );
-		refPanel = new JPanel();
-		mappingPane = new JPanel();
-		mappingDoc = new HighlightedDocument();
-		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
-		mappingScrollPane = new JScrollPane();
-		mappingTextPane = new MirthTextPane( mappingDoc );
+		scriptPanel = new JPanel();
+		scriptDoc = new HighlightedDocument();
+		scriptDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
+		scriptScrollPane = new JScrollPane();
+		scriptTextPane = new MirthTextPane( scriptDoc );
 		
-		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
-		mappingPane.setBorder( BorderFactory.createEmptyBorder() );
+		scriptTextPane.setBorder( BorderFactory.createEmptyBorder() );
+		scriptPanel.setBorder( BorderFactory.createEmptyBorder() );
 		
 		headerArea.setForeground( Color.blue );
 		headerArea.setFont( EditorConstants.DEFAULT_FONT_BOLD );
@@ -76,7 +75,7 @@ public class JavaScriptPanel extends CardPanel {
 		headerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		headerArea.setEditable(false);
 		
-		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
+		scriptTextPane.setFont( EditorConstants.DEFAULT_FONT );
 		
 		footerArea.setForeground( Color.blue );
 		footerArea.setFont( EditorConstants.DEFAULT_FONT_BOLD );
@@ -84,30 +83,21 @@ public class JavaScriptPanel extends CardPanel {
 		footerArea.setBackground( UIConstants.NONEDITABLE_LINE_BACKGROUND );
 		footerArea.setEditable(false);
 		
-		mappingPane.setLayout( new BorderLayout() );
-		mappingPane.add( headerArea, BorderLayout.NORTH );
-		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
-		mappingPane.add( footerArea, BorderLayout.SOUTH );
+		scriptPanel.setLayout( new BorderLayout() );
+		scriptPanel.add( headerArea, BorderLayout.NORTH );
+		scriptPanel.add( scriptTextPane, BorderLayout.CENTER );
+		scriptPanel.add( footerArea, BorderLayout.SOUTH );
 		
-		lineNumbers = new LineNumber( mappingPane );
-		mappingScrollPane.setViewportView( mappingPane );
-		mappingScrollPane.setRowHeaderView( lineNumbers );
-		mappingScrollPane.setBorder( BorderFactory.createTitledBorder( 
+		lineNumbers = new LineNumber( scriptPanel );
+		scriptScrollPane.setViewportView( scriptPanel );
+		scriptScrollPane.setRowHeaderView( lineNumbers );
+		scriptScrollPane.setBorder( BorderFactory.createTitledBorder( 
 				BorderFactory.createLoweredBevelBorder(), "JavaScript", TitledBorder.LEFT,
 				TitledBorder.ABOVE_TOP, new Font( null, Font.PLAIN, 11 ), 
 				Color.black ));
-		
-		refPanel.setBorder( BorderFactory.createEmptyBorder() );
-		refPanel.setLayout( new BorderLayout() );
-		refPanel.add( tabPanel, BorderLayout.CENTER );
-		
-		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
-				mappingScrollPane, refPanel );
-		hSplitPane.setContinuousLayout( true );
-		hSplitPane.setDividerLocation( 450 );
-		
+
 		//BGN listeners
-		mappingTextPane.getDocument().addDocumentListener(
+		scriptTextPane.getDocument().addDocumentListener(
 				new DocumentListener() {
 					
 					public void changedUpdate(DocumentEvent arg0) {
@@ -125,45 +115,44 @@ public class JavaScriptPanel extends CardPanel {
 				});
 		//END listeners
 		
+		this.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10) );
 		this.setLayout( new BorderLayout() );
-		this.add( hSplitPane, BorderLayout.CENTER );
+		this.add( scriptScrollPane, BorderLayout.CENTER );
 		
 	}
 	
 	public void update(){
-		tabPanel.update();
+		parent.update();
 	}
 	
 	public Map<Object, Object> getData() {
 		Map<Object, Object> m = new HashMap<Object, Object>();
-		m.put( "Script", mappingTextPane.getText().trim() );
+		m.put( "Script", scriptTextPane.getText().trim() );
 		return m;
 	}
 	
 	
 	public void setData( Map<Object, Object> m ) {
 		if ( m != null )
-			mappingTextPane.setText( (String)m.get( "Script" ) );	
+			scriptTextPane.setText( (String)m.get( "Script" ) );	
 		else
-			mappingTextPane.setText( "" );
+			scriptTextPane.setText( "" );
 	}
 	
 	public MirthTextPane getDocument() {
-		return mappingTextPane;
+		return scriptTextPane;
 	}
 	
-	private JPanel refPanel;
+	
 	private JTextArea headerArea;
 	private JTextArea footerArea;
-	private JPanel mappingPane;
-	private HighlightedDocument mappingDoc;
-	private MirthTextPane mappingTextPane;
-	private JScrollPane mappingScrollPane;
+	private JPanel scriptPanel;
+	private HighlightedDocument scriptDoc;
+	private MirthTextPane scriptTextPane;
+	private JScrollPane scriptScrollPane;
 	private LineNumber lineNumbers;
-	private JSplitPane hSplitPane;
-//	public to access updateVariable() method from parent
-	public TabbedReferencePanel tabPanel;
 	private MirthEditorPane parent;
+	
 	private String header = "{";
 	private String footer = "}";
 	

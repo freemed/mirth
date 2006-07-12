@@ -10,8 +10,6 @@ package com.webreach.mirth.client.ui.editors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -28,18 +25,16 @@ import javax.swing.event.DocumentListener;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.PlatformUI;
-import com.webreach.mirth.client.ui.SQLParserUtil;
 import com.webreach.mirth.model.Channel;
 
 
 public class MapperPanel extends CardPanel {
 	
 	/** Creates new form MapperPanel */
-	public MapperPanel() {initComponents();}
+	public MapperPanel() { initComponents(); }
 	public MapperPanel(MirthEditorPane p) {
 		super();
-		parent = p;
-		
+		parent = p;		
 		initComponents();
 	}
 	
@@ -47,9 +42,6 @@ public class MapperPanel extends CardPanel {
 	 *  originally created with NetBeans, modified by franciscos
 	 */
 	private void initComponents() {
-		referenceScrollPane = new JScrollPane();
-		tabPanel = new TabbedReferencePanel();
-		refPanel = new JPanel();
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
 		mappingLabel = new JLabel( "   " + label );
@@ -59,7 +51,6 @@ public class MapperPanel extends CardPanel {
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
 		mappingTextPane = new MirthTextPane( mappingDoc );
 		
-		referenceScrollPane.setBorder( BorderFactory.createEmptyBorder() );
 		mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
 		mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
 		mappingTextPane.setBorder( BorderFactory.createEmptyBorder() );
@@ -69,35 +60,22 @@ public class MapperPanel extends CardPanel {
 				Color.black ));
 		
 		mappingTextPane.setFont( EditorConstants.DEFAULT_FONT );
+
+		mappingTextPanel = new JPanel();
+		mappingTextPanel.setLayout( new BorderLayout() );
+		mappingTextPanel.add( mappingTextPane, BorderLayout.CENTER );
 		
-		refPanel.setBorder( BorderFactory.createEmptyBorder() );
-		refPanel.setLayout( new BorderLayout() );
-		refPanel.add( referenceScrollPane, BorderLayout.CENTER );
-		
-		JLabel padding = new JLabel( "  " );
-		padding.setFont( new Font( null, Font.PLAIN, 8 ) );
 		labelPanel.setLayout( new BorderLayout() );
 		labelPanel.add( mappingLabel, BorderLayout.NORTH );
-		labelPanel.add( padding, BorderLayout.WEST );
+		labelPanel.add( new JLabel( " " ), BorderLayout.WEST );
 		labelPanel.add( mappingTextField, BorderLayout.CENTER );
-		padding = new JLabel( "                             " );
-		labelPanel.add( padding, BorderLayout.LINE_END );
+		labelPanel.setBorder( BorderFactory.createEmptyBorder( 0, 0, 0, 150) );
 		
-		mappingPane = new JPanel();
-		mappingPane.setLayout( new BorderLayout() );
-		mappingPane.add( mappingTextPane, BorderLayout.CENTER );
-		
-		referenceScrollPane.setViewportView( tabPanel );
-		mappingScrollPane.setViewportView( mappingPane );
+		mappingScrollPane.setViewportView( mappingTextPanel );
 		
 		mappingPanel.setLayout( new BorderLayout() );
 		mappingPanel.add( labelPanel, BorderLayout.NORTH );
 		mappingPanel.add( mappingScrollPane, BorderLayout.CENTER );
-		
-		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, 
-				mappingPanel, refPanel );
-		hSplitPane.setContinuousLayout( true );
-		hSplitPane.setDividerLocation( 450 );
 		
 		// BGN listeners
 		mappingTextField.getDocument().addDocumentListener(
@@ -131,39 +109,23 @@ public class MapperPanel extends CardPanel {
 					}
 					
 				});
-		
-		this.addComponentListener(
-				new ComponentListener() {
-					
-					public void componentResized(ComponentEvent arg0) {}
-					
-					public void componentMoved(ComponentEvent arg0) {}
-					
-					// this will ensure the variable field is given the proper label
-					public void componentShown(ComponentEvent arg0) {
-					
-						
-					}
-					
-					public void componentHidden(ComponentEvent arg0) {}
-					
-				});
 		// END listeners
-		
+
+		this.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10) );
 		this.setLayout( new BorderLayout() );
-		this.add( hSplitPane, BorderLayout.CENTER );
+		this.add( mappingPanel, BorderLayout.CENTER );
 	} 
 		
 	public void update(){
-		tabPanel.update();
+		parent.update();
+		
 		Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
-		if ( channel.getDirection().equals(Channel.Direction.INBOUND) ){
+		if ( channel.getDirection().equals( Channel.Direction.INBOUND ) ){
 			mappingLabel.setText( "   Variable: " );
-			tabPanel.setDroppedTextPrefix("msg");
-		}
-		else if ( channel.getDirection().equals(Channel.Direction.OUTBOUND) ){
+			parent.setDroppedTextPrefix("msg");
+		} else if ( channel.getDirection().equals( Channel.Direction.OUTBOUND ) ){
 			mappingLabel.setText( "   HL7 Message Segment: " );
-			tabPanel.setDroppedTextPrefix("hl7");
+			parent.setDroppedTextPrefix("hl7");
 		}
 	}
 
@@ -184,19 +146,15 @@ public class MapperPanel extends CardPanel {
 			mappingTextField.setText( "" );
 			mappingTextPane.setText( "" );
 		}
-	}    
+	}
 	
 	
 	private String label;
-	private JScrollPane referenceScrollPane;
-	private JPanel refPanel;
-	private JSplitPane hSplitPane;
+	private JPanel mappingTextPanel;		// for no linewrap in textpane
 	private MirthTextPane mappingTextPane;
 	private HighlightedDocument mappingDoc;
-	private TabbedReferencePanel tabPanel;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
-	private JPanel mappingPane;
 	private JPanel mappingPanel;
 	private JTextField mappingTextField;
 	private JScrollPane mappingScrollPane;

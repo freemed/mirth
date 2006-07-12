@@ -7,25 +7,32 @@
 
 package com.webreach.mirth.client.ui.editors.transformer;
 
-import com.webreach.mirth.client.ui.CenterCellRenderer;
-import com.webreach.mirth.client.ui.Mirth;
-import com.webreach.mirth.client.ui.PlatformUI;
 import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ListIterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.prefs.Preferences;
-import javax.swing.*;
+
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
 import org.jdesktop.swingx.JXComboBox;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTaskPane;
@@ -34,11 +41,21 @@ import org.jdesktop.swingx.action.ActionFactory;
 import org.jdesktop.swingx.action.BoundAction;
 import org.jdesktop.swingx.decorator.AlternateRowHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterPipeline;
+
+import com.webreach.mirth.client.ui.CenterCellRenderer;
 import com.webreach.mirth.client.ui.Frame;
-import com.webreach.mirth.model.Transformer;
-import com.webreach.mirth.model.Step;
+import com.webreach.mirth.client.ui.Mirth;
+import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
-import com.webreach.mirth.client.ui.editors.*;
+import com.webreach.mirth.client.ui.editors.BlankPanel;
+import com.webreach.mirth.client.ui.editors.CardPanel;
+import com.webreach.mirth.client.ui.editors.JavaScriptPanel;
+import com.webreach.mirth.client.ui.editors.MapperPanel;
+import com.webreach.mirth.client.ui.editors.MirthEditorPane;
+import com.webreach.mirth.client.ui.editors.MyComboBoxEditor;
+import com.webreach.mirth.model.Channel;
+import com.webreach.mirth.model.Step;
+import com.webreach.mirth.model.Transformer;
 
 
 
@@ -70,7 +87,9 @@ public class TransformerPane extends MirthEditorPane {
         	setRowData( s, row );
         }
         
-//      select the first row if there is one
+        tabPanel.setHL7Message( transformer.getTemplate() );
+
+        // select the first row if there is one
 		int rowCount = transformerTableModel.getRowCount();
         if ( rowCount > 0 ) {
 			transformerTable.setRowSelectionInterval( 0, 0 );
@@ -80,10 +99,12 @@ public class TransformerPane extends MirthEditorPane {
 			mapperPanel.setData( null );
 			jsPanel.setData( null );
 		}
-    	
+        
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
+    	
     	mapperPanel.update();
+    	jsPanel.update();
     	updateStepNumbers();
     	updateTaskPane();
     	modified = false;
@@ -181,10 +202,17 @@ public class TransformerPane extends MirthEditorPane {
         // BGN LAYOUT
         transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
         stepPanel.setBorder( BorderFactory.createEmptyBorder() );
+        
+        hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT,
+        		stepPanel, refPanel );
+        hSplitPane.setContinuousLayout( true );
+        hSplitPane.setDividerLocation( 450 );
+        
         vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
-         		transformerTablePane, stepPanel );
+         		transformerTablePane, hSplitPane );
         vSplitPane.setContinuousLayout( true );
         vSplitPane.setDividerLocation( 200 );
+        
         this.setLayout( new BorderLayout() );
         this.add( vSplitPane, BorderLayout.CENTER );
         this.setBorder( BorderFactory.createEmptyBorder() );
@@ -242,29 +270,39 @@ public class TransformerPane extends MirthEditorPane {
         transformerTable.setOpaque( true );
         transformerTable.setRowSelectionAllowed( true );
         
-        if(Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true))
-        {
+        if (Preferences.systemNodeForPackage(Mirth.class).getBoolean("highlightRows", true)) {
             HighlighterPipeline highlighter = new HighlighterPipeline();
             highlighter.addHighlighter(new AlternateRowHighlighter(UIConstants.HIGHLIGHTER_COLOR, UIConstants.BACKGROUND_COLOR, UIConstants.TITLE_TEXT_COLOR));
             transformerTable.setHighlighters( highlighter );
         }
         
         transformerTable.setBorder( BorderFactory.createEmptyBorder() );
-        transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );
-        
+        transformerTablePane.setBorder( BorderFactory.createEmptyBorder() );        
         transformerTablePane.setViewportView( transformerTable );
         
-        transformerTablePane.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mousePressed(java.awt.event.MouseEvent evt)
-            {
-                showTransformerPopupMenu(evt, false);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt)
-            {
-                showTransformerPopupMenu(evt, false);
-            }
-        });
+        // listen for mouse clicks on the actual table
+        transformerTable.addMouseListener(
+        		new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        showTransformerPopupMenu(evt, true);
+                    }
+                    
+                    public void mouseReleased(MouseEvent evt) {
+                        showTransformerPopupMenu(evt, true);
+                    }
+                });
+        
+        // listen for mouse clicks on the empty part of the pane
+        transformerTablePane.addMouseListener(
+        		new MouseAdapter() {
+        			public void mousePressed(MouseEvent evt) {
+        				showTransformerPopupMenu(evt, false);
+        			}
+        			
+        			public void mouseReleased(MouseEvent evt) {
+        				showTransformerPopupMenu(evt, false);
+        			}
+        		});
         
         transformerTable.getSelectionModel().addListSelectionListener(
         		new ListSelectionListener() {
@@ -273,26 +311,11 @@ public class TransformerPane extends MirthEditorPane {
         					TransformerListSelected( evt );
         			}
         		});
-        
-        transformerTable.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mousePressed(java.awt.event.MouseEvent evt)
-            {
-                showTransformerPopupMenu(evt, true);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt)
-            {
-                showTransformerPopupMenu(evt, true);
-            }
-        });
     }    
 
-    private void showTransformerPopupMenu(java.awt.event.MouseEvent evt, boolean onTable)
-    {
-        if (evt.isPopupTrigger())
-        {
-            if (onTable)
-            {
+    private void showTransformerPopupMenu(MouseEvent evt, boolean onTable) {
+        if (evt.isPopupTrigger()) {
+            if (onTable) {
                 int row = transformerTable.rowAtPoint(new Point(evt.getX(), evt.getY()));
                 transformerTable.setRowSelectionInterval(row, row);
             }
@@ -397,21 +420,23 @@ public class TransformerPane extends MirthEditorPane {
     			data = mapperPanel.getData();
     			String var = data.get( "Variable" ).toString();
     			
-    			// check for unique variable names
-    			if ( var == null || var.equals( "" ) || !isUnique( var, row ) ) {
-    				invalidVar = true;
-    				String msg = "";
-    				
-    				transformerTable.setRowSelectionInterval( row, row );
-    				
-    				if ( var == null || var.equals( "" ) )
-    					msg = "The variable name cannot be blank.";
-    				else // var is not unique
-    					msg = "'" + data.get("Variable") + "'" + " is not unique.";
-    				msg += "\nPlease enter a new variable name.\n";
-
-    				parent.alertWarning( msg );
-    				
+    			// check for unique variable names if it is an INBOUND channel
+    			Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
+    			if ( channel.getDirection().equals( Channel.Direction.INBOUND ) ) {
+	    			if ( var == null || var.equals( "" ) || !isUnique( var, row ) ) {
+	    				invalidVar = true;
+	    				String msg = "";
+	    				
+	    				transformerTable.setRowSelectionInterval( row, row );
+	    				
+	    				if ( var == null || var.equals( "" ) )
+	    					msg = "The variable name cannot be blank.";
+	    				else // var is not unique
+	    					msg = "'" + data.get("Variable") + "'" + " is not unique.";
+	    				msg += "\nPlease enter a new variable name.\n";
+	
+	    				parent.alertWarning( msg );
+	    			}  				
     			} else invalidVar = false;
     		} else if ( type == "JavaScript" ) 
 	    		data = jsPanel.getData();
@@ -471,9 +496,15 @@ public class TransformerPane extends MirthEditorPane {
     	Step step = new Step();
     	
     	saveData( transformerTable.getSelectedRow() );
-    	Map<Object,Object> data = new HashMap<Object,Object>();
-    	data.put("Variable", getUniqueName() );
     	
+    	Map<Object,Object> data = new HashMap<Object,Object>();
+    	Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
+		
+    	if ( channel.getDirection().equals( Channel.Direction.INBOUND ) )
+			data.put("Variable", getUniqueName() );
+		else if ( channel.getDirection().equals( Channel.Direction.OUTBOUND ) )
+			data.put("Variable", "" );
+			
     	step.setSequenceNumber( rowCount );
     	step.setData( data );
     	step.setName( "New Step" );
@@ -572,6 +603,7 @@ public class TransformerPane extends MirthEditorPane {
 	    	}
 	    	
 	    	transformer.setSteps( list );
+	    	transformer.setTemplate( tabPanel.getHL7Message() );
 	    
 	    	// reset the task pane and content to channel edit page
 	    	parent.channelEditPage.setSourceVariableList();
@@ -641,10 +673,11 @@ public class TransformerPane extends MirthEditorPane {
     private DefaultTableModel transformerTableModel;
     private JScrollPane transformerTablePane;
     private JSplitPane vSplitPane;
-    JXTaskPaneContainer transformerTaskPaneContainer;
-    JXTaskPane transformerTasks;
-    JPopupMenu transformerPopupMenu;
-    JXTaskPane viewTasks;
+    private JSplitPane hSplitPane;
+    private JXTaskPaneContainer transformerTaskPaneContainer;
+    private JXTaskPane transformerTasks;
+    private JPopupMenu transformerPopupMenu;
+    private JXTaskPane viewTasks;
     
     // some helper guys
     private int prevSelRow;			// track the previously selected row
