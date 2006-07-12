@@ -432,10 +432,8 @@ public class FilterPane extends MirthEditorPane {
 		updating = true; 
 		
 		int row = filterTable.getSelectedRow();
-		if ( isValid( row ) ) {
+		if ( isValid( row ) )
 			filterTableModel.removeRow( row );
-			jsPanel.setData( null );
-		}
 		
 		updating = false;
 		

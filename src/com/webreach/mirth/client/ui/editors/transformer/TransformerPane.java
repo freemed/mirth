@@ -469,8 +469,8 @@ public class TransformerPane extends MirthEditorPane {
      *  works to move the data in a panel for moves or deletes
      */
     private void prepData( int row ) {
-    	Map<Object,Object> d = (Map<Object,Object>)
-		transformerTableModel.getValueAt( row, STEP_DATA_COL );
+    	Map<Object,Object> d = 
+    		(Map<Object,Object>)transformerTableModel.getValueAt( row, STEP_DATA_COL );
 		String type = (String)transformerTableModel.getValueAt( row, STEP_TYPE_COL );
 		
 		if ( type == MAPPER_TYPE ) mapperPanel.setData( d );
@@ -534,11 +534,8 @@ public class TransformerPane extends MirthEditorPane {
     	if ( isValid( row + 1 ) ) 
     		prepData( row + 1 );
     	
-    	if ( isValid ( row ) ) {
+    	if ( isValid ( row ) )
     		transformerTableModel.removeRow( row );
-    		mapperPanel.setData( null );
-    		jsPanel.setData( null );
-    	}
     	
     	updating = false;
     	
