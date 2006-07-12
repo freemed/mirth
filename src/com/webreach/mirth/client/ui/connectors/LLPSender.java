@@ -1,12 +1,13 @@
 package com.webreach.mirth.client.ui.connectors;
 
+import com.webreach.mirth.client.ui.UIConstants;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
@@ -27,7 +28,7 @@ public class LLPSender extends ConnectorClass
     public final String LLP_END_OF_MESSAGE_CHARACTER = "messageEnd";
     public final String LLP_FIELD_SEPARATOR = "fieldSeparator";
     public final String LLP_RECORD_SEPARATOR = "recordSeparator";
-    
+
     public LLPSender()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -36,7 +37,7 @@ public class LLPSender extends ConnectorClass
     }
 
     public Properties getProperties()
-    {        
+    {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
         properties.put(LLP_PROTOCOL_NAME,LLP_PROTOCOL_NAME_VALUE);
@@ -47,9 +48,9 @@ public class LLPSender extends ConnectorClass
         properties.put(LLP_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put(LLP_KEEP_CONNECTION_OPEN, "YES");
+            properties.put(LLP_KEEP_CONNECTION_OPEN, UIConstants.YES_OPTION);
         else
-            properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
+            properties.put(LLP_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
 
         properties.put(LLP_MAX_RETRY_COUNT, maximumRetryCountField.getText());
         properties.put(LLP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
@@ -79,12 +80,12 @@ public class LLPSender extends ConnectorClass
             hostIPAddressField3.setText(IP.nextToken());
         else
             hostIPAddressField3.setText("");
-        
+
         hostPortField.setText((String)props.get(LLP_PORT));
         serverTimeoutField.setText((String)props.get(LLP_SERVER_TIMEOUT));
         bufferSizeField.setText((String)props.get(LLP_BUFFER_SIZE));
 
-        if(((String)props.get(LLP_KEEP_CONNECTION_OPEN)).equals("YES"))
+        if(((String)props.get(LLP_KEEP_CONNECTION_OPEN)).equals(UIConstants.YES_OPTION))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
@@ -112,9 +113,9 @@ public class LLPSender extends ConnectorClass
         recordSeparatorField.setText("");
         fieldSeparatorField.setText("");
     }
-    
+
     public Properties getDefaults()
-    {        
+    {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
         properties.put(LLP_PROTOCOL_NAME,LLP_PROTOCOL_NAME_VALUE);
@@ -122,7 +123,7 @@ public class LLPSender extends ConnectorClass
         properties.put(LLP_PORT, "6660");
         properties.put(LLP_SERVER_TIMEOUT, "5000");
         properties.put(LLP_BUFFER_SIZE, "65536");
-        properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(LLP_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
         properties.put(LLP_MAX_RETRY_COUNT, "50");
         properties.put(LLP_START_OF_MESSAGE_CHARACTER, "0x0B");
         properties.put(LLP_END_OF_MESSAGE_CHARACTER, "0x1C");

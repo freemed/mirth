@@ -272,6 +272,7 @@ public class ChannelWizard extends javax.swing.JDialog
         buttonGroup2.add(applicationIntegration);
         applicationIntegration.setText("Application Integration");
         applicationIntegration.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        applicationIntegration.setEnabled(false);
         applicationIntegration.setMargin(new java.awt.Insets(0, 0, 0, 0));
         applicationIntegration.addActionListener(new java.awt.event.ActionListener()
         {

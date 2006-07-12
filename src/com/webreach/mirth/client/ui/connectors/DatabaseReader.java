@@ -3,10 +3,11 @@ package com.webreach.mirth.client.ui.connectors;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.UIConstants;
 
 import java.util.Properties;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
@@ -35,10 +36,10 @@ public class DatabaseReader extends ConnectorClass
     public final String DATABASE_SQL_STATEMENT = "query";
     public final String DATABASE_USE_ACK = "useAck";
     public final String DATABASE_ACK = "ack";
-    
+
     private HighlightedDocument mappingDoc;
     private HighlightedDocument mappingDoc2;
-    
+
     public DatabaseReader()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -57,7 +58,7 @@ public class DatabaseReader extends ConnectorClass
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
         properties.put(DATABASE_HOST, DATABASE_HOST_VALUE);
-        
+
         if(databaseDriverCombobox.getSelectedItem().equals(SUN_JDBC_ODBC_BRIDGE))
             properties.put(DATABASE_DRIVER, SUN_JDBC_ODBC_JDBCODBCDRIVER);
         else if(databaseDriverCombobox.getSelectedItem().equals(ODBC_MYSQL))
@@ -68,18 +69,18 @@ public class DatabaseReader extends ConnectorClass
             properties.put(DATABASE_DRIVER, NET_SOURCEFORGE_JTDS_JDBC_DRIVER);
         else if(databaseDriverCombobox.getSelectedItem().equals(ODBC_ORACLE_10G_RELEASE_2))
             properties.put(DATABASE_DRIVER, ORACLE_JDBC_ORACLEDRIVER);
-        
+
         properties.put(DATABASE_URL, databaseURLField.getText());
         properties.put(DATABASE_USERNAME, databaseUsernameField.getText());
         properties.put(DATABASE_PASSWORD, new String(databasePasswordField.getPassword()));
         properties.put(DATABASE_POLLING_FREQUENCY, pollingFreq.getText());
         properties.put(DATABASE_SQL_STATEMENT, databaseSQLTextPane.getText());
-        
+
         if (readOnUpdateYes.isSelected())
-            properties.put(DATABASE_USE_ACK, "YES");
+            properties.put(DATABASE_USE_ACK, UIConstants.YES_OPTION);
         else
-            properties.put(DATABASE_USE_ACK, "NO");
-        
+            properties.put(DATABASE_USE_ACK, UIConstants.NO_OPTION);
+
         properties.put(DATABASE_ACK, databaseUpdateSQLTextPane.getText());
         return properties;
     }
@@ -87,7 +88,7 @@ public class DatabaseReader extends ConnectorClass
     public void setProperties(Properties props)
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        
+
         if(props.get(DATABASE_DRIVER).equals(SUN_JDBC_ODBC_JDBCODBCDRIVER))
             databaseDriverCombobox.setSelectedItem(SUN_JDBC_ODBC_BRIDGE);
         else if(props.get(DATABASE_DRIVER).equals(COM_MYSQL_JDBC_DRIVER))
@@ -98,16 +99,16 @@ public class DatabaseReader extends ConnectorClass
             databaseDriverCombobox.setSelectedItem(ODBC_SQL_SERVER_SYBASE);
         else if(props.get(DATABASE_DRIVER).equals(ORACLE_JDBC_ORACLEDRIVER))
             databaseDriverCombobox.setSelectedItem(ODBC_ORACLE_10G_RELEASE_2);
-        
+
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
         databaseURLField.setText((String)props.get(DATABASE_URL));
         databaseUsernameField.setText((String)props.get(DATABASE_USERNAME));
         databasePasswordField.setText((String)props.get(DATABASE_PASSWORD));
         pollingFreq.setText((String)props.get(DATABASE_POLLING_FREQUENCY));
         databaseSQLTextPane.setText((String)props.get(DATABASE_SQL_STATEMENT));
-        
-        if(((String)props.get(DATABASE_USE_ACK)).equalsIgnoreCase("YES"))
-        {    
+
+        if(((String)props.get(DATABASE_USE_ACK)).equalsIgnoreCase(UIConstants.YES_OPTION))
+        {
             readOnUpdateYes.setSelected(true);
             readOnUpdateYesActionPerformed(null);
         }
@@ -116,9 +117,9 @@ public class DatabaseReader extends ConnectorClass
             readOnUpdateNo.setSelected(true);
             readOnUpdateNoActionPerformed(null);
         }
-        
+
         databaseUpdateSQLTextPane.setText((String)props.get(DATABASE_ACK));
-        
+
     }
 
     public void setDefaults()
@@ -132,7 +133,7 @@ public class DatabaseReader extends ConnectorClass
         readOnUpdateNo.setSelected(true);
         databaseUpdateSQLTextPane.setText("");
     }
-    
+
     public Properties getDefaults()
     {
         Properties properties = new Properties();
@@ -144,7 +145,7 @@ public class DatabaseReader extends ConnectorClass
         properties.put(DATABASE_PASSWORD, "");
         properties.put(DATABASE_POLLING_FREQUENCY, "5000");
         properties.put(DATABASE_SQL_STATEMENT, "SELECT FROM");
-        properties.put(DATABASE_USE_ACK, "NO");
+        properties.put(DATABASE_USE_ACK, UIConstants.NO_OPTION);
         properties.put(DATABASE_ACK, "UPDATE");
         return properties;
     }

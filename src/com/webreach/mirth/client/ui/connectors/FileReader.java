@@ -1,18 +1,19 @@
 package com.webreach.mirth.client.ui.connectors;
 
+import com.webreach.mirth.client.ui.UIConstants;
 import java.util.Properties;
 
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
 public class FileReader extends ConnectorClass
 {
     Frame parent;
-    
+
     /** Creates new form FileWriter */
     public final String DATATYPE = "DataType";
     public final String FILE_DIRECTORY = "host";
@@ -22,7 +23,7 @@ public class FileReader extends ConnectorClass
     public final String FILE_DELETE_AFTER_READ = "autoDelete";
     public final String FILE_CHECK_FILE_AGE = "checkFileAge";
     public final String FILE_FILE_AGE = "fileAge";
-    
+
     public FileReader()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -38,19 +39,19 @@ public class FileReader extends ConnectorClass
         properties.put(FILE_POLLING_FREQUENCY, pollingFreq.getText());
         properties.put(FILE_MOVE_TO_PATTERN, moveToPattern.getText());
         properties.put(FILE_MOVE_TO_DIRECTORY, moveToDirectory.getText());
-        
+
         if (deleteAfterReadYes.isSelected())
-            properties.put(FILE_DELETE_AFTER_READ, "YES");
+            properties.put(FILE_DELETE_AFTER_READ, UIConstants.YES_OPTION);
         else
-            properties.put(FILE_DELETE_AFTER_READ, "NO");
-        
+            properties.put(FILE_DELETE_AFTER_READ, UIConstants.NO_OPTION);
+
         if (checkFileAgeYes.isSelected())
-            properties.put(FILE_CHECK_FILE_AGE, "YES");
+            properties.put(FILE_CHECK_FILE_AGE, UIConstants.YES_OPTION);
         else
-            properties.put(FILE_CHECK_FILE_AGE, "NO");
-        
+            properties.put(FILE_CHECK_FILE_AGE, UIConstants.NO_OPTION);
+
         properties.put(FILE_FILE_AGE, fileAge.getText());
-        
+
         return properties;
     }
 
@@ -60,11 +61,11 @@ public class FileReader extends ConnectorClass
         pollingFreq.setText((String)props.get(FILE_POLLING_FREQUENCY));
         moveToPattern.setText((String)props.get(FILE_MOVE_TO_PATTERN));
         moveToDirectory.setText((String)props.get(FILE_MOVE_TO_DIRECTORY));
-        if(((String)props.get(FILE_DELETE_AFTER_READ)).equalsIgnoreCase("YES"))
+        if(((String)props.get(FILE_DELETE_AFTER_READ)).equalsIgnoreCase(UIConstants.YES_OPTION))
             deleteAfterReadYes.setSelected(true);
         else
             deleteAfterReadNo.setSelected(true);
-        if(((String)props.get(FILE_CHECK_FILE_AGE)).equalsIgnoreCase("YES"))
+        if(((String)props.get(FILE_CHECK_FILE_AGE)).equalsIgnoreCase(UIConstants.YES_OPTION))
         {
             checkFileAgeYes.setSelected(true);
             checkFileAgeYesActionPerformed(null);
@@ -74,7 +75,7 @@ public class FileReader extends ConnectorClass
             checkFileAgeNo.setSelected(true);
             checkFileAgeNoActionPerformed(null);
         }
-        
+
         fileAge.setText((String)props.get(FILE_FILE_AGE));
     }
 
@@ -89,7 +90,7 @@ public class FileReader extends ConnectorClass
         fileAge.setText("");
 
     }
-    
+
     public Properties getDefaults()
     {
         Properties properties = new Properties();
@@ -98,8 +99,8 @@ public class FileReader extends ConnectorClass
         properties.put(FILE_POLLING_FREQUENCY, "1000");
         properties.put(FILE_MOVE_TO_PATTERN, "");
         properties.put(FILE_MOVE_TO_DIRECTORY, "");
-        properties.put(FILE_DELETE_AFTER_READ, "NO");
-        properties.put(FILE_CHECK_FILE_AGE, "NO");
+        properties.put(FILE_DELETE_AFTER_READ, UIConstants.NO_OPTION);
+        properties.put(FILE_CHECK_FILE_AGE, UIConstants.NO_OPTION);
         properties.put(FILE_FILE_AGE, "0");
         return properties;
     }

@@ -1,12 +1,13 @@
 package com.webreach.mirth.client.ui.connectors;
 
+import com.webreach.mirth.client.ui.UIConstants;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
@@ -38,7 +39,7 @@ public class HTTPSListener extends ConnectorClass
     public final String HTTPS_TRUST_KEYSTORE = "trustStore";
     public final String HTTPS_TRUST_KEYSTORE_PASSWORD = "trustStorePassword";
     public final String HTTPS_EXPLICIT_TRUST_STORE_ONLY = "explicitTrustStoreOnly";
-    
+
     public HTTPSListener()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -57,9 +58,9 @@ public class HTTPSListener extends ConnectorClass
         properties.put(HTTPS_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put(HTTPS_KEEP_CONNECTION_OPEN, "YES");
+            properties.put(HTTPS_KEEP_CONNECTION_OPEN, UIConstants.YES_OPTION);
         else
-            properties.put(HTTPS_KEEP_CONNECTION_OPEN, "NO");
+            properties.put(HTTPS_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
 
         properties.put(HTTPS_KEY_STORE, keyStoreField.getText());
         properties.put(HTTPS_KEY_STORE_PASSWORD, keyStorePasswordField.getText());
@@ -68,9 +69,9 @@ public class HTTPSListener extends ConnectorClass
         properties.put(HTTPS_PROTOCOL_HANDLER, protocolHandlerField.getText());
 
         if (requireClientAuthenticationYesRadio.isSelected())
-            properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, "YES");
+            properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, UIConstants.YES_OPTION);
         else
-            properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, "NO");
+            properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, UIConstants.NO_OPTION);
 
         properties.put(HTTPS_SECURITY_PROVIDER, securityProviderField.getText());
         properties.put(HTTPS_CLIENT_KEYSTORE, clientKeystoreField.getText());
@@ -79,10 +80,10 @@ public class HTTPSListener extends ConnectorClass
         properties.put(HTTPS_TRUST_KEYSTORE_PASSWORD, trustKeystorePasswordField.getText());
 
         if (explicitTrustStoreOnlyYesRadio.isSelected())
-            properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, "YES");
+            properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, UIConstants.YES_OPTION);
         else
-            properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, "NO");
-        
+            properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, UIConstants.NO_OPTION);
+
         properties.put(HTTPS_KEY_MANAGER_FACTORY, keyManagerFactoryField.getText());
         properties.put(HTTPS_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
         properties.put(HTTPS_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
@@ -111,13 +112,13 @@ public class HTTPSListener extends ConnectorClass
         if (IP.hasMoreTokens())
             listenerIPAddressField3.setText(IP.nextToken());
         else
-            listenerIPAddressField3.setText("");      
+            listenerIPAddressField3.setText("");
 
         listenerPortField.setText((String)props.get(HTTPS_PORT));
         receiveTimeoutField.setText((String)props.get(HTTPS_RECEIVE_TIMEOUT));
         bufferSizeField.setText((String)props.get(HTTPS_BUFFER_SIZE));
 
-        if(((String)props.get(HTTPS_KEEP_CONNECTION_OPEN)).equals("YES"))
+        if(((String)props.get(HTTPS_KEEP_CONNECTION_OPEN)).equals(UIConstants.YES_OPTION))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
@@ -127,8 +128,8 @@ public class HTTPSListener extends ConnectorClass
         keyStoreTypeField.setText((String)props.get(HTTPS_KEY_STORE_TYPE));
         keyManagerAlgorithmField.setText((String)props.get(HTTPS_KEY_MANAGER_ALGORITHM));
         protocolHandlerField.setText((String)props.get(HTTPS_PROTOCOL_HANDLER));
-        
-        if(((String)props.get(HTTPS_REQUIRE_CLIENT_AUTHENTICATION)).equals("YES"))
+
+        if(((String)props.get(HTTPS_REQUIRE_CLIENT_AUTHENTICATION)).equals(UIConstants.YES_OPTION))
             requireClientAuthenticationYesRadio.setSelected(true);
         else
             requireClientAuthenticationNoRadio.setSelected(true);
@@ -139,8 +140,8 @@ public class HTTPSListener extends ConnectorClass
         trustKeystoreField.setText((String)props.get(HTTPS_TRUST_KEYSTORE));
         trustKeystorePasswordField.setText((String)props.get(HTTPS_TRUST_KEYSTORE_PASSWORD));
         keyManagerFactoryField.setText((String)props.get(HTTPS_KEY_MANAGER_FACTORY));
-        
-        if(((String)props.get(HTTPS_EXPLICIT_TRUST_STORE_ONLY)).equals("YES"))
+
+        if(((String)props.get(HTTPS_EXPLICIT_TRUST_STORE_ONLY)).equals(UIConstants.YES_OPTION))
             explicitTrustStoreOnlyYesRadio.setSelected(true);
         else
             explicitTrustStoreOnlyNoRadio.setSelected(true);
@@ -159,7 +160,7 @@ public class HTTPSListener extends ConnectorClass
         listenerIPAddressField.setText("127");
         listenerIPAddressField1.setText("0");
         listenerIPAddressField2.setText("0");
-        listenerIPAddressField3.setText("1");        
+        listenerIPAddressField3.setText("1");
         listenerPortField.setText("3800");
         receiveTimeoutField.setText("");
         bufferSizeField.setText("");
@@ -192,19 +193,19 @@ public class HTTPSListener extends ConnectorClass
         properties.put(HTTPS_PORT, "6660");
         properties.put(HTTPS_RECEIVE_TIMEOUT, "5000");
         properties.put(HTTPS_BUFFER_SIZE, "65536");
-        properties.put(HTTPS_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(HTTPS_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
         properties.put(HTTPS_KEY_STORE, ".keystore");
         properties.put(HTTPS_KEY_STORE_PASSWORD, "");
         properties.put(HTTPS_KEY_STORE_TYPE, "KeyStore.getDefaultType()");
         properties.put(HTTPS_KEY_MANAGER_ALGORITHM, "SunX509");
         properties.put(HTTPS_PROTOCOL_HANDLER, "com.sun.net.ssl.internal.www.protocol");
-        properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, "YES");
+        properties.put(HTTPS_REQUIRE_CLIENT_AUTHENTICATION, UIConstants.YES_OPTION);
         properties.put(HTTPS_SECURITY_PROVIDER, "com.sun.net.ssl.internal.ssl.Provider");
         properties.put(HTTPS_CLIENT_KEYSTORE, "");
         properties.put(HTTPS_CLIENT_KEYSTORE_PASSWORD, "");
         properties.put(HTTPS_TRUST_KEYSTORE, "");
         properties.put(HTTPS_TRUST_KEYSTORE_PASSWORD, "");
-        properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, "NO");
+        properties.put(HTTPS_EXPLICIT_TRUST_STORE_ONLY, UIConstants.NO_OPTION);
         properties.put(HTTPS_KEY_MANAGER_FACTORY, "");
         properties.put(HTTPS_START_OF_MESSAGE_CHARACTER, "0x0B");
         properties.put(HTTPS_END_OF_MESSAGE_CHARACTER, "0x1C");
@@ -213,7 +214,7 @@ public class HTTPSListener extends ConnectorClass
         properties.put(HTTPS_SEND_ACK, sendACKCombobox.getItemAt(0));
         return properties;
     }
-    
+
 
     /** This method is called from within the constructor to
      * initialize the form.

@@ -5,8 +5,9 @@ import java.util.StringTokenizer;
 
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.UIConstants;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
@@ -25,7 +26,7 @@ public class HTTPListener extends ConnectorClass
     public final String HTTP_FIELD_SEPARATOR = "fieldSeparator";
     public final String HTTP_RECORD_SEPARATOR = "recordSeparator";
     public final String HTTP_SEND_ACK = "sendACK";
-    
+
     public HTTPListener()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -44,9 +45,9 @@ public class HTTPListener extends ConnectorClass
         properties.put(HTTP_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put(HTTP_KEEP_CONNECTION_OPEN, "YES");
+            properties.put(HTTP_KEEP_CONNECTION_OPEN, UIConstants.YES_OPTION);
         else
-            properties.put(HTTP_KEEP_CONNECTION_OPEN, "NO");
+            properties.put(HTTP_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
 
         properties.put(HTTP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
         properties.put(HTTP_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
@@ -81,7 +82,7 @@ public class HTTPListener extends ConnectorClass
         receiveTimeoutField.setText((String)props.get(HTTP_RECEIVE_TIMEOUT));
         bufferSizeField.setText((String)props.get(HTTP_BUFFER_SIZE));
 
-        if(((String)props.get(HTTP_KEEP_CONNECTION_OPEN)).equals("YES"))
+        if(((String)props.get(HTTP_KEEP_CONNECTION_OPEN)).equals(UIConstants.YES_OPTION))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
@@ -120,7 +121,7 @@ public class HTTPListener extends ConnectorClass
         properties.put(HTTP_PORT, "6660");
         properties.put(HTTP_RECEIVE_TIMEOUT, "5000");
         properties.put(HTTP_BUFFER_SIZE, "65536");
-        properties.put(HTTP_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(HTTP_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
         properties.put(HTTP_START_OF_MESSAGE_CHARACTER, "0x0B");
         properties.put(HTTP_END_OF_MESSAGE_CHARACTER, "0x1C");
         properties.put(HTTP_FIELD_SEPARATOR, "0x7C");
@@ -129,7 +130,7 @@ public class HTTPListener extends ConnectorClass
         return properties;
     }
 
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

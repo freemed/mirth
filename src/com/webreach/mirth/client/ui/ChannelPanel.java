@@ -21,9 +21,13 @@ public class ChannelPanel extends javax.swing.JPanel
     private final String STATUS_COLUMN_NAME = "Status";
     private final String DIRECTION_COLUMN_NAME = "Direction";
     private final String NAME_COLUMN_NAME = "Name";
+    private final String MODE_COLUMN_NAME = "Mode";
     private final String INBOUND_DIRECTION = "Inbound";
     private final String OUTBOUND_DIRECTION = "Outbound";
     private final String ENABLED_STATUS = "Enabled";
+    private final String ROUTER = "Router";
+    private final String BROADCAST = "Broadcast";
+    private final String APPLICATION = "Application Integration";
     
     private JScrollPane channelPane;
     private JXTable channelTable;
@@ -77,7 +81,7 @@ public class ChannelPanel extends javax.swing.JPanel
     {
         channelTable = new JXTable();
         
-        Object[][] tableData = new Object[parent.channels.size()][3];
+        Object[][] tableData = new Object[parent.channels.size()][4];
         
         for (int i=0; i < parent.channels.size(); i++)
         {
@@ -92,8 +96,15 @@ public class ChannelPanel extends javax.swing.JPanel
                 tableData[i][1] = INBOUND_DIRECTION;
             else
                 tableData[i][1] = OUTBOUND_DIRECTION;
-
-            tableData[i][2] = temp.getName();
+            
+            if(temp.getMode() == Channel.Mode.APPLICATION)
+                tableData[i][2] = APPLICATION;
+            else if(temp.getMode() == Channel.Mode.BROADCAST)
+                tableData[i][2] = BROADCAST;
+            else if(temp.getMode() == Channel.Mode.ROUTER)
+                tableData[i][2] = ROUTER;
+            
+            tableData[i][3] = temp.getName();
         }
                 
         
@@ -101,12 +112,12 @@ public class ChannelPanel extends javax.swing.JPanel
                 tableData,
                 new String []
         {
-            STATUS_COLUMN_NAME, DIRECTION_COLUMN_NAME, NAME_COLUMN_NAME
+            STATUS_COLUMN_NAME, DIRECTION_COLUMN_NAME, MODE_COLUMN_NAME, NAME_COLUMN_NAME
         }
         ) {
             boolean[] canEdit = new boolean []
             {
-                false, false, false
+                false, false, false, false
             };
             
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -119,6 +130,7 @@ public class ChannelPanel extends javax.swing.JPanel
         // Must set the maximum width on columns that should be packed.
         channelTable.getColumnExt(STATUS_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         channelTable.getColumnExt(DIRECTION_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
+        channelTable.getColumnExt(MODE_COLUMN_NAME).setMaxWidth(UIConstants.MAX_WIDTH);
         
         channelTable.getColumnExt(STATUS_COLUMN_NAME).setCellRenderer(new ImageCellRenderer());
         channelTable.packTable(UIConstants.COL_MARGIN);

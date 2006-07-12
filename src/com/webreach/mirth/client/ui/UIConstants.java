@@ -7,15 +7,15 @@ import javax.swing.ImageIcon;
 /**
  * A constants class for the Mirth UI
  */
-public class UIConstants 
+public class UIConstants
 {
     // for Frame
     public static final int TASK_PANE_WIDTH = 170;
     public static final String TITLE_TEXT = "Mirth Administrator 1.0.0 Beta";
-    
+
     // for error checking
     public static final int ERROR_CONSTANT = -1;
-        
+
     // for JXTables
     public static final int ROW_HEIGHT = 20;
     public static final int COL_MARGIN = 10;
@@ -23,29 +23,33 @@ public class UIConstants
     public static final int MAX_WIDTH = 200;
     public static final Color HIGHLIGHTER_COLOR = new Color(240,240,240);
 
-    // background colors 
+    // background colors
     public static final Color BACKGROUND_COLOR = new Color(255,255,255);
     public static final Color TITLE_TEXT_COLOR = new Color(0,0,0);
     public static final Color BANNER_DARK_BACKGROUND = new Color(170,170,170);
     public static final Color BANNER_LIGHT_BACKGROUND = new Color(220,220,220);
-    public static final Color NONEDITABLE_LINE_BACKGROUND = new Color(255,255,224); 
-    
+    public static final Color NONEDITABLE_LINE_BACKGROUND = new Color(255,255,224);
+
     // for JSplitPane
     public static final int DIVIDER_SIZE = 12;
-    
+
     // fonts
     public static final Font TEXTFIELD_PLAIN_FONT = new Font("Tahoma",Font.PLAIN,11);
     public static final Font TEXTFIELD_BOLD_FONT = new Font("Tahoma",Font.BOLD,11);
-    
+
     // help link
     public static final String HELP_LOCATION = "http://www.mirthproject.org/help/";
     public static final String CHANNEL_HELP_LOCATION = "channel.html";
     public static final String CHANNELS_HELP_LOCATION = "channels.html";
     public static final String STATUS_HELP_LOCATION = "status.html";
     public static final String ADMIN_HELP_LOCATION = "admin.html";
-    
+
     // for JTrees
     public static final ImageIcon LEAF_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png"));
     public static final ImageIcon OPEN_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_yellow.png"));
     public static final ImageIcon CLOSED_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_yellow.png"));
+
+    // for Forms
+    public static final String YES_OPTION = "1";
+    public static final String NO_OPTION = "0";
 }

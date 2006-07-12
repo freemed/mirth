@@ -5,8 +5,9 @@ import java.util.StringTokenizer;
 
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.UIConstants;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
@@ -27,7 +28,7 @@ public class LLPListener extends ConnectorClass
     public final String LLP_FIELD_SEPARATOR = "fieldSeparator";
     public final String LLP_RECORD_SEPARATOR = "recordSeparator";
     public final String LLP_SEND_ACK = "sendACK";
-    
+
     public LLPListener()
     {
         this.parent = PlatformUI.MIRTH_FRAME;
@@ -47,9 +48,9 @@ public class LLPListener extends ConnectorClass
         properties.put(LLP_BUFFER_SIZE, bufferSizeField.getText());
 
         if (keepConnectionOpenYesRadio.isSelected())
-            properties.put(LLP_KEEP_CONNECTION_OPEN, "YES");
+            properties.put(LLP_KEEP_CONNECTION_OPEN, UIConstants.YES_OPTION);
         else
-            properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
+            properties.put(LLP_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
 
         properties.put(LLP_START_OF_MESSAGE_CHARACTER, startOfMessageCharacterField.getText());
         properties.put(LLP_END_OF_MESSAGE_CHARACTER, endOfMessageCharacterField.getText());
@@ -84,7 +85,7 @@ public class LLPListener extends ConnectorClass
         receiveTimeoutField.setText((String)props.get(LLP_RECEIVE_TIMEOUT));
         bufferSizeField.setText((String)props.get(LLP_BUFFER_SIZE));
 
-        if(((String)props.get(LLP_KEEP_CONNECTION_OPEN)).equals("YES"))
+        if(((String)props.get(LLP_KEEP_CONNECTION_OPEN)).equals(UIConstants.YES_OPTION))
             keepConnectionOpenYesRadio.setSelected(true);
         else
             keepConnectionOpenNoRadio.setSelected(true);
@@ -114,7 +115,7 @@ public class LLPListener extends ConnectorClass
         recordSeparatorField.setText("");
         sendACKCombobox.setSelectedIndex(0);
     }
-    
+
     public Properties getDefaults()
     {
         Properties properties = new Properties();
@@ -124,7 +125,7 @@ public class LLPListener extends ConnectorClass
         properties.put(LLP_PORT, "6661");
         properties.put(LLP_RECEIVE_TIMEOUT, "5000");
         properties.put(LLP_BUFFER_SIZE, "65536");
-        properties.put(LLP_KEEP_CONNECTION_OPEN, "NO");
+        properties.put(LLP_KEEP_CONNECTION_OPEN, UIConstants.NO_OPTION);
         properties.put(LLP_START_OF_MESSAGE_CHARACTER, "0x0B");
         properties.put(LLP_END_OF_MESSAGE_CHARACTER, "0x1C");
         properties.put(LLP_FIELD_SEPARATOR, "0x7C");

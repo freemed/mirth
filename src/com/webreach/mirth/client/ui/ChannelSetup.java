@@ -940,70 +940,34 @@ public class ChannelSetup extends javax.swing.JPanel
         source.removeAll();
         
         // Reset the generated layout.
-        if(currentChannel.getMode() == Channel.Mode.ROUTER)
-        {
-            org.jdesktop.layout.GroupLayout sourceLayout = (org.jdesktop.layout.GroupLayout)source.getLayout();
-            source.setLayout(sourceLayout);
-            sourceLayout.setHorizontalGroup(
-                sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(sourceLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, sourceLayout.createSequentialGroup()
-                            .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
-                        .add(sourceLayout.createSequentialGroup()
-                            .add(sourceSourceLabel)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap())
-            );
-            sourceLayout.setVerticalGroup(
-                sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(sourceLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(sourceSourceLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap())
-            );
-        }
-        else
-        {
-            org.jdesktop.layout.GroupLayout sourceLayout = (org.jdesktop.layout.GroupLayout)source.getLayout();
-            source.setLayout(sourceLayout);
-            sourceLayout.setHorizontalGroup(
-                sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(sourceLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, sourceLayout.createSequentialGroup()
-                            .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(sourceVariableList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(sourceLayout.createSequentialGroup()
-                            .add(sourceSourceLabel)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap())
-            );
-            sourceLayout.setVerticalGroup(
-                sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(sourceLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(sourceSourceLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+        org.jdesktop.layout.GroupLayout sourceLayout = (org.jdesktop.layout.GroupLayout)source.getLayout();
+        source.setLayout(sourceLayout);
+        sourceLayout.setHorizontalGroup(
+            sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(sourceLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, sourceLayout.createSequentialGroup()
                         .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(sourceVariableList, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
-                    .addContainerGap())
-            );
-        }
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                    .add(sourceLayout.createSequentialGroup()
+                        .add(sourceSourceLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        sourceLayout.setVerticalGroup(
+            sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(sourceLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(sourceSourceLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         
         source.updateUI();
     }//GEN-LAST:event_sourceSourceDropdownActionPerformed
@@ -1103,82 +1067,47 @@ public class ChannelSetup extends javax.swing.JPanel
         // System.out.println(destinationConnector.getProperties().toString());
         destinationConnectorClass.setProperties(destinationConnector.getProperties());
         
-        destinationVariableList.setVariableList(destinationConnector.getTransformer().getSteps());
+        if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.APPLICATION)
+            destinationVariableList.setVariableList(destinationConnector.getTransformer().getSteps());
+        else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+            destinationVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
         
         destination.removeAll();
         
-        if(currentChannel.getMode() == Channel.Mode.BROADCAST)
-        {
-            // Reset the generated layout.
-            org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
-            destination.setLayout(destinationLayout);
-            destinationLayout.setHorizontalGroup(
-                destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, destinationPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, destinationLayout.createSequentialGroup()
-                            .add(destinationSourceLabel)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(destinationSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
-                            .add(destinationConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
-                        .addContainerGap())
-            );
-            destinationLayout.setVerticalGroup(
-                destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(destinationLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(destinationPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(14, 14, 14)
-                    .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        // Reset the generated layout.
+        org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
+        destination.setLayout(destinationLayout);
+        destinationLayout.setHorizontalGroup(
+            destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, destinationPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, destinationLayout.createSequentialGroup()
                         .add(destinationSourceLabel)
-                        .add(destinationSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(destinationConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap())
-            );
-        }
-        else
-        {
-            // Reset the generated layout.
-            org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
-            destination.setLayout(destinationLayout);
-            destinationLayout.setHorizontalGroup(
-                destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, destinationPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, destinationLayout.createSequentialGroup()
-                            .add(destinationSourceLabel)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(destinationSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
-                            .add(destinationConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(destinationVariableList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-            );
-            destinationLayout.setVerticalGroup(
-                destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(destinationLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .add(destinationPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(14, 14, 14)
-                    .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(destinationSourceLabel)
-                        .add(destinationSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(destinationSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
                         .add(destinationConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(destinationVariableList, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(destinationVariableList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap())
-            );
-        }
+        );
+        destinationLayout.setVerticalGroup(
+            destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(destinationLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(destinationPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 143, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(14, 14, 14)
+                .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(destinationSourceLabel)
+                    .add(destinationSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(destinationConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(destinationVariableList, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         destination.updateUI();
     }
 
@@ -1261,13 +1190,18 @@ public class ChannelSetup extends javax.swing.JPanel
     /** Sets the destination variable list from the transformer steps */
     public void setDestinationVariableList()
     {
-        if (currentChannel.getMode() == Channel.Mode.APPLICATION)
-            destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
-        else
+        if(currentChannel.getMode() == Channel.Mode.ROUTER)
         {
             int destination = getDestinationConnectorIndex((String)destinationTable.getValueAt(getSelectedDestinationIndex(),getColumnNumber(DESTINATION_COLUMN_NAME)));
             destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(destination).getTransformer().getSteps());
         }
+        else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+            destinationVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
+        else
+        {
+            destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+        }
+        
         destinationVariableList.repaint();
     }
 

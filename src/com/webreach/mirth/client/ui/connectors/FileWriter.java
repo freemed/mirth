@@ -4,15 +4,16 @@ import java.util.Properties;
 
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.UIConstants;
 
-/** 
+/**
  * A form that extends from ConnectorClass.  All methods implemented
  * are described in ConnectorClass.
  */
 public class FileWriter extends ConnectorClass
 {
     Frame parent;
-    
+
     /** Creates new form FileWriter */
     public final String DATATYPE = "DataType";
     public final String FILE_DIRECTORY = "host";
@@ -33,12 +34,12 @@ public class FileWriter extends ConnectorClass
         properties.put(DATATYPE, name);
         properties.put(FILE_DIRECTORY, directoryField.getText());
         properties.put(FILE_NAME, fileNameField.getText());
-        
+
         if (appendToFileYes.isSelected())
-            properties.put(FILE_APPEND, "YES");
+            properties.put(FILE_APPEND, UIConstants.YES_OPTION);
         else
-            properties.put(FILE_APPEND, "NO");
-        
+            properties.put(FILE_APPEND, UIConstants.NO_OPTION);
+
         properties.put(FILE_CONTENTS, fileContentsTextArea.getText());
         return properties;
     }
@@ -47,12 +48,12 @@ public class FileWriter extends ConnectorClass
     {
         directoryField.setText((String)props.get(FILE_DIRECTORY));
         fileNameField.setText((String)props.get(FILE_NAME));
-        
-        if(((String)props.get(FILE_APPEND)).equalsIgnoreCase("YES"))
+
+        if(((String)props.get(FILE_APPEND)).equalsIgnoreCase(UIConstants.YES_OPTION))
             appendToFileYes.setSelected(true);
         else
             appendToFileNo.setSelected(true);
-        
+
         fileContentsTextArea.setText((String)props.get(FILE_CONTENTS));
     }
 
@@ -60,17 +61,17 @@ public class FileWriter extends ConnectorClass
     {
         directoryField.setText("");
         fileNameField.setText("");
-        appendToFileNo.setSelected(true);        
+        appendToFileNo.setSelected(true);
         fileContentsTextArea.setText("");
     }
-    
+
     public Properties getDefaults()
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
         properties.put(FILE_DIRECTORY, "inbox/");
         properties.put(FILE_NAME, "");
-        properties.put(FILE_APPEND, "YES");
+        properties.put(FILE_APPEND, UIConstants.YES_OPTION);
         properties.put(FILE_CONTENTS, "");
         return properties;
     }
