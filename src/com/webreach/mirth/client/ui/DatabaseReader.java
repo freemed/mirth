@@ -3,6 +3,10 @@ package com.webreach.mirth.client.ui;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import java.util.Properties;
 
+/** 
+ * A form that extends from ConnectorClass.  All methods implemented
+ * are described in ConnectorClass.
+ */
 public class DatabaseReader extends ConnectorClass
 {
     Frame parent;

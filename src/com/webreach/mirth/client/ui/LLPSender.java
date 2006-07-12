@@ -3,6 +3,10 @@ package com.webreach.mirth.client.ui;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+/** 
+ * A form that extends from ConnectorClass.  All methods implemented
+ * are described in ConnectorClass.
+ */
 public class LLPSender extends ConnectorClass
 {
     Frame parent;

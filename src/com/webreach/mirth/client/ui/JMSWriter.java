@@ -2,6 +2,10 @@ package com.webreach.mirth.client.ui;
 
 import java.util.Properties;
 
+/** 
+ * A form that extends from ConnectorClass.  All methods implemented
+ * are described in ConnectorClass.
+ */
 public class JMSWriter extends ConnectorClass
 {
     Frame parent;
