@@ -147,9 +147,9 @@
             <Property name="text" type="java.lang.String" value="End Date:"/>
           </Properties>
         </Component>
-        <Component class="com.webreach.mirth.client.ui.MirthDatePicker" name="mirthDatePicker1">
+        <Component class="com.webreach.mirth.client.ui.components.MirthDatePicker" name="mirthDatePicker1">
         </Component>
-        <Component class="com.webreach.mirth.client.ui.MirthDatePicker" name="mirthDatePicker2">
+        <Component class="com.webreach.mirth.client.ui.components.MirthDatePicker" name="mirthDatePicker2">
         </Component>
         <Component class="javax.swing.JTextField" name="controlIDField">
         </Component>

@@ -195,23 +195,23 @@
         <Property name="text" type="java.lang.String" value="Field Separator:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostPortField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="hostPortField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="serverTimeoutField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="serverTimeoutField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="bufferSizeField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="bufferSizeField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="maximumRetryCountField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="maximumRetryCountField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="startOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="startOfMessageCharacterField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="endOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="endOfMessageCharacterField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="recordSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="recordSeparatorField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fieldSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fieldSeparatorField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenYesRadio">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="keepConnectionOpenYesRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -230,7 +230,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenNoRadio">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="keepConnectionOpenNoRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -249,9 +249,9 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField3">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="hostIPAddressField3">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField2">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="hostIPAddressField2">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel25">
       <Properties>
@@ -269,7 +269,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField1">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="hostIPAddressField1">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -279,7 +279,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="hostIPAddressField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="hostIPAddressField">
     </Component>
   </SubComponents>
 </Form>

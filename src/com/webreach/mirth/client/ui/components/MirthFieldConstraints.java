@@ -1,4 +1,4 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.components;
 import javax.swing.text.*;
 
 /** 
@@ -14,7 +14,7 @@ public class MirthFieldConstraints extends PlainDocument
     /**
      * Constructor that sets a character number limit
      */
-    MirthFieldConstraints(int limit)
+    public MirthFieldConstraints(int limit)
     {
         super();
         this.limit = limit;
@@ -23,7 +23,7 @@ public class MirthFieldConstraints extends PlainDocument
     /**
      * Constructor that sets a character number limit, uppercase conversion, and numbers only
      */
-    MirthFieldConstraints(int limit, boolean toUppercase, boolean numbersOnly)
+    public MirthFieldConstraints(int limit, boolean toUppercase, boolean numbersOnly)
     {
         super();
         this.limit = limit;

@@ -5,7 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
 /** Allows for Selecting All in text components. */
-class SelectAllAction extends AbstractAction
+public class SelectAllAction extends AbstractAction
 {
     JTextComponent comp;
     

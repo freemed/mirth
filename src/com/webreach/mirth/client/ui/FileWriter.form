@@ -94,9 +94,9 @@
         <Property name="text" type="java.lang.String" value="File Template:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="directoryField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="directoryField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fileNameField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fileNameField">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -105,7 +105,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.webreach.mirth.client.ui.MirthTextArea" name="fileContentsTextArea">
+        <Component class="com.webreach.mirth.client.ui.components.MirthTextArea" name="fileContentsTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -118,7 +118,7 @@
         <Property name="text" type="java.lang.String" value="Append to file:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="appendToFileYes">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="appendToFileYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -137,7 +137,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="appendToFileNo">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="appendToFileNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>

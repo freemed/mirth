@@ -91,14 +91,14 @@ public class EmailSender extends ConnectorClass
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        emailUsernameField = new com.webreach.mirth.client.ui.MirthTextField();
-        SMTPServerPortField = new com.webreach.mirth.client.ui.MirthTextField();
-        SMTPServerHostField = new com.webreach.mirth.client.ui.MirthTextField();
-        emailToField = new com.webreach.mirth.client.ui.MirthTextField();
-        emailSubjectField = new com.webreach.mirth.client.ui.MirthTextField();
+        emailUsernameField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        SMTPServerPortField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        SMTPServerHostField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        emailToField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        emailSubjectField = new com.webreach.mirth.client.ui.components.MirthTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        emailBodyTextArea = new com.webreach.mirth.client.ui.MirthTextArea();
-        emailPasswordField = new com.webreach.mirth.client.ui.MirthPasswordField();
+        emailBodyTextArea = new com.webreach.mirth.client.ui.components.MirthTextArea();
+        emailPasswordField = new com.webreach.mirth.client.ui.components.MirthPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email Sender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -184,13 +184,13 @@ public class EmailSender extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthTextField SMTPServerHostField;
-    private com.webreach.mirth.client.ui.MirthTextField SMTPServerPortField;
-    private com.webreach.mirth.client.ui.MirthTextArea emailBodyTextArea;
-    private com.webreach.mirth.client.ui.MirthPasswordField emailPasswordField;
-    private com.webreach.mirth.client.ui.MirthTextField emailSubjectField;
-    private com.webreach.mirth.client.ui.MirthTextField emailToField;
-    private com.webreach.mirth.client.ui.MirthTextField emailUsernameField;
+    private com.webreach.mirth.client.ui.components.MirthTextField SMTPServerHostField;
+    private com.webreach.mirth.client.ui.components.MirthTextField SMTPServerPortField;
+    private com.webreach.mirth.client.ui.components.MirthTextArea emailBodyTextArea;
+    private com.webreach.mirth.client.ui.components.MirthPasswordField emailPasswordField;
+    private com.webreach.mirth.client.ui.components.MirthTextField emailSubjectField;
+    private com.webreach.mirth.client.ui.components.MirthTextField emailToField;
+    private com.webreach.mirth.client.ui.components.MirthTextField emailUsernameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

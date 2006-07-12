@@ -136,9 +136,9 @@
         <Property name="text" type="java.lang.String" value="Specification:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="ackMode">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="ackMode">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="specDropDown">
+    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="specDropDown">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -180,7 +180,7 @@
         <Property name="text" type="java.lang.String" value="Redelivery Handler:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="deliveryYes">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="deliveryYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -199,7 +199,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="deliveryNo">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="deliveryNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -219,7 +219,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="durableNo">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="durableNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -239,7 +239,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="durableYes">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="durableYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -258,15 +258,15 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="cliendId">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="cliendId">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIInitialFactory">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="JNDIInitialFactory">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIProviderURL">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="JNDIProviderURL">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="JNDIConnectionName">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="JNDIConnectionName">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="redeliveryHandler">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="redeliveryHandler">
       <Properties>
         <Property name="autoscrolls" type="boolean" value="false"/>
       </Properties>

@@ -5,7 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
 /** Allows for Copying in text components. */
-class CopyAction extends AbstractAction
+public class CopyAction extends AbstractAction
 {
     JTextComponent comp;
     

@@ -47,7 +47,7 @@ public class ChannelWizard extends javax.swing.JDialog
         outbound = new javax.swing.JRadioButton();
         inbound = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        mirthHeadingPanel2 = new com.webreach.mirth.client.ui.MirthHeadingPanel();
+        mirthHeadingPanel2 = new com.webreach.mirth.client.ui.components.MirthHeadingPanel();
         jLabel2 = new javax.swing.JLabel();
         helpTextPane1 = new javax.swing.JScrollPane();
         helpText1 = new javax.swing.JTextPane();
@@ -59,7 +59,7 @@ public class ChannelWizard extends javax.swing.JDialog
         broadcast = new javax.swing.JRadioButton();
         router = new javax.swing.JRadioButton();
         applicationIntegration = new javax.swing.JRadioButton();
-        mirthHeadingPanel1 = new com.webreach.mirth.client.ui.MirthHeadingPanel();
+        mirthHeadingPanel1 = new com.webreach.mirth.client.ui.components.MirthHeadingPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         helpTextPane2 = new javax.swing.JScrollPane();
@@ -517,8 +517,8 @@ public class ChannelWizard extends javax.swing.JDialog
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private com.webreach.mirth.client.ui.MirthHeadingPanel mirthHeadingPanel1;
-    private com.webreach.mirth.client.ui.MirthHeadingPanel mirthHeadingPanel2;
+    private com.webreach.mirth.client.ui.components.MirthHeadingPanel mirthHeadingPanel1;
+    private com.webreach.mirth.client.ui.components.MirthHeadingPanel mirthHeadingPanel2;
     private javax.swing.JButton nextButton;
     private javax.swing.JRadioButton outbound;
     private javax.swing.JRadioButton router;

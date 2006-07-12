@@ -54,7 +54,7 @@ public class VariableList extends javax.swing.JPanel
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         jScrollPane1 = new javax.swing.JScrollPane();
-        mirthVariableList = new com.webreach.mirth.client.ui.MirthVariableList();
+        mirthVariableList = new com.webreach.mirth.client.ui.components.MirthVariableList();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Variable List", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -85,7 +85,7 @@ public class VariableList extends javax.swing.JPanel
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private com.webreach.mirth.client.ui.MirthVariableList mirthVariableList;
+    private com.webreach.mirth.client.ui.components.MirthVariableList mirthVariableList;
     // End of variables declaration//GEN-END:variables
     
 }

@@ -146,20 +146,20 @@ public class HTTPListener extends ConnectorClass
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        sendACKCombobox = new com.webreach.mirth.client.ui.MirthComboBox();
-        bufferSizeField = new com.webreach.mirth.client.ui.MirthTextField();
-        receiveTimeoutField = new com.webreach.mirth.client.ui.MirthTextField();
-        listenerIPAddressField = new com.webreach.mirth.client.ui.MirthTextField();
-        listenerPortField = new com.webreach.mirth.client.ui.MirthTextField();
-        recordSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
-        startOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
-        endOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
-        fieldSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
-        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
-        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
-        listenerIPAddressField1 = new com.webreach.mirth.client.ui.MirthTextField();
-        listenerIPAddressField2 = new com.webreach.mirth.client.ui.MirthTextField();
-        listenerIPAddressField3 = new com.webreach.mirth.client.ui.MirthTextField();
+        sendACKCombobox = new com.webreach.mirth.client.ui.components.MirthComboBox();
+        bufferSizeField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        receiveTimeoutField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerIPAddressField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerPortField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        recordSeparatorField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        startOfMessageCharacterField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        endOfMessageCharacterField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        fieldSeparatorField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        listenerIPAddressField1 = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerIPAddressField2 = new com.webreach.mirth.client.ui.components.MirthTextField();
+        listenerIPAddressField3 = new com.webreach.mirth.client.ui.components.MirthTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -312,9 +312,9 @@ public class HTTPListener extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthTextField bufferSizeField;
-    private com.webreach.mirth.client.ui.MirthTextField endOfMessageCharacterField;
-    private com.webreach.mirth.client.ui.MirthTextField fieldSeparatorField;
+    private com.webreach.mirth.client.ui.components.MirthTextField bufferSizeField;
+    private com.webreach.mirth.client.ui.components.MirthTextField endOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.components.MirthTextField fieldSeparatorField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -329,17 +329,17 @@ public class HTTPListener extends ConnectorClass
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.ButtonGroup keepConnectionOpenGroup;
-    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenNoRadio;
-    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenYesRadio;
-    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField;
-    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField1;
-    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField2;
-    private com.webreach.mirth.client.ui.MirthTextField listenerIPAddressField3;
-    private com.webreach.mirth.client.ui.MirthTextField listenerPortField;
-    private com.webreach.mirth.client.ui.MirthTextField receiveTimeoutField;
-    private com.webreach.mirth.client.ui.MirthTextField recordSeparatorField;
-    private com.webreach.mirth.client.ui.MirthComboBox sendACKCombobox;
-    private com.webreach.mirth.client.ui.MirthTextField startOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton keepConnectionOpenNoRadio;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton keepConnectionOpenYesRadio;
+    private com.webreach.mirth.client.ui.components.MirthTextField listenerIPAddressField;
+    private com.webreach.mirth.client.ui.components.MirthTextField listenerIPAddressField1;
+    private com.webreach.mirth.client.ui.components.MirthTextField listenerIPAddressField2;
+    private com.webreach.mirth.client.ui.components.MirthTextField listenerIPAddressField3;
+    private com.webreach.mirth.client.ui.components.MirthTextField listenerPortField;
+    private com.webreach.mirth.client.ui.components.MirthTextField receiveTimeoutField;
+    private com.webreach.mirth.client.ui.components.MirthTextField recordSeparatorField;
+    private com.webreach.mirth.client.ui.components.MirthComboBox sendACKCombobox;
+    private com.webreach.mirth.client.ui.components.MirthTextField startOfMessageCharacterField;
     // End of variables declaration//GEN-END:variables
 
 }

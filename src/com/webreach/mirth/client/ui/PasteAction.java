@@ -8,7 +8,7 @@ import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
 /** Allows for Pasting in text components. */
-class PasteAction extends AbstractAction
+public class PasteAction extends AbstractAction
 {
     JTextComponent comp;
     

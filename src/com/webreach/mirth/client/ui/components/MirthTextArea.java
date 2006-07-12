@@ -1,7 +1,15 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.components;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JPopupMenu;
+
+import com.webreach.mirth.client.ui.CopyAction;
+import com.webreach.mirth.client.ui.CutAction;
+import com.webreach.mirth.client.ui.DeleteAction;
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PasteAction;
+import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.SelectAllAction;
 
 /** 
  * Mirth's implementation of the JTextArea.  Adds enabling of

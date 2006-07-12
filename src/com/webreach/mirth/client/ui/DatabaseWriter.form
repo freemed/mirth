@@ -112,7 +112,7 @@
         <Property name="text" type="java.lang.String" value="SQL Statement:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="databaseDriverCombobox">
+    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="databaseDriverCombobox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
@@ -125,11 +125,11 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="databaseURLField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="databaseURLField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="databaseUsernameField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="databaseUsernameField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthPasswordField" name="databasePasswordField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthPasswordField" name="databasePasswordField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="11" style="0"/>
@@ -143,7 +143,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="com.webreach.mirth.client.ui.MirthTextPane" name="databaseSQLTextPane">
+        <Component class="com.webreach.mirth.client.ui.components.MirthTextPane" name="databaseSQLTextPane">
         </Component>
       </SubComponents>
     </Container>

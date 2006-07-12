@@ -1,6 +1,9 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.components;
 
 import java.awt.event.KeyEvent;
+
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 
 /** 
  * Mirth's implementation of the JPasswordField.  Adds enabling of

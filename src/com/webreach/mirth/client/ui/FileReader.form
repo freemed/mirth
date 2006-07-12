@@ -123,18 +123,18 @@
         <Property name="text" type="java.lang.String" value="Polling Frequency:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="directoryField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="directoryField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="pollingFreq">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="pollingFreq">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Move-to Pattern:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="moveToPattern">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="moveToPattern">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="moveToDirectory">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="moveToDirectory">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -156,7 +156,7 @@
         <Property name="text" type="java.lang.String" value="File Age:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="deleteAfterReadYes">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="deleteAfterReadYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -175,7 +175,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="deleteAfterReadNo">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="deleteAfterReadNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -195,7 +195,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="checkFileAgeYes">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="checkFileAgeYes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -217,7 +217,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkFileAgeYesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="checkFileAgeNo">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="checkFileAgeNo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -240,7 +240,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkFileAgeNoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fileAge">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fileAge">
     </Component>
   </SubComponents>
 </Form>

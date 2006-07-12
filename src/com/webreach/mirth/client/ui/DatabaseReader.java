@@ -160,19 +160,19 @@ public class DatabaseReader extends ConnectorClass
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        databaseDriverCombobox = new com.webreach.mirth.client.ui.MirthComboBox();
-        databaseURLField = new com.webreach.mirth.client.ui.MirthTextField();
-        databaseUsernameField = new com.webreach.mirth.client.ui.MirthTextField();
-        databasePasswordField = new com.webreach.mirth.client.ui.MirthPasswordField();
+        databaseDriverCombobox = new com.webreach.mirth.client.ui.components.MirthComboBox();
+        databaseURLField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        databaseUsernameField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        databasePasswordField = new com.webreach.mirth.client.ui.components.MirthPasswordField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        databaseSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
+        databaseSQLTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        databaseUpdateSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
+        databaseUpdateSQLTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
         onUpdateLabel = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        pollingFreq = new com.webreach.mirth.client.ui.MirthTextField();
-        readOnUpdateYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        readOnUpdateNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        pollingFreq = new com.webreach.mirth.client.ui.components.MirthTextField();
+        readOnUpdateYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        readOnUpdateNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
         jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -326,12 +326,12 @@ public class DatabaseReader extends ConnectorClass
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private com.webreach.mirth.client.ui.MirthComboBox databaseDriverCombobox;
-    private com.webreach.mirth.client.ui.MirthPasswordField databasePasswordField;
-    private com.webreach.mirth.client.ui.MirthTextPane databaseSQLTextPane;
-    private com.webreach.mirth.client.ui.MirthTextField databaseURLField;
-    private com.webreach.mirth.client.ui.MirthTextPane databaseUpdateSQLTextPane;
-    private com.webreach.mirth.client.ui.MirthTextField databaseUsernameField;
+    private com.webreach.mirth.client.ui.components.MirthComboBox databaseDriverCombobox;
+    private com.webreach.mirth.client.ui.components.MirthPasswordField databasePasswordField;
+    private com.webreach.mirth.client.ui.components.MirthTextPane databaseSQLTextPane;
+    private com.webreach.mirth.client.ui.components.MirthTextField databaseURLField;
+    private com.webreach.mirth.client.ui.components.MirthTextPane databaseUpdateSQLTextPane;
+    private com.webreach.mirth.client.ui.components.MirthTextField databaseUsernameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -342,9 +342,9 @@ public class DatabaseReader extends ConnectorClass
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel onUpdateLabel;
-    private com.webreach.mirth.client.ui.MirthTextField pollingFreq;
-    private com.webreach.mirth.client.ui.MirthRadioButton readOnUpdateNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton readOnUpdateYes;
+    private com.webreach.mirth.client.ui.components.MirthTextField pollingFreq;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton readOnUpdateNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton readOnUpdateYes;
     // End of variables declaration//GEN-END:variables
 
 }

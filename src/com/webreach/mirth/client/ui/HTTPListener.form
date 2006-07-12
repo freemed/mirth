@@ -193,7 +193,7 @@
         <Property name="text" type="java.lang.String" value="Send ACK:"/>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthComboBox" name="sendACKCombobox">
+    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="sendACKCombobox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -204,23 +204,23 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="bufferSizeField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="bufferSizeField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="receiveTimeoutField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="receiveTimeoutField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="listenerIPAddressField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerPortField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="listenerPortField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="recordSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="recordSeparatorField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="startOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="startOfMessageCharacterField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="endOfMessageCharacterField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="endOfMessageCharacterField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="fieldSeparatorField">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fieldSeparatorField">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenYesRadio">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="keepConnectionOpenYesRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -239,7 +239,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthRadioButton" name="keepConnectionOpenNoRadio">
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="keepConnectionOpenNoRadio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -258,11 +258,11 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField1">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="listenerIPAddressField1">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField2">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="listenerIPAddressField2">
     </Component>
-    <Component class="com.webreach.mirth.client.ui.MirthTextField" name="listenerIPAddressField3">
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="listenerIPAddressField3">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>

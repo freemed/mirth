@@ -12,10 +12,10 @@ import javax.swing.JTabbedPane;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.DatabaseReader;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
-import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.ReferenceTableHandler;
 import com.webreach.mirth.client.ui.SQLParserUtil;
+import com.webreach.mirth.client.ui.components.MirthTextPane;
 
 
 public class TabbedReferencePanel extends JPanel {

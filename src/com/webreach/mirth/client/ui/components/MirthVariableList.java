@@ -1,4 +1,4 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.components;
 
 import org.jdesktop.swingx.JXList;
 

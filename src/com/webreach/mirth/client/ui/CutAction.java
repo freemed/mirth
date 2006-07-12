@@ -5,7 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.text.JTextComponent;
 
 /** Allows for Cutting in text components. */
-class CutAction extends AbstractAction
+public class CutAction extends AbstractAction
 {
     JTextComponent comp;
     

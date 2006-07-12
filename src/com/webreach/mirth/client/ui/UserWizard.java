@@ -59,7 +59,7 @@ public class UserWizard extends javax.swing.JDialog
         jLabel4 = new javax.swing.JLabel();
         password1 = new javax.swing.JPasswordField();
         password2 = new javax.swing.JPasswordField();
-        mirthHeadingPanel1 = new com.webreach.mirth.client.ui.MirthHeadingPanel();
+        mirthHeadingPanel1 = new com.webreach.mirth.client.ui.components.MirthHeadingPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -302,7 +302,7 @@ public class UserWizard extends javax.swing.JDialog
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
-    private com.webreach.mirth.client.ui.MirthHeadingPanel mirthHeadingPanel1;
+    private com.webreach.mirth.client.ui.components.MirthHeadingPanel mirthHeadingPanel1;
     private javax.swing.JPasswordField password1;
     private javax.swing.JPasswordField password2;
     private javax.swing.JTextField username;

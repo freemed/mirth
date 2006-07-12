@@ -123,12 +123,12 @@ public class DatabaseWriter extends ConnectorClass
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        databaseDriverCombobox = new com.webreach.mirth.client.ui.MirthComboBox();
-        databaseURLField = new com.webreach.mirth.client.ui.MirthTextField();
-        databaseUsernameField = new com.webreach.mirth.client.ui.MirthTextField();
-        databasePasswordField = new com.webreach.mirth.client.ui.MirthPasswordField();
+        databaseDriverCombobox = new com.webreach.mirth.client.ui.components.MirthComboBox();
+        databaseURLField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        databaseUsernameField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        databasePasswordField = new com.webreach.mirth.client.ui.components.MirthPasswordField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        databaseSQLTextPane = new com.webreach.mirth.client.ui.MirthTextPane();
+        databaseSQLTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Database Writer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -202,11 +202,11 @@ public class DatabaseWriter extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthComboBox databaseDriverCombobox;
-    private com.webreach.mirth.client.ui.MirthPasswordField databasePasswordField;
-    private com.webreach.mirth.client.ui.MirthTextPane databaseSQLTextPane;
-    private com.webreach.mirth.client.ui.MirthTextField databaseURLField;
-    private com.webreach.mirth.client.ui.MirthTextField databaseUsernameField;
+    private com.webreach.mirth.client.ui.components.MirthComboBox databaseDriverCombobox;
+    private com.webreach.mirth.client.ui.components.MirthPasswordField databasePasswordField;
+    private com.webreach.mirth.client.ui.components.MirthTextPane databaseSQLTextPane;
+    private com.webreach.mirth.client.ui.components.MirthTextField databaseURLField;
+    private com.webreach.mirth.client.ui.components.MirthTextField databaseUsernameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

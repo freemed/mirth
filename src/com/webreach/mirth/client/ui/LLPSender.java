@@ -143,23 +143,23 @@ public class LLPSender extends ConnectorClass
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        hostPortField = new com.webreach.mirth.client.ui.MirthTextField();
-        serverTimeoutField = new com.webreach.mirth.client.ui.MirthTextField();
-        bufferSizeField = new com.webreach.mirth.client.ui.MirthTextField();
-        maximumRetryCountField = new com.webreach.mirth.client.ui.MirthTextField();
-        startOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
-        endOfMessageCharacterField = new com.webreach.mirth.client.ui.MirthTextField();
-        recordSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
-        fieldSeparatorField = new com.webreach.mirth.client.ui.MirthTextField();
-        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
-        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.MirthRadioButton();
-        hostIPAddressField3 = new com.webreach.mirth.client.ui.MirthTextField();
-        hostIPAddressField2 = new com.webreach.mirth.client.ui.MirthTextField();
+        hostPortField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        serverTimeoutField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        bufferSizeField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        maximumRetryCountField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        startOfMessageCharacterField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        endOfMessageCharacterField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        recordSeparatorField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        fieldSeparatorField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        keepConnectionOpenYesRadio = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        keepConnectionOpenNoRadio = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        hostIPAddressField3 = new com.webreach.mirth.client.ui.components.MirthTextField();
+        hostIPAddressField2 = new com.webreach.mirth.client.ui.components.MirthTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        hostIPAddressField1 = new com.webreach.mirth.client.ui.MirthTextField();
+        hostIPAddressField1 = new com.webreach.mirth.client.ui.components.MirthTextField();
         jLabel9 = new javax.swing.JLabel();
-        hostIPAddressField = new com.webreach.mirth.client.ui.MirthTextField();
+        hostIPAddressField = new com.webreach.mirth.client.ui.components.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LLP Sender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -308,14 +308,14 @@ public class LLPSender extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthTextField bufferSizeField;
-    private com.webreach.mirth.client.ui.MirthTextField endOfMessageCharacterField;
-    private com.webreach.mirth.client.ui.MirthTextField fieldSeparatorField;
-    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField;
-    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField1;
-    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField2;
-    private com.webreach.mirth.client.ui.MirthTextField hostIPAddressField3;
-    private com.webreach.mirth.client.ui.MirthTextField hostPortField;
+    private com.webreach.mirth.client.ui.components.MirthTextField bufferSizeField;
+    private com.webreach.mirth.client.ui.components.MirthTextField endOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.components.MirthTextField fieldSeparatorField;
+    private com.webreach.mirth.client.ui.components.MirthTextField hostIPAddressField;
+    private com.webreach.mirth.client.ui.components.MirthTextField hostIPAddressField1;
+    private com.webreach.mirth.client.ui.components.MirthTextField hostIPAddressField2;
+    private com.webreach.mirth.client.ui.components.MirthTextField hostIPAddressField3;
+    private com.webreach.mirth.client.ui.components.MirthTextField hostPortField;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -330,12 +330,12 @@ public class LLPSender extends ConnectorClass
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.ButtonGroup keepConnectionOpenGroup;
-    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenNoRadio;
-    private com.webreach.mirth.client.ui.MirthRadioButton keepConnectionOpenYesRadio;
-    private com.webreach.mirth.client.ui.MirthTextField maximumRetryCountField;
-    private com.webreach.mirth.client.ui.MirthTextField recordSeparatorField;
-    private com.webreach.mirth.client.ui.MirthTextField serverTimeoutField;
-    private com.webreach.mirth.client.ui.MirthTextField startOfMessageCharacterField;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton keepConnectionOpenNoRadio;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton keepConnectionOpenYesRadio;
+    private com.webreach.mirth.client.ui.components.MirthTextField maximumRetryCountField;
+    private com.webreach.mirth.client.ui.components.MirthTextField recordSeparatorField;
+    private com.webreach.mirth.client.ui.components.MirthTextField serverTimeoutField;
+    private com.webreach.mirth.client.ui.components.MirthTextField startOfMessageCharacterField;
     // End of variables declaration//GEN-END:variables
 
 }

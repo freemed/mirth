@@ -1,4 +1,7 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.components;
+
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PlatformUI;
 
 /** 
  * Mirth's implementation of the JCheckbox.  Adds enabling of

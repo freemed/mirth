@@ -113,20 +113,20 @@ public class FileReader extends ConnectorClass
         buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        directoryField = new com.webreach.mirth.client.ui.MirthTextField();
-        pollingFreq = new com.webreach.mirth.client.ui.MirthTextField();
+        directoryField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        pollingFreq = new com.webreach.mirth.client.ui.components.MirthTextField();
         jLabel4 = new javax.swing.JLabel();
-        moveToPattern = new com.webreach.mirth.client.ui.MirthTextField();
-        moveToDirectory = new com.webreach.mirth.client.ui.MirthTextField();
+        moveToPattern = new com.webreach.mirth.client.ui.components.MirthTextField();
+        moveToDirectory = new com.webreach.mirth.client.ui.components.MirthTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         fileAgeLabel = new javax.swing.JLabel();
-        deleteAfterReadYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        deleteAfterReadNo = new com.webreach.mirth.client.ui.MirthRadioButton();
-        checkFileAgeYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        checkFileAgeNo = new com.webreach.mirth.client.ui.MirthRadioButton();
-        fileAge = new com.webreach.mirth.client.ui.MirthTextField();
+        deleteAfterReadYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        deleteAfterReadNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        checkFileAgeYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        checkFileAgeNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        fileAge = new com.webreach.mirth.client.ui.components.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Reader", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -270,12 +270,12 @@ public class FileReader extends ConnectorClass
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private com.webreach.mirth.client.ui.MirthRadioButton checkFileAgeNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton checkFileAgeYes;
-    private com.webreach.mirth.client.ui.MirthRadioButton deleteAfterReadNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton deleteAfterReadYes;
-    private com.webreach.mirth.client.ui.MirthTextField directoryField;
-    private com.webreach.mirth.client.ui.MirthTextField fileAge;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton checkFileAgeNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton checkFileAgeYes;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton deleteAfterReadNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton deleteAfterReadYes;
+    private com.webreach.mirth.client.ui.components.MirthTextField directoryField;
+    private com.webreach.mirth.client.ui.components.MirthTextField fileAge;
     private javax.swing.JLabel fileAgeLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -283,9 +283,9 @@ public class FileReader extends ConnectorClass
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private com.webreach.mirth.client.ui.MirthTextField moveToDirectory;
-    private com.webreach.mirth.client.ui.MirthTextField moveToPattern;
-    private com.webreach.mirth.client.ui.MirthTextField pollingFreq;
+    private com.webreach.mirth.client.ui.components.MirthTextField moveToDirectory;
+    private com.webreach.mirth.client.ui.components.MirthTextField moveToPattern;
+    private com.webreach.mirth.client.ui.components.MirthTextField pollingFreq;
     // End of variables declaration//GEN-END:variables
 
 }

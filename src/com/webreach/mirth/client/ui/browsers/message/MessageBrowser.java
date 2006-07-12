@@ -361,8 +361,8 @@ public class MessageBrowser extends javax.swing.JPanel
         sendingFacilityField = new javax.swing.JTextField();
         filterButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        mirthDatePicker1 = new com.webreach.mirth.client.ui.MirthDatePicker();
-        mirthDatePicker2 = new com.webreach.mirth.client.ui.MirthDatePicker();
+        mirthDatePicker1 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
+        mirthDatePicker2 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
         controlIDField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         statusComboBox = new javax.swing.JComboBox();
@@ -643,8 +643,8 @@ public class MessageBrowser extends javax.swing.JPanel
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker1;
-    private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker2;
+    private com.webreach.mirth.client.ui.components.MirthDatePicker mirthDatePicker1;
+    private com.webreach.mirth.client.ui.components.MirthDatePicker mirthDatePicker2;
     private javax.swing.JTextField sendingFacilityField;
     private javax.swing.JLabel sendingFacilityLabel;
     private javax.swing.JComboBox statusComboBox;

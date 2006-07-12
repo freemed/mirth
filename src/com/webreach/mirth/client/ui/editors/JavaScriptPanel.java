@@ -39,8 +39,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
-import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.UIConstants;
+import com.webreach.mirth.client.ui.components.MirthTextPane;
 
 
 /**

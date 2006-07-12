@@ -286,8 +286,8 @@ public class EventBrowser extends javax.swing.JPanel
         eventField = new javax.swing.JTextField();
         filterButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        mirthDatePicker1 = new com.webreach.mirth.client.ui.MirthDatePicker();
-        mirthDatePicker2 = new com.webreach.mirth.client.ui.MirthDatePicker();
+        mirthDatePicker1 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
+        mirthDatePicker2 = new com.webreach.mirth.client.ui.components.MirthDatePicker();
         levelComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -498,8 +498,8 @@ public class EventBrowser extends javax.swing.JPanel
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox levelComboBox;
-    private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker1;
-    private com.webreach.mirth.client.ui.MirthDatePicker mirthDatePicker2;
+    private com.webreach.mirth.client.ui.components.MirthDatePicker mirthDatePicker1;
+    private com.webreach.mirth.client.ui.components.MirthDatePicker mirthDatePicker2;
     // End of variables declaration//GEN-END:variables
     
 }

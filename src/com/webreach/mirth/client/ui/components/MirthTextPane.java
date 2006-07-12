@@ -1,17 +1,24 @@
-package com.webreach.mirth.client.ui;
+package com.webreach.mirth.client.ui.components;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
+
+import javax.swing.text.StyledDocument;
+
+import com.webreach.mirth.client.ui.CopyAction;
+import com.webreach.mirth.client.ui.CutAction;
+import com.webreach.mirth.client.ui.DeleteAction;
+import com.webreach.mirth.client.ui.Frame;
+import com.webreach.mirth.client.ui.PasteAction;
+import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.SelectAllAction;
 
 /** 
- * Mirth's implementation of the JTextField.  Adds enabling of
+ * Mirth's implementation of the JTextPane.  Adds enabling of
  * the save button in parent.  Also adds a trigger button (right click)
  * editor menu with Cut, Copy, Paste, Delete, and Select All.
  */
-public class MirthTextField extends javax.swing.JTextField
+public class MirthTextPane extends javax.swing.JTextPane
 {
     private Frame parent;
     private JPopupMenu menu;
@@ -21,12 +28,47 @@ public class MirthTextField extends javax.swing.JTextField
     private DeleteAction deleteAction;
     private SelectAllAction selectAllAction;
 
-    public MirthTextField()
+    public MirthTextPane()
     {
         super();
         this.parent = PlatformUI.MIRTH_FRAME;
         
         cutAction = new CutAction(this);
+        copyAction = new CopyAction(this);
+        pasteAction = new PasteAction(this);
+        deleteAction = new DeleteAction(this);
+        selectAllAction = new SelectAllAction(this);
+        
+        menu = new JPopupMenu(); 
+        menu.add(cutAction); 
+        menu.add(copyAction); 
+        menu.add(pasteAction); 
+        menu.add(deleteAction); 
+        menu.addSeparator();
+        menu.add(selectAllAction);
+
+        this.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                showPopupMenu(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                showPopupMenu(evt);
+            }
+        });
+    }
+    
+    /**
+     * A constructor that accepts a StyledDocument
+     */
+    public MirthTextPane(StyledDocument doc)
+    {
+    	super(doc);
+    	this.parent = PlatformUI.MIRTH_FRAME;
+    	
+    	cutAction = new CutAction(this);
         copyAction = new CopyAction(this);
         pasteAction = new PasteAction(this);
         deleteAction = new DeleteAction(this);
@@ -69,7 +111,7 @@ public class MirthTextField extends javax.swing.JTextField
             menu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
-    
+
     public void processKeyEvent(KeyEvent ev)
     {
         parent.enableSave();

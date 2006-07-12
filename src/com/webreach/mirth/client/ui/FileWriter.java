@@ -84,13 +84,13 @@ public class FileWriter extends ConnectorClass
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        directoryField = new com.webreach.mirth.client.ui.MirthTextField();
-        fileNameField = new com.webreach.mirth.client.ui.MirthTextField();
+        directoryField = new com.webreach.mirth.client.ui.components.MirthTextField();
+        fileNameField = new com.webreach.mirth.client.ui.components.MirthTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        fileContentsTextArea = new com.webreach.mirth.client.ui.MirthTextArea();
+        fileContentsTextArea = new com.webreach.mirth.client.ui.components.MirthTextArea();
         jLabel4 = new javax.swing.JLabel();
-        appendToFileYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        appendToFileNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        appendToFileYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        appendToFileNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Writer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -166,12 +166,12 @@ public class FileWriter extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthRadioButton appendToFileNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton appendToFileYes;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton appendToFileNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton appendToFileYes;
     private javax.swing.ButtonGroup buttonGroup1;
-    private com.webreach.mirth.client.ui.MirthTextField directoryField;
-    private com.webreach.mirth.client.ui.MirthTextArea fileContentsTextArea;
-    private com.webreach.mirth.client.ui.MirthTextField fileNameField;
+    private com.webreach.mirth.client.ui.components.MirthTextField directoryField;
+    private com.webreach.mirth.client.ui.components.MirthTextArea fileContentsTextArea;
+    private com.webreach.mirth.client.ui.components.MirthTextField fileNameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

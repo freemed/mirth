@@ -122,23 +122,23 @@ public class JMSWriter extends ConnectorClass
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        ackMode = new com.webreach.mirth.client.ui.MirthTextField();
-        specDropDown = new com.webreach.mirth.client.ui.MirthComboBox();
+        ackMode = new com.webreach.mirth.client.ui.components.MirthTextField();
+        specDropDown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        deliveryYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        deliveryNo = new com.webreach.mirth.client.ui.MirthRadioButton();
-        durableNo = new com.webreach.mirth.client.ui.MirthRadioButton();
-        durableYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        cliendId = new com.webreach.mirth.client.ui.MirthTextField();
-        JNDIInitialFactory = new com.webreach.mirth.client.ui.MirthTextField();
-        JNDIProviderURL = new com.webreach.mirth.client.ui.MirthTextField();
-        JNDIConnectionName = new com.webreach.mirth.client.ui.MirthTextField();
-        redeliveryHandler = new com.webreach.mirth.client.ui.MirthTextField();
+        deliveryYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        deliveryNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        durableNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        durableYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        cliendId = new com.webreach.mirth.client.ui.components.MirthTextField();
+        JNDIInitialFactory = new com.webreach.mirth.client.ui.components.MirthTextField();
+        JNDIProviderURL = new com.webreach.mirth.client.ui.components.MirthTextField();
+        JNDIConnectionName = new com.webreach.mirth.client.ui.components.MirthTextField();
+        redeliveryHandler = new com.webreach.mirth.client.ui.components.MirthTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "JMS Writer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -271,17 +271,17 @@ public class JMSWriter extends ConnectorClass
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.webreach.mirth.client.ui.MirthTextField JNDIConnectionName;
-    private com.webreach.mirth.client.ui.MirthTextField JNDIInitialFactory;
-    private com.webreach.mirth.client.ui.MirthTextField JNDIProviderURL;
-    private com.webreach.mirth.client.ui.MirthTextField ackMode;
-    private com.webreach.mirth.client.ui.MirthTextField cliendId;
+    private com.webreach.mirth.client.ui.components.MirthTextField JNDIConnectionName;
+    private com.webreach.mirth.client.ui.components.MirthTextField JNDIInitialFactory;
+    private com.webreach.mirth.client.ui.components.MirthTextField JNDIProviderURL;
+    private com.webreach.mirth.client.ui.components.MirthTextField ackMode;
+    private com.webreach.mirth.client.ui.components.MirthTextField cliendId;
     private javax.swing.ButtonGroup deliveryButtonGroup;
-    private com.webreach.mirth.client.ui.MirthRadioButton deliveryNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton deliveryYes;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton deliveryNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton deliveryYes;
     private javax.swing.ButtonGroup durableButtonGroup;
-    private com.webreach.mirth.client.ui.MirthRadioButton durableNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton durableYes;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton durableNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton durableYes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -291,8 +291,8 @@ public class JMSWriter extends ConnectorClass
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private com.webreach.mirth.client.ui.MirthTextField redeliveryHandler;
-    private com.webreach.mirth.client.ui.MirthComboBox specDropDown;
+    private com.webreach.mirth.client.ui.components.MirthTextField redeliveryHandler;
+    private com.webreach.mirth.client.ui.components.MirthComboBox specDropDown;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -1,6 +1,8 @@
 package com.webreach.mirth.client.ui;
 
 import com.webreach.mirth.client.core.ClientException;
+import com.webreach.mirth.client.ui.components.MirthFieldConstraints;
+
 import java.util.Properties;
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
@@ -76,19 +78,19 @@ public class AdminPanel extends javax.swing.JPanel
         jLabel5 = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
-        smtpPassword = new com.webreach.mirth.client.ui.MirthPasswordField();
-        smtpUsername = new com.webreach.mirth.client.ui.MirthTextField();
-        smtpPort = new com.webreach.mirth.client.ui.MirthTextField();
-        smtpHost = new com.webreach.mirth.client.ui.MirthTextField();
+        smtpPassword = new com.webreach.mirth.client.ui.components.MirthPasswordField();
+        smtpUsername = new com.webreach.mirth.client.ui.components.MirthTextField();
+        smtpPort = new com.webreach.mirth.client.ui.components.MirthTextField();
+        smtpHost = new com.webreach.mirth.client.ui.components.MirthTextField();
         jLabel8 = new javax.swing.JLabel();
-        requireAuthenticationYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        requireAuthenticationNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        requireAuthenticationYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        requireAuthenticationNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        intervalTime = new com.webreach.mirth.client.ui.MirthTextField();
-        rowHighlightYes = new com.webreach.mirth.client.ui.MirthRadioButton();
-        rowHighlightNo = new com.webreach.mirth.client.ui.MirthRadioButton();
+        intervalTime = new com.webreach.mirth.client.ui.components.MirthTextField();
+        rowHighlightYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        rowHighlightNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
 
         adminPanel.setFocusable(false);
         users.setFocusable(false);
@@ -433,7 +435,7 @@ public class AdminPanel extends javax.swing.JPanel
     private javax.swing.JTabbedPane adminPanel;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private com.webreach.mirth.client.ui.MirthTextField intervalTime;
+    private com.webreach.mirth.client.ui.components.MirthTextField intervalTime;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -443,15 +445,15 @@ public class AdminPanel extends javax.swing.JPanel
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel passwordLabel;
-    private com.webreach.mirth.client.ui.MirthRadioButton requireAuthenticationNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton requireAuthenticationYes;
-    private com.webreach.mirth.client.ui.MirthRadioButton rowHighlightNo;
-    private com.webreach.mirth.client.ui.MirthRadioButton rowHighlightYes;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton requireAuthenticationNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton requireAuthenticationYes;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton rowHighlightNo;
+    private com.webreach.mirth.client.ui.components.MirthRadioButton rowHighlightYes;
     private javax.swing.JPanel settings;
-    private com.webreach.mirth.client.ui.MirthTextField smtpHost;
-    private com.webreach.mirth.client.ui.MirthPasswordField smtpPassword;
-    private com.webreach.mirth.client.ui.MirthTextField smtpPort;
-    private com.webreach.mirth.client.ui.MirthTextField smtpUsername;
+    private com.webreach.mirth.client.ui.components.MirthTextField smtpHost;
+    private com.webreach.mirth.client.ui.components.MirthPasswordField smtpPassword;
+    private com.webreach.mirth.client.ui.components.MirthTextField smtpPort;
+    private com.webreach.mirth.client.ui.components.MirthTextField smtpUsername;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JPanel users;
     // End of variables declaration//GEN-END:variables
