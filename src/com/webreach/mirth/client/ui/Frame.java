@@ -503,7 +503,7 @@ public class Frame extends JXFrame
         channelEditTasks.setTitle("Channel Tasks");
         channelEditTasks.setFocusable(false);
         
-        channelEditTasks.add(initActionCallback("doSaveChanges", "Save all changes made to this channel.", ActionFactory.createBoundAction("doSaveChanges","Save Changes", "H"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
+        channelEditTasks.add(initActionCallback("doSaveChanges", "Save all changes made to this channel.", ActionFactory.createBoundAction("doSaveChanges","Save Changes", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png"))));
         JMenuItem saveChanges = new JMenuItem("Save Changes");
         saveChanges.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/save.png")));
         saveChanges.addActionListener(new ActionListener(){
@@ -533,7 +533,7 @@ public class Frame extends JXFrame
         });
         channelEditPopupMenu.add(deleteDestination);
         
-        channelEditTasks.add(initActionCallback("doEditTransformer", "Edit the transformer for the currently selected destination.", ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
+        channelEditTasks.add(initActionCallback("doEditTransformer", "Edit the transformer for the currently selected destination.", ActionFactory.createBoundAction("doEditTransformer","Edit Transformer", "T"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png"))));
         JMenuItem editTransformer = new JMenuItem("Edit Transformer");
         editTransformer.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/edit.png")));
         editTransformer.addActionListener(new ActionListener(){
@@ -600,7 +600,7 @@ public class Frame extends JXFrame
         });
         statusPopupMenu.add(startAllChannels);
         
-        statusTasks.add(initActionCallback("doShowEvents", "Show the event logs for the system.", ActionFactory.createBoundAction("doShowEvents","View System Events", "E"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
+        statusTasks.add(initActionCallback("doShowEvents", "Show the event logs for the system.", ActionFactory.createBoundAction("doShowEvents","View System Events", "Y"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png"))));
         JMenuItem showEvents = new JMenuItem("View System Events");
         showEvents.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/logs.png")));
         showEvents.addActionListener(new ActionListener(){
@@ -677,7 +677,7 @@ public class Frame extends JXFrame
         });
         eventPopupMenu.add(refresh);
         
-        eventTasks.add(initActionCallback("doClearEvents", "Clear the System Events.", ActionFactory.createBoundAction("doClearEvents","Clear Events", "C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
+        eventTasks.add(initActionCallback("doClearEvents", "Clear the System Events.", ActionFactory.createBoundAction("doClearEvents","Clear Events", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         JMenuItem clearEvents = new JMenuItem("Clear Events");
         clearEvents.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png")));
         clearEvents.addActionListener(new ActionListener(){
@@ -712,7 +712,7 @@ public class Frame extends JXFrame
         });
         messagePopupMenu.add(refresh);
         
-        messageTasks.add(initActionCallback("doClearAllMessages", "Clear all Message Events in this channel.", ActionFactory.createBoundAction("doClearAllMessages","Clear All Messages", "C"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
+        messageTasks.add(initActionCallback("doClearAllMessages", "Clear all Message Events in this channel.", ActionFactory.createBoundAction("doClearAllMessages","Clear All Messages", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png"))));
         JMenuItem clearAllMessages = new JMenuItem("Clear All Messages");
         clearAllMessages.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/delete.png")));
         clearAllMessages.addActionListener(new ActionListener(){
@@ -802,10 +802,10 @@ public class Frame extends JXFrame
         otherPane = new JXTaskPane();
         otherPane.setTitle("Other");
         otherPane.setFocusable(false);
-        otherPane.add(initActionCallback("doHelp", "Open browser for help on this topic.", ActionFactory.createBoundAction("doHelp","Help on this topic","G"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/help.png"))));
-        otherPane.add(initActionCallback("goToAbout", "View the about page for Mirth.", ActionFactory.createBoundAction("goToAbout","About Mirth","B"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
+        otherPane.add(initActionCallback("doHelp", "Open browser for help on this topic.", ActionFactory.createBoundAction("doHelp","Help on this topic","H"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/help.png"))));
+        otherPane.add(initActionCallback("goToAbout", "View the about page for Mirth.", ActionFactory.createBoundAction("goToAbout","About Mirth","U"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
         otherPane.add(initActionCallback("goToMirth", "View Mirth's homepage.", ActionFactory.createBoundAction("goToMirth","Visit MirthProject.org","V"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/home.png"))));
-        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","U"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
+        otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","G"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
         setNonFocusable(otherPane);
         taskPaneContainer.add(otherPane);
     }
