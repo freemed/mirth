@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
+import com.webreach.mirth.client.ui.DatabaseReader;
 import com.webreach.mirth.client.ui.HL7XMLTreePanel;
 import com.webreach.mirth.client.ui.MirthTextPane;
 import com.webreach.mirth.client.ui.PlatformUI;
@@ -30,7 +31,7 @@ public class TabbedReferencePanel extends JPanel {
 	}
 	
 	private void updateSQL() {
-		Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("SQLStatement");
+		Object sqlStatement = PlatformUI.MIRTH_FRAME.channelEditPage.getSourceConnector().getProperties().get("query");
 		if ((sqlStatement != null) && (!sqlStatement.equals(""))){
 			SQLParserUtil spu = new SQLParserUtil((String)sqlStatement);
 			updateVariables(spu.Parse());
