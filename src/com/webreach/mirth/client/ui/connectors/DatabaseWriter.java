@@ -33,7 +33,7 @@ public class DatabaseWriter extends ConnectorClass
     public final String DATABASE_PASSWORD = "password";
     public final String DATABASE_SQL_STATEMENT = "statement";
     
-    private HighlightedDocument mappingDoc;
+    private static HighlightedDocument mappingDoc;
     
     public DatabaseWriter()
     {

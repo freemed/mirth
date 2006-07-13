@@ -3,6 +3,12 @@ package com.webreach.mirth.client.ui.editors;
 import java.awt.BorderLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -14,7 +20,6 @@ import com.webreach.mirth.client.ui.HL7XMLTreePanel;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.ReferenceTableHandler;
 import com.webreach.mirth.client.ui.components.MirthTextPane;
-import com.webreach.mirth.client.ui.connectors.DatabaseReader;
 import com.webreach.mirth.client.ui.util.SQLParserUtil;
 
 
@@ -68,13 +73,18 @@ public class TabbedReferencePanel extends JPanel {
 		treeScrollPane = new JScrollPane();
 		treePanel = new HL7XMLTreePanel();
 		
-		String[][] referenceData = new String[2][2];
-		referenceData[0][0] = "localMap";
-		referenceData[0][1] = "The local variable map that will be sent to the connector.";
-		referenceData[1][0] = "globalMap";
-		referenceData[1][1] = "The global variable map that persists values between channels.";
+		String[] referenceData = new String[4];
+		String[] tooltip = new String[4];
+		referenceData[0] = "localMap";
+		referenceData[1] = "globalMap";
+		referenceData[2] = "debug(message)";
+		referenceData[3] = "sendEmail(to, cc, from, subject, body)";
+		tooltip[0] = "The local variable map that will be sent to the connector.";
+		tooltip[1] = "The global variable map that persists values between channels.";
+		tooltip[2] = "Outputs the message to the system debug log.";
+		tooltip[3] = "Sends an alert email using the alert SMTP properties.";
 		
-		globalVarTable = new VariableReferenceTable( referenceData );
+		globalVarTable = new VariableReferenceTable( referenceData, tooltip );
 		globalVarPanel = new JPanel();
 		globalVarPanel.setBorder( BorderFactory.createTitledBorder("Variables") );
 		globalVarPanel.setBackground( EditorConstants.PANEL_BACKGROUND );
@@ -98,7 +108,7 @@ public class TabbedReferencePanel extends JPanel {
 		varScrollPane.setViewportView( varPanel );
 		
 //		we need to create an HL7 Lexer...	
-		HighlightedDocument HL7Doc = new HighlightedDocument();
+		HL7Doc = new HighlightedDocument();
 		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
 		pasteBox = new MirthTextPane( HL7Doc );
 		pasteBox.setFont( EditorConstants.DEFAULT_FONT );
@@ -144,7 +154,7 @@ public class TabbedReferencePanel extends JPanel {
 					public void componentShown(ComponentEvent arg0) {
 						String message = pasteBox.getText();
 						if ( message != null || !message.equals("") )
-							treePanel.setMessage( message.replaceAll("\\n","\r\n") );
+							treePanel.setMessage( message.replaceAll("//n","/r/n") );
 						else
 							treePanel.clearMessage();
 						treePanel.revalidate();
@@ -190,6 +200,7 @@ public class TabbedReferencePanel extends JPanel {
 	private JPanel pasteTab;
 	private JScrollPane pasteScrollPane;
 	private MirthTextPane pasteBox;
+	private static HighlightedDocument HL7Doc;
 	private JScrollPane treeScrollPane;
 	private HL7XMLTreePanel treePanel;
 	private VariableReferenceTable globalVarTable;

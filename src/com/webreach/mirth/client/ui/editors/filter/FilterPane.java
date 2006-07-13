@@ -49,6 +49,7 @@ import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.BlankPanel;
 import com.webreach.mirth.client.ui.editors.CardPanel;
+import com.webreach.mirth.client.ui.editors.EditorConstants;
 import com.webreach.mirth.client.ui.editors.JavaScriptPanel;
 import com.webreach.mirth.client.ui.editors.MirthEditorPane;
 import com.webreach.mirth.client.ui.editors.MyComboBoxEditor;
@@ -204,12 +205,12 @@ public class FilterPane extends MirthEditorPane {
 		hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT,
 				rulePanel, refPanel );
 		hSplitPane.setContinuousLayout( true );
-		hSplitPane.setDividerLocation( 450 );
+		hSplitPane.setDividerLocation( EditorConstants.TAB_PANEL_DIVIDER_LOCATION );
 		
 		vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
 				filterTablePane, hSplitPane );
 		vSplitPane.setContinuousLayout( true );
-		vSplitPane.setDividerLocation( 200 );
+		vSplitPane.setDividerLocation( EditorConstants.TABLE_DIVIDER_LOCATION );
 		
 		this.setLayout( new BorderLayout() );
 		this.add( vSplitPane, BorderLayout.CENTER );

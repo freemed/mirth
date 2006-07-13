@@ -15,4 +15,8 @@ public class EditorConstants {
 	public final static Color PANEL_BACKGROUND = (new JLabel()).getBackground();
 	public final static Color LINENUMBER_FOREGROUND = new Color( 119, 136, 153 );
 	
+//	the default location of split pane dividers
+	public final static int TABLE_DIVIDER_LOCATION = 200;
+	public final static int TAB_PANEL_DIVIDER_LOCATION = 450;
+	
 }

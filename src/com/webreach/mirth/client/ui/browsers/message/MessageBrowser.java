@@ -50,8 +50,8 @@ public class MessageBrowser extends javax.swing.JPanel
     private List<MessageEvent> messageEventList;
     private HL7TreePanel HL7Panel;
     private JScrollPane HL7ScrollPane;
-    private HighlightedDocument xmlDoc;
-    private HighlightedDocument er7Doc;
+    private static HighlightedDocument xmlDoc;
+    private static HighlightedDocument er7Doc;
     private Document normalDoc;
     
     /**

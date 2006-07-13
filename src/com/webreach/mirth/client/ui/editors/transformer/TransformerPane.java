@@ -49,6 +49,7 @@ import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.editors.BlankPanel;
 import com.webreach.mirth.client.ui.editors.CardPanel;
+import com.webreach.mirth.client.ui.editors.EditorConstants;
 import com.webreach.mirth.client.ui.editors.JavaScriptPanel;
 import com.webreach.mirth.client.ui.editors.MapperPanel;
 import com.webreach.mirth.client.ui.editors.MirthEditorPane;
@@ -210,12 +211,12 @@ public class TransformerPane extends MirthEditorPane {
         hSplitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT,
         		stepPanel, refPanel );
         hSplitPane.setContinuousLayout( true );
-        hSplitPane.setDividerLocation( 450 );
+        hSplitPane.setDividerLocation( EditorConstants.TAB_PANEL_DIVIDER_LOCATION );
         
         vSplitPane = new JSplitPane( JSplitPane.VERTICAL_SPLIT,
          		transformerTablePane, hSplitPane );
         vSplitPane.setContinuousLayout( true );
-        vSplitPane.setDividerLocation( 200 );
+        vSplitPane.setDividerLocation( EditorConstants.TABLE_DIVIDER_LOCATION );
         
         this.setLayout( new BorderLayout() );
         this.add( vSplitPane, BorderLayout.CENTER );
@@ -396,7 +397,7 @@ public class TransformerPane extends MirthEditorPane {
     
     // returns a unique default var name
     private String getUniqueName() {
-    	String base = "$newVar";
+    	String base = "newVar";
     	int i = 0;
     	
     	while ( true ) {

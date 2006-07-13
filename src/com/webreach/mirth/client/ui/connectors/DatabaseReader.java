@@ -37,8 +37,8 @@ public class DatabaseReader extends ConnectorClass
     public final String DATABASE_USE_ACK = "useAck";
     public final String DATABASE_ACK = "ack";
 
-    private HighlightedDocument mappingDoc;
-    private HighlightedDocument mappingDoc2;
+    private static HighlightedDocument mappingDoc;
+    private static HighlightedDocument mappingDoc2;
 
     public DatabaseReader()
     {

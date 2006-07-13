@@ -147,7 +147,7 @@ public class JavaScriptPanel extends CardPanel {
 	private JTextArea headerArea;
 	private JTextArea footerArea;
 	private JPanel scriptPanel;
-	private HighlightedDocument scriptDoc;
+	private static HighlightedDocument scriptDoc;
 	private MirthTextPane scriptTextPane;
 	private JScrollPane scriptScrollPane;
 	private LineNumber lineNumbers;

@@ -153,7 +153,7 @@ public class MapperPanel extends CardPanel {
 	private String label;
 	private JPanel mappingTextPanel;		// for no linewrap in textpane
 	private MirthTextPane mappingTextPane;
-	private HighlightedDocument mappingDoc;
+	private static HighlightedDocument mappingDoc;
 	private JLabel mappingLabel;
 	private JPanel labelPanel;
 	private JPanel mappingPanel;
