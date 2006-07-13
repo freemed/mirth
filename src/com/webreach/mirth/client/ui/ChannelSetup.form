@@ -229,11 +229,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="sourceConnectorClass" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="sourceVariableList" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="sourceConnectorClass" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="sourceSourceLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -253,10 +249,7 @@
                           <Component id="sourceSourceDropdown" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="sourceConnectorClass" max="32767" attributes="0"/>
-                          <Component id="sourceVariableList" alignment="1" pref="379" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="sourceConnectorClass" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -287,7 +280,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="356" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="548" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -297,8 +290,6 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="com.webreach.mirth.client.ui.VariableList" name="sourceVariableList">
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="destination">

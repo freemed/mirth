@@ -413,7 +413,6 @@ public class ChannelSetup extends javax.swing.JPanel
         else
             generateSingleDestinationPage();
         
-        setSourceVariableList();
         setDestinationVariableList();
         loadingChannel = false;
     }
@@ -454,7 +453,6 @@ public class ChannelSetup extends javax.swing.JPanel
         else
             generateSingleDestinationPage();
         
-        setSourceVariableList();
         setDestinationVariableList();
         
         saveChanges();
@@ -603,7 +601,6 @@ public class ChannelSetup extends javax.swing.JPanel
         sourceSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
         sourceConnectorClass = new com.webreach.mirth.client.ui.connectors.ConnectorClass();
-        sourceVariableList = new com.webreach.mirth.client.ui.VariableList();
         destination = new javax.swing.JPanel();
         destinationSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         destinationSourceLabel = new javax.swing.JLabel();
@@ -730,7 +727,7 @@ public class ChannelSetup extends javax.swing.JPanel
         sourceConnectorClass.setLayout(sourceConnectorClassLayout);
         sourceConnectorClassLayout.setHorizontalGroup(
             sourceConnectorClassLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 356, Short.MAX_VALUE)
+            .add(0, 548, Short.MAX_VALUE)
         );
         sourceConnectorClassLayout.setVerticalGroup(
             sourceConnectorClassLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -744,10 +741,7 @@ public class ChannelSetup extends javax.swing.JPanel
             .add(sourceLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, sourceLayout.createSequentialGroup()
-                        .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(sourceVariableList, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(sourceLayout.createSequentialGroup()
                         .add(sourceSourceLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -762,9 +756,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     .add(sourceSourceLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(sourceVariableList, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         channelView.addTab("Source", source);
@@ -935,8 +927,6 @@ public class ChannelSetup extends javax.swing.JPanel
             sourceConnectorClass.setProperties(sourceConnector.getProperties());
         }
         
-        sourceVariableList.setVariableList(sourceConnector.getTransformer().getSteps());
-        
         source.removeAll();
         
         // Reset the generated layout.
@@ -1068,9 +1058,15 @@ public class ChannelSetup extends javax.swing.JPanel
         destinationConnectorClass.setProperties(destinationConnector.getProperties());
         
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.APPLICATION)
+        {
             destinationVariableList.setVariableList(destinationConnector.getTransformer().getSteps());
+            destinationVariableList.setDestinationMappingsLabel();
+        }
         else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+        {
             destinationVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
+            destinationVariableList.setSourceMappingsLabel();
+        }
         
         destination.removeAll();
         
@@ -1180,13 +1176,6 @@ public class ChannelSetup extends javax.swing.JPanel
         destination.updateUI();
     }
     
-    /** Sets the soruce variable list from the transformer steps */
-    public void setSourceVariableList()
-    {
-        sourceVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
-        sourceVariableList.repaint();
-    }    
-    
     /** Sets the destination variable list from the transformer steps */
     public void setDestinationVariableList()
     {
@@ -1194,12 +1183,17 @@ public class ChannelSetup extends javax.swing.JPanel
         {
             int destination = getDestinationConnectorIndex((String)destinationTable.getValueAt(getSelectedDestinationIndex(),getColumnNumber(DESTINATION_COLUMN_NAME)));
             destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(destination).getTransformer().getSteps());
+            destinationVariableList.setDestinationMappingsLabel();
         }
         else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+        {
             destinationVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
+            destinationVariableList.setSourceMappingsLabel();
+        }
         else
         {
             destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+            destinationVariableList.setDestinationMappingsLabel();
         }
         
         destinationVariableList.repaint();
@@ -1255,7 +1249,6 @@ public class ChannelSetup extends javax.swing.JPanel
     private com.webreach.mirth.client.ui.connectors.ConnectorClass sourceConnectorClass;
     private com.webreach.mirth.client.ui.components.MirthComboBox sourceSourceDropdown;
     private javax.swing.JLabel sourceSourceLabel;
-    private com.webreach.mirth.client.ui.VariableList sourceVariableList;
     private javax.swing.JPanel summary;
     private javax.swing.JLabel summaryDescriptionLabel;
     private com.webreach.mirth.client.ui.components.MirthTextArea summaryDescriptionText;
