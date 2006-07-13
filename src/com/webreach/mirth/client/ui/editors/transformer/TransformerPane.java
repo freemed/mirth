@@ -608,7 +608,6 @@ public class TransformerPane extends MirthEditorPane {
 	    	transformer.setTemplate( tabPanel.getHL7Message() );
 	    
 	    	// reset the task pane and content to channel edit page
-	    	parent.channelEditPage.setSourceVariableList();
 	    	parent.channelEditPage.setDestinationVariableList();
 	    	parent.setCurrentContentPage( parent.channelEditPage );
 	    	parent.setCurrentTaskPaneContainer( parent.taskPaneContainer );
