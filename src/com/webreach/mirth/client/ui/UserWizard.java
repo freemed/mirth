@@ -37,7 +37,7 @@ public class UserWizard extends javax.swing.JDialog
             jLabel2.setText("New User");
             jLabel2.setForeground(UIConstants.TITLE_TEXT_COLOR);
         }
-        
+        setModal(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     

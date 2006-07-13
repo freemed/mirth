@@ -34,6 +34,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.prefs.Preferences;
 import javax.swing.Action;
@@ -48,6 +49,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.action.*;
@@ -188,7 +190,22 @@ public class Frame extends JXFrame
         channelEditPage = new ChannelSetup();
         eventBrowser = new EventBrowser();
         messageBrowser = new MessageBrowser();
-
+        
+        /*
+        FOR DEBUGGING THE UIDefaults:
+ 
+        UIDefaults uiDefaults = UIManager.getDefaults();
+        Enumeration enum1 = uiDefaults.keys();
+        while (enum1.hasMoreElements())
+        {
+            Object key = enum1.nextElement();
+            Object val = uiDefaults.get(key);
+            if(key.toString().indexOf("font") != -1)
+                System.out.println("UIManager.put(\"" + key.toString() + "\",\"" +
+                    (null != val ? val.toString() : "(null)") +
+                    "\");");
+        } 
+        */
         try
         {
             setDefaultCloseOperation(EXIT_ON_CLOSE);

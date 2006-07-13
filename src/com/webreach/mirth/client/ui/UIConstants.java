@@ -36,6 +36,8 @@ public class UIConstants
     // fonts
     public static final Font TEXTFIELD_PLAIN_FONT = new Font("Tahoma",Font.PLAIN,11);
     public static final Font TEXTFIELD_BOLD_FONT = new Font("Tahoma",Font.BOLD,11);
+    public static final Font BANNER_FONT = new Font("Arial", Font.BOLD, 36);
+    public static final Font DIALOG_FONT = new Font("Dialog", Font.PLAIN, 12);
 
     // help link
     public static final String HELP_LOCATION = "http://www.mirthproject.org/help/";
