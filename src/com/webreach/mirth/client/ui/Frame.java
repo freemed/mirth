@@ -164,7 +164,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -213,7 +213,7 @@ public class Frame extends JXFrame
         }
         catch (Exception e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
 
         statusUpdater = new Thread(new StatusUpdater());
@@ -327,7 +327,7 @@ public class Frame extends JXFrame
         }
         catch (InterruptedException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
     }
 
@@ -892,17 +892,17 @@ public class Frame extends JXFrame
     /**
      * Alerts the user with an exception dialog with the passed in stack trace.
      */
-    public void alertException(StackTraceElement[] strace)
+    public void alertException(StackTraceElement[] strace, String message)
     {
-        String stackTrace = "";
+        String stackTrace = message + "\n";
         for (int i = 0; i < strace.length; i++)
             stackTrace += strace[i].toString() + "\n";
 
         JScrollPane errorScrollPane = new JScrollPane();
         JTextArea errorTextArea = new JTextArea();
         errorTextArea.setBackground(UIManager.getColor("Control"));
-        errorTextArea.setColumns(50);
-        errorTextArea.setRows(10);
+        errorTextArea.setColumns(60);
+        errorTextArea.setRows(20);
         errorTextArea.setText(stackTrace);
         errorTextArea.setEditable(false);
         errorTextArea.setCaretPosition(0);
@@ -1027,7 +1027,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -1046,7 +1046,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -1157,7 +1157,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.dispose();
         Mirth.main(new String[0]);
@@ -1201,7 +1201,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         doShowChannel();
@@ -1234,7 +1234,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -1257,7 +1257,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -1277,7 +1277,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -1296,7 +1296,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -1312,7 +1312,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -1328,7 +1328,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -1437,7 +1437,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -1464,7 +1464,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -1486,7 +1486,7 @@ public class Frame extends JXFrame
         }
         catch (ClientException e)
         {
-            alertException(e.getStackTrace());
+            alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -1570,7 +1570,7 @@ public class Frame extends JXFrame
                 }
                 catch (ClientException e)
                 {
-                    alertException(e.getStackTrace());
+                    alertException(e.getStackTrace(), e.getMessage());
                 }
 
                 editChannel(channels.size()-1);
@@ -1646,7 +1646,7 @@ public class Frame extends JXFrame
             }
             catch (ClientException e)
             {
-                alertException(e.getStackTrace());
+                alertException(e.getStackTrace(), e.getMessage());
             }
             messageBrowser.refresh();
         }
@@ -1662,7 +1662,7 @@ public class Frame extends JXFrame
             }
             catch (ClientException e)
             {
-                alertException(e.getStackTrace());
+                alertException(e.getStackTrace(), e.getMessage());
             }
             messageBrowser.refresh();
         }
@@ -1683,7 +1683,7 @@ public class Frame extends JXFrame
             }
             catch (ClientException e)
             {
-                alertException(e.getStackTrace());
+                alertException(e.getStackTrace(), e.getMessage());
             }
             eventBrowser.refresh();
         }

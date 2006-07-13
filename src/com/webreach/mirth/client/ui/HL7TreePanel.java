@@ -91,7 +91,7 @@ public class HL7TreePanel extends JPanel {
 						"Please check the syntax of your message\n" +
 						"and try again.");
 			} catch (Exception e) {
-				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace(), e.getMessage());
 				e.printStackTrace();
 			}
 			
@@ -146,7 +146,7 @@ public class HL7TreePanel extends JPanel {
 					treeParent.insert(newNode, currentChild++);
 				}
 			} catch (HL7Exception e) {
-				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace(), e.getMessage());
 			}
 		}
 	}
@@ -167,7 +167,7 @@ public class HL7TreePanel extends JPanel {
 					treeParent.insert(newNode, currentChild++);
 				}
 			} catch (HL7Exception e) {
-				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace(), e.getMessage());
 			}
 		}
 	}

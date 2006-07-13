@@ -99,7 +99,7 @@ public class ChannelSetup extends javax.swing.JPanel
         }
         catch(ClientException e)
         {
-            parent.alertException(e.getStackTrace());
+            parent.alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
@@ -548,7 +548,7 @@ public class ChannelSetup extends javax.swing.JPanel
         }
         catch (ClientException e)
         {
-            parent.alertException(e.getStackTrace());
+            parent.alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         

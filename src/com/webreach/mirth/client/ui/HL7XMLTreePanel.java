@@ -109,7 +109,7 @@ public class HL7XMLTreePanel extends JPanel {
 						"Please check the syntax of your message\n" +
 				"and try again.");
 			} catch (Exception e) {
-				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace());
+				PlatformUI.MIRTH_FRAME.alertException(e.getStackTrace(), e.getMessage());
 				e.printStackTrace();
 			}
 			

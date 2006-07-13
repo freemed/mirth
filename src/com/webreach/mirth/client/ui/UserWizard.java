@@ -258,7 +258,7 @@ public class UserWizard extends javax.swing.JDialog
             } 
             catch (ClientException e)
             {
-                parent.alertException(e.getStackTrace());
+                parent.alertException(e.getStackTrace(), e.getMessage());
             }
             this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             this.dispose();

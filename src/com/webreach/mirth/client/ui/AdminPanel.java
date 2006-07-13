@@ -371,7 +371,7 @@ public class AdminPanel extends javax.swing.JPanel
         } 
         catch (ClientException e)
         {
-            parent.alertException(e.getStackTrace());
+            parent.alertException(e.getStackTrace(), e.getMessage());
         }
     }
     
