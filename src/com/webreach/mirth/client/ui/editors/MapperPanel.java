@@ -41,7 +41,7 @@ public class MapperPanel extends CardPanel {
 	/** initialize components and set layout;
 	 *  originally created with NetBeans, modified by franciscos
 	 */
-	private void initComponents() {
+	protected void initComponents() {
 		mappingPanel = new JPanel();
 		labelPanel = new JPanel();
 		mappingLabel = new JLabel( "   " + label );
@@ -120,15 +120,9 @@ public class MapperPanel extends CardPanel {
 	
 	public void update(){
 		parent.update();
+		mappingLabel.setText( "   Variable: " );
+		parent.setDroppedTextPrefix("msg");
 		
-		Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
-		if ( channel.getDirection().equals( Channel.Direction.INBOUND ) ){
-			mappingLabel.setText( "   Variable: " );
-			parent.setDroppedTextPrefix("msg");
-		} else if ( channel.getDirection().equals( Channel.Direction.OUTBOUND ) ){
-			mappingLabel.setText( "   HL7 Message Segment: " );
-			parent.setDroppedTextPrefix("hl7");
-		}
 	}
 	
 	public Map<Object, Object> getData() {
@@ -151,14 +145,14 @@ public class MapperPanel extends CardPanel {
 	}
 	
 	
-	private String label;
-	private JPanel mappingTextPanel;		// for no linewrap in textpane
-	private MirthTextPane mappingTextPane;
-	private static HighlightedDocument mappingDoc;
-	private JLabel mappingLabel;
-	private JPanel labelPanel;
-	private JPanel mappingPanel;
-	private MirthTextField mappingTextField;
-	private JScrollPane mappingScrollPane;
-	private MirthEditorPane parent;
+	protected String label;
+	protected JPanel mappingTextPanel;		// for no linewrap in textpane
+	protected MirthTextPane mappingTextPane;
+	protected static HighlightedDocument mappingDoc;
+	protected JLabel mappingLabel;
+	protected JPanel labelPanel;
+	protected JPanel mappingPanel;
+	protected MirthTextField mappingTextField;
+	protected JScrollPane mappingScrollPane;
+	protected MirthEditorPane parent;
 }
