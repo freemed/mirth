@@ -50,7 +50,10 @@ public class ChannelSetup extends javax.swing.JPanel
     private Map<String,Transport> transports;
     private TransformerPane transformerPane;
     private FilterPane filterPane;
-
+    private ArrayList<String> sourceConnectorsInbound;
+    private ArrayList<String> destinationConnectorsInbound;
+    private ArrayList<String> sourceConnectorsOutbound;
+    private ArrayList<String> destinationConnectorsOutbound;
     /** Creates the Channel Editor panel.  Calls initComponents() and 
      *  sets up the model, dropdowns, and mouse listeners.
      */
@@ -71,8 +74,6 @@ public class ChannelSetup extends javax.swing.JPanel
             }
         });
         destinationPane = new JScrollPane();
-        ArrayList<String> sourceConnectors;
-        ArrayList<String> destinationConnectors;
         transformerPane = new TransformerPane();
         filterPane = new FilterPane();
         
@@ -80,22 +81,27 @@ public class ChannelSetup extends javax.swing.JPanel
         try
         {
             transports = this.parent.mirthClient.getTransports();
-            sourceConnectors = new ArrayList<String>();
-            destinationConnectors = new ArrayList<String>();
+            sourceConnectorsInbound = new ArrayList<String>();
+            sourceConnectorsOutbound = new ArrayList<String>();
+            destinationConnectorsInbound = new ArrayList<String>();
+            destinationConnectorsOutbound = new ArrayList<String>();
             Iterator i=transports.entrySet().iterator();
             while(i.hasNext())
             {
                Entry entry = (Entry)i.next();
+               System.out.println(entry.toString());
+               if(transports.get(entry.getKey()).getType() == Transport.Type.LISTENER && transports.get(entry.getKey()).isInbound())
+                   sourceConnectorsInbound.add(transports.get(entry.getKey()).getName());
                
-               if(transports.get(entry.getKey()).getType() == Transport.Type.LISTENER)
-                   sourceConnectors.add(transports.get(entry.getKey()).getName());
+               if(transports.get(entry.getKey()).getType() == Transport.Type.LISTENER && transports.get(entry.getKey()).isOutbound())
+                   sourceConnectorsOutbound.add(transports.get(entry.getKey()).getName());
                
-               else if(transports.get(entry.getKey()).getType() == Transport.Type.SENDER)
-                   destinationConnectors.add(transports.get(entry.getKey()).getName());
+               if(transports.get(entry.getKey()).getType() == Transport.Type.SENDER && transports.get(entry.getKey()).isInbound())
+                   destinationConnectorsInbound.add(transports.get(entry.getKey()).getName());
+               
+               if(transports.get(entry.getKey()).getType() == Transport.Type.SENDER && transports.get(entry.getKey()).isOutbound())
+                   destinationConnectorsOutbound.add(transports.get(entry.getKey()).getName());
             }
-            
-            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectors.toArray()));
-            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectors.toArray()));
         }
         catch(ClientException e)
         {
@@ -406,6 +412,17 @@ public class ChannelSetup extends javax.swing.JPanel
         
         channelView.setSelectedComponent(summary);
         
+        if(currentChannel.getDirection() == Channel.Direction.INBOUND)
+        {
+            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectorsInbound.toArray()));
+            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectorsInbound.toArray()));
+        }
+        else
+        {
+            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectorsOutbound.toArray()));
+            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectorsOutbound.toArray()));
+        }
+        
         loadChannelInfo();
         
         if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.BROADCAST)
@@ -425,6 +442,17 @@ public class ChannelSetup extends javax.swing.JPanel
         index = -1;
         lastIndex = "";
         currentChannel = channel;
+        
+        if(currentChannel.getDirection() == Channel.Direction.INBOUND)
+        {
+            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectorsInbound.toArray()));
+            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectorsInbound.toArray()));
+        }
+        else
+        {
+            sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(sourceConnectorsOutbound.toArray()));
+            destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(destinationConnectorsOutbound.toArray()));
+        }
         
         channelView.setSelectedComponent(summary);
         
