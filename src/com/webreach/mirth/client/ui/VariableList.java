@@ -22,7 +22,7 @@ public class VariableList extends javax.swing.JPanel
     /**
      * Set the variable list from a list of steps.
      */
-    public void setVariableList(List<Step> steps)
+    public void setVariableListInbound(List<Step> steps)
     {
         ArrayList<String> variables = new ArrayList<String>();
         int i = 0;
@@ -39,6 +39,17 @@ public class VariableList extends javax.swing.JPanel
                 i++;
             }
         }
+        
+        mirthVariableList.removeAll();
+        mirthVariableList.setListData(variables.toArray());
+        
+        jScrollPane1.setViewportView(mirthVariableList);
+    }
+    
+    public void setVariableListOutbound()
+    {
+        ArrayList<String> variables = new ArrayList<String>();
+        variables.add("$hl7");
         
         mirthVariableList.removeAll();
         mirthVariableList.setListData(variables.toArray());

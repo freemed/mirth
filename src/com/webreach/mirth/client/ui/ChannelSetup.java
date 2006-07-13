@@ -1057,15 +1057,20 @@ public class ChannelSetup extends javax.swing.JPanel
         // System.out.println(destinationConnector.getProperties().toString());
         destinationConnectorClass.setProperties(destinationConnector.getProperties());
         
-        if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.APPLICATION)
+        if(currentChannel.getDirection() == Channel.Direction.OUTBOUND)
+            destinationVariableList.setVariableListOutbound();
+        else
         {
-            destinationVariableList.setVariableList(destinationConnector.getTransformer().getSteps());
-            destinationVariableList.setDestinationMappingsLabel();
-        }
-        else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
-        {
-            destinationVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
-            destinationVariableList.setSourceMappingsLabel();
+            if(currentChannel.getMode() == Channel.Mode.ROUTER || currentChannel.getMode() == Channel.Mode.APPLICATION)
+            {
+                destinationVariableList.setVariableListInbound(destinationConnector.getTransformer().getSteps());
+                destinationVariableList.setDestinationMappingsLabel();
+            }
+            else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+            {
+                destinationVariableList.setVariableListInbound(currentChannel.getSourceConnector().getTransformer().getSteps());
+                destinationVariableList.setSourceMappingsLabel();
+            }
         }
         
         destination.removeAll();
@@ -1179,21 +1184,26 @@ public class ChannelSetup extends javax.swing.JPanel
     /** Sets the destination variable list from the transformer steps */
     public void setDestinationVariableList()
     {
-        if(currentChannel.getMode() == Channel.Mode.ROUTER)
-        {
-            int destination = getDestinationConnectorIndex((String)destinationTable.getValueAt(getSelectedDestinationIndex(),getColumnNumber(DESTINATION_COLUMN_NAME)));
-            destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(destination).getTransformer().getSteps());
-            destinationVariableList.setDestinationMappingsLabel();
-        }
-        else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
-        {
-            destinationVariableList.setVariableList(currentChannel.getSourceConnector().getTransformer().getSteps());
-            destinationVariableList.setSourceMappingsLabel();
-        }
+        if(currentChannel.getDirection() == Channel.Direction.OUTBOUND)
+            destinationVariableList.setVariableListOutbound();
         else
         {
-            destinationVariableList.setVariableList(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
-            destinationVariableList.setDestinationMappingsLabel();
+            if(currentChannel.getMode() == Channel.Mode.ROUTER)
+            {
+                int destination = getDestinationConnectorIndex((String)destinationTable.getValueAt(getSelectedDestinationIndex(),getColumnNumber(DESTINATION_COLUMN_NAME)));
+                destinationVariableList.setVariableListInbound(currentChannel.getDestinationConnectors().get(destination).getTransformer().getSteps());
+                destinationVariableList.setDestinationMappingsLabel();
+            }
+            else if(currentChannel.getMode() == Channel.Mode.BROADCAST)
+            {
+                destinationVariableList.setVariableListInbound(currentChannel.getSourceConnector().getTransformer().getSteps());
+                destinationVariableList.setSourceMappingsLabel();
+            }
+            else
+            {
+                destinationVariableList.setVariableListInbound(currentChannel.getDestinationConnectors().get(0).getTransformer().getSteps());
+                destinationVariableList.setDestinationMappingsLabel();
+            }
         }
         
         destinationVariableList.repaint();
