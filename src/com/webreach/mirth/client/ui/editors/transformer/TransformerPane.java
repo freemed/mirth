@@ -76,14 +76,7 @@ public class TransformerPane extends MirthEditorPane {
 	public void load(Transformer t) {
 		transformer = t;
 		tabPanel.BuildVarPanel();
-		// add any existing steps to the model
-		List<Step> list = transformer.getSteps();
-		ListIterator<Step> li = list.listIterator();
-		while (li.hasNext()) {
-			Step s = li.next();
-			int row = s.getSequenceNumber();
-			setRowData(s, row);
-		}
+
 
 		tabPanel.setHL7Message(transformer.getTemplate());
 		_channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
@@ -95,6 +88,14 @@ public class TransformerPane extends MirthEditorPane {
 
 		} else {
 			makeTransformerTable(inboundComboBoxValues);
+		}
+		// add any existing steps to the model
+		List<Step> list = transformer.getSteps();
+		ListIterator<Step> li = list.listIterator();
+		while (li.hasNext()) {
+			Step s = li.next();
+			int row = s.getSequenceNumber();
+			setRowData(s, row);
 		}
 		// select the first row if there is one
 		int rowCount = transformerTableModel.getRowCount();

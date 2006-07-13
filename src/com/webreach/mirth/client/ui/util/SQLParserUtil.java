@@ -54,9 +54,12 @@ public class SQLParserUtil {
 		try{
 			//Pattern pattern = Pattern.compile(REGEX);
 			int fromClause = _sqlStatement.toUpperCase().indexOf(" FROM ");
-			String columnText = _sqlStatement.substring(7, fromClause).trim();
-			return columnText.replaceAll(" ", "").replaceAll("`","").split(",");
-			
+			if (fromClause > 0){
+				String columnText = _sqlStatement.substring(7, fromClause).trim();
+				return columnText.replaceAll(" ", "").replaceAll("`","").split(",");
+				
+			}
+			return null;
 		}catch(Exception e){
 			logger.error(e);
 			return null;
