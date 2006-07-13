@@ -580,8 +580,7 @@ public class ChannelSetup extends javax.swing.JPanel
     }
 
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         filterButtonGroup = new javax.swing.ButtonGroup();
         validationButtonGroup = new javax.swing.ButtonGroup();
         channelView = new javax.swing.JTabbedPane();
@@ -589,14 +588,14 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryNameLabel = new javax.swing.JLabel();
         summaryDescriptionLabel = new javax.swing.JLabel();
         summaryNameField = new com.webreach.mirth.client.ui.components.MirthTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        summaryDescriptionText = new com.webreach.mirth.client.ui.components.MirthTextArea();
         summaryDirectionLabel1 = new javax.swing.JLabel();
         summaryDirectionLabel2 = new javax.swing.JLabel();
         summaryPatternLabel1 = new javax.swing.JLabel();
         summaryPatternLabel2 = new javax.swing.JLabel();
         summaryEnabledCheckbox = new com.webreach.mirth.client.ui.components.MirthCheckBox();
         xmlPreEncoded = new com.webreach.mirth.client.ui.components.MirthCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        summaryDescriptionText = new com.webreach.mirth.client.ui.components.MirthTextPane();
         source = new javax.swing.JPanel();
         sourceSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
@@ -610,10 +609,8 @@ public class ChannelSetup extends javax.swing.JPanel
         channelView.setFocusable(false);
         summary.setBackground(new java.awt.Color(255, 255, 255));
         summary.setFocusable(false);
-        summary.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        summary.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 summaryComponentShown(evt);
             }
         });
@@ -621,11 +618,6 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryNameLabel.setText("Channel Name:");
 
         summaryDescriptionLabel.setText("Channel Description:");
-
-        summaryDescriptionText.setColumns(20);
-        summaryDescriptionText.setRows(5);
-        summaryDescriptionText.setText("Channel Description");
-        jScrollPane2.setViewportView(summaryDescriptionText);
 
         summaryDirectionLabel1.setText("Direction:");
 
@@ -644,6 +636,8 @@ public class ChannelSetup extends javax.swing.JPanel
         xmlPreEncoded.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         xmlPreEncoded.setText("Channel will receive XML pre-encoded HL7 messages.");
         xmlPreEncoded.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        jScrollPane1.setViewportView(summaryDescriptionText);
 
         org.jdesktop.layout.GroupLayout summaryLayout = new org.jdesktop.layout.GroupLayout(summary);
         summary.setLayout(summaryLayout);
@@ -671,10 +665,10 @@ public class ChannelSetup extends javax.swing.JPanel
                     .add(summaryLayout.createSequentialGroup()
                         .add(summaryDescriptionLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 285, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(170, Short.MAX_VALUE))
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jScrollPane1)
+                            .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         summaryLayout.setVerticalGroup(
             summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -695,7 +689,7 @@ public class ChannelSetup extends javax.swing.JPanel
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(summaryDescriptionLabel)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(166, Short.MAX_VALUE))
@@ -704,19 +698,15 @@ public class ChannelSetup extends javax.swing.JPanel
 
         source.setBackground(new java.awt.Color(255, 255, 255));
         source.setFocusable(false);
-        source.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        source.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 sourceComponentShown(evt);
             }
         });
 
         sourceSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TCP/IP", "Database", "Email" }));
-        sourceSourceDropdown.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        sourceSourceDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sourceSourceDropdownActionPerformed(evt);
             }
         });
@@ -763,19 +753,15 @@ public class ChannelSetup extends javax.swing.JPanel
 
         destination.setBackground(new java.awt.Color(255, 255, 255));
         destination.setFocusable(false);
-        destination.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        destination.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 destinationComponentShown(evt);
             }
         });
 
         destinationSourceDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TCP/IP", "Database", "Email" }));
-        destinationSourceDropdown.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        destinationSourceDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 destinationSourceDropdownActionPerformed(evt);
             }
         });
@@ -1254,14 +1240,14 @@ public class ChannelSetup extends javax.swing.JPanel
     private javax.swing.JLabel destinationSourceLabel;
     private com.webreach.mirth.client.ui.VariableList destinationVariableList;
     private javax.swing.ButtonGroup filterButtonGroup;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel source;
     private com.webreach.mirth.client.ui.connectors.ConnectorClass sourceConnectorClass;
     private com.webreach.mirth.client.ui.components.MirthComboBox sourceSourceDropdown;
     private javax.swing.JLabel sourceSourceLabel;
     private javax.swing.JPanel summary;
     private javax.swing.JLabel summaryDescriptionLabel;
-    private com.webreach.mirth.client.ui.components.MirthTextArea summaryDescriptionText;
+    private com.webreach.mirth.client.ui.components.MirthTextPane summaryDescriptionText;
     private javax.swing.JLabel summaryDirectionLabel1;
     private javax.swing.JLabel summaryDirectionLabel2;
     private com.webreach.mirth.client.ui.components.MirthCheckBox summaryEnabledCheckbox;

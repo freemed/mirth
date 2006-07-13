@@ -81,13 +81,13 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="summaryDescriptionLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" min="-2" pref="285" max="-2" attributes="0"/>
-                                  <Component id="xmlPreEncoded" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jScrollPane1" max="32767" attributes="1"/>
+                                  <Component id="xmlPreEncoded" alignment="0" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="170" max="32767" attributes="0"/>
+                      <EmptySpace pref="182" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -113,7 +113,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="summaryDescriptionLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="166" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="xmlPreEncoded" min="-2" max="-2" attributes="0"/>
@@ -135,22 +135,6 @@
             </Component>
             <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="summaryNameField">
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="com.webreach.mirth.client.ui.components.MirthTextArea" name="summaryDescriptionText">
-                  <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Channel Description"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
             <Component class="javax.swing.JLabel" name="summaryDirectionLabel1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Direction:"/>
@@ -203,6 +187,17 @@
                 </Property>
               </Properties>
             </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="com.webreach.mirth.client.ui.components.MirthTextPane" name="summaryDescriptionText">
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="source">

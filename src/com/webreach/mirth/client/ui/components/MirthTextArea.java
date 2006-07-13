@@ -1,6 +1,5 @@
 package com.webreach.mirth.client.ui.components;
 
-import java.awt.event.KeyEvent;
 import javax.swing.JPopupMenu;
 
 import com.webreach.mirth.client.ui.Frame;
@@ -10,6 +9,9 @@ import com.webreach.mirth.client.ui.actions.CutAction;
 import com.webreach.mirth.client.ui.actions.DeleteAction;
 import com.webreach.mirth.client.ui.actions.PasteAction;
 import com.webreach.mirth.client.ui.actions.SelectAllAction;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 /** 
  * Mirth's implementation of the JTextArea.  Adds enabling of
@@ -75,9 +77,33 @@ public class MirthTextArea extends javax.swing.JTextArea
         }
     }
     
-    public void processKeyEvent(KeyEvent ev)
+    /**
+     * Overrides setDocument(Document doc) so that a document listener
+     * is added to the current document to listen for changes.
+     */
+    public void setDocument(Document doc)
     {
-        parent.enableSave();
-        super.processKeyEvent(ev);
+        super.setDocument(doc);
+        
+        this.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+            }
+            public void removeUpdate(DocumentEvent e) {
+                parent.enableSave();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                parent.enableSave();
+            }
+        });
+    }
+    
+    /**
+     * Overrides setText(String t) so that the save button is
+     * disabled when Mirth sets the text of a field.
+     */
+    public void setText(String t)
+    {
+        super.setText(t);
+        parent.disableSave();
     }
 }

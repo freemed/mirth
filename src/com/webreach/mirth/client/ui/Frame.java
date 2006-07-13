@@ -244,6 +244,7 @@ public class Frame extends JXFrame
         setCurrentContentPage(statusListPage);
         makePaneContainer();
         setCurrentTaskPaneContainer(taskPaneContainer);
+        adminPanel.loadSettings();
 
         this.addWindowListener(new WindowAdapter()
         {
@@ -1075,6 +1076,17 @@ public class Frame extends JXFrame
             channelEditTasks.getContentPane().getComponent(0).setVisible(true);
         else if (currentContentPage == adminPanel)
             settingsTasks.getContentPane().getComponent(1).setVisible(true);
+    }
+    
+    /** 
+     * Disables the save button for the needed page.
+     */
+    public void disableSave()
+    {
+        if(currentContentPage == channelEditPage)
+            channelEditTasks.getContentPane().getComponent(0).setVisible(false);
+        else if (currentContentPage == adminPanel)
+            settingsTasks.getContentPane().getComponent(1).setVisible(false);
     }
 
 
