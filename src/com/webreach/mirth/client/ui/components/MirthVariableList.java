@@ -2,6 +2,8 @@ package com.webreach.mirth.client.ui.components;
 
 import org.jdesktop.swingx.JXList;
 
+import com.webreach.mirth.client.ui.VariableListHandler;
+
 /**
  * An implementation of JXList that has mouse rollover
  * selection implemented.
@@ -15,6 +17,7 @@ public class MirthVariableList extends JXList {
     {
         super();
         this.setDragEnabled(true);
+        this.setTransferHandler(new VariableListHandler());
         this.setFocusable(false);
         this.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {

@@ -49,7 +49,7 @@ public class VariableList extends javax.swing.JPanel
     public void setVariableListOutbound()
     {
         ArrayList<String> variables = new ArrayList<String>();
-        variables.add("$hl7");
+        variables.add("hl7");
         
         mirthVariableList.removeAll();
         mirthVariableList.setListData(variables.toArray());

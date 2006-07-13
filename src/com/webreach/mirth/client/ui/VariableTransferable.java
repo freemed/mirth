@@ -5,17 +5,21 @@ import java.awt.datatransfer.*;
 /**
  * Package Database Variables for movement.
  */
-public class ReferenceTableTransferable implements Transferable {
+public class VariableTransferable implements Transferable {
 
    private static DataFlavor[] flavors = null;
    private String data = null;
+   private String _prefix = "msg['";
+   private String _suffix = "']";
 
    /**
     * @param data the type of Ant element being transferred, e.g., target, task,
     * type, etc.
     */
-   public ReferenceTableTransferable( String data ) {
+   public VariableTransferable( String data, String prefix, String suffix ) {
       this.data = data;
+      _prefix = prefix;
+      _suffix = suffix;
       init();
    }
 
@@ -47,7 +51,7 @@ public class ReferenceTableTransferable implements Transferable {
       if ( data != null ){
         
 
-         return "msg['" + data + "']";
+         return _prefix + data + _suffix;
       }
       return null;
    }

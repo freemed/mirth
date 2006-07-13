@@ -66,7 +66,8 @@ public class TransformerPane extends MirthEditorPane {
      */
     public TransformerPane() {
         prevSelRow = -1;
-        modified = false;            
+        modified = false;     
+        
         initComponents();
     }
     
@@ -103,7 +104,8 @@ public class TransformerPane extends MirthEditorPane {
         
     	parent.setCurrentContentPage( this );
     	parent.setCurrentTaskPaneContainer( transformerTaskPaneContainer );
-    	
+    	_channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
+		
     	mapperPanel.update();
     	jsPanel.update();
     	updateStepNumbers();
@@ -426,8 +428,7 @@ public class TransformerPane extends MirthEditorPane {
     			String var = data.get( "Variable" ).toString();
     			
     			// check for unique variable names if it is an INBOUND channel
-    			Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
-    			if ( channel.getDirection().equals( Channel.Direction.INBOUND ) ) {
+    			if ( _channel.getDirection().equals( Channel.Direction.INBOUND ) ) {
 	    			if ( var == null || var.equals( "" ) || !isUnique( var, row ) ) {
 	    				invalidVar = true;
 	    				String msg = "";
@@ -592,11 +593,19 @@ public class TransformerPane extends MirthEditorPane {
 	    		
 				HashMap map = (HashMap) step.getData();
 				if (step.getType().equals(TransformerPane.MAPPER_TYPE)) {
-					StringBuilder script = new StringBuilder();
-					script.append("localMap.put(");
-					script.append("\"" + map.get("Variable") + "\", ");
-					script.append("\"" + map.get("Mapping") + "\");");
-					step.setScript(script.toString());
+					if (_channel.getDirection().equals(Channel.Direction.OUTBOUND)){
+						StringBuilder script = new StringBuilder();
+						script.append(map.get("Variable"));
+						script.append(" = " );
+						script.append(map.get("Mapping"));
+						step.setScript(script.toString());
+					}else{
+						StringBuilder script = new StringBuilder();
+						script.append("localMap.put(");
+						script.append("\"" + map.get("Variable") + "\", ");
+						script.append("\"" + map.get("Mapping") + "\");");
+						step.setScript(script.toString());
+					}
 				} else if (step.getType().equals(TransformerPane.JAVASCRIPT_TYPE)) {
 					step.setScript(map.get("Script").toString());
 				}
@@ -680,7 +689,7 @@ public class TransformerPane extends MirthEditorPane {
     private JXTaskPane transformerTasks;
     private JPopupMenu transformerPopupMenu;
     private JXTaskPane viewTasks;
-    
+    private Channel _channel;
     // some helper guys
     private int prevSelRow;			// track the previously selected row
     private boolean updating;		// flow control
