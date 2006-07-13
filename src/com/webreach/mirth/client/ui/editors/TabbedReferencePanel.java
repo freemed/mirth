@@ -110,7 +110,8 @@ public class TabbedReferencePanel extends JPanel {
 //		we need to create an HL7 Lexer...	
 		HL7Doc = new HighlightedDocument();
 		HL7Doc.setHighlightStyle( HighlightedDocument.C_STYLE );
-		pasteBox = new MirthTextPane( HL7Doc );
+		pasteBox = new MirthTextPane();
+                pasteBox.setDocument(HL7Doc);
 		pasteBox.setFont( EditorConstants.DEFAULT_FONT );
 		
 //		this is a tricky way to have "no line-wrap" in a JTextPane;

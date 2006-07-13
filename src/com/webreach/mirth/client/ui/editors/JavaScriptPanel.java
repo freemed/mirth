@@ -64,7 +64,8 @@ public class JavaScriptPanel extends CardPanel {
 	
 		scriptDoc = new HighlightedDocument();
 		scriptDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
-		scriptTextPane = new MirthTextPane( scriptDoc );
+		scriptTextPane = new MirthTextPane();
+                scriptTextPane.setDocument(scriptDoc);
 	
 		scriptTextPane.setBorder( BorderFactory.createEmptyBorder() );
 		scriptPanel.setBorder( BorderFactory.createEmptyBorder() );

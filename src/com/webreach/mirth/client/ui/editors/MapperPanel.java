@@ -50,7 +50,8 @@ public class MapperPanel extends CardPanel {
 		
 		mappingDoc = new HighlightedDocument();
 		mappingDoc.setHighlightStyle( HighlightedDocument.JAVASCRIPT_STYLE );
-		mappingTextPane = new MirthTextPane( mappingDoc );
+		mappingTextPane = new MirthTextPane();
+                mappingTextPane.setDocument(mappingDoc);
 		
 		mappingPanel.setBorder( BorderFactory.createEmptyBorder() );
 		mappingTextField.setBorder( BorderFactory.createEtchedBorder() );
