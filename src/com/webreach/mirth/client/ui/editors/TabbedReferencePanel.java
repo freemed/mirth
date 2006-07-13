@@ -3,12 +3,6 @@ package com.webreach.mirth.client.ui.editors;
 import java.awt.BorderLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.StringTokenizer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -28,7 +22,7 @@ public class TabbedReferencePanel extends JPanel {
 	public TabbedReferencePanel() {
 		initComponents();
 		HL7TabbedPane.addTab("HL7 Tree", treeScrollPane);
-		HL7TabbedPane.addTab("HL7 Message", pasteScrollPane);
+		HL7TabbedPane.addTab("HL7 Message Template", pasteScrollPane);
 	}
 
 	public void update() {
@@ -88,8 +82,8 @@ public class TabbedReferencePanel extends JPanel {
 		String[] tooltip = new String[4];
 		referenceData[0] = "localMap";
 		referenceData[1] = "globalMap";
-		referenceData[2] = "debug(message)";
-		referenceData[3] = "sendEmail(to, cc, from, subject, body)";
+		referenceData[2] = "debug(\"message\");";
+		referenceData[3] = "sendEmail(\"to\", \"cc\", \"from\", \"subject\", \"body\")";
 		tooltip[0] = "The local variable map that will be sent to the connector.";
 		tooltip[1] = "The global variable map that persists values between channels.";
 		tooltip[2] = "Outputs the message to the system debug log.";
@@ -97,7 +91,7 @@ public class TabbedReferencePanel extends JPanel {
 
 		globalVarTable = new VariableReferenceTable(referenceData, tooltip);
 		globalVarPanel = new JPanel();
-		globalVarPanel.setBorder(BorderFactory.createTitledBorder("Variables"));
+		globalVarPanel.setBorder(BorderFactory.createTitledBorder("Variables & Functions"));
 		globalVarPanel.setBackground(EditorConstants.PANEL_BACKGROUND);
 		globalVarPanel.setLayout(new BorderLayout());
 		globalVarPanel.add(globalVarTable, BorderLayout.CENTER);

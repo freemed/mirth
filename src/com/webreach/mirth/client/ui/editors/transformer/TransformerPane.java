@@ -282,7 +282,7 @@ public class TransformerPane extends MirthEditorPane {
 				UIConstants.MAX_WIDTH);
 		transformerTable.getColumnExt(STEP_TYPE_COL).setMaxWidth(
 				UIConstants.MAX_WIDTH);
-		transformerTable.getColumnExt(STEP_TYPE_COL).setMinWidth(100);
+		transformerTable.getColumnExt(STEP_TYPE_COL).setMinWidth(120);
 
 		transformerTable.getColumnExt(STEP_NUMBER_COL).setPreferredWidth(30);
 		transformerTable.getColumnExt(STEP_TYPE_COL).setPreferredWidth(120);
