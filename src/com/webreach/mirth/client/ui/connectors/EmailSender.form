@@ -36,17 +36,15 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="emailPasswordField" alignment="0" max="32767" attributes="1"/>
-                      <Component id="emailUsernameField" alignment="1" max="32767" attributes="1"/>
-                      <Component id="SMTPServerPortField" alignment="1" max="32767" attributes="1"/>
-                      <Component id="emailToField" alignment="1" max="32767" attributes="1"/>
-                      <Component id="emailSubjectField" alignment="1" max="32767" attributes="1"/>
-                      <Component id="SMTPServerHostField" alignment="0" min="-2" pref="131" max="-2" attributes="1"/>
-                  </Group>
-                  <Component id="jScrollPane1" min="-2" pref="293" max="-2" attributes="0"/>
+                  <Component id="emailPasswordField" alignment="0" min="-2" pref="125" max="-2" attributes="1"/>
+                  <Component id="SMTPServerHostField" alignment="0" min="-2" pref="200" max="-2" attributes="1"/>
+                  <Component id="jScrollPane1" pref="335" max="32767" attributes="0"/>
+                  <Component id="SMTPServerPortField" min="-2" pref="50" max="-2" attributes="1"/>
+                  <Component id="emailUsernameField" min="-2" pref="125" max="-2" attributes="1"/>
+                  <Component id="emailToField" min="-2" pref="200" max="-2" attributes="1"/>
+                  <Component id="emailSubjectField" min="-2" pref="200" max="-2" attributes="1"/>
               </Group>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -59,13 +57,13 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="SMTPServerPortField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SMTPServerPortField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="emailUsernameField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailUsernameField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -74,20 +72,20 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="emailToField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailToField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="emailSubjectField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailSubjectField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="205" max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="242" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="48" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

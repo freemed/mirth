@@ -12,7 +12,8 @@ public class MirthFieldConstraints extends PlainDocument
     private boolean numbersOnly = false;
 
     /**
-     * Constructor that sets a character number limit
+     * Constructor that sets a character number limit.
+     * Set limit to 0 for no limit.
      */
     public MirthFieldConstraints(int limit)
     {
@@ -21,7 +22,8 @@ public class MirthFieldConstraints extends PlainDocument
     }
     
     /**
-     * Constructor that sets a character number limit, uppercase conversion, and numbers only
+     * Constructor that sets a character number limit, uppercase conversion, and numbers only.
+     * Set limit to 0 for no limit.
      */
     public MirthFieldConstraints(int limit, boolean toUppercase, boolean numbersOnly)
     {
@@ -39,7 +41,7 @@ public class MirthFieldConstraints extends PlainDocument
     {
         if (str == null)
             return;
-        if ((getLength() + str.length()) <= limit)
+        if ((getLength() + str.length()) <= limit || limit == 0)
         {
             if (toUppercase)
                 str = str.toUpperCase();

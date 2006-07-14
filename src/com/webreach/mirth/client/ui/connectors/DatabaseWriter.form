@@ -24,7 +24,6 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -34,17 +33,13 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="databasePasswordField" alignment="0" max="32767" attributes="1"/>
-                      <Component id="databaseUsernameField" alignment="0" min="-2" pref="117" max="-2" attributes="1"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="databaseURLField" alignment="0" max="32767" attributes="1"/>
-                      <Component id="databaseDriverCombobox" alignment="0" pref="175" max="32767" attributes="1"/>
-                  </Group>
-                  <Component id="jScrollPane2" alignment="0" min="-2" pref="339" max="-2" attributes="0"/>
+                  <Component id="databasePasswordField" alignment="0" min="-2" pref="125" max="-2" attributes="1"/>
+                  <Component id="databaseUsernameField" alignment="0" min="-2" pref="125" max="-2" attributes="1"/>
+                  <Component id="databaseURLField" alignment="0" min="-2" pref="200" max="-2" attributes="1"/>
+                  <Component id="jScrollPane2" alignment="0" pref="424" max="32767" attributes="0"/>
+                  <Component id="databaseDriverCombobox" alignment="0" min="-2" max="-2" attributes="1"/>
               </Group>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,9 +74,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="145" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" pref="174" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="40" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

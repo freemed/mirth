@@ -644,7 +644,7 @@ public class ChannelSetup extends javax.swing.JPanel
 
         summaryNameLabel.setText("Channel Name:");
 
-        summaryDescriptionLabel.setText("Channel Description:");
+        summaryDescriptionLabel.setText("Description:");
 
         summaryDirectionLabel1.setText("Direction:");
 
@@ -673,33 +673,27 @@ public class ChannelSetup extends javax.swing.JPanel
             .add(summaryLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, summaryDescriptionLabel)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, summaryPatternLabel1)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, summaryDirectionLabel1)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, summaryNameLabel))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(summaryLayout.createSequentialGroup()
-                        .add(26, 26, 26)
-                        .add(summaryNameLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(20, 20, 20)
-                        .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(summaryLayout.createSequentialGroup()
-                        .add(51, 51, 51)
-                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(summaryPatternLabel1)
-                            .add(summaryDirectionLabel1))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(summaryPatternLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 159, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(summaryDirectionLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(summaryLayout.createSequentialGroup()
-                        .add(summaryDescriptionLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(jScrollPane1)
-                            .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(182, Short.MAX_VALUE))
+                            .add(summaryDirectionLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(50, 50, 50)
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))
+                .addContainerGap())
         );
         summaryLayout.setVerticalGroup(
             summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(summaryLayout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, summaryLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(summaryNameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -708,7 +702,8 @@ public class ChannelSetup extends javax.swing.JPanel
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(summaryDirectionLabel1)
-                    .add(summaryDirectionLabel2))
+                    .add(summaryDirectionLabel2)
+                    .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(summaryPatternLabel1)
@@ -716,10 +711,8 @@ public class ChannelSetup extends javax.swing.JPanel
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(summaryDescriptionLabel)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(166, Short.MAX_VALUE))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+                .addContainerGap())
         );
         channelView.addTab("Summary", summary);
 
@@ -744,7 +737,7 @@ public class ChannelSetup extends javax.swing.JPanel
         sourceConnectorClass.setLayout(sourceConnectorClassLayout);
         sourceConnectorClassLayout.setHorizontalGroup(
             sourceConnectorClassLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 548, Short.MAX_VALUE)
+            .add(0, 628, Short.MAX_VALUE)
         );
         sourceConnectorClassLayout.setVerticalGroup(
             sourceConnectorClassLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -799,7 +792,7 @@ public class ChannelSetup extends javax.swing.JPanel
         destinationConnectorClass.setLayout(destinationConnectorClassLayout);
         destinationConnectorClassLayout.setHorizontalGroup(
             destinationConnectorClassLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 356, Short.MAX_VALUE)
+            .add(0, 436, Short.MAX_VALUE)
         );
         destinationConnectorClassLayout.setVerticalGroup(
             destinationConnectorClassLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -842,7 +835,7 @@ public class ChannelSetup extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(channelView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+            .add(channelView, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

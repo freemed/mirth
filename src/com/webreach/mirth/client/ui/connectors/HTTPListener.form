@@ -48,14 +48,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="keepConnectionOpenNoRadio" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="receiveTimeoutField" min="-2" pref="131" max="-2" attributes="0"/>
-                  <Component id="listenerPortField" min="-2" pref="131" max="-2" attributes="0"/>
+                  <Component id="receiveTimeoutField" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="listenerPortField" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="sendACKCombobox" min="-2" max="-2" attributes="0"/>
-                  <Component id="startOfMessageCharacterField" min="-2" pref="131" max="-2" attributes="0"/>
-                  <Component id="endOfMessageCharacterField" min="-2" pref="131" max="-2" attributes="0"/>
-                  <Component id="fieldSeparatorField" min="-2" pref="131" max="-2" attributes="0"/>
-                  <Component id="recordSeparatorField" min="-2" pref="131" max="-2" attributes="0"/>
-                  <Component id="bufferSizeField" min="-2" pref="131" max="-2" attributes="0"/>
+                  <Component id="startOfMessageCharacterField" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="endOfMessageCharacterField" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="fieldSeparatorField" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="recordSeparatorField" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="bufferSizeField" min="-2" pref="75" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="listenerIPAddressField" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -93,7 +93,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="listenerPortField" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                  <Component id="listenerPortField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>

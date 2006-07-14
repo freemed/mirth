@@ -29,40 +29,42 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="fileAgeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="fileAgeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="moveToDirectory" alignment="0" max="32767" attributes="1"/>
-                      <Component id="directoryField" alignment="0" pref="131" max="32767" attributes="1"/>
-                      <Component id="moveToPattern" alignment="0" max="32767" attributes="1"/>
-                      <Component id="pollingFreq" alignment="0" min="-2" pref="33" max="-2" attributes="1"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Component id="moveToDirectory" alignment="0" min="-2" pref="200" max="-2" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="deleteAfterReadYes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="deleteAfterReadNo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="fileAge" alignment="0" max="32767" attributes="1"/>
-                          <Component id="checkFileAgeYes" alignment="0" max="32767" attributes="1"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="fileAge" alignment="0" min="-2" pref="75" max="-2" attributes="1"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="checkFileAgeYes" max="32767" attributes="1"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="checkFileAgeNo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="checkFileAgeNo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="directoryField" alignment="0" min="-2" pref="200" max="-2" attributes="1"/>
+                      <Component id="moveToPattern" alignment="0" max="32767" attributes="1"/>
+                      <Component id="pollingFreq" alignment="0" min="-2" pref="75" max="-2" attributes="1"/>
                   </Group>
               </Group>
-              <EmptySpace pref="81" max="32767" attributes="0"/>
+              <EmptySpace pref="146" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,6 +86,8 @@
                   <Component id="moveToPattern" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="moveToDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -91,7 +95,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                       <Component id="deleteAfterReadYes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="deleteAfterReadNo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -107,7 +111,7 @@
                   <Component id="fileAgeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="fileAge" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="57" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -120,7 +124,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Polling Frequency:"/>
+        <Property name="text" type="java.lang.String" value="Polling Frequency (ms):"/>
       </Properties>
     </Component>
     <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="directoryField">
@@ -143,7 +147,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Delete File After Read: "/>
+        <Property name="text" type="java.lang.String" value="Delete File After Read:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -153,7 +157,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="fileAgeLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="File Age:"/>
+        <Property name="text" type="java.lang.String" value="File Age (ms):"/>
       </Properties>
     </Component>
     <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="deleteAfterReadYes">
@@ -242,5 +246,27 @@
     </Component>
     <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fileAge">
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="com.webreach.mirth.client.ui.components.MirthVariableList" name="mirthVariableList1">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+                <StringItem index="4" value="Item 5"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
