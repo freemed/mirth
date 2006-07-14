@@ -327,7 +327,6 @@ public class Frame extends JXFrame
         }
         catch (InterruptedException e)
         {
-            alertException(e.getStackTrace(), e.getMessage());
         }
     }
 
@@ -894,10 +893,28 @@ public class Frame extends JXFrame
      */
     public void alertException(StackTraceElement[] strace, String message)
     {
+        if(message.indexOf("Unauthorized") != -1)
+        {
+            alertWarning("Sorry your connection to Mirth has either timed out or there was an error in the connection.  Please login again.");
+            endUpdater();
+            this.dispose();
+            Mirth.main(new String[0]);
+            return;
+        }
+        
+        if(message.indexOf("Connection refused: connect") != -1)
+        {
+            alertWarning("The Mirth server " + PlatformUI.SERVER_NAME + " is no longer running.  Please start it and login again.");
+            endUpdater();
+            this.dispose();
+            Mirth.main(new String[0]);
+            return;
+        }
+            
         String stackTrace = message + "\n";
         for (int i = 0; i < strace.length; i++)
             stackTrace += strace[i].toString() + "\n";
-
+            
         JScrollPane errorScrollPane = new JScrollPane();
         JTextArea errorTextArea = new JTextArea();
         errorTextArea.setBackground(UIManager.getColor("Control"));
@@ -1145,6 +1162,7 @@ public class Frame extends JXFrame
         setBold(viewPane, 2);
         setPanelName("Administration");
         setCurrentContentPage(adminPanel);
+        doRefreshUser();
         adminPanel.showTasks();
     }
 
