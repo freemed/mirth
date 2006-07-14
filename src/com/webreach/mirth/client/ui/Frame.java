@@ -1414,15 +1414,16 @@ public class Frame extends JXFrame
     {
         if(!alertOption("Are you sure you want to delete this user?"))
             return;
-
+        doRefreshUser();
+        
+        if(users.size() == 1)
+        {
+            alertWarning("You must have at least one user account.");
+            return;
+        }
+        
         int userToDelete = adminPanel.userPane.getUserIndex();
         String userName = ((CellData)adminPanel.userPane.usersTable.getValueAt(adminPanel.userPane.getSelectedRow(), adminPanel.userPane.getColumnNumber("Username"))).getText();
-
-        if(userName.equalsIgnoreCase("admin"))
-        {
-           alertWarning("You cannot delete the admin.");
-           return;
-        }
 
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try

@@ -89,7 +89,6 @@ public class ChannelSetup extends javax.swing.JPanel
             while(i.hasNext())
             {
                Entry entry = (Entry)i.next();
-               System.out.println(entry.toString());
                if(transports.get(entry.getKey()).getType() == Transport.Type.LISTENER && transports.get(entry.getKey()).isInbound())
                    sourceConnectorsInbound.add(transports.get(entry.getKey()).getName());
                
