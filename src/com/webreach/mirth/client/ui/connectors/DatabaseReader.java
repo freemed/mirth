@@ -3,10 +3,15 @@ package com.webreach.mirth.client.ui.connectors;
 import com.Ostermiller.Syntax.HighlightedDocument;
 import com.webreach.mirth.client.ui.Frame;
 import com.webreach.mirth.client.ui.PlatformUI;
+import com.webreach.mirth.client.ui.ReferenceTableHandler;
 import com.webreach.mirth.client.ui.UIConstants;
 import com.webreach.mirth.client.ui.components.MirthFieldConstraints;
+import com.webreach.mirth.client.ui.util.SQLParserUtil;
+import java.awt.Component;
 
 import java.util.Properties;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  * A form that extends from ConnectorClass.  All methods implemented
@@ -52,6 +57,18 @@ public class DatabaseReader extends ConnectorClass
         mappingDoc2.setHighlightStyle(HighlightedDocument.SQL_STYLE);
         databaseSQLTextPane.setDocument(mappingDoc);
         databaseUpdateSQLTextPane.setDocument(mappingDoc2);
+        
+        databaseSQLTextPane.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSQL();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateSQL();
+            }
+        });
+        
         pollingFreq.setDocument(new MirthFieldConstraints(0, false, true));
     }
 
@@ -151,6 +168,20 @@ public class DatabaseReader extends ConnectorClass
         properties.put(DATABASE_ACK, "UPDATE");
         return properties;
     }
+    
+    private void updateSQL()
+    {
+        Object sqlStatement = databaseSQLTextPane.getText();
+        if ((sqlStatement != null) && (!sqlStatement.equals("")))
+        {
+            SQLParserUtil spu = new SQLParserUtil((String) sqlStatement);
+            dbVarList.setListData(spu.Parse());
+        }
+        else
+        {
+            dbVarList.setListData(new String[] {});
+        }
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -180,7 +211,7 @@ public class DatabaseReader extends ConnectorClass
         readOnUpdateNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        mirthVariableList1 = new com.webreach.mirth.client.ui.components.MirthVariableList();
+        dbVarList = new com.webreach.mirth.client.ui.components.MirthVariableList();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Database Reader", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -231,7 +262,7 @@ public class DatabaseReader extends ConnectorClass
 
         jLabel8.setText("Run On-Update SQL:");
 
-        jScrollPane1.setViewportView(mirthVariableList1);
+        jScrollPane1.setViewportView(dbVarList);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -330,6 +361,7 @@ public class DatabaseReader extends ConnectorClass
     private com.webreach.mirth.client.ui.components.MirthTextField databaseURLField;
     private com.webreach.mirth.client.ui.components.MirthTextPane databaseUpdateSQLTextPane;
     private com.webreach.mirth.client.ui.components.MirthTextField databaseUsernameField;
+    private com.webreach.mirth.client.ui.components.MirthVariableList dbVarList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -340,7 +372,6 @@ public class DatabaseReader extends ConnectorClass
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private com.webreach.mirth.client.ui.components.MirthVariableList mirthVariableList1;
     private javax.swing.JLabel onUpdateLabel;
     private com.webreach.mirth.client.ui.components.MirthTextField pollingFreq;
     private com.webreach.mirth.client.ui.components.MirthRadioButton readOnUpdateNo;
