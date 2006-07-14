@@ -79,8 +79,8 @@ public class TransformerPane extends MirthEditorPane {
 
 
 		tabPanel.setHL7Message(transformer.getTemplate());
-		_channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
-		if (_channel.getDirection().equals(Channel.Direction.OUTBOUND)) {
+		channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
+		if (channel.getDirection().equals(Channel.Direction.OUTBOUND)) {
 			hl7builderPanel = new HL7MessageBuilder(this);
 			stepPanel.addCard(hl7builderPanel, HL7MESSAGE_TYPE);
 			// we need to clear all the old data before we load the new
@@ -466,7 +466,7 @@ public class TransformerPane extends MirthEditorPane {
 				String var = data.get("Variable").toString();
 
 				// check for unique variable names if it is an INBOUND channel
-				if (_channel.getDirection().equals(Channel.Direction.INBOUND)) {
+				if (channel.getDirection().equals(Channel.Direction.INBOUND)) {
 					if (var == null || var.equals("") || !isUnique(var, row)) {
 						invalidVar = true;
 						String msg = "";
@@ -555,20 +555,23 @@ public class TransformerPane extends MirthEditorPane {
 
 		saveData(transformerTable.getSelectedRow());
 
-		Map<Object, Object> data = new HashMap<Object, Object>();
-		Channel channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
-
-		if (_channel.getDirection().equals(Channel.Direction.INBOUND)) {
-			data.put("Variable", getUniqueName());
-			step.setType(MAPPER_TYPE); // mapper type by default
-		} else if (_channel.getDirection().equals(Channel.Direction.OUTBOUND)) {
-			data.put("Variable", "");
-			step.setType(HL7MESSAGE_TYPE); // hl7 message type by default
-		}
 		step.setSequenceNumber(rowCount);
-		step.setData(data);
+		step.setScript("");
 		step.setName("New Step");
-
+		
+		Map<Object, Object> data = new HashMap<Object, Object>();
+		data.put( "Mapping", "" );
+		if (channel.getDirection().equals(Channel.Direction.INBOUND)) {
+			data.put("Variable", getUniqueName());
+			step.setType(MAPPER_TYPE); // mapper type by default, inbound
+			mapperPanel.setData(data);
+		} else if (channel.getDirection().equals(Channel.Direction.OUTBOUND)) {
+			data.put("Variable", "");
+			step.setType(HL7MESSAGE_TYPE); // hl7 message type by default, outbound
+			hl7builderPanel.setData(data);
+		}
+		step.setData(data);
+		
 		setRowData(step, rowCount);
 		prevSelRow = rowCount;
 		updateStepNumbers();
@@ -774,7 +777,7 @@ public class TransformerPane extends MirthEditorPane {
 
 	private JXTaskPane viewTasks;
 
-	private Channel _channel;
+	private Channel channel;
 
 	// some helper guys
 	private int prevSelRow; // track the previously selected row

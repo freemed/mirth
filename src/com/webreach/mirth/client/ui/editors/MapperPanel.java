@@ -22,10 +22,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.Ostermiller.Syntax.HighlightedDocument;
-import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.components.MirthTextField;
 import com.webreach.mirth.client.ui.components.MirthTextPane;
-import com.webreach.mirth.model.Channel;
 
 
 public class MapperPanel extends CardPanel {
