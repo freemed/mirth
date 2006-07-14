@@ -32,7 +32,7 @@ public class FileWriter extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
-        properties.put(FILE_DIRECTORY, directoryField.getText());
+        properties.put(FILE_DIRECTORY, directoryField.getText().replace('\\', '/'));
         properties.put(FILE_NAME, fileNameField.getText());
 
         if (appendToFileYes.isSelected())

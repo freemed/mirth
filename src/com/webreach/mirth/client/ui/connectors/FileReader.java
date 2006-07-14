@@ -38,7 +38,7 @@ public class FileReader extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
-        properties.put(FILE_DIRECTORY, directoryField.getText());
+        properties.put(FILE_DIRECTORY, directoryField.getText().replace('\\', '/'));
         properties.put(FILE_POLLING_FREQUENCY, pollingFreq.getText());
         properties.put(FILE_MOVE_TO_PATTERN, moveToPattern.getText());
         properties.put(FILE_MOVE_TO_DIRECTORY, moveToDirectory.getText());
