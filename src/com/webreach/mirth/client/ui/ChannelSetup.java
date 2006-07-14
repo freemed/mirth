@@ -939,7 +939,6 @@ public class ChannelSetup extends javax.swing.JPanel
         
         // Reset the generated layout.
         org.jdesktop.layout.GroupLayout sourceLayout = (org.jdesktop.layout.GroupLayout)source.getLayout();
-        source.setLayout(sourceLayout);
         sourceLayout.setHorizontalGroup(
             sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(sourceLayout.createSequentialGroup()
@@ -1085,7 +1084,6 @@ public class ChannelSetup extends javax.swing.JPanel
         
         // Reset the generated layout.
         org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
-        destination.setLayout(destinationLayout);
         destinationLayout.setHorizontalGroup(
             destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, destinationLayout.createSequentialGroup()
@@ -1156,7 +1154,6 @@ public class ChannelSetup extends javax.swing.JPanel
 
         // Reset the generated layout.
         org.jdesktop.layout.GroupLayout destinationLayout = (org.jdesktop.layout.GroupLayout)destination.getLayout();
-        destination.setLayout(destinationLayout);
         destinationLayout.setHorizontalGroup(
             destinationLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(destinationLayout.createSequentialGroup()
