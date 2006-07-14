@@ -83,7 +83,7 @@ public class TabbedReferencePanel extends JPanel {
 		referenceData[0] = "localMap";
 		referenceData[1] = "globalMap";
 		referenceData[2] = "debug(\"message\");";
-		referenceData[3] = "sendEmail(\"to\", \"cc\", \"from\", \"subject\", \"body\")";
+		referenceData[3] = "sendEmail(\"to\", \"cc\", \"from\", \"subject\", \"body\");";
 		tooltip[0] = "The local variable map that will be sent to the connector.";
 		tooltip[1] = "The global variable map that persists values between channels.";
 		tooltip[2] = "Outputs the message to the system debug log.";
