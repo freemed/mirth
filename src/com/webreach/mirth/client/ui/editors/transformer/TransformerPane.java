@@ -571,6 +571,7 @@ public class TransformerPane extends MirthEditorPane {
 			hl7builderPanel.setData(data);
 		}
 		step.setData(data);
+		jsPanel.setData( null );  // for completeness
 		
 		setRowData(step, rowCount);
 		prevSelRow = rowCount;
