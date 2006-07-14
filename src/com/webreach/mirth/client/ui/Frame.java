@@ -208,7 +208,7 @@ public class Frame extends JXFrame
         */
         try
         {
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
             jbInit();
         }
         catch (Exception e)
@@ -250,11 +250,15 @@ public class Frame extends JXFrame
         {
             public void windowClosing(WindowEvent e)
             {
+                if (!confirmLeave())
+                    return;
+                
                 userPreferences = Preferences.systemNodeForPackage(Mirth.class);
                 userPreferences.putInt("maximizedState", getExtendedState());
                 userPreferences.putInt("width", getWidth());
                 userPreferences.putInt("height", getHeight());
                 doLogout();
+                System.exit(0);
             }
         });
     }
@@ -825,6 +829,11 @@ public class Frame extends JXFrame
         otherPane.add(initActionCallback("doLogout", "Logout and return to the login screen.", ActionFactory.createBoundAction("doLogout","Logout","G"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
         setNonFocusable(otherPane);
         taskPaneContainer.add(otherPane);
+    }
+    
+    public JXTaskPane getOtherPane()
+    {
+        return otherPane;
     }
 
     /**
