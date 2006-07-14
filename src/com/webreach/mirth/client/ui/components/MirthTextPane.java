@@ -109,11 +109,14 @@ public class MirthTextPane extends javax.swing.JTextPane
      */
     public void setText(String t)
     {
-    	super.setText(t.replaceAll("\\r ", "\\\r\\\n"));
+    	if (t != null)
+    		super.setText(t.replaceAll("\\r ", "\\\r\\\n"));
         parent.disableSave();
     }
     public String getText(){
-    	return super.getText().replaceAll("\\n",System.getProperty("line.separator"));
-    	  
+    	String text = super.getText();
+    	if (text != null)
+    		text = super.getText().replaceAll("\\n",System.getProperty("line.separator"));
+    	 return text;
     }
 }
