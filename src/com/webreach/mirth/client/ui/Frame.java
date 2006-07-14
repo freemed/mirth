@@ -902,7 +902,7 @@ public class Frame extends JXFrame
             return;
         }
         
-        if(message.indexOf("Connection refused: connect") != -1)
+        if(message.indexOf("Connection refused") != -1)
         {
             alertWarning("The Mirth server " + PlatformUI.SERVER_NAME + " is no longer running.  Please start it and login again.");
             endUpdater();
