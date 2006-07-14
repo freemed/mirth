@@ -59,10 +59,10 @@ public class SQLParserUtil {
 				return columnText.replaceAll(" ", "").replaceAll("`","").split(",");
 				
 			}
-			return null;
+			return new String[0];
 		}catch(Exception e){
 			logger.error(e);
-			return null;
+			return new String[0];
 		}
 	}
     public static void main(String[] args){
