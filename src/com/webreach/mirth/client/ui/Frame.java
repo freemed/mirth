@@ -1634,10 +1634,14 @@ public class Frame extends JXFrame
             exportFile = exportFileChooser.getSelectedFile();
             
             int length = exportFile.getName().length();
-
+            
             if (length < 4 || !exportFile.getName().substring(length-4, length).equals(".xml"))
                 exportFile = new File(exportFile.getAbsolutePath() + ".xml");
-
+            
+            if(exportFile.exists())
+                if(!alertOption("This file already exists.  Would you like to overwrite it?"))
+                    return;
+            
             try
             {
                 FileUtil.write(exportFile, channelXML);
