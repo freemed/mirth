@@ -4,7 +4,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPopupMenu;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.ElementIterator;
 
 import javax.swing.text.StyledDocument;
 
@@ -106,7 +109,11 @@ public class MirthTextPane extends javax.swing.JTextPane
      */
     public void setText(String t)
     {
-        super.setText(t);
+    	super.setText(t.replaceAll("\\r ", "\\\r\\\n"));
         parent.disableSave();
+    }
+    public String getText(){
+    	return super.getText().replaceAll("\\n",System.getProperty("line.separator"));
+    	  
     }
 }

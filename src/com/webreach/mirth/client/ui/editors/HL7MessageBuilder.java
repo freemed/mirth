@@ -12,7 +12,7 @@ public class HL7MessageBuilder extends MapperPanel {
 	public void update(){
 		parent.update();
 		mappingLabel.setText( "   HL7 Message Segment: " );
-		parent.setDroppedTextPrefix("hl7");
+		parent.setDroppedTextPrefix("hl7_xml");
 	
 	}
 }

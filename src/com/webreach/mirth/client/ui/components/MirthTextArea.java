@@ -11,7 +11,10 @@ import com.webreach.mirth.client.ui.actions.PasteAction;
 import com.webreach.mirth.client.ui.actions.SelectAllAction;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.ElementIterator;
 
 /** 
  * Mirth's implementation of the JTextArea.  Adds enabling of
@@ -103,7 +106,11 @@ public class MirthTextArea extends javax.swing.JTextArea
      */
     public void setText(String t)
     {
-        super.setText(t);
+    	//super.write(new Tex)
+        super.setText(t.replaceAll("\\r ", "\\\r\\\n"));
         parent.disableSave();
     }
+    public String getText(){
+    	return super.getText().replaceAll("\\n",System.getProperty("line.separator"));
+   }
 }
