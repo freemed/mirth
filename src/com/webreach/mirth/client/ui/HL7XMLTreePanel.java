@@ -61,6 +61,7 @@ import ca.uhn.hl7v2.parser.EncodingCharacters;
 import ca.uhn.hl7v2.parser.EncodingNotSupportedException;
 import ca.uhn.hl7v2.parser.PipeParser;
 import ca.uhn.hl7v2.parser.XMLParser;
+import ca.uhn.hl7v2.util.Terser;
 import ca.uhn.hl7v2.validation.impl.NoValidation;
 
 import com.webreach.mirth.model.converters.ER7Serializer;
@@ -115,7 +116,15 @@ public class HL7XMLTreePanel extends JPanel {
 			
 			if (xmlDoc != null) {
 				Element el = xmlDoc.getDocumentElement();
-				DefaultMutableTreeNode top = new DefaultMutableTreeNode(el.getNodeName());
+				Terser terser = new Terser(message);
+				String messageName = el.getNodeName();
+				try {
+					messageName = terser.get("/MSH-9-1") + "-" + terser.get("/MSH-9-2") + " (" + message.getVersion() + ")";
+				} catch (HL7Exception e) {
+					// TODO Auto-generated catch block
+					logger.error(e);
+				}
+				DefaultMutableTreeNode top = new DefaultMutableTreeNode(messageName);
 				
 				NodeList children = el.getChildNodes();
 				for (int i = 0; i < children.getLength(); i++) {

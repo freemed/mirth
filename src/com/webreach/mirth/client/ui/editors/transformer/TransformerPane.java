@@ -664,7 +664,7 @@ public class TransformerPane extends MirthEditorPane {
 					StringBuilder script = new StringBuilder();
 					script.append("localMap.put(");
 					script.append("\"" + map.get("Variable") + "\", ");
-					script.append("\"" + map.get("Mapping") + "\");");
+					script.append( map.get("Mapping") + ");");
 					step.setScript(script.toString());
 
 				} else if (step.getType().equals(

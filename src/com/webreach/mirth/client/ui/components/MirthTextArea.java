@@ -106,16 +106,12 @@ public class MirthTextArea extends javax.swing.JTextArea {
 	 * Mirth sets the text of a field.
 	 */
 	public void setText(String t) {
-		if (t != null)
-			super.setText(t.replaceAll("\\r ", "\\\r\\\n"));
+		super.setText(t);
 		parent.disableSave();
 	}
 
 	public String getText() {
 		String text = super.getText();
-		if (text != null)
-			text = super.getText().replaceAll("\\n",
-					System.getProperty("line.separator"));
 		return text;
 	}
 }
