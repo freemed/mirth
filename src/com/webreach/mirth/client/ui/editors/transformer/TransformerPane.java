@@ -664,7 +664,7 @@ public class TransformerPane extends MirthEditorPane {
 
 					StringBuilder script = new StringBuilder();
 					script.append("localMap.put(");
-					script.append("\"" + map.get("Variable") + "\", ");
+					script.append("'" + map.get("Variable") + "', ");
 					script.append( map.get("Mapping") + ");");
 					step.setScript(script.toString());
 
@@ -674,9 +674,10 @@ public class TransformerPane extends MirthEditorPane {
 				} else if (step.getType().equals(
 						TransformerPane.HL7MESSAGE_TYPE)) {
 					StringBuilder script = new StringBuilder();
-					script.append(map.get("Variable"));
+				
+					script.append(map.get("Variable") + ".text()[0]");
 					script.append(" = ");
-					script.append(map.get("Mapping"));
+					script.append(map.get("Mapping") + ".text()[0];");
 					step.setScript(script.toString());
 				}
 
