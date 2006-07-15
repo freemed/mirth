@@ -47,10 +47,12 @@ public class UIConstants
 
     // help link
     public static final String HELP_LOCATION = "http://www.mirthproject.org/help/";
-    public static final String CHANNEL_HELP_LOCATION = "channel.html";
-    public static final String CHANNELS_HELP_LOCATION = "channels.html";
-    public static final String STATUS_HELP_LOCATION = "status.html";
-    public static final String ADMIN_HELP_LOCATION = "admin.html";
+    public static final String CHANNEL_HELP_LOCATION = "channel_editor.html";
+    public static final String TRANFORMER_HELP_LOCATION = "transformer_editor.html";
+    public static final String FILTER_HELP_LOCATION = "filter_editor.html";
+    public static final String CHANNELS_HELP_LOCATION = "channel_list.html";
+    public static final String STATUS_HELP_LOCATION = "status_list.html";
+    public static final String ADMIN_HELP_LOCATION = "administration.html";
 
     // for JTrees
     public static final ImageIcon LEAF_ICON = new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/bullet_green.png"));

@@ -1736,6 +1736,10 @@ public class Frame extends JXFrame
             BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.STATUS_HELP_LOCATION);
         else if(currentContentPage == adminPanel)
             BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.ADMIN_HELP_LOCATION);
+        else if(currentContentPage == channelEditPage.transformerPane)
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.TRANFORMER_HELP_LOCATION);
+        else if(currentContentPage == channelEditPage.filterPane)
+            BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION + UIConstants.FILTER_HELP_LOCATION);
         else
             BareBonesBrowserLaunch.openURL(UIConstants.HELP_LOCATION);
     }

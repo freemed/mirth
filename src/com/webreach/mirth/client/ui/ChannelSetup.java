@@ -40,6 +40,8 @@ public class ChannelSetup extends javax.swing.JPanel
     
     public Channel currentChannel;
     public String lastIndex = "";
+    public TransformerPane transformerPane;
+    public FilterPane filterPane;
     
     private int index;
     private Frame parent;
@@ -48,8 +50,6 @@ public class ChannelSetup extends javax.swing.JPanel
     private JXTable destinationTable;
     private JScrollPane destinationPane;
     private Map<String,Transport> transports;
-    private TransformerPane transformerPane;
-    private FilterPane filterPane;
     private ArrayList<String> sourceConnectorsInbound;
     private ArrayList<String> destinationConnectorsInbound;
     private ArrayList<String> sourceConnectorsOutbound;
