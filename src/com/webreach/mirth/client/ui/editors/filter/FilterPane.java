@@ -97,6 +97,7 @@ public class FilterPane extends MirthEditorPane {
 			jsPanel.setData( null );
 		}			
 		
+		filterTaskPaneContainer.add(parent.getOtherPane());
 		parent.setCurrentContentPage( this );
 		parent.setCurrentTaskPaneContainer( filterTaskPaneContainer );
 		
@@ -195,6 +196,17 @@ public class FilterPane extends MirthEditorPane {
 		// add the tasks to the taskpane, and the taskpane to the mirth client
 		parent.setNonFocusable( filterTasks );
 		filterTaskPaneContainer.add( filterTasks );
+		
+		/*
+		otherTasks = new JXTaskPane();
+        otherTasks.setTitle("Other");
+        otherTasks.setFocusable(false);
+        otherTasks.add(initActionCallback("doHelp", ActionFactory.createBoundAction("doHelp","Help on this topic","H"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/help.png"))));
+        otherTasks.add(initActionCallback("goToAbout",  ActionFactory.createBoundAction("goToAbout","About Mirth","U"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/about.png"))));
+        otherTasks.add(initActionCallback("goToMirth", ActionFactory.createBoundAction("goToMirth","Visit MirthProject.org","V"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/home.png"))));
+        otherTasks.add(initActionCallback("doLogout", ActionFactory.createBoundAction("doLogout","Logout","G"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/disconnect.png"))));
+        filterTaskPaneContainer.add(otherTasks);
+        */
 		
 		makeFilterTable();
 		
@@ -582,6 +594,7 @@ public class FilterPane extends MirthEditorPane {
 	JXTaskPaneContainer filterTaskPaneContainer;
 	JXTaskPane viewTasks;
 	JXTaskPane filterTasks;
+	JXTaskPane otherTasks;
 	JPopupMenu filterPopupMenu;
 	
 	

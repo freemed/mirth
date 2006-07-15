@@ -9,6 +9,12 @@ import javax.swing.ImageIcon;
  */
 public class UIConstants
 {
+	// for EOL stuff
+	public static final String EOL_JAVA = "\n";
+	public static final String EOL_UNIX = "\n";
+	public static final String EOL_WIN32 = "\r\n";
+	public static final String EOL_MAC = "\r";
+	
     // for Frame
     public static final int TASK_PANE_WIDTH = 170;
     public static final String TITLE_TEXT = "Mirth Administrator 1.0.0 Beta";

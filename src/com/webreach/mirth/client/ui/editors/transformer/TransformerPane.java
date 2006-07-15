@@ -76,8 +76,7 @@ public class TransformerPane extends MirthEditorPane {
 	public void load(Transformer t) {
 		transformer = t;
 		tabPanel.BuildVarPanel();
-
-
+		
 		tabPanel.setHL7Message(transformer.getTemplate());
 		channel = PlatformUI.MIRTH_FRAME.channelEditPage.currentChannel;
 		if (channel.getDirection().equals(Channel.Direction.OUTBOUND)) {
@@ -85,10 +84,10 @@ public class TransformerPane extends MirthEditorPane {
 			stepPanel.addCard(hl7builderPanel, HL7MESSAGE_TYPE);
 			// we need to clear all the old data before we load the new
 			makeTransformerTable(outboundComboBoxValues);
-
 		} else {
 			makeTransformerTable(inboundComboBoxValues);
 		}
+		
 		// add any existing steps to the model
 		List<Step> list = transformer.getSteps();
 		ListIterator<Step> li = list.listIterator();
@@ -110,6 +109,8 @@ public class TransformerPane extends MirthEditorPane {
 				hl7builderPanel.setData(null);
 		}
 
+
+		transformerTaskPaneContainer.add(parent.getOtherPane());
 		parent.setCurrentContentPage(this);
 		parent.setCurrentTaskPaneContainer(transformerTaskPaneContainer);
 
@@ -203,8 +204,7 @@ public class TransformerPane extends MirthEditorPane {
 		transformerPopupMenu.add(moveStepUp);
 
 		// move step down task
-		transformerTasks
-				.add(initActionCallback("moveStepDown", ActionFactory
+		transformerTasks.add(initActionCallback("moveStepDown", ActionFactory
 						.createBoundAction("moveStepDown", "Move Step Down",
 								"D"), new ImageIcon(Frame.class
 						.getResource("images/arrow_down.png"))));
@@ -482,9 +482,10 @@ public class TransformerPane extends MirthEditorPane {
 						msg += "\nPlease enter a new variable name.\n";
 
 						parent.alertWarning(msg);
-					}
-				} else
-					invalidVar = false;
+					} else invalidVar = false;
+				}
+				
+				data = mapperPanel.getData();
 			} else if (type == JAVASCRIPT_TYPE) {
 				data = jsPanel.getData();
 			} else if ((hl7builderPanel != null) && (type == HL7MESSAGE_TYPE)) {
@@ -777,6 +778,8 @@ public class TransformerPane extends MirthEditorPane {
 	private JPopupMenu transformerPopupMenu;
 
 	private JXTaskPane viewTasks;
+	
+	private JXTaskPane otherTasks;
 
 	private Channel channel;
 
