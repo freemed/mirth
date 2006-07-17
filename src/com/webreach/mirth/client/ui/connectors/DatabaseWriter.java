@@ -90,15 +90,6 @@ public class DatabaseWriter extends ConnectorClass
         databasePasswordField.setText((String)props.get(DATABASE_PASSWORD));
         databaseSQLTextPane.setText((String)props.get(DATABASE_SQL_STATEMENT));
     }
-
-    public void setDefaults()
-    {
-        databaseDriverCombobox.setSelectedItem(0);
-        databaseURLField.setText("");
-        databaseUsernameField.setText("");
-        databasePasswordField.setText("");
-        databaseSQLTextPane.setText("");
-    }
     
     public Properties getDefaults()
     {

@@ -107,23 +107,6 @@ public class LLPSender extends ConnectorClass
         fieldSeparatorField.setText((String)props.get(LLP_FIELD_SEPARATOR));
     }
 
-    public void setDefaults()
-    {
-        hostIPAddressField.setText("127");
-        hostIPAddressField1.setText("0");
-        hostIPAddressField2.setText("0");
-        hostIPAddressField3.setText("1");
-        hostPortField.setText("3601");
-        serverTimeoutField.setText("");
-        bufferSizeField.setText("");
-        keepConnectionOpenYesRadio.setSelected(true);
-        maximumRetryCountField.setText("");
-        startOfMessageCharacterField.setText("");
-        endOfMessageCharacterField.setText("");
-        recordSeparatorField.setText("");
-        fieldSeparatorField.setText("");
-    }
-
     public Properties getDefaults()
     {
         Properties properties = new Properties();

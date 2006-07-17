@@ -37,12 +37,6 @@ public class ConnectorClass extends javax.swing.JPanel
     {
     }
     
-    /** NO LONGER USED.  Replaced by using setProperties(getDefaults()).
-     *  Simply sets the defaults to everything int he form */
-    public void setDefaults()
-    {
-    }
-    
     /** Gets a properties object with all of the default settings
      *  for that form as the data.
      */

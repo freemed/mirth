@@ -83,19 +83,6 @@ public class JMSWriter extends ConnectorClass
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
 
-    public void setDefaults()
-    {
-        ackMode.setText("0");
-        specDropDown.setSelectedIndex(0);
-        deliveryNo.setSelected(true);
-        durableNo.setSelected(true);
-        cliendId.setText("");
-        JNDIInitialFactory.setText("");
-        JNDIProviderURL.setText("");
-        JNDIConnectionName.setText("");
-        redeliveryHandler.setText("");
-    }
-    
     public Properties getDefaults()
     {
         Properties properties = new Properties();

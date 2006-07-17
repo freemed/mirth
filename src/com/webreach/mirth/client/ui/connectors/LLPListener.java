@@ -116,23 +116,6 @@ public class LLPListener extends ConnectorClass
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
     }
 
-    public void setDefaults()
-    {
-        listenerIPAddressField.setText("127");
-        listenerIPAddressField1.setText("0");
-        listenerIPAddressField2.setText("0");
-        listenerIPAddressField3.setText("1");
-        listenerPortField.setText("3600");
-        receiveTimeoutField.setText("");
-        bufferSizeField.setText("");
-        keepConnectionOpenYesRadio.setSelected(true);
-        startOfMessageCharacterField.setText("");
-        endOfMessageCharacterField.setText("");
-        fieldSeparatorField.setText("");
-        recordSeparatorField.setText("");
-        sendACKCombobox.setSelectedIndex(0);
-    }
-
     public Properties getDefaults()
     {
         Properties properties = new Properties();

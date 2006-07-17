@@ -94,25 +94,6 @@ public class HTTPListener extends ConnectorClass
         sendACKCombobox.setSelectedItem(props.get(HTTP_SEND_ACK));
     }
 
-    public void setDefaults()
-    {
-        listenerIPAddressField.setText("127");
-        listenerIPAddressField1.setText("0");
-        listenerIPAddressField2.setText("0");
-        listenerIPAddressField3.setText("1");
-        listenerPortField.setText("3700");
-        receiveTimeoutField.setText("");
-        bufferSizeField.setText("");
-        keepConnectionOpenYesRadio.setSelected(true);
-        startOfMessageCharacterField.setText("");
-        endOfMessageCharacterField.setText("");
-        fieldSeparatorField.setText("");
-        recordSeparatorField.setText("");
-        boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
-        sendACKCombobox.setSelectedIndex(0);
-        parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
-    }
-
     public Properties getDefaults()
     {
         Properties properties = new Properties();

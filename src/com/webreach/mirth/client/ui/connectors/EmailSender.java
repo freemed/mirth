@@ -55,17 +55,6 @@ public class EmailSender extends ConnectorClass
         emailSubjectField.setText((String)props.get(EMAIL_SUBJECT));
         emailBodyTextPane.setText((String)props.get(EMAIL_BODY));
     }
-
-    public void setDefaults()
-    {
-        SMTPServerHostField.setText("");
-        SMTPServerPortField.setText("");
-        emailUsernameField.setText("");
-        emailPasswordField.setText("");
-        emailToField.setText("");
-        emailSubjectField.setText("");
-        emailBodyTextPane.setText("");
-    }
     
     public Properties getDefaults()
     {

@@ -141,18 +141,6 @@ public class DatabaseReader extends ConnectorClass
 
     }
 
-    public void setDefaults()
-    {
-        databaseDriverCombobox.setSelectedItem(0);
-        databaseURLField.setText("");
-        databaseUsernameField.setText("");
-        databasePasswordField.setText("");
-        pollingFreq.setText("");
-        databaseSQLTextPane.setText("");
-        readOnUpdateNo.setSelected(true);
-        databaseUpdateSQLTextPane.setText("");
-    }
-
     public Properties getDefaults()
     {
         Properties properties = new Properties();

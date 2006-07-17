@@ -57,19 +57,11 @@ public class FileWriter extends ConnectorClass
         fileContentsTextPane.setText((String)props.get(FILE_CONTENTS));
     }
 
-    public void setDefaults()
-    {
-        directoryField.setText("");
-        fileNameField.setText("");
-        appendToFileNo.setSelected(true);
-        fileContentsTextPane.setText("");
-    }
-
     public Properties getDefaults()
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
-        properties.put(FILE_DIRECTORY, "inbox/");
+        properties.put(FILE_DIRECTORY, "");
         properties.put(FILE_NAME, "");
         properties.put(FILE_APPEND, UIConstants.YES_OPTION);
         properties.put(FILE_CONTENTS, "");
