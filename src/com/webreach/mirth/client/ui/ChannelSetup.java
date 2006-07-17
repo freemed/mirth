@@ -944,9 +944,7 @@ public class ChannelSetup extends javax.swing.JPanel
             .add(sourceLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, sourceLayout.createSequentialGroup()
-                        .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                    .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(sourceLayout.createSequentialGroup()
                         .add(sourceSourceLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -961,8 +959,7 @@ public class ChannelSetup extends javax.swing.JPanel
                     .add(sourceSourceLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(sourceSourceDropdown, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(sourceLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(sourceConnectorClass, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         
