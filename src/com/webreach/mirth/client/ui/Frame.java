@@ -1625,19 +1625,20 @@ public class Frame extends JXFrame
 
             channelEditTasks.getContentPane().getComponent(0).setVisible(false);
         }
+        Channel channel;
+        if (currentContentPage == channelEditPage)
+            channel = channelEditPage.currentChannel;
+        else
+            channel = channels.get(channelListPage.getSelectedChannel());
 
         JFileChooser exportFileChooser = new JFileChooser();
+        exportFileChooser.setSelectedFile(new File(channel.getName()));
         exportFileChooser.setFileFilter(new XMLFileFilter());
         int returnVal = exportFileChooser.showSaveDialog(this);
         File exportFile = null;
 
         if(returnVal == JFileChooser.APPROVE_OPTION)
         {
-            Channel channel;
-            if (currentContentPage == channelEditPage)
-                channel = channelEditPage.currentChannel;
-            else
-                channel = channels.get(channelListPage.getSelectedChannel());
             ObjectXMLSerializer serializer = new ObjectXMLSerializer();
             String channelXML = serializer.serialize(channel);
             exportFile = exportFileChooser.getSelectedFile();
