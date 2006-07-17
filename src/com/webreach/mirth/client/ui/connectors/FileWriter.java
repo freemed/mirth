@@ -40,7 +40,7 @@ public class FileWriter extends ConnectorClass
         else
             properties.put(FILE_APPEND, UIConstants.NO_OPTION);
 
-        properties.put(FILE_CONTENTS, fileContentsTextArea.getText());
+        properties.put(FILE_CONTENTS, fileContentsTextPane.getText());
         return properties;
     }
 
@@ -54,7 +54,7 @@ public class FileWriter extends ConnectorClass
         else
             appendToFileNo.setSelected(true);
 
-        fileContentsTextArea.setText((String)props.get(FILE_CONTENTS));
+        fileContentsTextPane.setText((String)props.get(FILE_CONTENTS));
     }
 
     public void setDefaults()
@@ -62,7 +62,7 @@ public class FileWriter extends ConnectorClass
         directoryField.setText("");
         fileNameField.setText("");
         appendToFileNo.setSelected(true);
-        fileContentsTextArea.setText("");
+        fileContentsTextPane.setText("");
     }
 
     public Properties getDefaults()
@@ -90,7 +90,7 @@ public class FileWriter extends ConnectorClass
         directoryField = new com.webreach.mirth.client.ui.components.MirthTextField();
         fileNameField = new com.webreach.mirth.client.ui.components.MirthTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        fileContentsTextArea = new com.webreach.mirth.client.ui.components.MirthTextPane();
+        fileContentsTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
         jLabel4 = new javax.swing.JLabel();
         appendToFileYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
         appendToFileNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
@@ -105,7 +105,7 @@ public class FileWriter extends ConnectorClass
 
         //fileContentsTextArea.setColumns(20);
         //fileContentsTextArea.setRows(5);
-        jScrollPane1.setViewportView(fileContentsTextArea);
+        jScrollPane1.setViewportView(fileContentsTextPane);
 
         jLabel4.setText("Append to file:");
 
@@ -173,7 +173,7 @@ public class FileWriter extends ConnectorClass
     private com.webreach.mirth.client.ui.components.MirthRadioButton appendToFileYes;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.webreach.mirth.client.ui.components.MirthTextField directoryField;
-    private com.webreach.mirth.client.ui.components.MirthTextPane fileContentsTextArea;
+    private com.webreach.mirth.client.ui.components.MirthTextPane fileContentsTextPane;
     private com.webreach.mirth.client.ui.components.MirthTextField fileNameField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
