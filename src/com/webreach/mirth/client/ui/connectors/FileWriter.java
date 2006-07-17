@@ -69,7 +69,7 @@ public class FileWriter extends ConnectorClass
     {
         Properties properties = new Properties();
         properties.put(DATATYPE, name);
-        properties.put(FILE_DIRECTORY, "");
+        properties.put(FILE_DIRECTORY, "inbox/");
         properties.put(FILE_NAME, "");
         properties.put(FILE_APPEND, UIConstants.YES_OPTION);
         properties.put(FILE_CONTENTS, "");
@@ -89,11 +89,11 @@ public class FileWriter extends ConnectorClass
         jLabel3 = new javax.swing.JLabel();
         directoryField = new com.webreach.mirth.client.ui.components.MirthTextField();
         fileNameField = new com.webreach.mirth.client.ui.components.MirthTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        fileContentsTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
         jLabel4 = new javax.swing.JLabel();
         appendToFileYes = new com.webreach.mirth.client.ui.components.MirthRadioButton();
         appendToFileNo = new com.webreach.mirth.client.ui.components.MirthRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        fileContentsTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "File Writer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -102,10 +102,6 @@ public class FileWriter extends ConnectorClass
         jLabel2.setText("File Name:");
 
         jLabel3.setText("File Template:");
-
-        //fileContentsTextArea.setColumns(20);
-        //fileContentsTextArea.setRows(5);
-        jScrollPane1.setViewportView(fileContentsTextPane);
 
         jLabel4.setText("Append to file:");
 
@@ -121,6 +117,8 @@ public class FileWriter extends ConnectorClass
         appendToFileNo.setSelected(true);
         appendToFileNo.setText("No");
         appendToFileNo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
+        jScrollPane1.setViewportView(fileContentsTextPane);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);

@@ -38,11 +38,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="emailPasswordField" alignment="0" min="-2" pref="125" max="-2" attributes="1"/>
                   <Component id="SMTPServerHostField" alignment="0" min="-2" pref="200" max="-2" attributes="1"/>
-                  <Component id="jScrollPane1" pref="335" max="32767" attributes="0"/>
                   <Component id="SMTPServerPortField" min="-2" pref="50" max="-2" attributes="1"/>
                   <Component id="emailUsernameField" min="-2" pref="125" max="-2" attributes="1"/>
                   <Component id="emailToField" min="-2" pref="200" max="-2" attributes="1"/>
                   <Component id="emailSubjectField" min="-2" pref="200" max="-2" attributes="1"/>
+                  <Component id="jScrollPane1" pref="335" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -136,21 +136,6 @@
     </Component>
     <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="emailSubjectField">
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="com.webreach.mirth.client.ui.components.MirthTextArea" name="emailBodyTextArea">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="com.webreach.mirth.client.ui.components.MirthPasswordField" name="emailPasswordField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -158,5 +143,16 @@
         </Property>
       </Properties>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="com.webreach.mirth.client.ui.components.MirthTextPane" name="emailBodyTextPane">
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

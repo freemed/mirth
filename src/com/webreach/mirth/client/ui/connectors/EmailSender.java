@@ -41,7 +41,7 @@ public class EmailSender extends ConnectorClass
         properties.put(EMAIL_PASSWORD, new String(emailPasswordField.getPassword()));
         properties.put(EMAIL_TO, emailToField.getText());
         properties.put(EMAIL_SUBJECT, emailSubjectField.getText());
-        properties.put(EMAIL_BODY, emailBodyTextArea.getText());
+        properties.put(EMAIL_BODY, emailBodyTextPane.getText());
         return properties;
     }
 
@@ -53,7 +53,7 @@ public class EmailSender extends ConnectorClass
         emailPasswordField.setText((String)props.get(EMAIL_PASSWORD));
         emailToField.setText((String)props.get(EMAIL_TO));
         emailSubjectField.setText((String)props.get(EMAIL_SUBJECT));
-        emailBodyTextArea.setText((String)props.get(EMAIL_BODY));
+        emailBodyTextPane.setText((String)props.get(EMAIL_BODY));
     }
 
     public void setDefaults()
@@ -64,7 +64,7 @@ public class EmailSender extends ConnectorClass
         emailPasswordField.setText("");
         emailToField.setText("");
         emailSubjectField.setText("");
-        emailBodyTextArea.setText("");
+        emailBodyTextPane.setText("");
     }
     
     public Properties getDefaults()
@@ -100,9 +100,9 @@ public class EmailSender extends ConnectorClass
         SMTPServerHostField = new com.webreach.mirth.client.ui.components.MirthTextField();
         emailToField = new com.webreach.mirth.client.ui.components.MirthTextField();
         emailSubjectField = new com.webreach.mirth.client.ui.components.MirthTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        emailBodyTextArea = new com.webreach.mirth.client.ui.components.MirthTextArea();
         emailPasswordField = new com.webreach.mirth.client.ui.components.MirthPasswordField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        emailBodyTextPane = new com.webreach.mirth.client.ui.components.MirthTextPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email Sender", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 0)));
@@ -120,11 +120,9 @@ public class EmailSender extends ConnectorClass
 
         jLabel7.setText("Body:");
 
-        emailBodyTextArea.setColumns(20);
-        emailBodyTextArea.setRows(5);
-        jScrollPane1.setViewportView(emailBodyTextArea);
-
         emailPasswordField.setFont(new java.awt.Font("Tahoma", 0, 11));
+
+        jScrollPane1.setViewportView(emailBodyTextPane);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -144,11 +142,11 @@ public class EmailSender extends ConnectorClass
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(emailPasswordField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(SMTPServerHostField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                     .add(SMTPServerPortField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(emailUsernameField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(emailToField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(emailSubjectField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(emailSubjectField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -189,7 +187,7 @@ public class EmailSender extends ConnectorClass
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.webreach.mirth.client.ui.components.MirthTextField SMTPServerHostField;
     private com.webreach.mirth.client.ui.components.MirthTextField SMTPServerPortField;
-    private com.webreach.mirth.client.ui.components.MirthTextArea emailBodyTextArea;
+    private com.webreach.mirth.client.ui.components.MirthTextPane emailBodyTextPane;
     private com.webreach.mirth.client.ui.components.MirthPasswordField emailPasswordField;
     private com.webreach.mirth.client.ui.components.MirthTextField emailSubjectField;
     private com.webreach.mirth.client.ui.components.MirthTextField emailToField;

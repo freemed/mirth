@@ -110,36 +110,4 @@ public class MirthTextArea extends javax.swing.JTextArea {
     	super.setText(t);
         parent.disableSave();
     }
-    public String getText() {
-		StringBuffer sb = new StringBuffer();
-		// Get paragraph element
-		Element paragraph = getDocument().getDefaultRootElement();
-
-		// Get number of content elements
-		int contentCount = paragraph.getElementCount();
-
-		// Get index ranges for each content element.
-		// Each content element represents one line.
-		// Each line includes the terminating newline.
-		for (int i = 0; i < contentCount; i++) {
-			Element e = paragraph.getElement(i);
-			int rangeStart = e.getStartOffset();
-			int rangeEnd = e.getEndOffset();
-			try {
-				String text = getText(rangeStart, rangeEnd - rangeStart);
-				sb.append(text.replaceAll("\\n", ""));
-				sb.append("\r");
-				
-			} catch (BadLocationException ex) {
-			}
-
-		}
-		String retval = sb.toString();
-		if (retval.length() > 0) {
-			retval = retval.substring(0, retval.length() -1);
-		}
-		return retval;
-
-	}
-
 }
