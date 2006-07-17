@@ -27,7 +27,7 @@ public class DatabaseReader extends ConnectorClass
     public final String DATABASE_DRIVER = "driver";
     public final String SUN_JDBC_ODBC_BRIDGE = "Sun JDBC-ODBC Bridge";
     public final String ODBC_MYSQL = "ODBC - MySQL";
-    public final String ODBC_POSTGRESQL = "ODBC - PostgresSQL";
+    public final String ODBC_POSTGRESQL = "ODBC - PostgreSQL";
     public final String ODBC_SQL_SERVER_SYBASE = "ODBC - SQL Server/Sybase";
     public final String ODBC_ORACLE_10G_RELEASE_2 = "ODBC - Oracle 10g Release 2";
     public final String SUN_JDBC_ODBC_JDBCODBCDRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
@@ -78,15 +78,15 @@ public class DatabaseReader extends ConnectorClass
         properties.put(DATATYPE, name);
         properties.put(DATABASE_HOST, DATABASE_HOST_VALUE);
 
-        if(databaseDriverCombobox.getSelectedItem().equals(SUN_JDBC_ODBC_BRIDGE))
+        if(((String)databaseDriverCombobox.getSelectedItem()).equals(SUN_JDBC_ODBC_BRIDGE))
             properties.put(DATABASE_DRIVER, SUN_JDBC_ODBC_JDBCODBCDRIVER);
-        else if(databaseDriverCombobox.getSelectedItem().equals(ODBC_MYSQL))
+        else if(((String)databaseDriverCombobox.getSelectedItem()).equals(ODBC_MYSQL))
             properties.put(DATABASE_DRIVER, COM_MYSQL_JDBC_DRIVER);
-        else if(databaseDriverCombobox.getSelectedItem().equals(ODBC_POSTGRESQL))
+        else if(((String)databaseDriverCombobox.getSelectedItem()).equals(ODBC_POSTGRESQL))
             properties.put(DATABASE_DRIVER, ORG_POSTGRESQL_DRIVER);
-        else if(databaseDriverCombobox.getSelectedItem().equals(ODBC_SQL_SERVER_SYBASE))
+        else if(((String)databaseDriverCombobox.getSelectedItem()).equals(ODBC_SQL_SERVER_SYBASE))
             properties.put(DATABASE_DRIVER, NET_SOURCEFORGE_JTDS_JDBC_DRIVER);
-        else if(databaseDriverCombobox.getSelectedItem().equals(ODBC_ORACLE_10G_RELEASE_2))
+        else if(((String)databaseDriverCombobox.getSelectedItem()).equals(ODBC_ORACLE_10G_RELEASE_2))
             properties.put(DATABASE_DRIVER, ORACLE_JDBC_ORACLEDRIVER);
 
         properties.put(DATABASE_URL, databaseURLField.getText());
@@ -108,15 +108,15 @@ public class DatabaseReader extends ConnectorClass
     {
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
 
-        if(props.get(DATABASE_DRIVER).equals(SUN_JDBC_ODBC_JDBCODBCDRIVER))
+        if(((String)props.get(DATABASE_DRIVER)).equals(SUN_JDBC_ODBC_JDBCODBCDRIVER))
             databaseDriverCombobox.setSelectedItem(SUN_JDBC_ODBC_BRIDGE);
-        else if(props.get(DATABASE_DRIVER).equals(COM_MYSQL_JDBC_DRIVER))
+        else if(((String)props.get(DATABASE_DRIVER)).equals(COM_MYSQL_JDBC_DRIVER))
             databaseDriverCombobox.setSelectedItem(ODBC_MYSQL);
-        else if(props.get(DATABASE_DRIVER).equals(ORG_POSTGRESQL_DRIVER))
+        else if(((String)props.get(DATABASE_DRIVER)).equals(ORG_POSTGRESQL_DRIVER))
             databaseDriverCombobox.setSelectedItem(ODBC_POSTGRESQL);
-        else if(props.get(DATABASE_DRIVER).equals(NET_SOURCEFORGE_JTDS_JDBC_DRIVER))
+        else if(((String)props.get(DATABASE_DRIVER)).equals(NET_SOURCEFORGE_JTDS_JDBC_DRIVER))
             databaseDriverCombobox.setSelectedItem(ODBC_SQL_SERVER_SYBASE);
-        else if(props.get(DATABASE_DRIVER).equals(ORACLE_JDBC_ORACLEDRIVER))
+        else if(((String)props.get(DATABASE_DRIVER)).equals(ORACLE_JDBC_ORACLEDRIVER))
             databaseDriverCombobox.setSelectedItem(ODBC_ORACLE_10G_RELEASE_2);
 
         parent.channelEditTasks.getContentPane().getComponent(0).setVisible(visible);
