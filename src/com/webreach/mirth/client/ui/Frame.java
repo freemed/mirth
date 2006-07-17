@@ -153,9 +153,12 @@ public class Frame extends JXFrame
 
         this.mirthClient = mirthClient;
         this.setIconImage(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/emoticon_smile.png")).getImage());
-
+        
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
+        
+        userPreferences = Preferences.systemNodeForPackage(Mirth.class);
+        userPreferences.put("defaultServer", PlatformUI.SERVER_NAME);
+        
         try
         {
             channels = this.mirthClient.getChannels();
