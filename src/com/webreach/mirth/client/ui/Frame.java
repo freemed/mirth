@@ -644,7 +644,7 @@ public class Frame extends JXFrame
         });
         statusPopupMenu.add(showMessages);
 
-        statusTasks.add(initActionCallback("doStart", "Start the currently selected channel.", ActionFactory.createBoundAction("doStart","Start Channel", "L"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
+        statusTasks.add(initActionCallback("doStart", "Start the currently selected channel.", ActionFactory.createBoundAction("doStart","Start Channel", "N"), new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png"))));
         JMenuItem startChannel = new JMenuItem("Start Channel");
         startChannel.setIcon(new ImageIcon(com.webreach.mirth.client.ui.Frame.class.getResource("images/start.png")));
         startChannel.addActionListener(new ActionListener(){
