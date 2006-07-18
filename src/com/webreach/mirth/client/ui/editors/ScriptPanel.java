@@ -23,22 +23,19 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-
- * 
- */
 package com.webreach.mirth.client.ui.editors;
 
 import com.webreach.mirth.client.ui.UIConstants;
 
 /**
  * @author chrisl, franciscos
- *
+ * 
  */
 public class ScriptPanel extends CardPanel {
-	
+
 	public ScriptPanel() {
 		super();
-		this.setBackground( UIConstants.BACKGROUND_COLOR );
+		this.setBackground(UIConstants.BACKGROUND_COLOR);
 	}
-				
+
 }
