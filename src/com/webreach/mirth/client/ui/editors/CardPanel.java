@@ -19,9 +19,11 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Chris Lang <chrisl@webreachinc.com>
+ *   Gerald Bortis <geraldb@webreachinc.com>
  *
  * ***** END LICENSE BLOCK ***** */
+
+
 package com.webreach.mirth.client.ui.editors;
 
 import java.awt.CardLayout;
