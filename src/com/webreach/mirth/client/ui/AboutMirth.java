@@ -49,16 +49,15 @@ public class AboutMirth extends javax.swing.JDialog
     /** Loads the contents of about.txt */
     public void loadContent()
     {
-        String content = "";
-        try
-        {
-            content = FileUtil.read(new File("about.txt"));
-        } 
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-        aboutContent.setText(content);
+    	StringBuilder content = new StringBuilder();
+    	content.append("Mirth Administrator\n");
+    	content.append("Version: 1.0.0\n");
+    	content.append("Built on July 18, 2006\n");
+		content.append("(c) Copyright Mirth contributors and other 2005, 2006. All rights reserved. Visit http://www.mirthproject.org\n");
+		content.append("This product includes software developed by SymphonySoft Limited (http://www.symphonysoft.com) and its contributors.\n");
+		content.append("This product includes software developed by the Apache Software Foundation (http://www.apache.org/).\n");
+    	
+        aboutContent.setText(content.toString());
     }
     
     /** This method is called from within the constructor to
