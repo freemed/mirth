@@ -29,7 +29,7 @@ import org.mule.umo.routing.RoutingException;
  * endpoint registed with the router.
  * 
  * @author <a href="mailto:ross.mason@symphonysoft.com">Ross Mason</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.8 $ 
  */
 
 public class FilteringMulticastingRouter extends FilteringOutboundRouter
