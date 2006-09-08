@@ -82,7 +82,7 @@ public class FilteringMulticastingRouter extends FilteringOutboundRouter
 					{
 						if (synchronous)
 						{
-							// Were we have multiple outbound endpoints
+							// Were we have multiple outbound endpoints 
 							if (result == null)
 							{
 								result = send(session, message, endpoint);
