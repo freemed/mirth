@@ -202,7 +202,9 @@ public class MuleConfigurationBuilder {
 
 				Element endpointElement = document.createElement("endpoint");
 				endpointElement.setAttribute("address", getEndpointUri(connector));
-
+				if (channel.getDestinationConnectors().size() > 0) {
+					endpointElement.setAttribute("synchronous", "true");
+				}
 				String connectorReference = String.valueOf(channel.getId()) + "_destination_" + String.valueOf(iterator.nextIndex());
 
 				// add the destination connector
