@@ -927,11 +927,23 @@ public class TransformerPane extends MirthEditorPane
                 else if (step.getType().equals(
                         TransformerPane.HL7MESSAGE_TYPE))
                 {
+                	//The XML requires you to use .text()[0] to reference the text object of a message. 
+                	//This is mainly for backwards compatability
+                	//TODO: Figure out a way to do this without checking for the existence of .text
                     StringBuilder script = new StringBuilder();
-                    
-                    script.append(map.get("Variable") + ".text()[0]");
+                    String variable = (String) map.get("Variable");
+                    if (variable.startsWith("hl7_xml") && !variable.endsWith(".text()[0]")){
+                    	script.append(variable + ".text()[0]");
+                    }else{
+                    	script.append(variable);
+                    }
                     script.append(" = ");
-                    script.append(map.get("Mapping") + ".text()[0];");
+                    String mapping = (String) map.get("Mapping");
+                    if (mapping.startsWith("msg") && !mapping.endsWith(".text()[0]")){
+                    	script.append(mapping + ".text()[0];");
+                    }else{
+                    	script.append(mapping + ";");
+                    }
                     step.setScript(script.toString());
                 }
                 
