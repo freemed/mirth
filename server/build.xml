@@ -87,7 +87,6 @@
 			<fileset file="${webapp.lib}/jdic-0.8.0.jar" />
 			<fileset file="${webapp.lib}/log4j-1.2.13.jar" />
 			<fileset file="${webapp.lib}/looks-2.0.4.jar" />
-			<fileset file="${webapp.lib}/ostermillerutils-1.06.00.jar" />
 			<fileset file="${webapp.lib}/swing-layout-1.0.jar" />
 			<fileset file="${webapp.lib}/swingworker-0.8.0.jar" />
 			<fileset file="${webapp.lib}/swingx-0.8.0.jar" />

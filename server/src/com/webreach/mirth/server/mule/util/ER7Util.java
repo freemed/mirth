@@ -75,7 +75,7 @@ public class ER7Util {
 			Message messagex = xmlParser.parse(message);
 			return pipeParser.encode(messagex);
 		} catch (Exception e) {
-			//logger.error(e.getSegmentName());
+			//logger.error(e.getMessage());
 			return message;
 		}
 	}

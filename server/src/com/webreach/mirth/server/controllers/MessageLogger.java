@@ -56,7 +56,11 @@ public class MessageLogger {
 			parameters.add(messageEvent.getChannelId());
 			parameters.add(messageEvent.getSendingFacility());
 			parameters.add(messageEvent.getEvent());
-			parameters.add(messageEvent.getControlId());
+			if (messageEvent.getControlId() != null){
+				parameters.add(messageEvent.getControlId());
+			}else{
+				parameters.add("");
+			}
 			parameters.add(encryptedMessageData);
 			parameters.add(messageEvent.getStatus().toString());
 

@@ -49,13 +49,13 @@ public class ER7Serializer implements IXMLSerializer<String> {
 	 */
 	public String toXML(String source) {
 		StringBuilder builder = new StringBuilder();
-
-		try {
-			builder.append(xmlParser.encode(pipeParser.parse(source)));
-		} catch (HL7Exception e) {
-			e.printStackTrace();
+		if (source != null && source.length() > 0){
+			try {
+				builder.append(xmlParser.encode(pipeParser.parse(source)));
+			} catch (HL7Exception e) {
+				e.printStackTrace();
+			}
 		}
-
 		return builder.toString();
 	}
 
