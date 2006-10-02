@@ -831,6 +831,7 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryDescriptionText = new com.webreach.mirth.client.ui.components.MirthTextPane();
         jLabel1 = new javax.swing.JLabel();
         initialState = new com.webreach.mirth.client.ui.components.MirthComboBox();
+        transactionalCheckBox = new javax.swing.JCheckBox();
         source = new javax.swing.JPanel();
         sourceSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
@@ -880,6 +881,11 @@ public class ChannelSetup extends javax.swing.JPanel
 
         initialState.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Stopped", "Started" }));
 
+        transactionalCheckBox.setBackground(new java.awt.Color(255, 255, 255));
+        transactionalCheckBox.setText("Transactional Endpoints");
+        transactionalCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        transactionalCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
+
         org.jdesktop.layout.GroupLayout summaryLayout = new org.jdesktop.layout.GroupLayout(summary);
         summary.setLayout(summaryLayout);
         summaryLayout.setHorizontalGroup(
@@ -903,6 +909,7 @@ public class ChannelSetup extends javax.swing.JPanel
                         .add(50, 50, 50)
                         .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(transactionalCheckBox)
                             .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
                 .add(80, 80, 80))
@@ -916,26 +923,31 @@ public class ChannelSetup extends javax.swing.JPanel
                     .add(summaryNameLabel)
                     .add(summaryEnabledCheckbox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(summaryDirectionLabel1)
-                    .add(summaryDirectionLabel2)
-                    .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(summaryPatternLabel1)
-                    .add(summaryPatternLabel2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel1)
-                    .add(initialState, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(summaryLayout.createSequentialGroup()
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(summaryDirectionLabel1)
+                            .add(summaryDirectionLabel2))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(summaryPatternLabel1)
+                            .add(summaryPatternLabel2))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel1)
+                            .add(initialState, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(summaryLayout.createSequentialGroup()
+                        .add(xmlPreEncoded, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(transactionalCheckBox)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(summaryLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(summaryLayout.createSequentialGroup()
                         .add(summaryDescriptionLabel)
-                        .add(355, 355, 355))
+                        .add(356, 356, 356))
                     .add(summaryLayout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                        .add(80, 80, 80))))
+                        .add(81, 81, 81))))
         );
         channelView.addTab("Summary", summary);
 
@@ -1590,6 +1602,7 @@ public class ChannelSetup extends javax.swing.JPanel
     private javax.swing.JLabel summaryNameLabel;
     private javax.swing.JLabel summaryPatternLabel1;
     private javax.swing.JLabel summaryPatternLabel2;
+    private javax.swing.JCheckBox transactionalCheckBox;
     private javax.swing.ButtonGroup validationButtonGroup;
     private com.webreach.mirth.client.ui.components.MirthCheckBox xmlPreEncoded;
     // End of variables declaration//GEN-END:variables
