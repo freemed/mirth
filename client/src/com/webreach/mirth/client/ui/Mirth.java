@@ -353,7 +353,7 @@ class MirthLoginService extends LoginService
             }
             catch (ClientException ex)
             {
-                System.out.println("Could not connect to server...");
+            	ex.printStackTrace();
             }      
             return false;
         }

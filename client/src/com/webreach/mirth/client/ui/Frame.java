@@ -200,7 +200,7 @@ public class Frame extends JXFrame
             alertException(e.getStackTrace(), e.getMessage());
         }
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
+        try{
         sourceConnectors = new ArrayList<ConnectorClass>();
         sourceConnectors.add(new DatabaseReader());
         sourceConnectors.add(new HTTPListener());
@@ -223,7 +223,10 @@ public class Frame extends JXFrame
         channelEditPage = new ChannelSetup();
         eventBrowser = new EventBrowser();
         messageBrowser = new MessageBrowser();
-        
+        }
+        catch (Exception e){
+        	e.printStackTrace();
+        }
         /*
         FOR DEBUGGING THE UIDefaults:
  

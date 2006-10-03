@@ -573,6 +573,10 @@ public class ChannelSetup extends javax.swing.JPanel
         else
             xmlPreEncoded.setSelected(false);
         
+        if(((String)currentChannel.getProperties().get("transactional")) != null && ((String)currentChannel.getProperties().get("transactional")).equalsIgnoreCase("true"))
+            transactionalCheckBox.setSelected(true);
+        else
+        	transactionalCheckBox.setSelected(false);
         boolean visible = parent.channelEditTasks.getContentPane().getComponent(0).isVisible();
 
         sourceSourceDropdown.setSelectedItem(currentChannel.getSourceConnector().getTransportName());
@@ -646,6 +650,11 @@ public class ChannelSetup extends javax.swing.JPanel
             currentChannel.getProperties().put("recv_xml_encoded", "true");
         else
             currentChannel.getProperties().put("recv_xml_encoded", "false");
+        //Set transactional property
+        if(transactionalCheckBox.isSelected())
+            currentChannel.getProperties().put("transactional", "true");
+        else
+            currentChannel.getProperties().put("transactional", "false");
         
         if(((String)initialState.getSelectedItem()).equalsIgnoreCase("Stopped"))
             currentChannel.getProperties().put("initialState", "stopped");
@@ -831,7 +840,7 @@ public class ChannelSetup extends javax.swing.JPanel
         summaryDescriptionText = new com.webreach.mirth.client.ui.components.MirthTextPane();
         jLabel1 = new javax.swing.JLabel();
         initialState = new com.webreach.mirth.client.ui.components.MirthComboBox();
-        transactionalCheckBox = new javax.swing.JCheckBox();
+        transactionalCheckBox = new com.webreach.mirth.client.ui.components.MirthCheckBox();
         source = new javax.swing.JPanel();
         sourceSourceDropdown = new com.webreach.mirth.client.ui.components.MirthComboBox();
         sourceSourceLabel = new javax.swing.JLabel();
@@ -1602,7 +1611,7 @@ public class ChannelSetup extends javax.swing.JPanel
     private javax.swing.JLabel summaryNameLabel;
     private javax.swing.JLabel summaryPatternLabel1;
     private javax.swing.JLabel summaryPatternLabel2;
-    private javax.swing.JCheckBox transactionalCheckBox;
+    private com.webreach.mirth.client.ui.components.MirthCheckBox transactionalCheckBox;
     private javax.swing.ButtonGroup validationButtonGroup;
     private com.webreach.mirth.client.ui.components.MirthCheckBox xmlPreEncoded;
     // End of variables declaration//GEN-END:variables
