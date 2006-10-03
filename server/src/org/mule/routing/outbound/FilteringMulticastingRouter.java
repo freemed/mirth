@@ -15,6 +15,8 @@ package org.mule.routing.outbound;
 
 import org.mule.config.i18n.Message;
 import org.mule.config.i18n.Messages;
+import org.mule.impl.MuleTransactionConfig;
+import org.mule.providers.jdbc.JdbcTransactionFactory;
 import org.mule.umo.UMOException;
 import org.mule.umo.UMOFilter;
 import org.mule.umo.UMOMessage;

@@ -49,6 +49,7 @@ public class Channel {
 	private String name;
 	private String description;
 	private boolean enabled;
+	private boolean transactional;
 	private String version;
 	private int revision;
 	private Direction direction;

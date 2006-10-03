@@ -171,6 +171,7 @@ public class MuleConfigurationBuilder {
 				endpointElement.setAttribute("transformers", transformers.toString().trim());
 			}
 
+
 			if (channel.getMode().equals(Channel.Mode.BROADCAST)) {
 				Element filterElement = document.createElement("filter");
 				filterElement.setAttribute("className", "com.webreach.mirth.server.mule.filters.JavaScriptFilter");
@@ -196,7 +197,25 @@ public class MuleConfigurationBuilder {
 
 			Element routerElement = document.createElement("router");
 			routerElement.setAttribute("className", "org.mule.routing.outbound.FilteringMulticastingRouter");
+            // add transaction support
+			//TODO: Fix logic.
+			boolean transactional = false;
+	        if(((String)channel.getProperties().get("transactional")) != null && ((String)channel.getProperties().get("transactional")).equalsIgnoreCase("true"))
+	        	transactional = true;
 
+            if (transactional) {
+            	//TODO: Add support for JMS (how?)
+            	String protocol = "jdbc";//transports.get(connector.getTransportName()).getProtocol();
+            	String factory = "";
+            	if (protocol.equals("jdbc")){
+            		factory = "org.mule.providers.jdbc.JdbcTransactionFactory";
+            	}
+            	String action = "BEGIN_OR_JOIN";
+            	Element transactionElement = document.createElement("transaction");        
+            	transactionElement.setAttribute("action", action);
+            	transactionElement.setAttribute("factory", factory);
+            	routerElement.appendChild(transactionElement);
+            }
 			for (ListIterator iterator = channel.getDestinationConnectors().listIterator(); iterator.hasNext();) {
 				Connector connector = (Connector) iterator.next();
 
@@ -237,6 +256,7 @@ public class MuleConfigurationBuilder {
 					endpointElement.setAttribute("transformers", transformers.toString().trim());
 				}
 
+
 				if (channel.getMode().equals(Channel.Mode.ROUTER)) {
 					// add the filter
 					Element filterElement = document.createElement("filter");
@@ -253,6 +273,7 @@ public class MuleConfigurationBuilder {
 				routerElement.appendChild(endpointElement);
 			}
 
+            
 			outboundRouterElement.appendChild(routerElement);
 			return outboundRouterElement;
 		} catch (Exception e) {
