@@ -33,6 +33,7 @@ import org.mule.util.Utility;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 import java.io.*;
@@ -238,8 +239,44 @@ public class FileMessageReceiver extends PollingMessageReceiver
         }
         return contents;
       }
-    
-    private static ArrayList<String> LoadHL7Messages(File file) throws FileNotFoundException{
+    private ArrayList<String> LoadHL7Messages(File file) throws FileNotFoundException {
+    	ArrayList<String> messages = new ArrayList<String>();
+		StringBuilder message = new StringBuilder();
+		Scanner scanner = new Scanner(file);
+		char data[] = { (char) startOfMessage, (char) endOfMessage };
+
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine().replaceAll(new String(data, 0, 1), "").replaceAll(new String(data, 1, 1), "");
+
+			if ((line.length() == 0) || line.equals((char) endOfMessage) || line.startsWith("MSH")) {
+				if (message.length() > 0) {
+					messages.add(message.toString());
+					message = new StringBuilder();
+				}
+
+				while ((line.length() == 0) && scanner.hasNextLine()) {
+					line = scanner.nextLine();
+				}
+
+				if (line.length() > 0) {
+					message.append(line);
+					message.append((char) endOfRecord);
+				}
+			} else {
+				message.append(line);
+				message.append((char) endOfRecord);
+
+				if (!scanner.hasNextLine()) {
+					messages.add(message.toString());
+					message = new StringBuilder();
+				}
+			}
+		}
+
+		scanner.close();
+		return messages;
+	}
+    /*private static ArrayList<String> LoadHL7Messages(File file) throws FileNotFoundException{
 		
     	ArrayList<String> hl7messages = new ArrayList<String>();
 		StringBuilder message = new StringBuilder();
