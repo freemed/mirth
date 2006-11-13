@@ -910,7 +910,7 @@ public class TransformerPane extends MirthEditorPane
                 {
                     
                     StringBuilder script = new StringBuilder();
-                    if(((String)map.get("isGlobal")).equalsIgnoreCase(UIConstants.YES_OPTION))
+                    if(map.get("isGlobal") != null && ((String)map.get("isGlobal")).equalsIgnoreCase(UIConstants.YES_OPTION))
                         script.append("globalMap.put(");
                     else
                         script.append("localMap.put(");
