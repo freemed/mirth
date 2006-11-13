@@ -103,7 +103,7 @@ public class FileMessageDispatcher extends AbstractMessageDispatcher {
 			//Hackish way to append a new line
 			//TODO: find where newlines are stripped in config
 			if (connector.isOutputAppend()) {
-				buf = (new String(buf) + "\r\n").getBytes();
+				buf = (new String(buf)).getBytes();
 			}
 			logger.info("Writing file to: " + file.getAbsolutePath());
 			FileOutputStream fos = new FileOutputStream(file, connector
