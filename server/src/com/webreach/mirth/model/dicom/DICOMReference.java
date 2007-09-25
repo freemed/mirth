@@ -25,7 +25,7 @@ public class DICOMReference {
                 return elementDictionary.nameOf(Integer.decode("0x"+key).intValue());
             }
             catch(NumberFormatException e){
-                e.printStackTrace();
+                //e.printStackTrace();
                 System.out.println("problem getting tag (number format exception: " + key);
                 return "";
             }
