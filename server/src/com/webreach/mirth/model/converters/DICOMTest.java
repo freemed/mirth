@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 import java.io.*;
+//import ij.ImageJ;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,10 +24,16 @@ public class DICOMTest {
 		String testMessage = "";
         ArrayList<String> testFiles = new ArrayList<String>();
 //        testFiles.add("C:\\abdominal.dcm");
-        testFiles.add("C:\\ankle.dcm");
-//        testFiles.add("C:\\brain.dcm");
+        //testFiles.add("C:\\abdominal.dcm");
+        testFiles.add("C:\\brain.dcm");
+        //String[] a = new String[1];
+        //a[0] = "c:\\ankle.dcm";
 
-        Iterator iterator = testFiles.iterator();
+        //ImageJ ij = new ImageJ(null,ImageJ.EMBEDDED);
+        //ImageJ.main(a);
+        
+
+       Iterator iterator = testFiles.iterator();
         while(iterator.hasNext()){
             String fileName = (String) iterator.next();
             try {
@@ -62,6 +69,7 @@ public class DICOMTest {
 		Stopwatch stopwatch = new Stopwatch();
 		Properties properties = new Properties();
         properties.put("includePixelData","no");
+        properties.put("isEncoded","no");       
         stopwatch.start();
 		DICOMSerializer serializer = new DICOMSerializer(properties);
 		String xmloutput = serializer.toXML(testMessage);
@@ -73,6 +81,7 @@ public class DICOMTest {
 //		XMLReader xr = XMLReaderFactory.createXMLReader();
         String results = serializer.fromXML(xmloutput);
         String xmloutput2 = serializer.toXML(results);
+        String results2 = serializer.fromXML(xmloutput2);
         System.out.println("testing...");
         if (results.replace('\n', '\r').trim().equals(testMessage.replaceAll("\\r\\n", "\r").trim())) {
 			System.out.println("Test Successful!");
