@@ -207,7 +207,7 @@ public class TreePanel extends javax.swing.JPanel
 
                 String message;
                 if(protocol.equals(Protocol.DICOM)){
-                    DICOMSerializer dicomSerializer = new DICOMSerializer();
+                    DICOMSerializer dicomSerializer = new DICOMSerializer(protocolProperties);
                     message = dicomSerializer.toXML(new File(source));        
                 }
                 else {
