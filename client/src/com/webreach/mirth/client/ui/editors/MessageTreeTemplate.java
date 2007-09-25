@@ -7,8 +7,6 @@
 package com.webreach.mirth.client.ui.editors;
 
 import com.webreach.mirth.client.core.ClientException;
-import com.webreach.mirth.client.ui.beans.HL7Properties;
-import com.webreach.mirth.client.ui.beans.NCPDPProperties;
 
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -29,8 +27,7 @@ import org.syntax.jedit.tokenmarker.X12TokenMarker;
 import com.webreach.mirth.client.ui.PlatformUI;
 import com.webreach.mirth.client.ui.TreePanel;
 import com.webreach.mirth.client.ui.UIConstants;
-import com.webreach.mirth.client.ui.beans.EDIProperties;
-import com.webreach.mirth.client.ui.beans.X12Properties;
+import com.webreach.mirth.client.ui.beans.*;
 import com.webreach.mirth.model.MessageObject;
 import org.syntax.jedit.tokenmarker.XMLTokenMarker;
 
@@ -368,6 +365,8 @@ public class MessageTreeTemplate extends javax.swing.JPanel
             new BoundPropertiesSheetDialog(dataProperties, new HL7Properties());
         else if (((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.NCPDP)))
             new BoundPropertiesSheetDialog(dataProperties, new NCPDPProperties());
+        else if (((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.DICOM)))
+            new BoundPropertiesSheetDialog(dataProperties, new DICOMProperties());
         updateText();
     }// GEN-LAST:event_propertiesActionPerformed
     
@@ -379,7 +378,8 @@ public class MessageTreeTemplate extends javax.swing.JPanel
         if (((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.X12)) ||
                 ((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.EDI)) ||
                 ((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.HL7V2)) ||
-                ((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.NCPDP)))
+                ((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.NCPDP)) ||
+                ((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.DICOM)))
             properties.setEnabled(true);
         else
             properties.setEnabled(false);
