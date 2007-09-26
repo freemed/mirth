@@ -5,6 +5,8 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.XMLReaderFactory;
 import org.w3c.dom.Document;
+import org.dcm4che2.tool.dcm2xml.Dcm2Xml;
+import org.dcm4che2.tool.xml2dcm.Xml2Dcm;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,9 +25,9 @@ public class DICOMTest {
 	public static void main(String[] args) {
 		String testMessage = "";
         ArrayList<String> testFiles = new ArrayList<String>();
-//        testFiles.add("C:\\abdominal.dcm");
+        testFiles.add("C:\\abdominal.dcm");
         //testFiles.add("C:\\abdominal.dcm");
-        testFiles.add("C:\\brain.dcm");
+        //testFiles.add("C:\\brain.dcm");
         //String[] a = new String[1];
         //a[0] = "c:\\ankle.dcm";
 
@@ -72,16 +74,32 @@ public class DICOMTest {
         properties.put("isEncoded","no");       
         stopwatch.start();
 		DICOMSerializer serializer = new DICOMSerializer(properties);
-		String xmloutput = serializer.toXML(testMessage);
+//        String xmloutput = serializer.toXML(testMessage);
+        Dcm2Xml dcm2xml = new Dcm2Xml();
+        File xmlOut = File.createTempFile("test","xml");
+        File dcmInput = new File("c:\\abdominal.dcm");
+        try {
+            dcm2xml.convert(dcmInput,xmlOut);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        File dcmOutput = File.createTempFile("test","dcm");
+        String[] args = new String[4];
+        args[0] = "-x";
+        args[1] = xmlOut.getAbsolutePath();
+        args[2] = "-o";
+        args[3] = "c:\\dcmOutput.dcm";
+        Xml2Dcm.main(args);
         //System.out.println(xmloutput);
-		DocumentSerializer docser = new DocumentSerializer();
-		docser.setPreserveSpace(true);
-
-        Document doc = docser.fromXML(xmloutput);
+//		DocumentSerializer docser = new DocumentSerializer();
+//		docser.setPreserveSpace(true);
+//
+//        Document doc = docser.fromXML(xmloutput);
 //		XMLReader xr = XMLReaderFactory.createXMLReader();
-        String results = serializer.fromXML(xmloutput);
-        String xmloutput2 = serializer.toXML(results);
-        String results2 = serializer.fromXML(xmloutput2);
+        String results = ""; //= serializer.fromXML(xmloutput);
+//        String xmloutput2 = serializer.toXML(results);
+//        String results2 = serializer.fromXML(xmloutput2);
         System.out.println("testing...");
         if (results.replace('\n', '\r').trim().equals(testMessage.replaceAll("\\r\\n", "\r").trim())) {
 			System.out.println("Test Successful!");
