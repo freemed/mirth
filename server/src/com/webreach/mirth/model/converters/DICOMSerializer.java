@@ -2,10 +2,9 @@ package com.webreach.mirth.model.converters;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.*;
-import org.dcm4che2.data.DicomObject;
-import org.dcm4che2.data.BasicDicomObject;
-import org.dcm4che2.data.Tag;
+import org.dcm4che2.data.*;
 import org.dcm4che2.io.*;
+import org.dcm4che2.tool.dcm2xml.Dcm2Xml;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.helpers.LocatorImpl;
@@ -35,8 +34,9 @@ import sun.misc.BASE64Decoder;
 public class DICOMSerializer implements IXMLSerializer<String> {
 	private Logger logger = Logger.getLogger(this.getClass());
 	private boolean includePixelData = false;
-    private boolean isEncoded = true;
     public boolean validationError = false;
+    public String temp_dir = "DICOM_TEMP";
+    public String files_dir = "DICOM_FILES";
 
     public DICOMSerializer(Map DICOMProperties){
         if (DICOMProperties == null) { 
@@ -51,15 +51,8 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                 this.includePixelData = true;
             }
         }
-		if (DICOMProperties.get("isEncoded") != null) {
-            String encoded = convertNonPrintableCharacters((String) DICOMProperties.get("isEncoded"));
-            if(encoded.equals("no")){
-                this.isEncoded = false;
-            }
-            else {
-                this.isEncoded = true;
-            }
-        }
+        new File(temp_dir).mkdir();
+        new File(files_dir).mkdir();
     }
 
 	private String convertNonPrintableCharacters(String delimiter) {
@@ -74,18 +67,18 @@ public class DICOMSerializer implements IXMLSerializer<String> {
             return "";
         }
         try {
+            // 1. reparse the xml to Mirth format
             DicomObject dicomObject = new BasicDicomObject();
             SAXParserFactory f = SAXParserFactory.newInstance();
             SAXParser p = f.newSAXParser();
             ContentHandlerAdapter ch = new ContentHandlerAdapter(dicomObject);
-
-            // reparse the xml to Mirth format
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             try {
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document document = builder.parse(new InputSource(new StringReader(source)));
                 Element element = document.getDocumentElement();
                 Node node = element.getChildNodes().item(0);
+                // change back to <attr> tag for all tags under <dicom> tag
                 while(node != null){
                     NamedNodeMap attr = node.getAttributes();
                     if(attr == null) {
@@ -93,6 +86,7 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                         continue;
                     }
                     Node tagAttr = attr.getNamedItem("tag");
+                    //System.out.println("tag (value): " + tagAttr.getNodeValue());
                     if(tagAttr != null) {
                         String tag = tagAttr.getNodeValue();
                         String tagDesc = DICOMReference.getInstance().getDescription(tag,null);
@@ -111,24 +105,78 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                     }
                     node = node.getNextSibling();
                 }
-                if(includePixelData) {
-                    p.parse(new InputSource(new StringReader(new DocumentSerializer().toXML(document))),ch);
-                    //p.parse(new InputSource(new DocumentSerializer().toXML(document)),ch);
+                NodeList items = document.getElementsByTagName("item");
+                // change back to <attr> tag for all tags under <item> tags
+                if(items != null){
+                    for(int i=0;i<items.getLength();i++){
+                        Node itemNode = items.item(i);
+                        if(itemNode.getChildNodes() != null){
+                            NodeList itemNodes = itemNode.getChildNodes();
+                            for(int j=0;j<itemNodes.getLength();j++){
+                                Node nodeItem = itemNodes.item(j);
+                                NamedNodeMap attr = nodeItem.getAttributes();
+                                if(attr == null) {
+                                    continue;
+                                }
+                                Node tagAttr = attr.getNamedItem("tag");
+                                //System.out.println("tag (value): " + tagAttr.getNodeValue());
+                                if(tagAttr != null) {
+                                    String tag = tagAttr.getNodeValue();
+                                    String tagDesc = DICOMReference.getInstance().getDescription(tag,null);
+                                    tagDesc = removeInvalidCharXML(tagDesc);
+                                    //System.out.println("tag: " + tagDesc);
+                                    try {
+                                        if(!tagDesc.equals("?"))  {
+                                            if(nodeItem.getNodeName().equals(tagDesc)){
+                                                document.renameNode(nodeItem,null,"attr");
+                                            }
+                                        }
+                                    }
+                                    catch(DOMException e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // 2. Create temp XML file
+                File tempXML = new File(temp_dir+"/tempXMLIn.xml");
+                FileOutputStream fos = new FileOutputStream(tempXML);
+                //fos.write(source.getBytes());
+                String test = new DocumentSerializer().toXML(document);
+                fos.write(new DocumentSerializer().toXML(document).getBytes());
+                fos.close();                    
+                if(includePixelData){
+                    p.parse(tempXML,ch);
                 }
                 else {
-                    p.parse(new ByteArrayInputStream(new DocumentSerializer().toXML(document).getBytes()),ch,"file:" + new File("c:\\DICOM\\output", "STDIN").getAbsolutePath());
+                    p.parse(new ByteArrayInputStream(new DocumentSerializer().toXML(document).getBytes()),ch,"file:" + new File(files_dir, "STDIN").getAbsolutePath());    
                 }
+
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                DicomOutputStream dos = new DicomOutputStream(bos);
-                dos.writeDicomObject(dicomObject);
+                File tempDcmOut = new File(temp_dir+"/tempDcmOut.dcm");//File.createTempFile("temp",".dcm");
+                DicomOutputStream dos = new DicomOutputStream(new BufferedOutputStream(new FileOutputStream(tempDcmOut)));                        
+                //DicomOutputStream dos = new DicomOutputStream(bos);
+                try {
+                    dos.writeDicomFile(dicomObject);
+                }
+                // If missing Transfer Syntax UID Tag, try writing DicomObject instead
+                catch(IllegalArgumentException e){
+                    dos = new DicomOutputStream(bos);
+                    dos.writeDicomObject(dicomObject);
+                    FileOutputStream fos2 = new FileOutputStream(tempDcmOut);
+                    fos2.write(bos.toByteArray());
+                    fos2.close();
+//                    dicomObject.putString(Tag.TransferSyntaxUID, VR.UI, TransferSyntax.ExplicitVRLittleEndian.uid());        
+//                    dos.writeDicomFile(dicomObject);
+                }
                 dos.close();
-                if(isEncoded){
-                    BASE64Encoder encoder = new BASE64Encoder();
-                    return encoder.encode(bos.toByteArray());
-                }
-                else {
-                    return bos.toString();
-                }
+                byte[] temp = getBytesFromFile(tempDcmOut);
+                String preEncoding = temp.toString();
+                BASE64Encoder encoder = new BASE64Encoder();
+                String encodedMessage = encoder.encode(temp);
+                return encodedMessage;
             }
             catch(ParserConfigurationException e){
                 e.printStackTrace();
@@ -142,27 +190,25 @@ public class DICOMSerializer implements IXMLSerializer<String> {
 
 	public String toXML(String source)   {        
         try {
-
-//                BASE64Encoder encoder = new BASE64Encoder();
-//                String message = encoder.encode(source.getBytes());
-            ByteArrayInputStream bis = null;
-            if(isEncoded){
-                BASE64Decoder decoder = new BASE64Decoder();
-                byte[] temp = decoder.decodeBuffer(source);
-                bis = new ByteArrayInputStream(temp);
+            // 1. Decode source
+            byte[] temp = null;
+            BASE64Decoder decoder = new BASE64Decoder();
+            temp = decoder.decodeBuffer(source);
+            // 2. put data into a temp file
+            File tempDcmFile = new File(temp_dir+"/tempDcmIn.dcm");//File.createTempFile("temp",".dcm");//
+            FileOutputStream fos = new FileOutputStream(tempDcmFile);
+            fos.write(temp);
+            fos.close();
+            // 3. create temp xml output file
+            File xmlOutput = new File(temp_dir+"/tempXMLOut.xml");//File.createTempFile("temp",".xml");//new File("tempXMLOut.xml");  
+            // 4. Call conversion method
+            Dcm2Xml dcm2xml = new Dcm2Xml();
+            if(!includePixelData) {
+                dcm2xml.setExclude(new int[] {Tag.PixelData});
+                dcm2xml.setBaseDir(new File(files_dir));                  
             }
-            else {
-                bis = new ByteArrayInputStream(source.getBytes());                
-            }
-
-            DicomInputStream din = null;
-            try {
-                din = new DicomInputStream(new BufferedInputStream(bis));
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            return convertToXML(din);
+            dcm2xml.convert(tempDcmFile,xmlOutput);
+            return decodeTagNames(new String(getBytesFromFile(xmlOutput)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,8 +216,9 @@ public class DICOMSerializer implements IXMLSerializer<String> {
 	}
     public String toXML(File tempDCMFile) throws SerializerException {
         try {
-            DicomInputStream dis = new DicomInputStream(tempDCMFile);
-            return convertToXML(dis);
+            // Encode it before transforming it
+            BASE64Encoder encoder = new BASE64Encoder();
+            return toXML(encoder.encode(getBytesFromFile(tempDCMFile)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -219,8 +266,8 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                         String tagDesc = DICOMReference.getInstance().getDescription(tag,null);
                         tagDesc = removeInvalidCharXML(tagDesc);
                         try {
-                            if(!tagDesc.equals("?"))
-                                document.renameNode(node,null,tagDesc);
+                            if(!tagDesc.equals("?")) 
+                                document.renameNode(node,null,tagDesc);  
                         }
                         catch(DOMException e){
                             e.printStackTrace();
@@ -246,7 +293,7 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                 final SAXWriter writer = new SAXWriter(th, null);
                 if(!includePixelData) {
                     writer.setExclude(new int[]{Tag.PixelData});
-                    writer.setBaseDir(new File("c:\\DICOM\\output"));
+                    writer.setBaseDir(new File(files_dir));
                 }
                 dis.setHandler(writer);
                 dis.readDicomObject(new BasicDicomObject(), -1);
@@ -270,6 +317,41 @@ public class DICOMSerializer implements IXMLSerializer<String> {
         tag = tag.replaceAll("\\(","");
         tag = tag.replaceAll("\\)","");
         tag = tag.replaceAll("/","");
+        tag = tag.replaceAll("&","");
         return tag;
     }
+	// Returns the contents of the file in a byte array.
+	private static byte[] getBytesFromFile(File file) throws IOException {
+		InputStream is = new FileInputStream(file);
+
+		// Get the size of the file
+		long length = file.length();
+
+		// You cannot create an array using a long type.
+		// It needs to be an int type.
+		// Before converting to an int type, check
+		// to ensure that file is not larger than Integer.MAX_VALUE.
+		if (length > Integer.MAX_VALUE) {
+			// File is too large
+		}
+
+		// Create the byte array to hold the data
+		byte[] bytes = new byte[(int) length];
+
+		// Read in the bytes
+		int offset = 0;
+		int numRead = 0;
+		while (offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+			offset += numRead;
+		}
+
+		// Ensure all the bytes have been read in
+		if (offset < bytes.length) {
+			throw new IOException("Could not completely read file " + file.getName());
+		}
+
+		// Close the input stream and return bytes
+		is.close();
+		return bytes;
+	}
 }
