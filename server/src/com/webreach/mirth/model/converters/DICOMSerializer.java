@@ -35,6 +35,7 @@ public class DICOMSerializer implements IXMLSerializer<String> {
 	private Logger logger = Logger.getLogger(this.getClass());
 	private boolean includePixelData = false;
     public boolean validationError = false;
+    private boolean includeGroupLength = false;
     public String temp_dir = "DICOM_TEMP";
     public String files_dir = "DICOM_FILES";
 
@@ -51,6 +52,15 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                 this.includePixelData = true;
             }
         }
+		if (DICOMProperties.get("includeGroupLength") != null) {
+            String groupLength = convertNonPrintableCharacters((String) DICOMProperties.get("includeGroupLength"));
+            if(groupLength.equals("false")){
+                this.includeGroupLength = false;
+            }
+            else {
+                this.includeGroupLength = true;
+            }
+        }        
         new File(temp_dir).mkdir();
         new File(files_dir).mkdir();
     }
@@ -157,13 +167,29 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 File tempDcmOut = new File(temp_dir+"/tempDcmOut.dcm");//File.createTempFile("temp",".dcm");
                 DicomOutputStream dos = new DicomOutputStream(new BufferedOutputStream(new FileOutputStream(tempDcmOut)));                        
+                // include group length. Option g
+                if(includeGroupLength){
+                    dos.setIncludeGroupLength(true);
+                }
+                // option u
+               // dos.setExplicitItemLengthIfZero(true);
+                // option U
+               // dos.setExplicitSequenceLengthIfZero(true);
+                // option e
+//                dos.setExplicitItemLength(true);
+                // option E
+//                dos.setExplicitSequenceLength(true);
                 //DicomOutputStream dos = new DicomOutputStream(bos);
                 try {
                     dos.writeDicomFile(dicomObject);
                 }
                 // If missing Transfer Syntax UID Tag, try writing DicomObject instead
                 catch(IllegalArgumentException e){
+                    //dicomObject.initFileMetaInformation(TransferSyntax.ExplicitVRLittleEndian.uid());
                     dos = new DicomOutputStream(bos);
+                    if(includeGroupLength){
+                        dos.setIncludeGroupLength(true);
+                    }
                     dos.writeDicomObject(dicomObject);
                     FileOutputStream fos2 = new FileOutputStream(tempDcmOut);
                     fos2.write(bos.toByteArray());
@@ -207,6 +233,7 @@ public class DICOMSerializer implements IXMLSerializer<String> {
                 dcm2xml.setExclude(new int[] {Tag.PixelData});
                 dcm2xml.setBaseDir(new File(files_dir));                  
             }
+            //dcm2xml.setIndent(false);
             dcm2xml.convert(tempDcmFile,xmlOutput);
             return decodeTagNames(new String(getBytesFromFile(xmlOutput)));
         } catch (Exception e) {
