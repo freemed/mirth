@@ -11,7 +11,11 @@ import org.dcm4che2.tool.xml2dcm.Xml2Dcm;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.List;
 import java.io.*;
+
+import com.webreach.mirth.client.core.Client;
+import com.webreach.mirth.model.Attachment;
 //import ij.ImageJ;
 
 /**
@@ -34,37 +38,65 @@ public class DICOMTest {
         //ImageJ ij = new ImageJ(null,ImageJ.EMBEDDED);
         //ImageJ.main(a);
         
-
-       Iterator iterator = testFiles.iterator();
-        while(iterator.hasNext()){
-            String fileName = (String) iterator.next();
-            try {
-                testMessage = new String(getBytesFromFile(new File(fileName)));
-                System.out.println("Processing test file:" + fileName);
-                //System.out.println(testMessage);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        Client client = new Client("https://localhost:8443");
+        Attachment a = new Attachment();
+        a.setAttachmentId("TEST1");
+        a.setMessageId("TEST2");
+        a.setSize(100);
+        a.setType("TESTING");
+        try {
+            client.login("admin", "admin", "1.5.0");  
+            a.setData(getBytesFromFile(new File("C:\\abdominal.dcm")));
+            client.insertAttachment(a);
+        
+            Attachment a1 = client.getAttachment("TEST1");
+            List<Attachment> a3 = client.getAttachmentsByMessageId("TEST2");
+            Attachment a2 = a3.get(0);
+            if(a1.equals(a2)){
+                System.out.println("They are the same");
             }
-            try {
-
-                long totalExecutionTime = 0;
-                int iterations = 1;
-                for (int i = 0; i < iterations; i++) {
-                    totalExecutionTime+=runTest(testMessage);
-                }
-
-                //System.out.println("Execution time average: " + totalExecutionTime/iterations + " ms");
-            }
-            // System.out.println(new X12Serializer().toXML("SEG*1*2**4*5"));
-            catch (SAXException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            System.out.println("First:" + a1.toString());
+            
+            System.out.println("Second:" + a2.toString());
+                        
+            
         }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+//       Iterator iterator = testFiles.iterator();
+//        while(iterator.hasNext()){
+//            String fileName = (String) iterator.next();
+//            try {
+//                testMessage = new String(getBytesFromFile(new File(fileName)));
+//                System.out.println("Processing test file:" + fileName);
+//                //System.out.println(testMessage);
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//            try {
+//
+//                long totalExecutionTime = 0;
+//                int iterations = 1;
+//                for (int i = 0; i < iterations; i++) {
+//                    totalExecutionTime+=runTest(testMessage);
+//                }
+//
+//                //System.out.println("Execution time average: " + totalExecutionTime/iterations + " ms");
+//            }
+//            // System.out.println(new X12Serializer().toXML("SEG*1*2**4*5"));
+//            catch (SAXException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            } catch (Exception e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
     }
 
 	private static long runTest(String testMessage) throws SerializerException, SAXException, IOException {
@@ -77,7 +109,7 @@ public class DICOMTest {
 //        String xmloutput = serializer.toXML(testMessage);
         Dcm2Xml dcm2xml = new Dcm2Xml();
         File xmlOut = File.createTempFile("test","xml");
-        File dcmInput = new File("c:\\abdominal.dcm");
+        File dcmInput = new File("c:\\US-PAL-8-10x-echo.dcm");
         try {
             dcm2xml.convert(dcmInput,xmlOut);
         }
@@ -91,6 +123,21 @@ public class DICOMTest {
         args[2] = "-o";
         args[3] = "c:\\dcmOutput.dcm";
         Xml2Dcm.main(args);
+        // TO XML again
+        File input2 = new File("c:\\dcmOutput.dcm");
+        try {
+            dcm2xml.convert(input2,xmlOut);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }        
+        dcmOutput = File.createTempFile("test","dcm");
+        args = new String[4];
+        args[0] = "-x";
+        args[1] = xmlOut.getAbsolutePath();
+        args[2] = "-o";
+        args[3] = "c:\\dcmOutput2.dcm";
+        Xml2Dcm.main(args);        
         //System.out.println(xmloutput);
 //		DocumentSerializer docser = new DocumentSerializer();
 //		docser.setPreserveSpace(true);
