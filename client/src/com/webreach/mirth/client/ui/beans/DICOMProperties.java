@@ -21,25 +21,11 @@ public class DICOMProperties extends Object implements Serializable {
         {
             propertySupport = new PropertyChangeSupport(this);
         }
-
-
-        /**
-         * Holds value of property includePixelData.
-         */
-        private boolean includePixelData = false;
         /**
          * Holds value of property includeGroupLength.
          */
         private boolean includeGroupLength = false;
-        /**
-         * Getter for property includePixelData.
-         *
-         * @return Value of property includePixelData.
-         */
-        public boolean isIncludePixelData()
-        {
-            return this.includePixelData;
-        }
+
         /**
          * Getter for property includeGroupLength.
          *
@@ -50,19 +36,9 @@ public class DICOMProperties extends Object implements Serializable {
             return this.includeGroupLength;
         }
         /**
-         * Setter for property includePixelData.
-         *
-         * @param includePixelData
-         *            New value of property includePixelData.
-         */
-        public void setIncludePixelData(boolean includePixelData)
-        {
-            this.includePixelData = includePixelData;
-        }
-        /**
          * Setter for property includeGroupLength.
          *
-         * @param includePixelData
+         * @param includeGroupLength
          *            New value of property includeGroupLength.
          */
         public void setIncludeGroupLength(boolean includeGroupLength)

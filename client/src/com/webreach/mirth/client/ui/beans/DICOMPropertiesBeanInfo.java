@@ -22,19 +22,14 @@ public class DICOMPropertiesBeanInfo extends SimpleBeanInfo {
 
 
     // Property identifiers//GEN-FIRST:Properties
-    private static final int PROPERTY_includePixelData = 0;
-    private static final int PROPERTY_includeGroupLength = 1;
+    private static final int PROPERTY_includeGroupLength = 0;
 
     // Property array
     /*lazy PropertyDescriptor*/
     private static PropertyDescriptor[] getPdescriptor(){
-        PropertyDescriptor[] properties = new PropertyDescriptor[2];
+        PropertyDescriptor[] properties = new PropertyDescriptor[1];
 
         try {
-            properties[PROPERTY_includePixelData] = new PropertyDescriptor ( "includePixelData", com.webreach.mirth.client.ui.beans.DICOMProperties.class, "isIncludePixelData", "setIncludePixelData" ); // NOI18N
-            properties[PROPERTY_includePixelData].setDisplayName ( "Include Pixel Data" );
-            properties[PROPERTY_includePixelData].setShortDescription ( "Include image data in message." );
-            properties[PROPERTY_includePixelData].setBound ( true );
             properties[PROPERTY_includeGroupLength] = new PropertyDescriptor ( "includeGroupLength", com.webreach.mirth.client.ui.beans.DICOMProperties.class, "isIncludeGroupLength", "setIncludeGroupLength" ); // NOI18N
             properties[PROPERTY_includeGroupLength].setDisplayName ( "Include Group Length" );
             properties[PROPERTY_includeGroupLength].setShortDescription ( "Include Group Length in message." );
