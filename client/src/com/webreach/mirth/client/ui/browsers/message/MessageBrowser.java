@@ -224,6 +224,19 @@ public class MessageBrowser extends javax.swing.JPanel
         filterButtonActionPerformed(null);
     }
     
+    public MessageObject getMessageObjectById(String messageId){
+       if(messageObjectList != null){
+           Iterator i = messageObjectList.iterator();
+           while(i.hasNext()){
+                MessageObject message = (MessageObject) i.next();
+                if(message.getId().equals(messageId)){
+                    return message;
+                }
+           }
+       }  
+       return null;
+    }
+    
     public void importMessages()
     {
         JFileChooser importFileChooser = new JFileChooser();
