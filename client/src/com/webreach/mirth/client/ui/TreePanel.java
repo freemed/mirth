@@ -384,6 +384,10 @@ public class TreePanel extends javax.swing.JPanel
             {
                 protocol = Protocol.EDI;
             }
+            else if (PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.DELIMITED).equals(messageType))
+            {
+                protocol = Protocol.DELIMITED;
+            }
             else
             {
                 logger.error("Invalid protocol");
