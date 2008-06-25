@@ -1,5 +1,6 @@
 package com.webreach.mirth.connectors.file.filesystems;
 
+import java.io.ByteArrayInputStream;
 import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -108,9 +109,21 @@ public class SftpConnection implements FileSystemConnection {
 		}
 	}
 
+	// All FTP connection paths are interpreted as absolute.
+	private String fixDir(String srcDir) {
+		
+		if (srcDir.charAt(0) != '/') {
+			return "/" + srcDir;
+		}
+		else {
+			return srcDir;
+		}
+	}
+
 	public List<FileInfo> listFiles(String fromDir, FilenameFilter filenameFilter)
 		throws Exception
 	{
+		client.cd(fixDir(fromDir));
 		Vector entries = client.ls(".");
 		List<FileInfo> files = new ArrayList<FileInfo>(entries.size());
 
@@ -128,8 +141,13 @@ public class SftpConnection implements FileSystemConnection {
 	}
 
 	public InputStream readFile(String file, String fromDir) throws Exception {
-		client.cd(fromDir);
+		client.cd(fixDir(fromDir));
 		return client.get(file);
+	}
+
+	/** Must be called after readFile when reading is complete */
+	public void closeReadFile() throws Exception {
+		// nothing
 	}
 
 	public boolean canAppend() {
@@ -137,20 +155,20 @@ public class SftpConnection implements FileSystemConnection {
 		return true;
 	}
 	
-	public OutputStream writeFile(String file, String toDir, boolean append)
+	public void writeFile(String file, String toDir, boolean append, byte[] message)
 		throws Exception
 	{
-		cdmake(toDir);
+		cdmake(fixDir(toDir));
 		int mode = 0;
 		if (append)
 			mode = ChannelSftp.APPEND;
 		else
 			mode = ChannelSftp.OVERWRITE;
-		return client.put(file, mode);
+		client.put(new ByteArrayInputStream(message), file, mode);
 	}
 
 	public void delete(String file, String fromDir) throws Exception {
-		client.cd(fromDir);
+		client.cd(fixDir(fromDir));
 		client.rm(file);
 	}
 
@@ -183,7 +201,7 @@ public class SftpConnection implements FileSystemConnection {
 		throws Exception
 	{
 		// Create any missing directories in the toDir path
-		cdmake(toDir);
+		cdmake(fixDir(toDir));
 
 		try {
 			client.rm(toName);
@@ -194,7 +212,7 @@ public class SftpConnection implements FileSystemConnection {
 
 		client.cd(client.getHome());
 		client.cd(fromDir.substring(1) + "/"); // remove the first slash
-		client.rename(fromName.replaceAll("//", "/"), (toDir + "/" + toName).replaceAll("//", "/"));
+		client.rename(fromName.replaceAll("//", "/"), (fixDir(toDir) + "/" + toName).replaceAll("//", "/"));
 	}
 
 	public boolean isConnected() {

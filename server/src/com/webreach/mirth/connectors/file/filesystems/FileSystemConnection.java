@@ -37,20 +37,21 @@ public interface FileSystemConnection {
 	public InputStream readFile(String file, String fromDir)
 		throws Exception;
 
+	/** Must be called after readFile when reading is complete */
+	public void closeReadFile() throws Exception;
+
 	/** Tests if this connection can append to an output file. */
 	public boolean canAppend();
 	
-	/** Returns an OutputStream to which bytes can be written to write them
-	 * to the specified file.
+	/** Write a message to the specified file.
 	 * @param file The name of the file to be written, with no path information.
 	 * @param toDir The full path of the directory containing the file.
 	 * @param append True if the file should be appended to if it already
 	 * exists, false if the file should be truncated first.
-	 * @return An OutputStream to which bytes can be written to write them
-	 * to the specified file.
+	 * @param message The message to be written.
 	 * @throws Exception
 	 */
-	public OutputStream writeFile(String file, String toDir, boolean append)
+	public void writeFile(String file, String toDir, boolean append, byte[] message)
 		throws Exception;
 	
 	/** Removes the specified file from the specified directory.

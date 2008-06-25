@@ -1,5 +1,6 @@
 package com.webreach.mirth.connectors.file.filesystems;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
@@ -109,16 +110,29 @@ public class FtpConnection implements FileSystemConnection {
 			throw e;
 		}
 	}
-	
+
+	// All FTP connection paths are interpreted as absolute.
+	private String fixDir(String srcDir) {
+		
+		if (srcDir.charAt(0) != '/') {
+			return "/" + srcDir;
+		}
+		else {
+			return srcDir;
+		}
+	}
+
 	public List<FileInfo> listFiles(String fromDir, FilenameFilter filenameFilter)
 		throws Exception
 	{
-		if (!client.changeWorkingDirectory(fromDir)) {
+		if (!client.changeWorkingDirectory(fixDir(fromDir))) {
+			logger.error("listFiles.changeWorkingDirectory: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
 		}
 
 		FTPFile[] files = client.listFiles();
 		if (!FTPReply.isPositiveCompletion(client.getReplyCode())) {
+			logger.error("listFiles.listFiles: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
 		}
 		
@@ -140,11 +154,20 @@ public class FtpConnection implements FileSystemConnection {
 	public InputStream readFile(String file, String fromDir)
 		throws Exception
 	{
-		if (!client.changeWorkingDirectory(fromDir)) {
+		if (!client.changeWorkingDirectory(fixDir(fromDir))) {
+			logger.error("readFile.changeWorkingDirectory: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
 		}
 
 		return client.retrieveFileStream(file);
+	}
+
+	/** Must be called after readFile when reading is complete */
+	public void closeReadFile() throws Exception {
+		if (!client.completePendingCommand()) {
+			logger.error("closeReadFile.completePendingCommand: " + client.getReplyCode() + "-" + client.getReplyString());
+			throw new IOException("Ftp error: " + client.getReplyCode());
+		}
 	}
 
 	public boolean canAppend() {
@@ -152,21 +175,23 @@ public class FtpConnection implements FileSystemConnection {
 		return false;
 	}
 	
-	public OutputStream writeFile(String file, String toDir, boolean append)
+	public void writeFile(String file, String toDir, boolean append, byte[] message)
 		throws Exception
 	{
-		cdmake(toDir);
-		return client.storeFileStream(file);
+		cdmake(fixDir(toDir));
+		client.storeFile(file, new ByteArrayInputStream(message));
 	}
 
 	public void delete(String file, String fromDir) throws Exception {
 		
-		if (!client.changeWorkingDirectory(fromDir)) {
+		if (!client.changeWorkingDirectory(fixDir(fromDir))) {
+			logger.error("delete.changeWorkingDirectory: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
 		}
 
 		boolean deleteSucceeded = client.deleteFile(file);
 		if (!deleteSucceeded) {
+			logger.error("delete.deleteFile: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
 		}
 	}
@@ -201,7 +226,7 @@ public class FtpConnection implements FileSystemConnection {
 
 	public void move(String fromName, String fromDir, String toName, String toDir) throws Exception {
 		
-		cdmake(toDir);
+		cdmake(fixDir(toDir));
 
 		try {
 			client.deleteFile(toName);
@@ -209,12 +234,13 @@ public class FtpConnection implements FileSystemConnection {
 			logger.info("Unable to delete destination file");
 		}
 
-		if (!client.changeWorkingDirectory(fromDir)) {
+		if (!client.changeWorkingDirectory(fixDir(fromDir))) {
 			throw new Exception("Unable to change to directory: " + fromDir.substring(1) + "/");
 		}
 
-		boolean renameSucceeded = client.rename(fromName.replaceAll("//", "/"), (toDir + "/" + toName).replaceAll("//", "/"));
+		boolean renameSucceeded = client.rename(fromName.replaceAll("//", "/"), (fixDir(toDir) + "/" + toName).replaceAll("//", "/"));
 		if (!renameSucceeded) {
+			logger.error("move.rename: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
 		}
 	}

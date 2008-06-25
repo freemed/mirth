@@ -318,11 +318,16 @@ public class FileMessageReceiver extends PollingMessageReceiver implements Batch
 		if (adaptor instanceof BatchAdaptor) {
 			BatchAdaptor batchAdaptor = (BatchAdaptor) adaptor;
 			FileSystemConnection con = fileConnector.getConnection(uri, null);
+			Reader in = null;
 			try {
-				Reader in = new InputStreamReader(con.readFile(file.getName(), readDir), fileConnector.getCharsetEncoding());
+				in = new InputStreamReader(con.readFile(file.getName(), readDir), fileConnector.getCharsetEncoding());
 				batchAdaptor.processBatch(in, fileConnector.getProtocolProperties(), this);
 			}
 			finally {
+				if (in != null) {
+					in.close();
+				}
+				con.closeReadFile();
 				fileConnector.releaseConnection(uri, con, null);
 			}
 		}
@@ -352,7 +357,7 @@ public class FileMessageReceiver extends PollingMessageReceiver implements Batch
 			fileConnector.releaseConnection(uri, con, null);
 		}
 	}
-	
+
 	private boolean renameFile(String fromName, String fromDir, String toName, String toDir) throws Exception {
 		
 		UMOEndpointURI uri = endpoint.getEndpointURI();

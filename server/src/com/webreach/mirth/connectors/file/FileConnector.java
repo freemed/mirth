@@ -271,7 +271,12 @@ public class FileConnector extends AbstractServiceEnabledConnector {
 	 */
 	protected FileSystemConnection getConnection(UMOEndpointURI uri, MessageObject messageObject) throws Exception {
 		ObjectPool pool = getConnectionPool(uri, messageObject);
-		return (FileSystemConnection) pool.borrowObject();
+		FileSystemConnection con = (FileSystemConnection) pool.borrowObject();
+		if (!con.isConnected() || !con.isValid()) {
+			destroyConnection(uri, con, messageObject);
+			con = (FileSystemConnection) pool.borrowObject();
+		}
+		return con;
 	}
 
 	/** Return a connection to the pool

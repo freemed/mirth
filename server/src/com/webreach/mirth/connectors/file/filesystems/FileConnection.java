@@ -120,16 +120,30 @@ public class FileConnection implements FileSystemConnection {
 		}
 	}
 
+	/** Must be called after readFile when reading is complete */
+	public void closeReadFile() throws Exception {
+		// nothing
+	}
+
 	public boolean canAppend() {
 
 		return true;
 	}
 	
-	public OutputStream writeFile(String file, String toDir, boolean append)
+	public void writeFile(String file, String toDir, boolean append, byte[] message)
 		throws Exception
 	{
+		OutputStream os = null;
 		File dst = new File(toDir, file);
-		return new FileOutputStream(dst, append);
+		try {
+			os = new FileOutputStream(dst, append);
+			os.write(message);
+		}
+		finally {
+			if (os != null) {
+				os.close();
+			}
+		}
 	}
 
 	public void delete(String file, String fromDir) throws MuleException {

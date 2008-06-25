@@ -87,7 +87,6 @@ public class FileMessageDispatcher extends AbstractMessageDispatcher {
 		}
 
 		Object data = null;
-		OutputStream os = null;
 		FileSystemConnection con = null;
 		UMOEndpointURI uri = event.getEndpoint().getEndpointURI();
 		try {
@@ -107,7 +106,7 @@ public class FileMessageDispatcher extends AbstractMessageDispatcher {
 				throw new IOException("Filename is null");
 			}
 
-			String path = generateFilename(event, uri.getAddress(), messageObject);
+			String path = generateFilename(event, uri.getPath(), messageObject);
 			String template = replacer.replaceValues(connector.getTemplate(), messageObject);
 
 			// ast: change the output method to allow encoding election
@@ -123,8 +122,7 @@ public class FileMessageDispatcher extends AbstractMessageDispatcher {
 			}
 			//logger.info("Writing file to: " + file.getAbsolutePath());
 			con = connector.getConnection(uri, messageObject);
-			os = con.writeFile(filename, path, connector.isOutputAppend());
-			os.write(buffer);
+			con.writeFile(filename, path, connector.isOutputAppend(), buffer);
 
 			// update the message status to sent
 			messageObjectController.setSuccess(messageObject, "File successfully written: " + filename);
@@ -133,9 +131,6 @@ public class FileMessageDispatcher extends AbstractMessageDispatcher {
 			messageObjectController.setError(messageObject, Constants.ERROR_403, "Error writing file", e);
 			connector.handleException(e);
 		} finally {
-			if (os != null) {
-				os.close();
-			}
 			if (con != null) {
 				connector.releaseConnection(uri, con, messageObject);
 			}
