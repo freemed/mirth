@@ -289,7 +289,7 @@ public class DelimitedProperties implements Serializable
     /**
      * Holds value of property batchSplitByRecord.
      */
-    private boolean batchSplitByRecord = false;
+    private boolean batchSplitByRecord = true;
 
     /**
      * Getter for property batchSplitByRecord.
