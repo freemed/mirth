@@ -232,6 +232,7 @@ public class DelimitedReader extends SAXParser {
 		else
 		{
 			// There is no batching method configured.  Treat the entire input stream as the message.
+			logger.warn("No batch splitting method configured (processing entire input as one message)");
 			while ((ch = in.read()) != -1) {
 				message.append((char) ch);
 			}

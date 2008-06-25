@@ -3,7 +3,11 @@ package com.webreach.mirth.model.converters;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 public class DelimitedProperties {
+	
+	private Logger logger = Logger.getLogger(this.getClass());
 	
 	private String columnDelimiter = ",";
 	private String recordDelimiter = "\n";
@@ -13,7 +17,7 @@ public class DelimitedProperties {
 	private String quoteEscapeChar = "\\";
 	private String[] columnNames = null;	// list of column names: name1,name2,...,nameN
 	private int batchSkipRecords = 0;
-	private boolean batchSplitByRecord = false;
+	private boolean batchSplitByRecord = true;
 	private String batchMessageDelimiter = "";
 	private boolean batchMessageDelimiterIncluded = false;
 	private String batchGroupingColumn = "";
@@ -35,7 +39,7 @@ public class DelimitedProperties {
 		map.put("quoteEscapeChar", "\\");
 		map.put("columnNames", "");
 		map.put("batchSkipRecords", "0");
-		map.put("batchSplitByRecord", "false");
+		map.put("batchSplitByRecord", "true");
 		map.put("batchMessageDelimiter", "");
 		map.put("batchMessageDelimiterIncluded", "false");
 		map.put("batchGroupingColumn", "");
@@ -79,9 +83,8 @@ public class DelimitedProperties {
 					columnWidths[i] = Integer.parseInt(temp[i]);
 				}
 				catch (NumberFormatException e) {
-					// TODO throw something?  log something?  print something?
-					// This is a bad error.  We are missing an important piece of information: a fixed column width.
 					columnWidths[i] = 0;
+					logger.warn("Invalid number format in Column Widths: " + temp[i]);
 				}
 			}
 		}
@@ -109,17 +112,21 @@ public class DelimitedProperties {
 				batchSkipRecords = Integer.parseInt((String) theProperties.get("batchSkipRecords"));
 			}
 			catch (NumberFormatException e) {
-				// TODO throw something?  log something?  print something?
-				// It's okay to simply not set the value in this case, and let it default
+				logger.warn("Invalid number format in Number of Header Records: " + (String) theProperties.get("batchSkipRecords"));
 			}
 		}
 
+		int countSetBatchOptions=0;
 		if (isSet((String) theProperties.get("batchSplitByRecord"))) {
 			batchSplitByRecord = Boolean.valueOf((String) theProperties.get("batchSplitByRecord"));
-	}
+			if (batchSplitByRecord) {
+				countSetBatchOptions++;
+			}
+		}
 		
 		if (isSet((String) theProperties.get("batchMessageDelimiter"))) {
 			batchMessageDelimiter = unescape((String) theProperties.get("batchMessageDelimiter"));
+			countSetBatchOptions++;
 		}
 
 		if (isSet((String) theProperties.get("batchMessageDelimiterIncluded"))) {
@@ -128,10 +135,16 @@ public class DelimitedProperties {
 
 		if (isSet((String) theProperties.get("batchGroupingColumn"))) {
 			batchGroupingColumn = (String) theProperties.get("batchGroupingColumn");
+			countSetBatchOptions++;
 		}
 
 		if (isSet((String) theProperties.get("batchScript"))) {
 			batchScript = (String) theProperties.get("batchScript");
+			countSetBatchOptions++;
+		}
+
+		if (countSetBatchOptions > 1) {
+			logger.warn("Multiple batch splitting options are set");
 		}
 
 		if (isSet((String) theProperties.get("ignoreCR"))) {
@@ -159,20 +172,36 @@ public class DelimitedProperties {
 					len++;
 				}
 				if (len > 0) {
-					groupingColumnIndex = Integer.valueOf(
-							batchGroupingColumn.substring(
-									batchGroupingColumn.length()-len, 
-									batchGroupingColumn.length())) - 1;
+					try {
+						groupingColumnIndex = Integer.valueOf(
+								batchGroupingColumn.substring(
+										batchGroupingColumn.length()-len, 
+										batchGroupingColumn.length())) - 1;
+					}
+					catch (NumberFormatException e) {
+						logger.warn("Invalid number format in Split Batch by Grouping Column (defaulting to first column): " + 
+								batchGroupingColumn.substring(
+										batchGroupingColumn.length()-len, 
+										batchGroupingColumn.length()));
+					}
+				}
+				else {
+					logger.warn("Unknown batch grouping column (defaulting to first column): " + batchGroupingColumn);
 				}
 			}
 			else {
 
 				// Try to find the grouping column name in the user specified column names
-				for (int i=0; i < columnNames.length; i++) {
+				int i;
+				for (i=0; i < columnNames.length; i++) {
 					if (columnNames[i].equals(batchGroupingColumn)) {
 						groupingColumnIndex = i;
 						break;
 					}
+				}
+				
+				if (i == columnNames.length) {
+					logger.warn("Unknown batch grouping column (defaulting to first column): " + batchGroupingColumn);
 				}
 			}
 		}
