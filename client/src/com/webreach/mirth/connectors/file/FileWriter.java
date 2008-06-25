@@ -637,6 +637,7 @@ public class FileWriter extends ConnectorClass
         	
         	appendToFileNo.setEnabled(true); 
         	appendToFileYes.setEnabled(true); 
+        	appendToFileLabel.setEnabled(true);
         }
         else {
 
@@ -647,6 +648,7 @@ public class FileWriter extends ConnectorClass
         	
         	appendToFileNo.setEnabled(false); 
         	appendToFileYes.setEnabled(false); 
+        	appendToFileLabel.setEnabled(false);
         }
     }
 
