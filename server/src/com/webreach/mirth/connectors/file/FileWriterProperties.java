@@ -27,6 +27,7 @@ package com.webreach.mirth.connectors.file;
 
 import java.util.Properties;
 
+import com.webreach.mirth.connectors.ftp.FTPWriterProperties;
 import com.webreach.mirth.model.ComponentProperties;
 
 public class FileWriterProperties implements ComponentProperties
@@ -70,5 +71,43 @@ public class FileWriterProperties implements ComponentProperties
         properties.put(FILE_TYPE, "0");
         properties.put(CONNECTOR_CHARSET_ENCODING, "DEFAULT_ENCODING");
         return properties;
+    }
+
+    /** Return a suitable information string for the dashboard connector
+     * status monitor plugin.
+     * 
+     * Background: The current dashboard connector status monitor plugin
+     * embeds lots of knowledge about the properties for various types of
+     * connector. This is, in my opinion, a bad design. The knowledge
+     * about connector-specific properties should reside in the connector
+     * or the connector-specific properties themselves. Rather than fix
+     * it everywhere, since I'm short of time, I've fixed it only for the
+     * new merged File connector. (erikh@webreachinc.com)
+     * 
+     * @param properties The properties to be decided to an information string.
+     * @return An information suitable for display by the dashboard.
+     */
+    public static String getInformation(Properties properties) {
+    	String info = "";
+    	String scheme = properties.getProperty(FILE_SCHEME);
+    	if (scheme.equals(SCHEME_FILE)) {
+    		info = "Result written to: " 
+            		+ properties.getProperty(FileWriterProperties.FILE_HOST)
+            		+ "/"
+            		+ properties.getProperty(FileWriterProperties.FILE_NAME);
+    	}
+    	else if (scheme.equals(SCHEME_FTP) || scheme.equals(SCHEME_SFTP)) {
+    		info = "Result written to: " 
+    			+ properties.getProperty(FileWriterProperties.FILE_HOST) 
+    			+ "/" 
+    			+ properties.getProperty(FileWriterProperties.FILE_NAME);
+            if (properties.getProperty(FileWriterProperties.FILE_TYPE).equals("0")) {
+            	info += "   File Type: ASCII";
+            } else {
+            	info += "   File Type: Binary";
+            }
+    	}
+
+    	return info;
     }
 }
