@@ -623,6 +623,10 @@ public class TreePanel extends javax.swing.JPanel
                     // add empty node
                     currentNode.add(new MirthTreeNode(EMPTY));
                 }
+                else if (protocol.equals(Protocol.DELIMITED)) {
+                    // We have empty column node
+                    currentNode.add(new MirthTreeNode(EMPTY));
+                }
                 else
                 {
                     // We have empty node and possibly empty children
