@@ -96,7 +96,7 @@ public class DelimitedSerializer extends SAXParser implements IXMLSerializer<Str
 		// There is no meaningful meta data available in the delimited text case
 		// for version, type and source, so populate empty strings.
 		map.put("version", "");
-		map.put("type", "");
+		map.put("type", "delimited");
 		map.put("source", "");
 	}
 	

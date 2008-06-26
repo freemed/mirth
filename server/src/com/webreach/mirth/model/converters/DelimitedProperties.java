@@ -81,6 +81,10 @@ public class DelimitedProperties {
 			for (int i=0; i < temp.length; i++) {
 				try {
 					columnWidths[i] = Integer.parseInt(temp[i]);
+					
+					if (columnWidths[i] <= 0) {
+						logger.error("Fixed column width must be positive integer: " + columnWidths[i]);
+					}
 				}
 				catch (NumberFormatException e) {
 					columnWidths[i] = 0;
@@ -326,10 +330,12 @@ public class DelimitedProperties {
 			return s.substring(1, s.length() - 1);
 		}
 		
-		// Standard escape sequence substitutions
-		s = s.replaceAll("\\\\n", "\n");
-		s = s.replaceAll("\\\\r", "\r");
-		s = s.replaceAll("\\\\t", "\t");
+		// Standard escape sequence substitutions for non-printable characters (excludes printable characters: \ " ')
+		s = s.replace("\\b", "\b");
+		s = s.replace("\\t", "\t");
+		s = s.replace("\\n", "\n");
+		s = s.replace("\\f", "\f");
+		s = s.replace("\\r", "\r");
 		
 		// Substitute hex sequences with single character (e.g. 0x0a -> \n)
 		int n=0;

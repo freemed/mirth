@@ -27,14 +27,17 @@ package com.webreach.mirth.model.converters;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Script;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xerces.internal.parsers.SAXParser;
+import com.webreach.mirth.server.mule.transformers.JavaScriptTransformer;
+import com.webreach.mirth.server.util.UUIDGenerator;
 
 public class DelimitedReader extends SAXParser {
 	private Logger logger = Logger.getLogger(this.getClass());
@@ -227,6 +230,14 @@ public class DelimitedReader extends SAXParser {
 		}
 		else if (DelimitedProperties.isSet(props.getBatchScript())) {
 			// TODO
+			// TODO talk to GeraldB about optimizing the scope, use scope appropriate for using global map and channel map.
+			// TODO save compiled script on first run, execute compiled script each time thereafter
+//			Context context = JavaScriptTransformer.getContext();
+			
+//			Script compiledScript = context.compileString(props.getBatchScript(), UUIDGenerator.getUUID(), 1, null);
+			
+//			compiledScript.exec(context, scope);
+			
 			return null;
 		}
 		else
