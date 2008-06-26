@@ -415,6 +415,9 @@ public class FileReader extends ConnectorClass
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
+        buttonGroup6 = new javax.swing.ButtonGroup();
+        buttonGroup7 = new javax.swing.ButtonGroup();
+        buttonGroup8 = new javax.swing.ButtonGroup();
         scheme = new com.webreach.mirth.client.ui.components.MirthComboBox();
         hostLabel = new javax.swing.JLabel();
         hostField = new com.webreach.mirth.client.ui.components.MirthTextField();
@@ -494,7 +497,7 @@ public class FileReader extends ConnectorClass
 
         pollingIntervalButton.setBackground(new java.awt.Color(255, 255, 255));
         pollingIntervalButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup5.add(pollingIntervalButton);
+        buttonGroup4.add(pollingIntervalButton);
         pollingIntervalButton.setText("Interval");
         pollingIntervalButton.setToolTipText("Records that the time at which polling for files to be read will be specified as the time between polling attempts.");
         pollingIntervalButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -506,7 +509,7 @@ public class FileReader extends ConnectorClass
 
         pollingTimeButton.setBackground(new java.awt.Color(255, 255, 255));
         pollingTimeButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup5.add(pollingTimeButton);
+        buttonGroup4.add(pollingTimeButton);
         pollingTimeButton.setText("Time");
         pollingTimeButton.setToolTipText("Records that the time at which polling for files to be read will be specified as the time of day at which a polling attempt will occur each day.");
         pollingTimeButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -540,7 +543,7 @@ public class FileReader extends ConnectorClass
 
         deleteAfterReadYes.setBackground(new java.awt.Color(255, 255, 255));
         deleteAfterReadYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup1.add(deleteAfterReadYes);
+        buttonGroup5.add(deleteAfterReadYes);
         deleteAfterReadYes.setText("Yes");
         deleteAfterReadYes.setToolTipText("Select Yes to delete files after they are processed.");
         deleteAfterReadYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -552,7 +555,7 @@ public class FileReader extends ConnectorClass
 
         deleteAfterReadNo.setBackground(new java.awt.Color(255, 255, 255));
         deleteAfterReadNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup1.add(deleteAfterReadNo);
+        buttonGroup5.add(deleteAfterReadNo);
         deleteAfterReadNo.setSelected(true);
         deleteAfterReadNo.setText("No");
         deleteAfterReadNo.setToolTipText("Select No to not delete files after they are processed.");
@@ -565,7 +568,7 @@ public class FileReader extends ConnectorClass
 
         checkFileAgeYes.setBackground(new java.awt.Color(255, 255, 255));
         checkFileAgeYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup2.add(checkFileAgeYes);
+        buttonGroup6.add(checkFileAgeYes);
         checkFileAgeYes.setText("Yes");
         checkFileAgeYes.setToolTipText("Select Yes to skip processing files which are older than the specified age.");
         checkFileAgeYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -577,7 +580,7 @@ public class FileReader extends ConnectorClass
 
         checkFileAgeNo.setBackground(new java.awt.Color(255, 255, 255));
         checkFileAgeNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup2.add(checkFileAgeNo);
+        buttonGroup6.add(checkFileAgeNo);
         checkFileAgeNo.setSelected(true);
         checkFileAgeNo.setText("No");
         checkFileAgeNo.setToolTipText("Select No to process files regardless of age.");
@@ -621,14 +624,14 @@ public class FileReader extends ConnectorClass
 
         processBatchFilesYes.setBackground(new java.awt.Color(255, 255, 255));
         processBatchFilesYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup3.add(processBatchFilesYes);
+        buttonGroup8.add(processBatchFilesYes);
         processBatchFilesYes.setText("Yes");
         processBatchFilesYes.setToolTipText("Select Yes to process all messages in each file.");
         processBatchFilesYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         processBatchFilesNo.setBackground(new java.awt.Color(255, 255, 255));
         processBatchFilesNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup3.add(processBatchFilesNo);
+        buttonGroup8.add(processBatchFilesNo);
         processBatchFilesNo.setSelected(true);
         processBatchFilesNo.setText("No");
         processBatchFilesNo.setToolTipText("Select No to process the entire contents of the file as a single message.");
@@ -641,7 +644,7 @@ public class FileReader extends ConnectorClass
 
         fileTypeASCII.setBackground(new java.awt.Color(255, 255, 255));
         fileTypeASCII.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup4.add(fileTypeASCII);
+        buttonGroup7.add(fileTypeASCII);
         fileTypeASCII.setSelected(true);
         fileTypeASCII.setText("ASCII");
         fileTypeASCII.setToolTipText("Select No if files contain text (ASCII is a misnomer here).");
@@ -654,7 +657,7 @@ public class FileReader extends ConnectorClass
 
         fileTypeBinary.setBackground(new java.awt.Color(255, 255, 255));
         fileTypeBinary.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        buttonGroup4.add(fileTypeBinary);
+        buttonGroup7.add(fileTypeBinary);
         fileTypeBinary.setText("Binary");
         fileTypeBinary.setToolTipText("Select Yes if files contain binary data which should be Base64 encoded before processing.");
         fileTypeBinary.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -674,6 +677,7 @@ public class FileReader extends ConnectorClass
 
         anonymousYes.setBackground(new java.awt.Color(255, 255, 255));
         anonymousYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(anonymousYes);
         anonymousYes.setText("Yes");
         anonymousYes.setToolTipText("Connects to the file anonymously instead of using a username and password.");
         anonymousYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -685,6 +689,7 @@ public class FileReader extends ConnectorClass
 
         anonymousNo.setBackground(new java.awt.Color(255, 255, 255));
         anonymousNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup1.add(anonymousNo);
         anonymousNo.setSelected(true);
         anonymousNo.setText("No");
         anonymousNo.setToolTipText("Connects to the file using a username and password instead of anonymously.");
@@ -708,12 +713,14 @@ public class FileReader extends ConnectorClass
 
         validateConnectionYes.setBackground(new java.awt.Color(255, 255, 255));
         validateConnectionYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup3.add(validateConnectionYes);
         validateConnectionYes.setText("Yes");
         validateConnectionYes.setToolTipText("Select Yes to test the connection to the server before each operation.");
         validateConnectionYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         validateConnectionNo.setBackground(new java.awt.Color(255, 255, 255));
         validateConnectionNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup3.add(validateConnectionNo);
         validateConnectionNo.setSelected(true);
         validateConnectionNo.setText("No");
         validateConnectionNo.setToolTipText("Select No to skip testing the connection to the server before each operation.");
@@ -723,12 +730,14 @@ public class FileReader extends ConnectorClass
 
         passiveModeYes.setBackground(new java.awt.Color(255, 255, 255));
         passiveModeYes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup2.add(passiveModeYes);
         passiveModeYes.setText("Yes");
         passiveModeYes.setToolTipText("Select Yes to connect to the server in \"passive mode\". Passive mode sometimes allows a connection through a firewall that normal mode does not.");
         passiveModeYes.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         passiveModeNo.setBackground(new java.awt.Color(255, 255, 255));
         passiveModeNo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        buttonGroup2.add(passiveModeNo);
         passiveModeNo.setSelected(true);
         passiveModeNo.setText("No");
         passiveModeNo.setToolTipText("Select Yes to connect to the server in \"normal mode\" as opposed to passive mode.");
@@ -994,6 +1003,7 @@ public class FileReader extends ConnectorClass
             
         hostLabel.setEnabled(enableHost);
         hostField.setEnabled(enableHost);
+        directoryLabel.setEnabled(enableHost);
 
         anonymousLabel.setEnabled(enableOthers);
         anonymousYes.setEnabled(enableOthers);
@@ -1124,6 +1134,9 @@ public class FileReader extends ConnectorClass
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroup6;
+    private javax.swing.ButtonGroup buttonGroup7;
+    private javax.swing.ButtonGroup buttonGroup8;
     private com.webreach.mirth.client.ui.components.MirthComboBox charsetEncodingCombobox;
     private javax.swing.JLabel checkFileAgeLabel;
     private com.webreach.mirth.client.ui.components.MirthRadioButton checkFileAgeNo;
