@@ -108,6 +108,12 @@ public class DelimitedProperties {
 		if (isSet((String) theProperties.get("columnNames"))) {
 			// Split the comma delimited list of column names and store as String[]
 			columnNames = ((String) theProperties.get("columnNames")).split(",");
+			
+			for (int i=0; i < columnNames.length; i++) {
+				if (!validXMLElementName(columnNames[i])) {
+					logger.error("Invalid column name: " + columnNames[i] + " (must be a combination of letters, digits, periods, dashes, underscores and colons that begins with a letter, underscore or colon)");
+				}
+			}
 		}
 
 		if (isSet((String) theProperties.get("batchSkipRecords"))) {
@@ -360,5 +366,42 @@ public class DelimitedProperties {
 		}
 		
 		return s;
+	}
+	
+	private boolean validXMLElementName(String s) {
+
+		// Reference: http://www.w3.org/TR/REC-xml/#sec-well-formed
+		//
+		// Simplified requirements for a valid XML element name:
+		//	o First character must be a letter, underscore or colon
+		//	o Remaining characters must be letter, digit, period, dash, underscore or colon
+		//
+		// Note: this is not 100% complete, as it does not include tests for the so called
+		//	"CombiningChar" nor "Extender".
+		
+		// Must not be null or empty string 
+		if (s == null || s.length() == 0) {
+			return false;
+		}
+		
+		// First character must be a letter, underscore or colon
+		char ch = s.charAt(0);
+		if (!Character.isLetter(ch) && ch != '_' && ch != ':') {
+			return false;
+		}
+	
+		// Remaining characters must be letter, digit, period, dash, underscore or colon
+		for (int i=1; i < s.length(); i++) {
+			ch = s.charAt(i);
+			if (!Character.isLetter(ch) && 
+					!Character.isDigit(ch) &&
+					ch != '.' &&
+					ch != '-' &&
+					ch != '_' && 
+					ch != ':') {
+				return false;
+			}
+		}
+		return true;
 	}
 }
