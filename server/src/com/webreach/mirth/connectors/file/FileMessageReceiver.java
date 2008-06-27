@@ -321,6 +321,8 @@ public class FileMessageReceiver extends PollingMessageReceiver implements Batch
 			Reader in = null;
 			try {
 				in = new InputStreamReader(con.readFile(file.getName(), readDir), fileConnector.getCharsetEncoding());
+				Map protocolProperties = fileConnector.getProtocolProperties();
+				protocolProperties.put("batchScriptId", fileConnector.getChannelId());
 				batchAdaptor.processBatch(in, fileConnector.getProtocolProperties(), this);
 			}
 			finally {

@@ -30,13 +30,19 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ImporterTopLevel;
+import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.Script;
+import org.mozilla.javascript.Scriptable;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xerces.internal.parsers.SAXParser;
+import com.webreach.mirth.server.Constants;
 import com.webreach.mirth.server.mule.transformers.JavaScriptTransformer;
+import com.webreach.mirth.server.util.CompiledScriptCache;
+import com.webreach.mirth.server.util.JavaScriptScopeUtil;
 import com.webreach.mirth.server.util.UUIDGenerator;
 
 public class DelimitedReader extends SAXParser {
@@ -160,7 +166,7 @@ public class DelimitedReader extends SAXParser {
 		
 		if (props.isBatchSplitByRecord()) {
 			// Each record is treated as a message
-			ArrayList<String> record = getRecord(in, message);
+			getRecord(in, message);
 		}
 		else if (DelimitedProperties.isSet(props.getBatchMessageDelimiter())) {
 			// All records until the message delimiter (or end of input) is a message.
@@ -172,23 +178,16 @@ public class DelimitedReader extends SAXParser {
 					break;
 				}
 				
-				// Check to see if the next sequence of characters matches the message delimiter 
-				in.mark(props.getBatchMessageDelimiter().length());
-				int testChar;
-				int i;
-				for (i=0; i < props.getBatchMessageDelimiter().length(); i++) {
-					testChar = in.read();
-					if (testChar == -1 || ((char) testChar) != props.getBatchMessageDelimiter().charAt(i)) {
-						// Next character(s) are not the message delimiter
-						in.reset();
-						break;
-					}
-				}
-				
-				// If the message delimiter was found
-				if (i == props.getBatchMessageDelimiter().length()) {
+				// If the next sequence of characters is the message delimiter
+				String lookAhead = peekChars(in, props.getBatchMessageDelimiter().length());
+				if (lookAhead.equals(props.getBatchMessageDelimiter())) {
 					
-					// Append the message delimiter if it is being included
+					// Consume it.
+					for (int i=0; i < props.getBatchMessageDelimiter().length(); i++) {
+						ch = getChar(in, null);
+					}
+					
+					// Append it if it is being included
 					if (props.isBatchMessageDelimiterIncluded()) {
 						message.append(props.getBatchMessageDelimiter());
 					}
@@ -229,16 +228,41 @@ public class DelimitedReader extends SAXParser {
 			}
 		}
 		else if (DelimitedProperties.isSet(props.getBatchScript())) {
-			// TODO
-			// TODO talk to GeraldB about optimizing the scope, use scope appropriate for using global map and channel map.
-			// TODO save compiled script on first run, execute compiled script each time thereafter
-//			Context context = JavaScriptTransformer.getContext();
-			
-//			Script compiledScript = context.compileString(props.getBatchScript(), UUIDGenerator.getUUID(), 1, null);
-			
-//			compiledScript.exec(context, scope);
-			
-			return null;
+
+			try {
+				Context context = Context.enter();
+				Scriptable scope = new ImporterTopLevel(context);
+				JavaScriptScopeUtil.buildScope(scope, logger);
+				
+				// Provide the reader in the scope
+				scope.put("reader", scope, in);
+
+				// Provide the protocol properties in the scope (the ones that affect parsing from delimited to XML)
+				scope.put("columnDelimiter", scope, props.getColumnDelimiter());
+				scope.put("recordDelimiter", scope, props.getRecordDelimiter());
+				scope.put("columnWidths", scope, props.getColumnWidths());
+				scope.put("quoteChar", scope, props.getQuoteChar());
+				scope.put("escapeWithDoubleQuote", scope, props.isEscapeWithDoubleQuote());
+				scope.put("quoteEscapeChar", scope, props.getQuoteEscapeChar());
+				scope.put("ignoreCR", scope, props.isIgnoreCR());
+				if (skipHeader) {
+					scope.put("skipRecords", scope, props.getBatchSkipRecords());	
+				}
+				else {
+					scope.put("skipRecords", scope, 0);
+				}
+				
+				Script compiledScript = CompiledScriptCache.getInstance().getCompiledScript(props.getBatchScriptId());
+
+				if (compiledScript == null) {
+					logger.error("Batch script could not be found in cache");
+				} else {
+					String result = Context.toString(compiledScript.exec(context, scope));
+					message.append(result);
+				}
+			} catch (Throwable e) {
+				logger.error(e);
+			}
 		}
 		else
 		{
@@ -481,6 +505,32 @@ public class DelimitedReader extends SAXParser {
 	}
 
 	/**
+	 * This low level reader gets the next non-ignored character from the input, and returns it.
+	 * 
+	 * @param in The input stream (it's a BufferedReader, because operations on it require in.mark()).
+	 * @param remark Iff true, remarks the input stream after reading an ignored character. 
+	 * @return The next non-ignored character read, or -1 if end of input stream.
+	 * @throws IOException
+	 */
+	private int getNonIgnoredChar(BufferedReader in, boolean remark) throws IOException {
+		int ch;
+		
+		// If configured, gobble \r
+		if (props.isIgnoreCR()) {
+			while (((char)(ch = in.read())) == '\r') {
+				if (remark) {
+					in.mark(1);
+				}
+			}
+		}
+		else {
+			ch = in.read();
+		}
+		
+		return ch;
+	}
+	
+	/**
 	 * Get the next character from the input, and return it.
 	 * 
 	 * @param in The input stream (it's a BufferedReader, because operations on it require in.mark()).
@@ -490,16 +540,8 @@ public class DelimitedReader extends SAXParser {
 	 */
 	private int getChar(BufferedReader in, StringBuilder rawText) throws IOException {
 		in.mark(1);
-		int ch = in.read();
+		int ch = getNonIgnoredChar(in, true);
 		
-		// If configured, gobble \r
-		if (props.isIgnoreCR()) {
-			while (ch != -1 && ((char) ch=='\r')) {
-				in.mark(1);
-				ch = in.read();
-			}
-		}
-
 		// If building up the raw text, and a character was successfully read, append it to the raw text
 		if (rawText != null && ch != -1) {
 			rawText.append((char) ch);
@@ -509,7 +551,7 @@ public class DelimitedReader extends SAXParser {
 	}
 
 	/**
-	 * Unget the last character read.
+	 * Unget the last character read by getChar().
 	 * 
 	 * @param in The input stream (it's a BufferedReader, because operations on it require in.mark()).
 	 * @param rawText Optional StringBuilder used to return a copy of the raw text unread by this method.
@@ -524,18 +566,48 @@ public class DelimitedReader extends SAXParser {
 		}
 	}
 	
-	/** Look ahead one character in the stream without consuming it. 
+	/** Look ahead one character in the stream, return it, but don't consume it. 
 	 * 
-	 * @param in The input stream (it's a BufferedReader, because this method requires in.mark()).
+	 * @param in The input stream (it's a BufferedReader, because operations on it require in.mark()).
 	 * @return The next character in the stream, or -1 if end of stream reached.
 	 * @throws IOException
 	 */
 	private int peekChar(BufferedReader in) throws IOException {
-		int ch = getChar(in, null);
+		in.mark(1);
+		int ch = getNonIgnoredChar(in, true);
 		in.reset();
 		return ch;
 	}
-
+	
+	/**
+	 * Look ahead n characters in the stream, return them, but don't consume them.
+	 *  
+	 * @param in The input stream (it's a BufferedReader, because operations on it require in.mark()).
+	 * @param n The number of characters to read.
+	 * @return A string containing the next n characters without consuming them.  Returns an empty string
+	 *			if no characters are read.
+	 * @throws IOException
+	 */
+	private String peekChars(BufferedReader in, int n) throws IOException {
+		// Mark with a little extra (64 characters) in case the code skips over some ignored characters (e.g. \r's)
+		// Beyond 64 ignored characters may cause a problem on reset(). 
+		in.mark(n + 64);
+		StringBuilder result = new StringBuilder();
+		while (n > 0) {
+			
+			int ch = getNonIgnoredChar(in, false);
+			
+			if (ch == -1) {
+				break;
+			}
+			
+			result.append((char) ch);
+			n--;
+		}
+		in.reset();
+		return result.toString();
+	}
+	
 	/**
 	 * Removes trailing whitespace from a string and returns it.
 	 * @param s The input string.

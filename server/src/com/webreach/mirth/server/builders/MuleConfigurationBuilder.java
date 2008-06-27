@@ -340,7 +340,7 @@ public class MuleConfigurationBuilder {
 						transformers.append(transport.getTransformers());
 					}
 
-					// enable transactions for the outbount router only if it
+					// enable transactions for the outbound router only if it
 					// has a
 					// JDBC connector
 					if (transport.getProtocol().equals("jdbc")) {
@@ -443,8 +443,17 @@ public class MuleConfigurationBuilder {
 				Element outboundPropertiesElement = getPropertiesMap(document, transformer.getOutboundProperties(), null, "outboundProperties");
 				propertiesElement.appendChild(outboundPropertiesElement);
 			}
+			
 			transformerElement.appendChild(propertiesElement);
 			transformersElement.appendChild(transformerElement);
+			
+			// Add the "batchScript" property to the script table
+			ScriptController scriptController = ScriptController.getInstance();
+			String inboundBatchScript = transformer.getInboundProperties().getProperty("batchScript");
+			
+			if (inboundBatchScript != null) {
+				scriptController.putScript(channel.getId(), inboundBatchScript);
+			}
 		} catch (Exception e) {
 			throw new BuilderException(e);
 		}

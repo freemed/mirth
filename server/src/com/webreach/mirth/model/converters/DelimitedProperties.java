@@ -23,6 +23,7 @@ public class DelimitedProperties {
 	private String batchGroupingColumn = "";
 	private String batchScript = "";
 	private boolean ignoreCR = true;
+	private String batchScriptId = null;
 	
 	// Denormalized properties
 	private int groupingColumnIndex;
@@ -152,6 +153,10 @@ public class DelimitedProperties {
 			batchScript = (String) theProperties.get("batchScript");
 			countSetBatchOptions++;
 		}
+		
+		if (isSet((String) theProperties.get("batchScriptId"))) {
+			batchScriptId = (String) theProperties.get("batchScriptId");
+		}		
 
 		if (countSetBatchOptions > 1) {
 			logger.warn("Multiple batch splitting options are set");
@@ -319,6 +324,14 @@ public class DelimitedProperties {
 		this.batchSplitByRecord = batchSplitByRecord;
 	}
 	
+	public String getBatchScriptId() {
+		return batchScriptId;
+	}
+
+	public void setBatchScriptId(String batchScriptId) {
+		this.batchScriptId = batchScriptId;
+	}
+
 	// Four ways to specify character values and string values
 	// 1. Literal
 	// 2. Quoted literal (turns off escape processing except for standard escape sequences)
