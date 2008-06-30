@@ -306,4 +306,25 @@ public class DelimitedProperties implements Serializable
     public void setBatchSplitByRecord(boolean batchSplitByRecord) {
         this.batchSplitByRecord = batchSplitByRecord;
     }
+
+    /**
+     * Holds value of property numberedRows.
+     */
+    private boolean numberedRows;
+
+    /**
+     * Getter for property numberedRows.
+     * @return Value of property numberedRows.
+     */
+    public boolean isNumberedRows() {
+        return this.numberedRows;
+    }
+
+    /**
+     * Setter for property numberedRows.
+     * @param numberedRows New value of property numberedRows.
+     */
+    public void setNumberedRows(boolean numberedRows) {
+        this.numberedRows = numberedRows;
+    }
 }

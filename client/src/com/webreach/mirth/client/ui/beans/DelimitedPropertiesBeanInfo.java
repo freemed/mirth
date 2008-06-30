@@ -26,13 +26,14 @@ public class DelimitedPropertiesBeanInfo extends SimpleBeanInfo
     private static final int PROPERTY_escapeWithDoubleQuote = 4;
     private static final int PROPERTY_quoteEscapeChar = 5;
     private static final int PROPERTY_columnNames = 6;
-    private static final int PROPERTY_ignoreCR = 7;
-    private static final int PROPERTY_batchSkipRecords = 8;
-    private static final int PROPERTY_batchSplitByRecord = 9;
-    private static final int PROPERTY_batchMessageDelimiter = 10;
-    private static final int PROPERTY_batchMessageDelimiterIncluded = 11;
-    private static final int PROPERTY_batchGroupingColumn = 12;
-    private static final int PROPERTY_batchScript = 13;
+    private static final int PROPERTY_numberedRows = 7;
+    private static final int PROPERTY_ignoreCR = 8;
+    private static final int PROPERTY_batchSkipRecords = 9;
+    private static final int PROPERTY_batchSplitByRecord = 10;
+    private static final int PROPERTY_batchMessageDelimiter = 11;
+    private static final int PROPERTY_batchMessageDelimiterIncluded = 12;
+    private static final int PROPERTY_batchGroupingColumn = 13;
+    private static final int PROPERTY_batchScript = 14;
     */
     
     // Property identifiers//GEN-FIRST:Properties
@@ -43,18 +44,19 @@ public class DelimitedPropertiesBeanInfo extends SimpleBeanInfo
     private static final int PROPERTY_escapeWithDoubleQuote = 4;
     private static final int PROPERTY_quoteEscapeChar = 5;
     private static final int PROPERTY_columnNames = 6;
-    private static final int PROPERTY_ignoreCR = 7;
-    private static final int PROPERTY_batchSkipRecords = 8;
-    private static final int PROPERTY_batchSplitByRecord = 9;
-    private static final int PROPERTY_batchMessageDelimiter = 10;
-    private static final int PROPERTY_batchMessageDelimiterIncluded = 11;
-    private static final int PROPERTY_batchGroupingColumn = 12;
-    private static final int PROPERTY_batchScript = 13;
+    private static final int PROPERTY_numberedRows = 7;
+    private static final int PROPERTY_ignoreCR = 8;
+    private static final int PROPERTY_batchSkipRecords = 9;
+    private static final int PROPERTY_batchSplitByRecord = 10;
+    private static final int PROPERTY_batchMessageDelimiter = 11;
+    private static final int PROPERTY_batchMessageDelimiterIncluded = 12;
+    private static final int PROPERTY_batchGroupingColumn = 13;
+    private static final int PROPERTY_batchScript = 14;
 
     // Property array 
     /*lazy PropertyDescriptor*/
     private static PropertyDescriptor[] getPdescriptor(){
-        PropertyDescriptor[] properties = new PropertyDescriptor[14];
+        PropertyDescriptor[] properties = new PropertyDescriptor[15];
     
         try {
             properties[PROPERTY_batchGroupingColumn] = new PropertyDescriptor ( "batchGroupingColumn", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchGroupingColumn", "setBatchGroupingColumn" ); // NOI18N
@@ -100,6 +102,10 @@ public class DelimitedPropertiesBeanInfo extends SimpleBeanInfo
             properties[PROPERTY_ignoreCR].setDisplayName ( "Ignore Carriage Returns" );
             properties[PROPERTY_ignoreCR].setShortDescription ( "Ignores carriage return (\\r) characters.  These are read over and skipped without processing them." );
             properties[PROPERTY_ignoreCR].setBound ( true );
+            properties[PROPERTY_numberedRows] = new PropertyDescriptor ( "numberedRows", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "isNumberedRows", "setNumberedRows" ); // NOI18N
+            properties[PROPERTY_numberedRows].setDisplayName ( "Numbered Rows" );
+            properties[PROPERTY_numberedRows].setShortDescription ( "Check to number each row in the XML representation of the message." );
+            properties[PROPERTY_numberedRows].setBound ( true );
             properties[PROPERTY_quoteChar] = new PropertyDescriptor ( "quoteChar", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getQuoteChar", "setQuoteChar" ); // NOI18N
             properties[PROPERTY_quoteChar].setDisplayName ( "Quote Character" );
             properties[PROPERTY_quoteChar].setShortDescription ( "Enter the quote character that is used to bracket delimit column values containing embedded special characters like column delimiters, record delimiters, quote characters and/or message delimiters.    For example, this is a double quote (\") in a CSV file." );

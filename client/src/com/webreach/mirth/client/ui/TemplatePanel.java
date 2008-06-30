@@ -493,7 +493,7 @@ public class TemplatePanel extends javax.swing.JPanel implements DropTargetListe
         else if (((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.NCPDP)))
             new BoundPropertiesSheetDialog(dataProperties, new NCPDPProperties());
         else if (((String) dataType.getSelectedItem()).equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.DELIMITED)))
-        	new BoundPropertiesSheetDialog(dataProperties, new DelimitedProperties(), 550, 350);
+        	new BoundPropertiesSheetDialog(dataProperties, new DelimitedProperties(), 550, 370);
         updateText();
     }//GEN-LAST:event_propertiesActionPerformed
 
