@@ -449,10 +449,10 @@ public class MuleConfigurationBuilder {
 			
 			// Add the "batchScript" property to the script table
 			ScriptController scriptController = ScriptController.getInstance();
-			String inboundBatchScript = transformer.getInboundProperties().getProperty("batchScript");
-			
-			if (inboundBatchScript != null) {
-				scriptController.putScript(channel.getId(), inboundBatchScript);
+			if (transformer.getInboundProperties() != null &&
+					transformer.getInboundProperties().getProperty("batchScript") != null) {
+				
+					scriptController.putScript(channel.getId(), transformer.getInboundProperties().getProperty("batchScript"));
 			}
 		} catch (Exception e) {
 			throw new BuilderException(e);
