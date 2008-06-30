@@ -104,7 +104,12 @@ public class DelimitedReader extends SAXParser {
 		while ((record = getRecord(in, null)) != null) {
 			
 			// Output <rowN> 
-			contentHandler.startElement("", "row" + recordNo, "", null);
+			if (props.isNumberedRows()) {
+				contentHandler.startElement("", "row" + recordNo, "", null);
+			}
+			else {
+				contentHandler.startElement("", "row", "", null);
+			}
 
 			// For each column
 			for (int i=0; i < record.size(); i++) {
@@ -128,8 +133,13 @@ public class DelimitedReader extends SAXParser {
 				contentHandler.endElement("", columnName, "");
 			}
 			
-			// Output </rowN> 
-			contentHandler.endElement("", "row" + recordNo, "");
+			// Output </rowN>
+			if (props.isNumberedRows()) {
+				contentHandler.endElement("", "row" + recordNo, "");
+			}
+			else {
+				contentHandler.endElement("", "row", "");
+			}
 
 			recordNo++;
 		}

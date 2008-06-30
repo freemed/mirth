@@ -16,6 +16,7 @@ public class DelimitedProperties {
 	private boolean escapeWithDoubleQuote = true;
 	private String quoteEscapeChar = "\\";
 	private String[] columnNames = null;	// list of column names: name1,name2,...,nameN
+	private boolean numberedRows = false;
 	private int batchSkipRecords = 0;
 	private boolean batchSplitByRecord = true;
 	private String batchMessageDelimiter = "";
@@ -39,6 +40,7 @@ public class DelimitedProperties {
 		map.put("escapeWithDoubleQuote", "true");
 		map.put("quoteEscapeChar", "\\");
 		map.put("columnNames", "");
+		map.put("numberedRows", "false");
 		map.put("batchSkipRecords", "0");
 		map.put("batchSplitByRecord", "true");
 		map.put("batchMessageDelimiter", "");
@@ -117,6 +119,10 @@ public class DelimitedProperties {
 			}
 		}
 
+		if (isSet((String) theProperties.get("numberedRows"))) {
+			numberedRows = Boolean.valueOf((String) theProperties.get("numberedRows"));
+		}
+		
 		if (isSet((String) theProperties.get("batchSkipRecords"))) {
 			// Store an int
 			try {
@@ -281,6 +287,14 @@ public class DelimitedProperties {
 	}
 	public void setColumnNames(String[] columnNames) {
 		this.columnNames = columnNames;
+	}
+
+	public boolean isNumberedRows() {
+		return numberedRows;
+	}
+
+	public void setNumberedRows(boolean numberedRows) {
+		this.numberedRows = numberedRows;
 	}
 
 	public int getGroupingColumnIndex() {
