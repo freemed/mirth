@@ -46,7 +46,7 @@ public class DelimitedAdaptor extends Adaptor implements BatchAdaptor {
 	}
 
 	public void processBatch(Reader src, Map properties, BatchMessageProcessor dest)
-		throws MessagingException, UMOException, IOException
+		throws Exception
 	{
 		try {
 			String batchScriptId = (String) properties.get("batchScriptId");

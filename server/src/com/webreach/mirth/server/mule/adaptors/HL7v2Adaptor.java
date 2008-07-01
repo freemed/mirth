@@ -38,7 +38,7 @@ public class HL7v2Adaptor extends Adaptor implements BatchAdaptor {
 	}
 
 	public void processBatch(Reader src, Map properties, BatchMessageProcessor dest)
-		throws MessagingException, UMOException
+		throws Exception
 	{
 		// TODO: The values of these parameters should come from the protocol
 		// properties passed to processBatch
