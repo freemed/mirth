@@ -15,7 +15,6 @@ import com.webreach.mirth.model.converters.DelimitedSerializer;
 import com.webreach.mirth.model.converters.IXMLSerializer;
 import com.webreach.mirth.model.converters.SerializerFactory;
 import com.webreach.mirth.server.controllers.ScriptController;
-import com.webreach.mirth.server.util.CompiledScriptCache;
 import com.webreach.mirth.server.util.JavaScriptUtil;
 
 public class DelimitedAdaptor extends Adaptor implements BatchAdaptor {
