@@ -73,7 +73,7 @@ public class DelimitedPropertiesBeanInfo extends SimpleBeanInfo
             properties[PROPERTY_batchScript] = new PropertyDescriptor ( "batchScript", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchScript", "setBatchScript" ); // NOI18N
             properties[PROPERTY_batchScript].setDisplayName ( "Split Batch by Javascript" );
             properties[PROPERTY_batchScript].setShortDescription ( "For batch processing, enter Javascript that splits the batch, and returns the next message.  This option has no effect unless Process Batch Files is enabled in the connector." );
-            properties[PROPERTY_batchScript].setPropertyEditorClass ( com.webreach.mirth.client.ui.editors.JavascriptPropertyEditor.class );
+            properties[PROPERTY_batchScript].setPropertyEditorClass ( com.webreach.mirth.client.ui.editors.JavaScriptPropertyEditor.class );
             properties[PROPERTY_batchSkipRecords] = new PropertyDescriptor ( "batchSkipRecords", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchSkipRecords", "setBatchSkipRecords" ); // NOI18N
             properties[PROPERTY_batchSkipRecords].setDisplayName ( "Number of Header Records" );
             properties[PROPERTY_batchSkipRecords].setShortDescription ( "For batch processing, enter the number of header records to skip.  By default, no header records are skipped.  This option has no effect unless Process Batch Files is enabled in the connector." );
