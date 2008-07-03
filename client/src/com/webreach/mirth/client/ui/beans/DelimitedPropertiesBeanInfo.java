@@ -62,6 +62,7 @@ public class DelimitedPropertiesBeanInfo extends SimpleBeanInfo
             properties[PROPERTY_batchGroupingColumn] = new PropertyDescriptor ( "batchGroupingColumn", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchGroupingColumn", "setBatchGroupingColumn" ); // NOI18N
             properties[PROPERTY_batchGroupingColumn].setDisplayName ( "Split Batch by Grouping Column" );
             properties[PROPERTY_batchGroupingColumn].setShortDescription ( "For batch processing, enter the name of the column used to group multiple records into a single message.  When the specified column value changes, this signifies the boundary between messages.  This option has no effect unless Process Batch Files is enabled in the connector." );
+            properties[PROPERTY_batchGroupingColumn].setBound ( true );
             properties[PROPERTY_batchMessageDelimiter] = new PropertyDescriptor ( "batchMessageDelimiter", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchMessageDelimiter", "setBatchMessageDelimiter" ); // NOI18N
             properties[PROPERTY_batchMessageDelimiter].setDisplayName ( "Split Batch by Delimiter" );
             properties[PROPERTY_batchMessageDelimiter].setShortDescription ( "For batch processing, enter the delimiter that separates messages.  The message delimiter may be a sequence of characters.  This option has no effect unless Process Batch Files is enabled in the connector." );
@@ -72,7 +73,8 @@ public class DelimitedPropertiesBeanInfo extends SimpleBeanInfo
             properties[PROPERTY_batchMessageDelimiterIncluded].setBound ( true );
             properties[PROPERTY_batchScript] = new PropertyDescriptor ( "batchScript", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchScript", "setBatchScript" ); // NOI18N
             properties[PROPERTY_batchScript].setDisplayName ( "Split Batch by Javascript" );
-            properties[PROPERTY_batchScript].setShortDescription ( "For batch processing, enter Javascript that splits the batch, and returns the next message.  This option has no effect unless Process Batch Files is enabled in the connector." );
+            properties[PROPERTY_batchScript].setShortDescription ( "For batch processing, enter Javascript that splits the batch, and returns the next message.  This script has access to 'reader', a Java BufferedReader, to read the incoming data stream.  The script must return a string containing the next message, or an empty string to indicate end of input.  This option has no effect unless Process Batch Files is enabled in the connector." );
+            properties[PROPERTY_batchScript].setBound ( true );
             properties[PROPERTY_batchScript].setPropertyEditorClass ( com.webreach.mirth.client.ui.editors.JavaScriptPropertyEditor.class );
             properties[PROPERTY_batchSkipRecords] = new PropertyDescriptor ( "batchSkipRecords", com.webreach.mirth.client.ui.beans.DelimitedProperties.class, "getBatchSkipRecords", "setBatchSkipRecords" ); // NOI18N
             properties[PROPERTY_batchSkipRecords].setDisplayName ( "Number of Header Records" );
