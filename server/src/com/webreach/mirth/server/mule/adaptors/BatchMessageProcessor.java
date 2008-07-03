@@ -1,5 +1,8 @@
 package com.webreach.mirth.server.mule.adaptors;
 
+import org.mule.umo.MessagingException;
+import org.mule.umo.UMOException;
+
 /**
  * The interface that must be implemented by classes that handle message
  * callbacks from BatchAdapters.
@@ -9,5 +12,5 @@ package com.webreach.mirth.server.mule.adaptors;
 public interface BatchMessageProcessor {
 
 	public void processBatchMessage(String message)
-		throws Exception;
+		throws MessagingException, UMOException;
 }
