@@ -16,11 +16,7 @@ import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Timer;
@@ -47,10 +43,6 @@ import com.webreach.mirth.client.ui.editors.MirthEditorPane;
 import com.webreach.mirth.client.ui.util.FileUtil;
 import com.webreach.mirth.model.MessageObject;
 import com.webreach.mirth.model.converters.DICOMSerializer;
-import com.webreach.mirth.server.mule.adaptors.Adaptor;
-import com.webreach.mirth.server.mule.adaptors.AdaptorFactory;
-import com.webreach.mirth.server.mule.adaptors.BatchAdaptor;
-import com.webreach.mirth.server.mule.adaptors.BatchMessageProcessor;
 
 /**
  *
@@ -438,60 +430,6 @@ public class TemplatePanel extends javax.swing.JPanel implements DropTargetListe
 
     }// </editor-fold>//GEN-END:initComponents
 
-	private class FoundMessageException extends Exception {
-		
-		public FoundMessageException(String message) {
-			super(message);
-		}
-	}
-	
-    private class OpenBatchMessageProcessor implements BatchMessageProcessor {
-
-    	private int targetIndex;
-    	private int nextIndex = 1;
-    	private String message = null;
-    	
-    	public OpenBatchMessageProcessor(int targetIndex) {
-
-    		this.targetIndex = targetIndex;
-    		this.nextIndex = 1;
-    		this.message = null;
-    	}
-    	
-		public void processBatchMessage(String message) throws Exception {
-
-			if (nextIndex == targetIndex) {
-				this.message = message;
-				throw new FoundMessageException("found target message");
-			}
-			else {
-				this.nextIndex++;
-			}
-		}
-
-		public String getMessage() {
-			return message;
-		}
-    }
-
-    /** Maps the text for a protocol back to the corresponding enumerated
-     * value.
-     * 
-     * @return The enumerated value corresponding to the selected protocol.
-     */
-    private MessageObject.Protocol getProtocolEnum() {
-    	
-    	for (MessageObject.Protocol p : MessageObject.Protocol.values()) {
-    		if (getProtocol().equals(PlatformUI.MIRTH_FRAME.protocols.get(p))) {
-    			return p;
-    		}
-    	}
-    	
-    	// TODO: log this as a can't happen (erikh)
-
-    	return MessageObject.Protocol.XML;
-    }
-
     private void openFileButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_openFileButtonActionPerformed
     {//GEN-HEADEREND:event_openFileButtonActionPerformed
 
@@ -500,23 +438,6 @@ public class TemplatePanel extends javax.swing.JPanel implements DropTargetListe
         File currentDir = new File(Preferences.systemNodeForPackage(Mirth.class).get("currentDirectory", ""));
         if (currentDir.exists())
             fileChooser.setCurrentDirectory(currentDir);
-
-        // TODO: I'd love to only do this if batch processing was selected in the
-        // connector properties, and drop the batch process checkbox from the accessory
-        // panel (erikh).
-        Adaptor t = AdaptorFactory.getAdaptor(getProtocolEnum());
-        BatchAdaptor adaptor = null;
-        BatchFileOpenPanel accessoryPanel = null;
-        if (t instanceof BatchAdaptor) {
-        	adaptor = (BatchAdaptor) t;
-        	
-            // create and add the "accessory" batch controls.
-            accessoryPanel = new BatchFileOpenPanel();
-            fileChooser.setAccessory(accessoryPanel);
-            
-            // TODO: It might be nice to remember the access batch control
-            // settings across multiple invocations (erikh).
-        }
 
         int returnVal = fileChooser.showOpenDialog(PlatformUI.MIRTH_FRAME);
         File file = null;
@@ -528,37 +449,7 @@ public class TemplatePanel extends javax.swing.JPanel implements DropTargetListe
 
             try
             {
-                // If the protocol supports batch processing and the batch
-                // process accessory control was checked 
-            	if (adaptor != null && accessoryPanel.isBatchProcess()) {
-            		
-                    // Create a batch message processor instance to capture the message.
-            		OpenBatchMessageProcessor messageProcessor = new OpenBatchMessageProcessor(accessoryPanel.getMessageIndex());
-
-                    // Ask the adaptor to process the selected file
-            		Reader in = null;
-            		try {
-	            		in = new BufferedReader(new FileReader(file));
-	            		adaptor.processBatch(in, dataProperties, messageProcessor);
-	            		
-                        // The selected index must have been past the end of the file.
-            			PlatformUI.MIRTH_FRAME.alertError("Hit end of file before getting the specified message.");
-            			return;
-            		}
-            		catch (FoundMessageException ex) {
-            			
-            			// This is actually the *success* exit from processBatch.
-
-                        // Store it to the pasteBox.
-            			pasteBox.setText(messageProcessor.getMessage());
-            			return;
-            		}
-            		finally {
-            			in.close();
-            		}
-            	}
-            	else if (getProtocol().equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.DICOM))){
-
+                if (getProtocol().equals(PlatformUI.MIRTH_FRAME.protocols.get(MessageObject.Protocol.DICOM))){
                     //pasteBox.setText(file.getPath());
                     pasteBox.setText(new DICOMSerializer().toXML(file));
                 }
