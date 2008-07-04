@@ -57,9 +57,10 @@ public interface FileSystemConnection {
 	/** Removes the specified file from the specified directory.
 	 * @param file The name of the file to be deleted, with no path information.
 	 * @param fromDir The full path of the directory containing the file.
+	 * @param mayNotExist True iff it is not an error for the file to be missing.
 	 * @throws Exception
 	 */
-	public void delete(String file, String fromDir)
+	public void delete(String file, String fromDir, boolean mayNotExist)
 		throws Exception;
 	
 	/** Moves the specified file from the specified directory to a potentially

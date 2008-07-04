@@ -342,7 +342,7 @@ public class FileMessageReceiver extends PollingMessageReceiver implements Batch
 		FileSystemConnection con = fileConnector.getConnection(uri, null);
 		try {
 			
-			con.delete(name, dir);
+			con.delete(name, dir, mayNotExist);
 			return true;
 		}
 		catch (Exception e) {

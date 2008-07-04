@@ -146,11 +146,16 @@ public class FileConnection implements FileSystemConnection {
 		}
 	}
 
-	public void delete(String file, String fromDir) throws MuleException {
+	public void delete(String file, String fromDir, boolean mayNotExist)
+		throws MuleException
+	{
 		File src = new File(fromDir, file);
 
 		if (!src.delete()) {
-			throw new MuleException(new Message("file", 3, src.getAbsolutePath()));
+			
+			if (!mayNotExist) {
+				throw new MuleException(new Message("file", 3, src.getAbsolutePath()));
+			}
 		}
 	}
 

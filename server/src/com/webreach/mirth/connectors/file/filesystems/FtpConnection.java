@@ -182,8 +182,9 @@ public class FtpConnection implements FileSystemConnection {
 		client.storeFile(file, new ByteArrayInputStream(message));
 	}
 
-	public void delete(String file, String fromDir) throws Exception {
-		
+	public void delete(String file, String fromDir, boolean mayNotExist)
+		throws Exception
+	{
 		if (!client.changeWorkingDirectory(fixDir(fromDir))) {
 			logger.error("delete.changeWorkingDirectory: " + client.getReplyCode() + "-" + client.getReplyString());
 			throw new IOException("Ftp error: " + client.getReplyCode());
@@ -191,8 +192,10 @@ public class FtpConnection implements FileSystemConnection {
 
 		boolean deleteSucceeded = client.deleteFile(file);
 		if (!deleteSucceeded) {
-			logger.error("delete.deleteFile: " + client.getReplyCode() + "-" + client.getReplyString());
-			throw new IOException("Ftp error: " + client.getReplyCode());
+			if (!mayNotExist) {
+				logger.error("delete.deleteFile: " + client.getReplyCode() + "-" + client.getReplyString());
+				throw new IOException("Ftp error: " + client.getReplyCode());
+			}
 		}
 	}
 

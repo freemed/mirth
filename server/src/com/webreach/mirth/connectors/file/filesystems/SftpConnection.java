@@ -167,9 +167,18 @@ public class SftpConnection implements FileSystemConnection {
 		client.put(new ByteArrayInputStream(message), file, mode);
 	}
 
-	public void delete(String file, String fromDir) throws Exception {
+	public void delete(String file, String fromDir, boolean mayNotExist)
+		throws Exception
+	{
 		client.cd(fixDir(fromDir));
-		client.rm(file);
+		try {
+			client.rm(file);
+		}
+		catch (Exception e) {
+			if (!mayNotExist) {
+				throw e;
+			}
+		}
 	}
 
 	private void cdmake(String dir) throws Exception {
