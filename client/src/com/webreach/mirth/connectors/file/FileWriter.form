@@ -36,87 +36,63 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-              <Component id="templateLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="charsetEncodingCombobox" min="-2" pref="125" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="fileContentsTextPane" pref="371" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-              <Component id="scheme" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="hostLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="hostField" min="-2" pref="167" max="-2" attributes="1"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="directoryLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Component id="directoryField" pref="190" max="32767" attributes="1"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="anonymousLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="fileNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="passwordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="usernameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="appendToFileLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="validateConnectionLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="fileTypeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="passiveModeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="encodingLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="templateLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="encodingLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="fileTypeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="anonymousLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="fileNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="hostLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="directoryLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="schemeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="passiveModeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="passwordLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="validateConnectionLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="appendToFileLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="usernameLabel" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="fileTypeBinary" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fileTypeASCII" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="appendToFileYes" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="appendToFileNo" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="validateConnectionYes" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="validateConnectionNo" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="passiveModeYes" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="passiveModeNo" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="fileNameField" pref="369" max="32767" attributes="1"/>
+                  <Component id="schemeComboBox" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="hostField" min="-2" pref="167" max="-2" attributes="1"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pathLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pathField" pref="192" max="32767" attributes="1"/>
+                  </Group>
+                  <Component id="fileNameField" pref="371" max="32767" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="anonymousYes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="anonymousNo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="usernameField" min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="passwordField" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="passiveModeYes" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="passiveModeNo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="validateConnectionYes" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="validateConnectionNo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="appendToFileYes" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="appendToFileNo" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="fileTypeBinary" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="fileTypeASCII" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="charsetEncodingCombobox" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Component id="fileContentsTextPane" pref="371" max="32767" attributes="0"/>
+                  <Component id="directoryField" alignment="0" pref="371" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -125,18 +101,27 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="hostField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="directoryField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="directoryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="hostLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="scheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="schemeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="schemeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fileNameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="directoryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="directoryField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="hostLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="hostField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pathLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pathField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="fileNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fileNameField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -146,8 +131,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="usernameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="usernameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="usernameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -156,37 +141,37 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="passiveModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="passiveModeYes" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="passiveModeNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passiveModeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="validateConnectionLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
                   <Component id="validateConnectionYes" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="validateConnectionNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="validateConnectionLabel" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="appendToFileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="appendToFileYes" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="appendToFileNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="appendToFileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="fileTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="fileTypeBinary" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="fileTypeASCII" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fileTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="charsetEncodingCombobox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="encodingLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="charsetEncodingCombobox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="templateLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="fileContentsTextPane" pref="76" max="32767" attributes="0"/>
+                  <Component id="fileContentsTextPane" pref="110" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -194,146 +179,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="directoryLabel">
+    <Component class="javax.swing.JLabel" name="schemeLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="/"/>
+        <Property name="text" type="java.lang.String" value="Method:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="fileNameLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="File Name:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="templateLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Template:"/>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="directoryField">
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fileNameField">
-    </Component>
-    <Component class="javax.swing.JLabel" name="appendToFileLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Append to file:"/>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="appendToFileYes">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="buttonGroup4"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Yes"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="appendToFileNo">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="buttonGroup4"/>
-        </Property>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="No"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthSyntaxTextArea" name="fileContentsTextPane">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-            <EtchetBorder/>
-          </Border>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.webreach.mirth.client.ui.components.MirthSyntaxTextArea(false,false);"/>
-      </AuxValues>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="charsetEncodingCombobox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
-            <StringItem index="0" value="default"/>
-            <StringItem index="1" value="utf-8"/>
-            <StringItem index="2" value="iso-8859-1"/>
-            <StringItem index="3" value="utf-16 (le)"/>
-            <StringItem index="4" value="utf-16 (be)"/>
-            <StringItem index="5" value="utf-16 (bom)"/>
-            <StringItem index="6" value="us-ascii"/>
-          </StringArray>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="encodingLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Encoding:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="fileTypeLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="File Type:"/>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="fileTypeBinary">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="buttonGroup5"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Binary"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="fileTypeASCII">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
-          </Border>
-        </Property>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="buttonGroup5"/>
-        </Property>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="ASCII"/>
-        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-          <Insets value="[0, 0, 0, 0]"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="scheme">
+    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="schemeComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -345,18 +196,39 @@
         <Property name="toolTipText" type="java.lang.String" value="The basic method used to access files to be read - file (local filesystem), FTP, or SFTP."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="schemeActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="schemeComboBoxActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="directoryLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Directory:"/>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="directoryField">
     </Component>
     <Component class="javax.swing.JLabel" name="hostLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="://"/>
+        <Property name="text" type="java.lang.String" value="ftp://"/>
       </Properties>
     </Component>
     <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="hostField">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="The name or IP address of the host (computer) on which the files to be read can be found."/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="pathLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="/"/>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="pathField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="fileNameLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="File Name:"/>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthTextField" name="fileNameField">
     </Component>
     <Component class="javax.swing.JLabel" name="anonymousLabel">
       <Properties>
@@ -524,6 +396,131 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="appendToFileLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Append to file:"/>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="appendToFileYes">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup4"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Yes"/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="appendToFileNo">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup4"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="No"/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="fileTypeLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="File Type:"/>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="fileTypeBinary">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup5"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Binary"/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthRadioButton" name="fileTypeASCII">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="0" left="0" right="0" top="0"/>
+          </Border>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup5"/>
+        </Property>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="ASCII"/>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 0, 0]"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthComboBox" name="charsetEncodingCombobox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="7">
+            <StringItem index="0" value="default"/>
+            <StringItem index="1" value="utf-8"/>
+            <StringItem index="2" value="iso-8859-1"/>
+            <StringItem index="3" value="utf-16 (le)"/>
+            <StringItem index="4" value="utf-16 (be)"/>
+            <StringItem index="5" value="utf-16 (bom)"/>
+            <StringItem index="6" value="us-ascii"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="encodingLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Encoding:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="templateLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Template:"/>
+      </Properties>
+    </Component>
+    <Component class="com.webreach.mirth.client.ui.components.MirthSyntaxTextArea" name="fileContentsTextPane">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.webreach.mirth.client.ui.components.MirthSyntaxTextArea(false,false);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
