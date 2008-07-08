@@ -44,6 +44,8 @@ import java.util.Iterator;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.EvaluatorException;
 import org.syntax.jedit.SyntaxDocument;
 import org.syntax.jedit.tokenmarker.JavaScriptTokenMarker;
 
@@ -54,6 +56,7 @@ import com.webreach.mirth.client.ui.util.FileUtil;
 public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropTargetListener {
 
     private Frame parent;
+    private String savedScript;
 
     public JavaScriptEditorDialog(String script) {
         super(PlatformUI.MIRTH_FRAME, true);
@@ -76,7 +79,7 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
         SyntaxDocument doc = new SyntaxDocument();
         doc.setTokenMarker(new JavaScriptTokenMarker());
         scriptContent.setDocument(doc);
-        setScript(script);
+        setSavedScript(script);
         scriptContent.setCaretPosition(0);
         
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -84,7 +87,7 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
         this.addWindowListener(new WindowAdapter() {
 
             public void windowClosing(WindowEvent e) {
-                closeButtonActionPerformed(null);
+                cancelButtonActionPerformed(null);
             }
         });
         
@@ -97,12 +100,13 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
         setVisible(true);
     }
     
-    public String getScript() {
-    	return scriptContent.getText();
+    public String getSavedScript() {
+    	return savedScript;
     }
     
-    public void setScript(String script) {
+    public void setSavedScript(String script) {
     	scriptContent.setText(script);
+    	savedScript = script;
     }
 
     public void dragEnter(DropTargetDragEvent dtde) {
@@ -161,22 +165,26 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
      */
     // <editor-fold defaultstate="collapsed" desc=" Generated Code
     // <editor-fold defaultstate="collapsed" desc=" Generated Code
-    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         jPanel1 = new javax.swing.JPanel();
-        closeButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         validateScriptButton = new javax.swing.JButton();
         scriptContent = new com.webreach.mirth.client.ui.components.MirthSyntaxTextArea();
         openFileButton = new javax.swing.JButton();
+        okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Script");
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        closeButton.setText("Close");
-        closeButton.setToolTipText("Close this message sender dialog.");
-        closeButton.addActionListener(new java.awt.event.ActionListener() {
+
+        cancelButton.setText("Cancel");
+        cancelButton.setToolTipText("Close this message sender dialog.");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeButtonActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
@@ -198,6 +206,14 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
             }
         });
 
+        okButton.setText("OK");
+        okButton.setToolTipText("Close this message sender dialog.");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -210,7 +226,9 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(validateScriptButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(closeButton))
+                        .add(okButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cancelButton))
                     .add(scriptContent, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -221,9 +239,10 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
                 .add(scriptContent, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(closeButton)
+                    .add(cancelButton)
                     .add(validateScriptButton)
-                    .add(openFileButton))
+                    .add(openFileButton)
+                    .add(okButton))
                 .addContainerGap())
         );
 
@@ -237,6 +256,7 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,17 +282,42 @@ public class JavaScriptEditorDialog extends javax.swing.JDialog implements DropT
         }
     }//GEN-LAST:event_openFileButtonActionPerformed
 
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_closeButtonActionPerformed
-    {//GEN-HEADEREND:event_closeButtonActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelButtonActionPerformed
+    {//GEN-HEADEREND:event_cancelButtonActionPerformed
         this.dispose();
-    }//GEN-LAST:event_closeButtonActionPerformed
+}//GEN-LAST:event_cancelButtonActionPerformed
 
 private void validateScriptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateScriptButtonActionPerformed
-        
+    StringBuilder sb = new StringBuilder();
+    Context context = Context.enter();
+    try
+    {
+        context.compileString("function rhinoWrapper() {" + scriptContent.getText() + "\n}", PlatformUI.MIRTH_FRAME.mirthClient.getGuid(), 1, null);
+        sb.append("JavaScript was successfully validated.");
+    }
+    catch (EvaluatorException e)
+    {
+        sb.append("Error on line " + e.lineNumber() + ": " + e.getMessage() + " of the current script.");
+    }
+    catch (Exception e)
+    {
+    	sb.append("Unknown error occurred during validation.");
+    }
+    
+    Context.exit();
+    
+    PlatformUI.MIRTH_FRAME.alertInformation(sb.toString());        
 }//GEN-LAST:event_validateScriptButtonActionPerformed
+
+private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+		savedScript = scriptContent.getText();
+		this.dispose();
+}//GEN-LAST:event_okButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton closeButton;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton okButton;
     private javax.swing.JButton openFileButton;
     private com.webreach.mirth.client.ui.components.MirthSyntaxTextArea scriptContent;
     private javax.swing.JButton validateScriptButton;

@@ -59,7 +59,7 @@ public class JavaScriptPropertyEditor extends PropertyEditorSupport {
 
 		JavaScriptEditorDialog dialog = new JavaScriptEditorDialog((Dialog) win, (String) getValue());
 
-		setValue(dialog.getScript());
+		setValue(dialog.getSavedScript());
 
 		firePropertyChange();
 	}
