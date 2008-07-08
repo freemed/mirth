@@ -43,6 +43,7 @@ import java.util.Iterator;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.EvaluatorException;
@@ -306,7 +307,7 @@ private void validateScriptButtonActionPerformed(java.awt.event.ActionEvent evt)
     
     Context.exit();
     
-    PlatformUI.MIRTH_FRAME.alertInformation(sb.toString());        
+    JOptionPane.showMessageDialog(this, sb.toString(), "Information", JOptionPane.INFORMATION_MESSAGE);   
 }//GEN-LAST:event_validateScriptButtonActionPerformed
 
 private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
