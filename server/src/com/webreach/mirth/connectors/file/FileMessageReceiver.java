@@ -416,6 +416,7 @@ public class FileMessageReceiver extends PollingMessageReceiver implements Batch
 	
 			// Close the input stream and return bytes
 			is.close();
+			con.closeReadFile();
 			return bytes;
 		}
 		finally {
