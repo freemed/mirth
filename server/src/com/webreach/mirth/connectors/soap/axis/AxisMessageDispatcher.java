@@ -253,7 +253,7 @@ public class AxisMessageDispatcher extends AbstractMessageDispatcher implements 
         List<String> attachmentContents = connector.getAttachmentContents();
         List<String> attachmentTypes = connector.getAttachmentTypes();
 
-        for (int i = 0; i < attachmentIds.size(); i++) {
+        for (int i = 0; (attachmentIds != null) && (i < attachmentIds.size()); i++) {
             String contentId = replacer.replaceValues(attachmentIds.get(i), messageObject);
             String contentType = attachmentTypes.get(i);
             String content = replacer.replaceValues(attachmentContents.get(i), messageObject);
