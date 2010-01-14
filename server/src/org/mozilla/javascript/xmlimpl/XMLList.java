@@ -264,7 +264,7 @@ class XMLList extends XMLObjectImpl implements Function {
             parent = item(index).parent();
         // https://bugzilla.mozilla.org/show_bug.cgi?id=524931 - Added the following else if block
         } else if (length() == 0) {
-            parent = targetObject.getXML();
+            parent = (targetObject != null) ? targetObject.getXML() : parent();
         } else {
             // Appending
             parent = parent();
